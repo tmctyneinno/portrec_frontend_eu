@@ -1,6 +1,6 @@
 
 <template>
-    <div class="section-panel section-panel-light">
+    <div class="section-panel section-panel-light slanted-left">
         <div class="container">
             <div class="col-12">
                 <div class="row">
@@ -8,7 +8,7 @@
                         <div class=" section-title">Latest Jobs open</div>
                     </div>
                     <div class="col-4 d-flex justify-content-end align-items-center ">
-                        <span class="float-end theme-color cursor-pointer fw-bolder me-0 section-right">
+                        <span class="hover-tiltX float-end theme-color cursor-pointer fw-bolder me-0 section-right">
                             show all jobs <i class="bi bi-arrow-right-short"></i>
                         </span>
                     </div>
@@ -17,7 +17,7 @@
             <div class="col-12 mt-4">
                 <div class="row g-4">
                     <div v-for="i in 8" :key="i" class="col-lg-6">
-                        <div class="card card-latest p-3 py-lg-4 hover-tiltX border-0">
+                        <div class="card rounded-0 card-latest p-3 py-lg-4 hover-tiltY cursor-pointer">
                             <div class="row">
                                 <div class="col-4">
                                     <img src="@/assets/images/round.png" width="100" alt="">
@@ -28,10 +28,10 @@
                                     </div>
                                     <div class="col-12 mt-3">
                                         <span class="border-right">
-                                            <span class="b-btn full-time-btn">Full-Time</span>
+                                            <span class="b-tag full-time-tag">Full-Time</span>
                                         </span>
-                                        <span class="b-btn marketing-btn">Marketing</span>
-                                        <span class="b-btn design-btn">Design</span>
+                                        <span class="b-tag marketing-tag">Marketing</span>
+                                        <span class="b-tag design-tag">Design</span>
                                     </div>
                                 </div>
                             </div>
@@ -50,20 +50,24 @@
 </script>
 
 <style scoped>
-.card-latest:hover {
-    box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) !important;
+.card-latest {
+    border: 0;
 }
 
-.b-btn {
+.card-latest:hover {
+    box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) !important;
+    border: 1px solid var(--theme-color);
+}
+
+.b-tag {
     font-size: 12px;
     padding: 7px 15px;
     border-radius: 40px;
-    cursor: pointer;
     margin: 0px;
     margin-right: 10px;
+    /* width notch */
     border-width: 1px;
     border-style: solid;
-    font-weight: bolder;
 }
 
 .border-right {
@@ -71,28 +75,28 @@
     margin-right: 10px;
 }
 
-/* .b-btn:hover {
+/* .b-tag:hover {
     font-weight: bolder;
 } */
 
-.full-time-btn {
+.full-time-tag {
     color: #E63468;
     background-color: #56cdad32;
     border: 0;
 }
 
-.marketing-btn {
+.marketing-tag {
     color: #FFB836;
     border-color: #FFB836;
 }
 
-.design-btn {
+.design-tag {
     color: #873A70;
     border-color: #873A70;
 }
 
 @media (max-width: 767px) {
-    .b-btn {
+    .b-tag {
         font-size: 9px;
         padding: 6px 9px;
         margin-right: 4px;
@@ -109,4 +113,34 @@
     /* .slide-info {} */
 
 }
+
+
+.slanted-left {
+    position: relative;
+}
+
+.slanted-left::before,
+.slanted-left::after {
+    content: "";
+    position: absolute;
+    /* background-color: inherit; */
+}
+
+.slanted-left::before {
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    transform-origin: top left;
+    transform: skew(-60deg);
+}
+
+/* .slanted-left::after {
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    transform-origin: top right;
+    transform: skew(20deg);
+} */
 </style>

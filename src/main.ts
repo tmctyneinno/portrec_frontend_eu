@@ -1,4 +1,4 @@
-//bootstrap@5.3.1
+//bootstrap@5.3.2
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min.js'
 
@@ -41,6 +41,9 @@ import VueApexCharts from "vue3-apexcharts";
 // https://github.com/pratik227/vue3-json-excel
 import JsonExcel from "vue-json-excel3";
 
+// @ts-ignore
+import VueWriter from "vue-writer";
+
 // https://beholdr.github.io/maska/#/?id=install
 
 import { createApp } from 'vue'
@@ -60,6 +63,7 @@ app.use(createPinia())
 app.use(VueApexCharts);
 app.use(VueSweetalert2);
 app.use(Vue3ProgressPlugin);
-app.use(router)
+app.use(VueWriter);
+app.use(router);
 
 app.mount('#app')

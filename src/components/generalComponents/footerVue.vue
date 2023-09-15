@@ -10,7 +10,7 @@
 
                     <div class=" col-md-4 col-sm-12">
                         <div class="footer_widget">
-                            <img src="" class="img-footer small mb-2" alt="Portrec_Logo">
+                            <img src="@/assets/images/site_logo2.png" class="img-footer small mb-2" alt="Portrec_Logo">
 
                             <div class="address mt-2 text-white">
                                 Great platform for job seeker that is passionate about
@@ -215,7 +215,7 @@ a {
 
 @media (max-width: 767px) {
     .footer_widget {
-        padding: 20px 0 20px;
+        padding: 30px 0 30px;
     }
 }
 </style>

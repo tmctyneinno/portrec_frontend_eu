@@ -8,7 +8,7 @@
                         <div class="section-title">Explore by <span class="theme-color fw-bold">category</span> </div>
                     </div>
                     <div class="col-4 d-flex justify-content-end align-items-center ">
-                        <span class="float-end theme-color cursor-pointer fw-bolder section-right">
+                        <span class="hover-tiltX float-end theme-color cursor-pointer fw-bolder section-right">
                             show all jobs <i class="bi bi-arrow-right-short"></i>
                         </span>
                     </div>
@@ -92,8 +92,8 @@ const dataList: any = [
     color: #fff;
 }
 
-.explore-card:hover .card-icon {
-    color: #fff;
+.explore-card:hover .bi {
+    color: #fff !important;
 }
 
 

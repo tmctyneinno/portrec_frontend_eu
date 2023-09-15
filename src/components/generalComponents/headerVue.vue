@@ -1,7 +1,9 @@
 <template>
-  <nav class="navbar navbar-expand-lg fixed-top p-3 " :class="scrolledClass">
+  <nav class="navbar navbar-expand-lg fixed-top p-3 shadow-sm " :class="scrolledClass">
     <div class="container">
-      <router-link class="navbar-brand" to="/">PORTREC_LOGO</router-link>
+      <router-link class="navbar-brand" to="/">
+        <img src="@/assets/images/site_logo.png" width="140" alt="site_logo">
+      </router-link>
       <button class="navbar-toggler border-0" data-bs-toggle="offcanvas" data-bs-target="#menuOffcanvas"
         aria-controls="offcanvasExample" type="button">
         <span class="navbar-toggler-icon"></span>
@@ -32,7 +34,6 @@ const headerDropped = ref<boolean>(false)
 
 const scrolledClass = computed(() => ({
   'bg-white': headerDropped.value,
-  'shadow-sm': headerDropped.value,
   'animate__animated animate__slideInDown animate__faster': headerDropped.value,
 }))
 

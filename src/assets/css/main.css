@@ -1,0 +1,100 @@
+@import './base.css';
+/* @import './theme-style.css'; */
+
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus,
+.page-link:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: #dee2e6 !important;
+  /* border-color: var(--theme-color-3) !important; */
+  /* background-color: none; */
+}
+
+.btn-primary {
+    background-color: var( --theme-btn) !important;
+    outline: none !important;
+    border: none !important;
+  }
+
+  .btn-primary:hover {
+    background-color: var( --theme-btn-hover) !important;
+  }
+  
+  .bg-primary {
+    background-color: var(--theme-color) !important;
+  }
+
+  .cursor-pointer {
+    cursor: pointer;
+  }
+
+  .theme-color{
+    color: var(--theme-color);
+  }
+
+  .theme-color2{
+    color: var(--theme-color2) !important;
+  }
+
+  .hover-tiltX {
+    transition: all ease-in-out 0.4s;
+}
+
+
+.hover-tiltX:hover {
+    transform: translateX(5px);
+}
+
+.hover-tiltY {
+    transition: all ease-in-out 0.4s;
+}
+
+
+.hover-tiltY:hover {
+    transform: translateY(-5px);
+}
+
+/* SECTION */
+
+.section-panel{
+  min-height: 100vh;
+  overflow: hidden;
+  padding-block: 100px;
+}
+
+.section-panel-light {
+  background-color: #f8f8fd;
+}
+
+.section-panel .section-title{
+  font-size: 40px;
+  font-weight: 700;
+}
+
+
+@media (max-width: 767px) {
+
+  .section-panel .section-title{
+    font-size: 20px;
+  }
+
+  .section-panel .section-right{
+    font-size: 9px;
+  }
+  
+
+  /* .card-icon {
+      font-size: 1.7rem;
+  } */
+
+}
+/* SECTION */
+  
+
+@media (min-width: 1024px) {
+ 
+}

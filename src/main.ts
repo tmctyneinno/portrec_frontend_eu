@@ -6,7 +6,13 @@ import 'bootstrap/dist/js/bootstrap.min.js'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 
 // custom css
-import './assets/main.css'
+import './assets/css/main.css'
+
+// animate.css
+import 'animate.css';
+
+// vue3-carousel
+import 'vue3-carousel/dist/carousel.css'
 
 // vue3-datepicker
 import VueDatePicker from '@vuepic/vue-datepicker';

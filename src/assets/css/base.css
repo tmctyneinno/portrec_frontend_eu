@@ -9,13 +9,13 @@
   --vt-c-black-mute: #282828;
 
 
-  --theme--color: #873A70;
-  --theme--color2: #1AB2B5;
+  --theme-color: #873A70;
+  --theme-color2: #1AB2B5;
   
   
   
-  --theme--btncolor: #773062;
-  --theme--btncolor-hover: #873A70;
+  --theme-btn: #773062;
+  --theme-btn-hover: #873A70;
 }
 
 
@@ -26,6 +26,7 @@
   box-sizing: border-box;
   margin: 0;
   font-weight: normal;
+  outline: none;
 }
 
 body {

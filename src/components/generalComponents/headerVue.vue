@@ -2,7 +2,8 @@
   <nav class="navbar navbar-expand-lg fixed-top p-3 " :class="scrolledClass">
     <div class="container">
       <router-link class="navbar-brand" to="/">PORTREC_LOGO</router-link>
-      <button class="navbar-toggler border-0" type="button">
+      <button class="navbar-toggler border-0" data-bs-toggle="offcanvas" data-bs-target="#menuOffcanvas"
+        aria-controls="offcanvasExample" type="button">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarText">
@@ -21,10 +22,12 @@
       </div>
     </div>
   </nav>
+  <mobileMenuVue />
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref, computed } from 'vue';
+import mobileMenuVue from './mobileMenuVue.vue';
 const headerDropped = ref<boolean>(false)
 
 const scrolledClass = computed(() => ({

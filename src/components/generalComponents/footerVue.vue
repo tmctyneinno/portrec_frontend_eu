@@ -212,4 +212,10 @@ a {
     color: #60626a;
     font-size: 14px;
 }
+
+@media (max-width: 767px) {
+    .footer_widget {
+        padding: 20px 0 20px;
+    }
+}
 </style>

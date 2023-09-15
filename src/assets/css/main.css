@@ -33,7 +33,7 @@ button:focus,
   }
 
   .theme-color{
-    color: var(--theme-color);
+    color: var(--theme-color) !important;
   }
 
   .theme-color2{
@@ -83,7 +83,7 @@ button:focus,
   }
 
   .section-panel .section-right{
-    font-size: 9px;
+    font-size: 11px;
   }
   
 

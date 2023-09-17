@@ -10,7 +10,7 @@
 
                     <div class=" col-md-4 col-sm-12">
                         <div class="footer_widget">
-                            <img src="@/assets/images/site_logo2.png" class="img-footer small mb-2" alt="Portrec_Logo">
+                            <img src="@/assets/images/site_logo.png" class="img-footer small mb-2" alt="Portrec_Logo">
 
                             <div class="address mt-2 text-white">
                                 Great platform for job seeker that is passionate about
@@ -175,6 +175,7 @@ footer.skin-dark-footer a {
 footer.skin-dark-footer .footer_widget ul li a:hover,
 footer.skin-dark-footer .footer_widget ul li a:focus {
     color: #ffffff;
+    transform: translateX(5px) !important;
 }
 
 .footer-bottom {
@@ -206,12 +207,10 @@ a {
     text-decoration: none;
     background-color: transparent;
     -webkit-text-decoration-skip: objects;
+
 }
 
-.footer_widget ul li a {
-    color: #60626a;
-    font-size: 14px;
-}
+
 
 @media (max-width: 767px) {
     .footer_widget {

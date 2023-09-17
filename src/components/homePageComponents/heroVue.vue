@@ -14,7 +14,7 @@
                             passionate about startups.
                         </div>
                         <div class="mt-3 position-relativ animate__animated animate__slideInLeft">
-                            <form @submit.prevent="" class="bg-white p-3 p-lg-4 overlay-for ">
+                            <form @submit.prevent="" class="bg-white p-3 p-lg-4 overlay-for shadow-sm ">
                                 <div class="col-12">
                                     <div class="row g-3">
                                         <div class="col-lg-4">
@@ -54,7 +54,7 @@
                 </div>
 
                 <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 col-12 image-span animate__animated animate__slideInRight">
-                    <img src="@/assets/images/hero-image.svg" class="hero-image" alt="">
+                    <img src="@/assets/images/hero/hero-image.svg" class="hero-image" alt="">
                 </div>
             </div>
         </div>

@@ -20,7 +20,7 @@
                         <div class="card rounded-0 card-latest p-3 py-lg-4 hover-tiltY cursor-pointer">
                             <div class="row">
                                 <div class="col-4">
-                                    <img src="@/assets/images/round.png" width="100" alt="">
+                                    <img src="@/assets/images/jobs/round.png" width="60" alt="">
                                 </div>
                                 <div class="col-8">
                                     <h3 class="slide-title">Social Media Assistant</h3>
@@ -45,18 +45,20 @@
 </template>
 
 
-<script lang="ts" setup>
-
-</script>
-
 <style scoped>
 .card-latest {
-    border: 0;
+    border-color: #fff;
+    border-width: 2px;
 }
 
 .card-latest:hover {
     box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) !important;
-    border: 1px solid var(--theme-color);
+    /* border: 2px solid var(--theme-color); */
+    border-color: var(--theme-color);
+}
+
+.card-latest:hover .slide-title {
+    color: var(--theme-color);
 }
 
 .b-tag {

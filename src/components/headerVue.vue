@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg fixed-top p-3 shadow-sm " :class="scrolledClass">
+  <nav class="navbar navbar-expand-lg fixed-top p-3 shadow-sm bg-white" :class="scrolledClass">
     <div class="container">
       <router-link class="navbar-brand" to="/">
         <img src="@/assets/images/site_logo.png" width="140" alt="site_logo">
@@ -14,7 +14,7 @@
             <router-link class="nav-link mx-4" to="/">Find Jobs</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link mx-4" to="/">About Us</router-link>
+            <router-link class="nav-link mx-4" to="/about_us">About Us</router-link>
           </li>
         </ul>
         <div class="d-flex">

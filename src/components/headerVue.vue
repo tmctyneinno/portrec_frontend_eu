@@ -5,21 +5,20 @@
         <img src="@/assets/images/site_logo.png" width="140" alt="site_logo">
       </router-link>
       <button class="navbar-toggler border-0" data-bs-toggle="offcanvas" data-bs-target="#menuOffcanvas"
-        aria-controls="offcanvasExample" type="button">
+        aria-controls="menuOffcanvas" type="button">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <router-link class="nav-link mx-4" to="/">Find Jobs</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link mx-4" to="/about_us">About Us</router-link>
+          <li v-for="({ title, route }, i) in contents.navBarMenus" :key="i" class="nav-item">
+            <router-link class="nav-link mx-4" :to="route">{{ title }}</router-link>
           </li>
         </ul>
         <div class="d-flex">
-          <router-link class="nav-link mx-4 p-1" to="/">Login</router-link>
-          <button type="button" class="btn btn-primary rounded-0 m- nav-link text-white p-1 px-3">Sign Up</button>
+          <router-link class="nav-link mx-4 p-1" to="/login">Login</router-link>
+          <router-link to="/signup" class="btn btn-primary rounded-0 m- nav-link text-white p-1 px-3">
+            Sign Up
+          </router-link>
         </div>
       </div>
     </div>
@@ -30,6 +29,9 @@
 <script setup lang="ts">
 import { onMounted, ref, computed } from 'vue';
 import mobileMenuVue from './mobileMenuVue.vue';
+import { useContentStore } from '@/stores/contents';
+
+const contents = useContentStore()
 const headerDropped = ref<boolean>(false)
 
 const scrolledClass = computed(() => ({
@@ -48,4 +50,11 @@ onMounted(() => {
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+.navbar-nav .nav-link.active,
+.navbar-nav .nav-link.show {
+  color: var(--theme-color);
+  /* font-weight: bolder; */
+  /* border-bottom: 1px solid var(--theme-color); */
+}
+</style>

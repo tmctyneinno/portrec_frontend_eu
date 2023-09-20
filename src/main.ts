@@ -44,6 +44,10 @@ import JsonExcel from "vue-json-excel3";
 // @ts-ignore
 import VueWriter from "vue-writer";
 
+// https://vue3-infinite-loading.netlify.app/guide/installation.html
+import InfiniteLoading from "v3-infinite-loading";
+import "v3-infinite-loading/lib/style.css";
+
 // https://beholdr.github.io/maska/#/?id=install
 
 import { createApp } from 'vue'
@@ -58,6 +62,7 @@ app.component('VueDatePicker', VueDatePicker);
 app.component('vSelect', vSelect);
 app.component('EasyDataTable', Vue3EasyDataTable);
 app.component("downloadExcel", JsonExcel);
+app.component("infinite-loading", InfiniteLoading);
 
 app.use(createPinia())
 app.use(VueApexCharts);

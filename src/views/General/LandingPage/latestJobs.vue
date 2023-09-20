@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import jobsDisplayVue from '@/components/jobsDisplayVue.vue';
+import jobsDisplayVue from '@/components/jobsDisplay.vue';
 </script>
 
 

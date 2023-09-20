@@ -28,7 +28,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref, computed } from 'vue';
-import mobileMenuVue from './mobileMenuVue.vue';
+import mobileMenuVue from './mobileMenu.vue';
 import { useContentStore } from '@/stores/contents';
 
 const contents = useContentStore()

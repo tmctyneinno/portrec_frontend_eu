@@ -27,7 +27,7 @@
 
 
 <script lang="ts" setup>
-import jobsDisplayVue2 from '@/components/jobsDisplayVue2.vue';
+import jobsDisplayVue2 from '@/components/jobsDisplay2.vue';
 
 const dataList: any = [
     {

@@ -3,7 +3,7 @@
   <headerVue />
   <div class="spacefromheader"></div>
 
-  <div class="container">
+  <div class="container animate__animated animate__fadeIn">
 
     <div class="section-panel pt-5 pb-0">
       <div class="row g-3">
@@ -130,6 +130,6 @@
 </template>
 
 <script setup lang="ts">
-import headerVue from '@/components/headerVue.vue'
-import footerVue from '@/components/footerVue.vue'
+import headerVue from '@/components/header.vue'
+import footerVue from '@/components/footer.vue'
 </script>

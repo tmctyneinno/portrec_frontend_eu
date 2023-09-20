@@ -3,7 +3,7 @@
         <div class="row justify-content-center g-0">
             <div class="side-image col-lg-4 d-none d-lg-block bg-danger min-vh-100"></div>
             <div
-                class="animate__animated animate__fadeIn col-lg-8 d-flex justify-content-center align-items-center min-vh-100">
+                class="animate__animated animate__fadeInDown col-lg-8 d-flex justify-content-center align-items-center min-vh-100">
                 <div class="col-11 col-lg-12 row justify-content-center">
                     <div class="col-md-6">
                         <div class="col-12 ">
@@ -59,7 +59,7 @@
                                 </button>
                             </div>
                             <div class="col-12 mt-3">
-                                Already have an account? <router-link to="/login"
+                                Already have an account? <router-link replace to="/login"
                                     class="fw-bold theme-color text-decoration-none">Login</router-link>
                             </div>
 

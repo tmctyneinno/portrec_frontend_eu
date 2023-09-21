@@ -68,7 +68,6 @@ input::placeholder {
 /* SECTION */
 
 .section-panel{
-  min-height: 100vh;
   overflow: hidden;
   padding-block: 100px;
 }
@@ -151,8 +150,8 @@ input::placeholder {
 }
 /* TAGs END */
 
-.spacefromheader {
-  min-height: 80px
+.space-from-header {
+  min-height: 60px
 }
 
 
@@ -176,5 +175,14 @@ hr:after {
   background-image: -moz-radial-gradient(center top, farthest-side, #cccccc 0%, rgba(255, 255, 255, 0) 100%);
   background-image: -o-radial-gradient(center top, farthest-side, #cccccc 0%, rgba(255, 255, 255, 0) 100%);
   background-image: radial-gradient(farthest-side at center top, #cccccc 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+.xsmall{
+  font-size: .754em;
+}
+
+.line-right {
+  border-right: 1px solid #e5e5e5;
+  padding-right: 10px;
 }
 

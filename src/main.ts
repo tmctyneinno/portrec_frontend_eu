@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 //bootstrap@5.3.2
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min.js'
@@ -18,7 +20,6 @@ import 'vue3-carousel/dist/carousel.css'
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 
-// @ts-ignore
 //vue-select@beta
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
@@ -37,18 +38,19 @@ import { Vue3ProgressPlugin } from '@marcoschulte/vue3-progress';
 //vue3-apexcharts
 import VueApexCharts from "vue3-apexcharts";
 
-// @ts-ignore
 // https://github.com/pratik227/vue3-json-excel
 import JsonExcel from "vue-json-excel3";
 
-// @ts-ignore
+// vue-writer
 import VueWriter from "vue-writer";
 
 // https://vue3-infinite-loading.netlify.app/guide/installation.html
 import InfiniteLoading from "v3-infinite-loading";
 import "v3-infinite-loading/lib/style.css";
 
-// https://beholdr.github.io/maska/#/?id=install
+//https://vcalendar.io/getting-started/installation.html
+import { setupCalendar, Calendar, DatePicker } from 'v-calendar';
+import 'v-calendar/style.css';
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
@@ -63,12 +65,15 @@ app.component('vSelect', vSelect);
 app.component('EasyDataTable', Vue3EasyDataTable);
 app.component("downloadExcel", JsonExcel);
 app.component("infinite-loading", InfiniteLoading);
+app.component('VCalendar', Calendar)
+app.component('VDatePicker', DatePicker)
 
 app.use(createPinia())
 app.use(VueApexCharts);
 app.use(VueSweetalert2);
 app.use(Vue3ProgressPlugin);
 app.use(VueWriter);
+app.use(setupCalendar, {});
 app.use(router);
 
 app.mount('#app')

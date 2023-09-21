@@ -1,6 +1,6 @@
 
 <template>
-    <div class="section-panel section-panel-light">
+    <div class="section-panel min-vh-100 section-panel-light">
         <div class="container">
             <div class="col-12">
                 <div class="row">

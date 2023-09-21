@@ -10,6 +10,10 @@ export const useContentStore = defineStore('contents', () => {
     {
       title: 'About Us',
       route: '/about-us'
+    },
+    {
+      title: 'Contact',
+      route: '/contact'
     }
   ]
 

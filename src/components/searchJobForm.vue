@@ -1,20 +1,16 @@
-<script lang="ts" setup>
-
-</script>
-
 <template>
-    <div class="mt-3 position-relativ animate__animated animate__slideInLeft">
+    <div class="mt-3 position-relativ">
         <form @submit.prevent="" class="bg-white p-3 p-lg-4 overlay-for shadow-sm ">
             <div class="col-12">
                 <div class="row g-3">
-                    <div class="col-lg-4">
+                    <div class="col-lg-5">
                         <div class="input-group position-relative">
                             <span class="input-group-text" id="addon-search"><i class="bi bi-search"></i> </span>
                             <input type="text" class="form-control" placeholder="Job title or keyword"
                                 aria-describedby="addon-search">
                         </div>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-5">
                         <div class="input-group position-relative">
                             <span class="input-group-text" id="addon-location"><i class="bi bi-geo-alt"></i></span>
                             <select class="form-select form-control" id="inputGroupSelect01">
@@ -25,19 +21,29 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-2">
                         <button type="submit" class="btn btn-primary w-100 rounded-0">
-                            Search my job <i class="bi bi-chevron-right"></i>
+                            <i class="bi bi-search"></i> {{ btntext ?? '' }}
                         </button>
                     </div>
                 </div>
             </div>
         </form>
-        <div class="mt-1">
+        <div class="mt-2">
             Popupar: UI Designer, UX Researcher, Andrioid, Admin
         </div>
     </div>
 </template>
+
+<script lang="ts" setup>
+defineProps({
+    btntext: {
+        type: String,
+        default: ''
+    }
+})
+</script>
+
 
 <style lang="css" scoped>
 .overlay-form {

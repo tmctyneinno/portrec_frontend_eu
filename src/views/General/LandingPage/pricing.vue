@@ -1,6 +1,6 @@
 
 <template>
-    <div class="section-panel">
+    <div class="section-panel min-vh-100">
         <div class="container">
             <div class="col-12">
                 <div class="row justify-content-center">

@@ -156,7 +156,7 @@ input::placeholder {
 
 
 
-hr {
+hr.faint {
   height: 1px;
   /* margin: 50px 0; */
   background: -webkit-gradient(linear, 0 0, 100% 0, from(rgba(0, 0, 0, 0)), color-stop(0.5, #333333), to(rgba(0, 0, 0, 0)));
@@ -166,7 +166,7 @@ hr {
   background: linear-gradient(left, rgba(0, 0, 0, 0), #333333, rgba(0, 0, 0, 0));
   border: 0;
 }
-hr:after {
+hr.faint:after {
   display: block;
   content: '';
   /* height: 30px; */
@@ -185,4 +185,15 @@ hr:after {
   border-right: 1px solid #e5e5e5;
   padding-right: 10px;
 }
+
+/* check input */
+.form-check-input:checked {
+  background-color: var(--theme-color);
+  border-color: var(--theme-color);
+}
+
+.form-check-input[type=checkbox] {
+  padding: 8px;
+}
+/* check input */
 

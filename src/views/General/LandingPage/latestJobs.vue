@@ -1,6 +1,6 @@
 
 <template>
-    <div class="section-panel min-vh-100 section-panel-light slanted-left">
+    <div class="section-panel min-vh-100 section-panel-light">
         <div class="container">
             <div class="col-12">
                 <div class="row">
@@ -8,9 +8,10 @@
                         <div class=" section-title">Latest Jobs open</div>
                     </div>
                     <div class="col-4 d-flex justify-content-end align-items-center ">
-                        <span class="hover-tiltX float-end theme-color cursor-pointer fw-bolder me-0 section-right">
+                        <router-link to="/find-jobs"
+                            class="hover-tiltX float-end theme-color cursor-pointer fw-bolder me-0 section-right">
                             show all jobs <i class="bi bi-arrow-right-short"></i>
-                        </span>
+                        </router-link>
                     </div>
                 </div>
             </div>

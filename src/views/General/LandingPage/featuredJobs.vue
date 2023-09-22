@@ -8,9 +8,10 @@
                         <div class="section-title">Featured <span class="theme-color fw-bold">jobs</span> </div>
                     </div>
                     <div class="col-4 d-flex justify-content-end align-items-center ">
-                        <span class="hover-tiltX float-end theme-color cursor-pointer fw-bolder section-right">
+                        <router-link to="/find-jobs"
+                            class="hover-tiltX float-end theme-color cursor-pointer fw-bolder section-right">
                             show all jobs <i class="bi bi-arrow-right-short"></i>
-                        </span>
+                        </router-link>
                     </div>
                 </div>
             </div>

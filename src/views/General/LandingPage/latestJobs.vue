@@ -17,7 +17,7 @@
             </div>
             <div class="col-12 mt-4">
                 <div class="row g-4">
-                    <jobsDisplayVue v-for="i in 8" :key="i" />
+                    <jobsDisplayVue @click="router.push({ 'path': `/job-description/${i}` })" v-for="i in 8" :key="i" />
                 </div>
             </div>
         </div>
@@ -26,6 +26,8 @@
 
 <script setup lang="ts">
 import jobsDisplayVue from '@/components/jobsDisplay.vue';
+import { useRouter } from 'vue-router';
+const router = useRouter()
 </script>
 
 

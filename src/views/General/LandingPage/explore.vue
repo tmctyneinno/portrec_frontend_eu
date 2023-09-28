@@ -18,7 +18,7 @@
             <div class="col-12 mt-4">
                 <div class="row g-4">
                     <div v-for="list in  dataList " :key="list" class="col-md-4 col-lg-3">
-                        <div class="card explore-card p-3 py-lg-4 hover-tiltY">
+                        <div @click="router.push({ 'path': '/find-jobs' })" class="card explore-card p-3 py-lg-4 hover-tiltY">
                             <div class="card-icon theme-color"><i class="bi" :class="list.icon"></i> </div>
                             <h3 class="card-title fw-light my-2">{{ list.title }}</h3>
                             <div class="fw-bolder">{{ list.count }} jobs available <i class="bi bi-arrow-right"></i></div>
@@ -32,6 +32,9 @@
 
 
 <script lang="ts" setup>
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
 
 const dataList: any = [
     {

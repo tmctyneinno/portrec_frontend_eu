@@ -17,7 +17,8 @@
             </div>
             <div class="col-12 mt-4">
                 <div class="row g-4">
-                    <jobsDisplayVue2 v-for="(data, index) in dataList" :key="index" :job="data" />
+                    <jobsDisplayVue2 @click="router.push({ 'path': `/job-description/${data.id}` })"
+                        v-for="(data, index) in dataList" :key="index" :job="data" />
                 </div>
 
 
@@ -29,9 +30,12 @@
 
 <script lang="ts" setup>
 import jobsDisplayVue2 from '@/components/jobsDisplay2.vue';
+import { useRouter } from 'vue-router';
+const router = useRouter()
 
 const dataList: any = [
     {
+        id: 1,
         title: 'Email Marketing',
         company: 'Revoult',
         location: 'Madrid, Spain',
@@ -40,6 +44,7 @@ const dataList: any = [
     },
 
     {
+        id: 2,
         title: 'Brand Designer',
         company: 'DropBox',
         location: 'San Francisco, US',
@@ -47,6 +52,7 @@ const dataList: any = [
         tags: ['design', 'business']
     },
     {
+        id: 3,
         title: 'Email Marketing',
         company: 'Pitch',
         location: 'Berling, Germany',
@@ -55,6 +61,7 @@ const dataList: any = [
     },
 
     {
+        id: 4,
         title: 'UI/UX Designer',
         company: 'Pitch',
         location: 'Berling, Germany',
@@ -62,6 +69,7 @@ const dataList: any = [
         tags: ['technology']
     },
     {
+        id: 5,
         title: 'Media Expert',
         company: 'Pitch',
         location: 'Berling, Germany',
@@ -69,6 +77,7 @@ const dataList: any = [
         tags: ['technology', 'business']
     },
     {
+        id: 6,
         title: 'Cleaner',
         company: 'Maldavis',
         location: 'Toronto, Spain',
@@ -76,6 +85,7 @@ const dataList: any = [
         tags: ['business']
     },
     {
+        id: 7,
         title: 'Web Designer',
         company: 'Magnet',
         location: 'Abuja, Nigeria',
@@ -83,6 +93,7 @@ const dataList: any = [
         tags: ['technology', 'business']
     },
     {
+        id: 8,
         title: 'Web Designer',
         company: 'Magnet',
         location: 'Abuja, Nigeria',

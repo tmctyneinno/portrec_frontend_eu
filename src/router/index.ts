@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createRouter, createWebHistory } from 'vue-router'
-import LandingPage from '../views/General/LandingPage/_landingPage.vue'
+import LandingPage from '../views/General/LandingPage/_LandingPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -35,7 +35,7 @@ const router = createRouter({
     {
       path: '/job-description/:id',
       name: 'Job Description',
-      component: () => import('../views/General/JobDescription.vue')
+      component: () => import('../views/General/JobDescription/_JobDescription.vue')
     },
     {
       path: '/login',

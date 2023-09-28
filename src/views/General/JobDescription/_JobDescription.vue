@@ -16,7 +16,7 @@
                   <div class="text-center"><img src="@/assets/images/jobs/round.png" class="img-fluid" width="55" alt="">
                   </div>
                   <div class="cats-box-caption px-2">
-                    <h4 class="fs-md mb-0 ft-medium">Fresher UI/UX Designer (3 Year Exp.)</h4>
+                    <h3 class="fs-m mb-0 ft-medium fw-bold">Fresher UI/UX Designer (3 Year Exp.)</h3>
                     <div class="d-block mb-2 position-relative">
                       <span class="text-muted medium"><i class="lni lni-map-marker me-1"></i>Liverpool,
                         London</span>
@@ -29,7 +29,7 @@
                   <span class="line-right pe-4 me-3">
                     <i class="bi bi-share"></i>
                   </span>
-                  <router-link :to="`/`" class="btn btn-primary rounded-0 px-5">Apply</router-link>
+                  <button @click="openApplyModal" class="btn btn-primary rounded-0 px-5">Apply</button>
                 </div>
               </div>
             </div>
@@ -180,16 +180,8 @@
 
           </div>
         </div>
-
-
-
-
       </div>
     </div>
-
-
-
-
 
     <div class="section-panel min-vh-100 section-panel-light">
       <div class="container">
@@ -208,25 +200,50 @@
         </div>
         <div class="col-12 mt-4">
           <div class="row g-4">
-            <jobsDisplayVue v-for="i in 8" :key="i" />
+            <jobsDisplayVue @click="router.push({ 'path': `/job-description/${i}` })" v-for="i in 8" :key="i" />
           </div>
         </div>
       </div>
     </div>
-
   </div>
+
+  <!-- modals -->
+  <modal1 v-if="applicationStore.modalOpen && applicationStore.currentModal == 1" />
+  <modal2 v-if="applicationStore.modalOpen && applicationStore.currentModal == 2" />
+  <modal3 v-if="applicationStore.modalOpen && applicationStore.currentModal == 3" />
+  <modal4 v-if="applicationStore.modalOpen && applicationStore.currentModal == 4" />
 
   <!-- footer -->
   <footerVue />
 </template>
 
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
+import { onBeforeRouteLeave } from 'vue-router';
 import headerVue from '@/components/header.vue'
 import footerVue from '@/components/footer.vue'
-import jobsDisplayVue from '@/components/jobsDisplay.vue';
-// import { reactive } from 'vue';
+import { useApplicationStore } from './applicationData/applicationStore';
+import modal1 from './applicationData/modal1.vue';
+import modal2 from './applicationData/modal2.vue';
+import modal3 from './applicationData/modal3.vue';
+import modal4 from './applicationData/modal4.vue';
+
+const applicationStore = useApplicationStore()
+const router = useRouter()
 
 const requirdSkills = ['Project Management', 'Copywriting', 'Social Media Marketing', 'English', 'Copy Editing']
+
+function openApplyModal() {
+  applicationStore.modalOpen = true;
+  applicationStore.currentModal = 1
+}
+
+onBeforeRouteLeave(() => {
+  applicationStore.modalOpen = false
+})
+
+
+
 
 </script>
 
@@ -264,4 +281,4 @@ const requirdSkills = ['Project Management', 'Copywriting', 'Social Media Market
   font-size: 2.63rem;
   color: var(--theme-color);
 }
-</style>
+</style>./applyModals/applicationStore./applicationStore/applyStore

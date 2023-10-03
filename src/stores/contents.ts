@@ -5,15 +5,15 @@ export const useContentStore = defineStore('contents', () => {
   const navBarMenus: any[] = [
     {
       title: 'Find Jobs',
-      route: '/find-jobs'
+      routePath: '/find-jobs'
     },
     {
       title: 'About Us',
-      route: '/about-us'
+      routePath: '/about-us'
     },
     {
       title: 'Contact',
-      route: '/contact'
+      routePath: '/contact'
     }
   ]
 

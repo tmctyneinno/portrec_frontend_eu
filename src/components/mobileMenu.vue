@@ -7,8 +7,8 @@
         </div>
         <div class="offcanvas-body">
             <ul class="list-group list-group-flush">
-                <li v-for="({ title, route }, i) in contents.navBarMenus" :key="i" class="list-group-item">
-                    <router-link :to="route">{{ title }}</router-link>
+                <li v-for="({ title, routePath }, i) in contents.navBarMenus" :key="i" class="list-group-item">
+                    <router-link :to="routePath">{{ title }}</router-link>
                 </li>
                 <hr>
                 <li class="list-group-item">

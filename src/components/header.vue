@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg fixed-top p-3 shadow-sm bg-white" :class="scrolledClass">
+  <nav class="navbar navbar-expand-lg fixed-top p-3 bg-white" :class="customClass">
     <div class="container">
       <router-link class="navbar-brand" to="/">
         <img src="@/assets/images/site_logo.png" width="140" alt="site_logo">
@@ -10,8 +10,10 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li v-for="({ title, route }, i) in contents.navBarMenus" :key="i" class="nav-item">
-            <router-link class="nav-link mx-4" :to="route">{{ title }}</router-link>
+          <li v-for="({ title, routePath }, i) in contents.navBarMenus" :key="i" class="nav-item ">
+            <router-link class="nav-link mx-4 " :class="{ 'text-white': route.path == '/' && !headerDropped }"
+              :to="routePath">{{ title
+              }}</router-link>
           </li>
         </ul>
         <div class="d-flex">
@@ -30,13 +32,17 @@
 import { onMounted, ref, computed } from 'vue';
 import mobileMenuVue from './mobileMenu.vue';
 import { useContentStore } from '@/stores/contents';
+import { useRoute } from 'vue-router';
 
 const contents = useContentStore()
 const headerDropped = ref<boolean>(false)
+const route = useRoute()
 
-const scrolledClass = computed(() => ({
-  'bg-white': headerDropped.value,
-  'animate__animated animate__slideInDown animate__faster': headerDropped.value,
+const customClass = computed(() => ({
+  // 'b': route.path !== '/',
+  'bg-transparent text-white': !headerDropped.value && route.path == '/',
+  'animate__animated animate__slideInDown animate__faster': headerDropped.value && route.path == '/',
+  'shadow-sm': route.path !== '/'
 }))
 
 onMounted(() => {

@@ -1,25 +1,28 @@
 
 
 <template>
-    <div class="section-panel-light min-vh-100 overflow-hidden py-3">
+    <div class=" min-vh-100 overflow-hidden bg-black pb-5">
         <div class="container">
-            <div class="row justify-content-between align-items-center min-vh-100">
-                <div class="col-lg-7 col-md-7 col-sm-12 col-12">
-                    <div class="hero-text">
-                        <div class="find animate__animated animate__slideInLeft animate__faster">Find Your Dream Employment.
-                        </div>
-                        <div class="theme-color2 with-us animate__animated animate__slideInLeft ">With Us.</div>
-                        <div class="small-text text-muted animate__animated animate__fadeInLeft animate__slower">
-                            Great platform for the job seeker that is searching for new carreer heights and
-                            passionate about startups.
-                        </div>
-                        <searchJobFormVue />
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md-9 col-lg-7">
+                    <div class="hero-text text-center text-white ">
+                        Find your dream employment
+                        <span v-show="animaIndex == 1" class="theme-color2 fw-bold">with</span>
+                        <span v-show="animaIndex == 2" class="text-primary fw-bold">us at</span>
+                        <span v-show="animaIndex == 3" class="theme-color-shine fw-bold">Protrec</span>
+                    </div>
 
+                    <div class="small-text text-white text-center mt-4">
+                        Great platform for the job seeker that is searching for new carreer heights and
+                        passionate about startups.
                     </div>
                 </div>
+                <div class="col-md-9 mt-4">
+                    <searchJobFormVue :from-home="true" />
+                </div>
 
-                <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 col-12 image-span animate__animated animate__slideInRight">
-                    <img src="@/assets/images/hero/hero-image.svg" class="hero-image" alt="">
+                <div class=" d-flex justify-content-center my-5 ">
+                    <img src="@/assets/images/hero/hero-image.png" class="hero-image" alt="">
                 </div>
             </div>
         </div>
@@ -29,15 +32,27 @@
 
 <script lang="ts" setup>
 import searchJobFormVue from '@/components/searchJobForm.vue';
+import { ref, onMounted } from 'vue';
+
+const animaIndex = ref(1)
+
+onMounted(() => {
+    setInterval(() => {
+        animaIndex.value = (animaIndex.value == 3) ? 1 : animaIndex.value += 1
+    }, 1000)
+})
+
+
 </script>
 
 <style scoped>
-.hero-text .find,
-.hero-text .with-us {
+.hero-text {
     font-weight: 700;
-    line-height: 1.2;
-    font-size: 63px;
+    line-height: 1;
+    font-size: 57px;
+    margin-top: 150px;
 }
+
 
 .hero-text .small-text {
     font-size: 17px;
@@ -45,7 +60,7 @@ import searchJobFormVue from '@/components/searchJobForm.vue';
 
 
 .hero-image {
-    max-width: 130%;
+    /* max-width: 130%; */
     height: auto;
 }
 
@@ -54,6 +69,7 @@ import searchJobFormVue from '@/components/searchJobForm.vue';
 @media (max-width: 767px) {
     .hero-text {
         margin-top: 100px;
+        font-size: 47px;
     }
 
     .hero-text .find,
@@ -65,11 +81,6 @@ import searchJobFormVue from '@/components/searchJobForm.vue';
     .hero-text .small-text {
         font-size: 14px;
     }
-
-    /* .image-span {
-    display: flex;
-    justify-content: center;
-  } */
 
     .hero-image {
         margin-top: 30px;

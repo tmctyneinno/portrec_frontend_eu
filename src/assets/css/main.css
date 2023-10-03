@@ -55,6 +55,10 @@ input::placeholder, textarea::placeholder {
   color: var(--theme-color) !important;
 }
 
+.theme-color-shine {
+  color: var(--theme-color-shine) !important;
+}
+
 .theme-color2 {
   color: var(--theme-color2) !important;
 }

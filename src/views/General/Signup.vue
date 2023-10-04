@@ -8,18 +8,18 @@
                     <div class="col-md-6">
                         <div class="col-12 ">
                             <div class="type-nav theme-color d-flex justify-content-aroun justify-content-evenly mb-3">
-                                <span @click="formType = 'seeker'" class="fw-bolder cursor-pointer"
-                                    :class="{ 'active': formType == 'seeker' }">
+                                <span @click="form.type = 'seeker'" class="fw-bolder cursor-pointer"
+                                    :class="{ 'active': form.type == 'seeker' }">
                                     Job Seeker
                                 </span>
-                                <span @click="formType = 'company'" class="fw-bolder cursor-pointer"
-                                    :class="{ 'active': formType == 'company' }">
+                                <span @click="form.type = 'company'" class="fw-bolder cursor-pointer"
+                                    :class="{ 'active': form.type == 'company' }">
                                     Company
                                 </span>
                             </div>
                         </div>
                         <div class="col-12 ">
-                            <div class="fs-3 fw-light text-center mb-2">Get more oportunities</div>
+                            <div class="fs-4 fw-lighter text-center mb-2">Get more oportunities</div>
                         </div>
 
                         <div class="col-12 mb-2">
@@ -31,26 +31,26 @@
                         </div>
 
                         <div class="col-12 my-3">
-                            <div class="lined-title text-muted">
+                            <div class="between-lines text-muted">
                                 Or sign up with email
                             </div>
                         </div>
 
 
-                        <form @submit.prevent class="row g-2">
+                        <form @submit.prevent="submitForm" class="row g-2">
                             <div class="col-12">
-                                <label class="fw-bold text-muted">Full name:</label>
-                                <input type="text" class="form-control form-control-l  rounded-0"
+                                <label class="fw-bold text-muted small">Full name:</label>
+                                <input v-model="form.full_name" type="text" class="form-control form-control-l  rounded-0"
                                     placeholder="Enter your full name">
                             </div>
                             <div class="col-12">
-                                <label class="fw-bold text-muted">Email Address:</label>
-                                <input type="text" class="form-control form-control-l  rounded-0"
+                                <label class="fw-bold text-muted small">Email Address:</label>
+                                <input v-model="form.email" type="text" class="form-control form-control-l  rounded-0"
                                     placeholder="Enter email address">
                             </div>
                             <div class="col-12">
-                                <label class="fw-bold text-muted">Password:</label>
-                                <input type="text" class="form-control form-control-l  rounded-0"
+                                <label class="fw-bold text-muted small">Password:</label>
+                                <input v-model="form.password" type="text" class="form-control form-control-l  rounded-0"
                                     placeholder="Enter password">
                             </div>
                             <div class="col-12 mt-3">
@@ -78,8 +78,20 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
-const formType = ref('seeker')
+import { reactive } from "vue";
+
+const form = reactive({
+    type: 'seeker',
+    full_name: '',
+    email: '',
+    password: '',
+    isError: false,
+    isLoading: false
+})
+
+function submitForm() {
+
+}
 </script>
 
 <style  scoped>
@@ -110,31 +122,5 @@ const formType = ref('seeker')
     background: url('@/assets/images/signup.jpg') no-repeat;
     background-size: cover;
     background-position: center center;
-}
-
-.lined-title {
-    overflow: hidden;
-    text-align: center;
-}
-
-.lined-title:before,
-.lined-title:after {
-    background-color: #ccc;
-    content: "";
-    display: inline-block;
-    height: 1px;
-    position: relative;
-    vertical-align: middle;
-    width: 50%;
-}
-
-.lined-title:before {
-    right: 0.5em;
-    margin-left: -50%;
-}
-
-.lined-title:after {
-    left: 0.5em;
-    margin-right: -50%;
 }
 </style>

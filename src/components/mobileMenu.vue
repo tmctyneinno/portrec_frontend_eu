@@ -7,14 +7,15 @@
         </div>
         <div class="offcanvas-body">
             <ul class="list-group list-group-flush">
-                <li v-for="({ title, routePath }, i) in contents.navBarMenus" :key="i" class="list-group-item">
+                <li v-for="({ title, routePath }, i) in templateStore.navBarMenus" :key="i"
+                    class="list-group-item list-line">
                     <router-link :to="routePath">{{ title }}</router-link>
                 </li>
                 <hr>
-                <li class="list-group-item">
+                <li class="list-group-item list-line">
                     <router-link to="/login">Login</router-link>
                 </li>
-                <li class="list-group-item">
+                <li class="list-group-item list-line">
                     <router-link class="theme-color" to="/signup">Sign Up</router-link>
                 </li>
             </ul>
@@ -26,10 +27,10 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
 import { onBeforeRouteLeave } from 'vue-router';
-import { useContentStore } from '@/stores/contents';
+import { useTemplateStore } from '@/stores/templateStore';
 
 
-const contents = useContentStore()
+const templateStore = useTemplateStore()
 const btnX = ref<any>(null)
 
 onBeforeRouteLeave(() => {
@@ -37,7 +38,7 @@ onBeforeRouteLeave(() => {
 })
 
 onMounted(() => {
-    const divs = document.querySelectorAll('.list-group-item');
+    const divs = document.querySelectorAll('.list-line');
     // const targetDiv = document.querySelector('[aria-current="page"]');
     divs.forEach((div) => {
         div.setAttribute('data-bs-dismiss', 'offcanvas');

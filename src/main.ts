@@ -34,6 +34,7 @@ import 'vue3-easy-data-table/dist/style.css';
 
 //Vue3ProgressPlugin
 import { Vue3ProgressPlugin } from '@marcoschulte/vue3-progress';
+import '@marcoschulte/vue3-progress/dist/index.css';
 
 //vue3-apexcharts
 import VueApexCharts from "vue3-apexcharts";

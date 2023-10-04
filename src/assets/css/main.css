@@ -205,7 +205,7 @@ hr.faint:after {
   padding-right: 10px;
 }
 
-/* check input */
+/* form-check check input */
 .form-check-input:checked {
   background-color: var(--theme-color);
   border-color: var(--theme-color);
@@ -215,4 +215,41 @@ hr.faint:after {
   padding: 8px;
 }
 
-/* check input */
+/* form-check check input */
+
+.vue3-progress-bar-container .vue3-progress-bar {
+  background-color: var(--theme-color2) !important;
+}
+
+
+
+
+/* text between lines */
+
+.between-lines {
+  overflow: hidden;
+  text-align: center;
+}
+
+.between-lines:before,
+.between-lines:after {
+  background-color: #ccc;
+  content: "";
+  display: inline-block;
+  height: 1px;
+  position: relative;
+  vertical-align: middle;
+  width: 50%;
+}
+
+.between-lines:before {
+  right: 0.5em;
+  margin-left: -50%;
+}
+
+.between-lines:after {
+  left: 0.5em;
+  margin-right: -50%;
+}
+
+/* text between lines */

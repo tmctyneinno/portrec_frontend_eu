@@ -10,7 +10,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li v-for="({ title, routePath }, i) in contents.navBarMenus" :key="i" class="nav-item ">
+          <li v-for="({ title, routePath }, i) in templateStore.navBarMenus" :key="i" class="nav-item ">
             <router-link class="nav-link mx-4 " :class="{ 'text-white': route.path == '/' && !headerDropped }"
               :to="routePath">{{ title
               }}</router-link>
@@ -31,10 +31,10 @@
 <script setup lang="ts">
 import { onMounted, ref, computed } from 'vue';
 import mobileMenuVue from './mobileMenu.vue';
-import { useContentStore } from '@/stores/contents';
+import { useTemplateStore } from '@/stores/templateStore';
 import { useRoute } from 'vue-router';
 
-const contents = useContentStore()
+const templateStore = useTemplateStore()
 const headerDropped = ref<boolean>(false)
 const route = useRoute()
 
@@ -42,7 +42,7 @@ const customClass = computed(() => ({
   // 'b': route.path !== '/',
   'bg-transparent text-white': !headerDropped.value && route.path == '/',
   'animate__animated animate__slideInDown animate__faster': headerDropped.value && route.path == '/',
-  'shadow-sm': route.path !== '/'
+  'shadow-sm': headerDropped.value || route.path !== '/'
 }))
 
 onMounted(() => {

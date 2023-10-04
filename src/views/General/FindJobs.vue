@@ -189,7 +189,6 @@
               </div>
             </div>
           </div>
-
         </div>
         <div class="col-lg-8">
           <div class="card p-2 border-0">
@@ -263,7 +262,19 @@
 import headerVue from '@/components/header.vue'
 import footerVue from '@/components/footer.vue'
 import searchJobForm from '@/components/searchJobForm.vue';
-// import { reactive } from 'vue';
+import { onMounted } from 'vue';
+import { useJobsStore } from '@/stores/jobsStore';
+import { useRoute } from 'vue-router';
+
+const route = useRoute()
+
+const jobsStore = useJobsStore()
+
+onMounted(() => {
+  jobsStore.getJobCategories()
+  console.log(route.query.category);
+
+})
 
 </script>
 
@@ -301,4 +312,4 @@ import searchJobForm from '@/components/searchJobForm.vue';
 }
 
 /* accordion */
-</style>
+</style>@/stores/jobsStore

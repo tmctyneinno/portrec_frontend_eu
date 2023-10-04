@@ -4,7 +4,7 @@
   <!-- hero -->
   <heroVue />
   <!-- hero -->
-  <companiesVue />
+  <companiesVue class="d-none d-md-block" />
   <!-- explore -->
   <exploreVue />
   <!-- latest Jobs -->

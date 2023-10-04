@@ -48,7 +48,7 @@
                                 </button>
                             </div>
                             <div class="col-10">
-                                <button @click="switchModal(1)" type="button" class="btn btn-primary rounded-0 w-100">
+                                <button @click="switchModal(+1)" type="button" class="btn btn-primary rounded-0 w-100">
                                     Submit Application
                                 </button>
                             </div>

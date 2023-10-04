@@ -31,7 +31,7 @@
                         </div>
                     </div>
                     <div class="col-12 my-3">
-                        <button @click="switchModal(1)" type="button" class="btn btn-primary w-100 rounded-0">Next</button>
+                        <button @click="switchModal(+1)" type="button" class="btn btn-primary w-100 rounded-0">Next</button>
                     </div>
                 </div>
             </div>

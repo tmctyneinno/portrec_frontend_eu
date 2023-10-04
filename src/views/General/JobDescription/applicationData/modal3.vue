@@ -49,7 +49,7 @@
                                     class="btn btn-primary-outline rounded-0 w-100">Back</button>
                             </div>
                             <div class="col-6">
-                                <button @click="switchModal(1)" type="button"
+                                <button @click="switchModal(+1)" type="button"
                                     class="btn btn-primary rounded-0 w-100">Next</button>
                             </div>
                         </div>

@@ -47,16 +47,8 @@
     color: var(--theme-color);
 }
 
-.border-right {
-    border-right: 1px solid #e5e5e5;
-    margin-right: 10px;
-}
 
 @media (max-width: 767px) {
-    .border-right {
-        margin-right: 3px;
-    }
-
     .slide-title {
         font-size: 14px;
         color: var(--theme-color);

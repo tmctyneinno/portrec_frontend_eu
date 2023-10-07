@@ -12,10 +12,11 @@
             <small>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </small>
             <div class="min-vh-100 bg-light my-3">
               <div>
-
-                <!-- map -->
+                <GoogleMap api-key="GOOGLE_MAPS_API_KEY" style="width: 100%; height: 500px" :center="map_center"
+                  :zoom="15">
+                  <Marker :options="{ position: map_center }" />
+                </GoogleMap>
               </div>
-
             </div>
           </div>
         </div>
@@ -66,4 +67,7 @@
 <script setup lang="ts">
 import headerVue from '@/components/header.vue'
 import footerVue from '@/components/footer.vue'
+import { GoogleMap, Marker } from "vue3-google-map";
+
+const map_center = { lat: 40.689247, lng: -74.044502 };
 </script>

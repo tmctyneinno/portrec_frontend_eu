@@ -34,7 +34,8 @@
     "vue-writer": "^1.2.0",
     "vue3-apexcharts": "^1.4.4",
     "vue3-carousel": "^0.3.1",
-    "vue3-easy-data-table": "^1.5.47"
+    "vue3-easy-data-table": "^1.5.47",
+    "vue3-google-map": "^0.18.0"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.3.2",

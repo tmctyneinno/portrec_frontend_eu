@@ -27,8 +27,8 @@
 
     <div class="container">
       <div class="row">
-        <div class="col-lg-4">
-          <div class="card border-0 p-2 pt-2 pt-lg-5">
+        <div class="col-lg-3">
+          <div class="card border-0 p-2 pt-5">
             <div class="row gy-3">
               <div class="col-12 col-md-6 col-lg-12">
                 <div class="accordion accordion-flush" id="type-of-employment">
@@ -190,7 +190,7 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-8">
+        <div class="col-lg-9">
           <div class="card p-2 border-0">
             <div class="col-12 my-3">
               <div class="row">
@@ -216,31 +216,36 @@
               <div class="card border-0">
                 <div class="row justify-content-center gy-3">
 
-                  <div v-for="i in 8" :key="i" class="col-md-12 col-sm-12 col-12 rounded-0">
-                    <div class="jbr-wrap text-left border">
-                      <div
-                        class="cats-box mlb-res rounded bg-white d-flex align-items-center justify-content-between px-3 py-3">
-                        <div class="cats-box bg-white d-flex align-items-center">
-                          <div class="text-center"><img src="@/assets/images/jobs/round.png" class="img-fluid" width="55"
-                              alt=""></div>
-                          <div class="cats-box-caption px-2">
+                  <div v-for="i in 8" :key="i" class="col-md-12 col-sm-12 col-12 ">
+                    <div class="card rounded-0">
+                      <div class="card-body">
+                        <div class="row gy-3 align-items-center">
+                          <div class="col-md-2 text-lg-center">
+                            <img src="@/assets/images/jobs/round.png" class="img-fluid" width="55" alt="">
+                          </div>
+                          <div class="col-md-7">
                             <h4 class="fs-md mb-0 ft-medium">Fresher UI/UX Designer (3 Year Exp.)</h4>
                             <div class="d-block mb-2 position-relative">
                               <span class="text-muted medium"><i class="lni lni-map-marker me-1"></i>Liverpool,
                                 London</span>
-                              <span class="muted medium ms-2 theme-cl"><i class="lni lni-briefcase me-1"></i>Full
-                                Time</span>
+                            </div>
+                            <span class="border-right">
+                              <span class="category-tag fulltime-tag">Full-Time</span>
+                            </span>
+                            <span class="category-tag marketing-tag">Marketing</span>
+                            <span class="category-tag design-tag">Design</span>
+                          </div>
+                          <div class="col-md-3 justify-content-end">
+                            <div class="text-cente">
+                              <router-link :to="`/job-description/${i}`"
+                                class="btn p-2 btn-primary rounded-0 w-100">Apply</router-link>
+                              <div class="progress mt-2 mb-0 rounded-0" role="progressbar" aria-valuenow="50"
+                                aria-valuemin="0" aria-valuemax="100" style="height: 5px">
+                                <div class="progress-bar bg-danger" style="width: 50%"></div>
+                              </div>
+                              <small>5 applied of 10 capacity</small>
                             </div>
                           </div>
-                        </div>
-                        <div class="text-center mlb-last">
-                          <router-link :to="`/job-description/${i}`"
-                            class="btn btn-primary rounded-0 px-5">Apply</router-link>
-                          <div class="progress mt-2 mb-0 rounded-0" role="progressbar" aria-valuenow="50"
-                            aria-valuemin="0" aria-valuemax="100" style="height: 5px">
-                            <div class="progress-bar bg-danger" style="width: 50%"></div>
-                          </div>
-                          <small>5 applied of 10 capacity</small>
                         </div>
                       </div>
                     </div>
@@ -262,24 +267,33 @@
 import headerVue from '@/components/header.vue'
 import footerVue from '@/components/footer.vue'
 import searchJobForm from '@/components/searchJobForm.vue';
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useJobsStore } from '@/stores/jobsStore';
 import { useRoute } from 'vue-router';
 
 const route = useRoute()
-
 const jobsStore = useJobsStore()
+
+const queryParams = ref<string[]>([]);
+
+
 
 onMounted(() => {
   jobsStore.getJobCategories()
-  console.log(route.query.category);
+  queryParams.value = Object.keys(route.query)
+  if (queryParams.value.length) {
+    console.log(queryParams.value);
+  }
+
 
 })
 
 </script>
 
 <style scoped>
-@import '@/assets/css/theme-style.css';
+.list-group-item {
+  cursor: pointer;
+}
 
 .img-fluid {
   max-width: 100%;
@@ -312,4 +326,4 @@ onMounted(() => {
 }
 
 /* accordion */
-</style>@/stores/jobsStore
+</style>

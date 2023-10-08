@@ -54,6 +54,7 @@ import { setupCalendar, Calendar, DatePicker } from 'v-calendar';
 import 'v-calendar/style.css';
 
 import jobsDisplayVue from '@/components/jobsDisplay.vue';
+import overlayLoading from '@/components/overlayLoading.vue';
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
@@ -71,6 +72,7 @@ app.component("infinite-loading", InfiniteLoading);
 app.component('VCalendar', Calendar)
 app.component('VDatePicker', DatePicker)
 app.component('jobsDisplayVue', jobsDisplayVue)
+app.component('overlayLoading', overlayLoading)
 
 app.use(createPinia())
 app.use(VueApexCharts);

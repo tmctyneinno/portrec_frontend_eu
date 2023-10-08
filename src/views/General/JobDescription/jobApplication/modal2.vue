@@ -90,9 +90,9 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { useApplicationStore } from './applicationStore';
+import { useJobApplicationStore } from '@/stores/jobApplicationStore';
 import modalHeaderVue from './modalHeader.vue';
-const applicationStore = useApplicationStore()
+const applicationStore = useJobApplicationStore()
 
 function switchModal(num: number) {
     // validate form first!
@@ -121,4 +121,3 @@ function switchModal(num: number) {
     cursor: pointer;
 }
 </style>
-./applicationStore

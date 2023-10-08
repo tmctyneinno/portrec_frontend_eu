@@ -9,7 +9,8 @@
                 <div class="modal-body">
                     <h5 class="fw-bold">Submit your application</h5>
                     <div class="small text-muted">
-                        The following is required and will only be shared with {{ applicationStore.job.company }}
+                        The following is required and will only be shared with
+                        {{ applicationStore.currentJob.company ? applicationStore.currentJob.company.name : 'Company' }}
                     </div>
                     <div class="row gy-3 mt-1">
                         <div class="col-12">
@@ -39,19 +40,13 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { useApplicationStore } from './applicationStore';
+import { useJobApplicationStore } from '@/stores/jobApplicationStore';
 import modalHeaderVue from './modalHeader.vue';
-const applicationStore = useApplicationStore()
+const applicationStore = useJobApplicationStore()
 
 function switchModal(num: number) {
     // validate form first!
     applicationStore.switchModal(num)
 }
 
-
-
-
 </script>
-
-<style  scoped></style>
-./applicationStore

@@ -1,6 +1,7 @@
 <template>
   <!-- header -->
   <headerVue />
+  <overlayLoading v-if="loading" />
   <div class="space-from-header"></div>
 
   <div class="animate__animated animate__fadeIn">
@@ -13,10 +14,10 @@
             <div class="jbr-wrap text-left border">
               <div class="cats-box mlb-res rounded bg-white d-flex align-items-center justify-content-between px-3 py-3">
                 <div class="cats-box bg-white d-flex align-items-center">
-                  <div class="text-center"><img src="@/assets/images/jobs/round.png" class="img-fluid" width="55" alt="">
+                  <div class="text-center"><img :src="''" class="img-fluid" width="55" alt="image">
                   </div>
                   <div class="cats-box-caption px-2">
-                    <h3 class="fs-m mb-0 ft-medium fw-bold">Fresher UI/UX Designer (3 Year Exp.)</h3>
+                    <h3 class="fs-m mb-0 ft-medium fw-bold">{{ currentJob.title }}</h3>
                     <div class="d-block mb-2 position-relative">
                       <span class="text-muted medium"><i class="lni lni-map-marker me-1"></i>Liverpool,
                         London</span>
@@ -42,40 +43,21 @@
 
     <div class="container">
       <div class="row py-5 gy-3">
-        <div class="col-lg-8 ">
+        <div class="col-lg-8">
+
           <div class="py-3">
             <h4 class="fw-bold">Description</h4>
-            Stripe is looking for Social Media Marketing expert to help manage our online networks. You will be
-            responsible for monitoring our social media channels, creating content, finding effective ways to engage the
-            community and incentivize others to engage on our channels.
+            <div class="card m-0 p-0 border-0">
+              {{ currentJob.description ?? '' }}
+            </div>
           </div>
 
-          <div class="py-3">
-            <h4 class="fw-bold">Responsibilities</h4>
+          <div v-for="(qualification, i) in JSON.parse(currentJob.other_qualifications)" :key="i" class="py-3">
+            <h4 class="fw-bold">{{ qualification.title }}</h4>
             <ul class="list-group list-group-flush">
-              <li v-for="i in 6" :key="i" class="list-group-item border-0 px-0">
+              <li v-for="(description, d) in qualification.descriptions" :key="d" class="list-group-item border-0 px-0">
                 <i class="bi bi-check-circle text-danger"></i>
-                Focus on social media content development and publication
-              </li>
-            </ul>
-          </div>
-
-          <div class="py-3">
-            <h4 class="fw-bold">Who You Are</h4>
-            <ul class="list-group list-group-flush">
-              <li v-for="i in 6" :key="i" class="list-group-item border-0 px-0">
-                <i class="bi bi-check-circle text-danger"></i>
-                You get energy from people and building the ideal work environment
-              </li>
-            </ul>
-          </div>
-
-          <div class="py-3">
-            <h4 class="fw-bold">Nice-To-Haves</h4>
-            <ul class="list-group list-group-flush">
-              <li v-for="i in 3" :key="i" class="list-group-item border-0 px-0">
-                <i class="bi bi-check-circle text-danger"></i>
-                Fluent in English
+                {{ description }}
               </li>
             </ul>
           </div>
@@ -85,26 +67,38 @@
           <div class="py-3">
             <h4 class="fw-bold">About this job</h4>
             <div class="card p-3 border-0 bg-light">
-              <div class="fw-bold small">5 applied of 10 capacity</div>
-              <div class="progress mt-2 mb-0 rounded-0" role="progressbar" aria-valuenow="50" aria-valuemin="0"
-                aria-valuemax="100" style="height: 5px">
-                <div class="progress-bar bg-danger" style="width: 50%"></div>
+              <div class="fw-bold small">
+                {{ currentJob.total_applied }} applied of {{ currentJob.capacity }} capacity
+              </div>
+              <div class="progress mt-2 mb-0 rounded-0" role="progressbar" :aria-valuenow="currentJob.total_applied"
+                aria-valuemin="0" :aria-valuemax="currentJob.capacity" style="height: 5px">
+                <div class="progress-bar bg-danger"
+                  :style="`width: ${(currentJob.total_applied / currentJob.capacity) * 100}%`">
+                </div>
               </div>
             </div>
 
             <div class="col-12 mt-3">
               <ul class="list-group list-group-flush">
                 <li class="list-group-item border-0 px-0">Apply Before
-                  <span class="float-end fw-bold"> July 31, 2021</span>
+                  <span class="float-end fw-bold">
+                    {{ useDateFormat(currentJob.deadline, `MMMM D, YYYY`) }}
+                  </span>
                 </li>
                 <li class="list-group-item border-0 px-0">Job Posted On
-                  <span class="float-end fw-bold"> July 1, 2021</span>
+                  <span class="float-end fw-bold">
+                    {{ useDateFormat(currentJob.created_at, `MMMM D, YYYY`) }}
+                  </span>
                 </li>
                 <li class="list-group-item border-0 px-0">Job Type
                   <span class="float-end fw-bold"> Full-Time</span>
                 </li>
                 <li class="list-group-item border-0 px-0">Salary
-                  <span class="float-end fw-bold">$75k-$85k USD</span>
+                  <span class="float-end fw-bold">
+                    ({{ numeral(currentJob.min_salary).format('0,0.00') }} -
+                    {{ numeral(currentJob.max_salary).format('0,0.00') }})
+                    USD
+                  </span>
                 </li>
               </ul>
             </div>
@@ -122,9 +116,10 @@
 
           <div class="py-2 border-0">
             <h4 class="fw-bold">Required Skills</h4>
-            <span v-for="i in requirdSkills" :key="i" class=" skills-tag">{{ i }}</span>
+            <span v-for="skill in JSON.parse(currentJob.required_skills)" :key="skill" class=" skills-tag">
+              {{ skill.name }}
+            </span>
           </div>
-
 
         </div>
 
@@ -138,43 +133,13 @@
         <div class="col-12">
           <div class="row g-3">
 
-            <div class="col-md-6 col-lg-3">
+            <div v-for="benefit in JSON.parse(currentJob.benefits)" :key="benefit" class="col-md-6 col-lg-3">
               <div class="card border-0">
                 <div class="benefit-icon">
-                  <i class="bi bi-heart-pulse"></i>
+                  <i class="bi bi-check-circle"></i>
                 </div>
-                <div class="fs-5">Full Healthcare </div>
-                We believe in thriving communities and that starts with our team being happy and healthy.
-              </div>
-            </div>
-
-            <div class="col-md-6 col-lg-3">
-              <div class="card border-0">
-                <div class="benefit-icon">
-                  <i class="bi bi-water"></i>
-                </div>
-                <div class="fs-5">Unlimited Vacation </div>
-                We believe in thriving communities and that starts with our team being happy and healthy.
-              </div>
-            </div>
-
-            <div class="col-md-6 col-lg-3">
-              <div class="card border-0">
-                <div class="benefit-icon">
-                  <i class="bi bi-camera-video"></i>
-                </div>
-                <div class="fs-5">Skill Development </div>
-                We believe in thriving communities and that starts with our team being happy and healthy.
-              </div>
-            </div>
-
-            <div class="col-md-6 col-lg-3">
-              <div class="card border-0">
-                <div class="benefit-icon">
-                  <i class="bi bi-cup-hot"></i>
-                </div>
-                <div class="fs-5">Remote Working </div>
-                We believe in thriving communities and that starts with our team being happy and healthy.
+                <div class="fs-5 text-capitalize">{{ benefit.title }} </div>
+                {{ benefit.description }}
               </div>
             </div>
 
@@ -200,7 +165,8 @@
         </div>
         <div class="col-12 mt-4">
           <div class="row g-4">
-            <jobsDisplayVue @click="router.push({ 'path': `/job-description/${i}` })" v-for="i in 8" :key="i" />
+            <jobsDisplayVue :job="currentJob" @click="router.push({ 'path': `/job-description/${i}` })" v-for="i in 8"
+              :key="i" />
           </div>
         </div>
       </div>
@@ -208,42 +174,51 @@
   </div>
 
   <!-- modals -->
-  <modal1 v-if="applicationStore.modalOpen && applicationStore.currentModal == 1" />
-  <modal2 v-if="applicationStore.modalOpen && applicationStore.currentModal == 2" />
-  <modal3 v-if="applicationStore.modalOpen && applicationStore.currentModal == 3" />
-  <modal4 v-if="applicationStore.modalOpen && applicationStore.currentModal == 4" />
+  <modal1 v-if="modalOpen && currentModal == 1" />
+  <modal2 v-if="modalOpen && currentModal == 2" />
+  <modal3 v-if="modalOpen && currentModal == 3" />
+  <modal4 v-if="modalOpen && currentModal == 4" />
 
   <!-- footer -->
   <footerVue />
 </template>
 
 <script setup lang="ts">
-import { useRouter } from 'vue-router';
+import { watchEffect } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 import { onBeforeRouteLeave } from 'vue-router';
 import headerVue from '@/components/header.vue'
 import footerVue from '@/components/footer.vue'
-import { useApplicationStore } from './applicationData/applicationStore';
-import modal1 from './applicationData/modal1.vue';
-import modal2 from './applicationData/modal2.vue';
-import modal3 from './applicationData/modal3.vue';
-import modal4 from './applicationData/modal4.vue';
+import { useJobApplicationStore } from '@/stores/jobApplicationStore';
+import { useDateFormat } from '@vueuse/core';
+import { storeToRefs } from 'pinia';
+//@ts-ignore
+import numeral from 'numeral';
 
-const applicationStore = useApplicationStore()
+import modal1 from './jobApplication/modal1.vue';
+import modal2 from './jobApplication/modal2.vue';
+import modal3 from './jobApplication/modal3.vue';
+import modal4 from './jobApplication/modal4.vue';
+
+const job = useJobApplicationStore()
+const { currentJob, loading, modalOpen, currentModal } = storeToRefs(job)
 const router = useRouter()
+const route = useRoute()
 
-const requirdSkills = ['Project Management', 'Copywriting', 'Social Media Marketing', 'English', 'Copy Editing']
+watchEffect(() => {
+  loading.value = true
+  job.currentJobQuery(route.params.id)
+  console.log(currentJob);
+})
 
 function openApplyModal() {
-  applicationStore.modalOpen = true;
-  applicationStore.currentModal = 1
+  modalOpen.value = true;
+  currentModal.value = 1
 }
 
 onBeforeRouteLeave(() => {
-  applicationStore.modalOpen = false
+  modalOpen.value = false
 })
-
-
-
 
 </script>
 
@@ -281,4 +256,4 @@ onBeforeRouteLeave(() => {
   font-size: 2.63rem;
   color: var(--theme-color);
 }
-</style>./applyModals/applicationStore./applicationStore/applyStore
+</style>

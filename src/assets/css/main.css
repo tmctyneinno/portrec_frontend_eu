@@ -150,7 +150,7 @@ input::placeholder, textarea::placeholder {
   background-color: #FF655010;
 }
 
-.fulltime-tag, .parttime-tag {
+.fulltime-tag, .parttime-tag, .remote-tag {
   border: 1px solid #E63468;
   color: #E63468;
   background-color: transparent;

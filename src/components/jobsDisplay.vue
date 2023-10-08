@@ -2,16 +2,23 @@
     <div class="col-lg-6">
         <div class="card rounded-0 card-latest p-3 py-lg-4 hover-tiltY cursor-pointer">
             <div class="row">
-                <div class="col-3">
-                    <img src="@/assets/images/jobs/round.png" width="60" alt="">
+                <div class="col-3 row align-content-center ">
+                    <img :src="job.company ? job.company.image : ''">
                 </div>
                 <div class="col-9">
-                    <h5 class="slide-title">Social Media Assistant <i class="bi d-md-none bi-chevron-right"></i></h5>
-                    <div class="slide-info text-muted small">Nomad <i class="bi bi-dot"></i> Paris, France
+                    <h5 class="slide-title text-capitalize">
+                        {{ job.title ?? '' }} <i class="bi d-md-none bi-chevron-right"></i>
+                    </h5>
+                    <div class="slide-info text-muted small text-capitalize">
+                        {{ job.company ? job.company.name : 'Company' }} <i class="bi bi-dot"></i>
+                        {{ job.comapny ? job.company.city : 'Location' }},
+                        {{ job.comapny ? job.company.country : 'Country' }}
                     </div>
                     <div class="col-12 mt-3">
                         <span class="border-right">
-                            <span class="category-tag fulltime-tag">Full-Time</span>
+                            <span class="category-tag fulltime-tag text-capitalize">
+                                {{ job.job_type ? job.job_type.name : 'Full Time' }}
+                            </span>
                         </span>
                         <span class="category-tag marketing-tag">Marketing</span>
                         <span class="category-tag design-tag">Design</span>
@@ -22,12 +29,12 @@
     </div>
 </template>
 <script lang="ts" setup>
-// const props = defineProps({
-//     job: {
-//         type: Object,
-//         required: true,
-//     }
-// })
+defineProps({
+    job: {
+        type: Object,
+        required: true,
+    }
+})
 </script>
 <style scoped>
 .card-latest {

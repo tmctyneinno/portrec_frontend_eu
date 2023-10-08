@@ -43,26 +43,12 @@
                       data-bs-parent="#type-of-employment">
                       <div class="accordion-body small">
                         <div class="list-group list-group-flush">
-                          <label class="list-group-item border-0">
-                            <input class="form-check-input me-1" type="checkbox" value="">
-                            Fulltime (23)
+
+                          <label v-for="x in jobsStore.types" :key="x" class="list-group-item border-0 text-capitalize">
+                            <input class="form-check-input me-1" type="checkbox" :value="x.id" v-model="checked.types">
+                            {{ x.name }} ({{ x.total_jobs }})
                           </label>
-                          <label class="list-group-item border-0">
-                            <input class="form-check-input me-1" type="checkbox" value="">
-                            Part-Time (3)
-                          </label>
-                          <label class="list-group-item border-0">
-                            <input class="form-check-input me-1" type="checkbox" value="">
-                            Remote (14)
-                          </label>
-                          <label class="list-group-item border-0">
-                            <input class="form-check-input me-1" type="checkbox" value="">
-                            Internship (10)
-                          </label>
-                          <label class="list-group-item border-0">
-                            <input class="form-check-input me-1" type="checkbox" value="">
-                            Contract(20)
-                          </label>
+
                         </div>
                       </div>
                     </div>
@@ -82,30 +68,14 @@
                     <div id="flush-collapseTwo" class="accordion-collapse collapse show" data-bs-parent="#categories">
                       <div class="accordion-body small">
                         <div class="list-group list-group-flush">
-                          <label class="list-group-item border-0">
-                            <input class="form-check-input me-1" type="checkbox" value="">
-                            Design (23)
+
+                          <label v-for="x in jobsStore.categories" :key="x"
+                            class="list-group-item border-0 text-capitalize">
+                            <input class="form-check-input me-1" type="checkbox" :value="x.id"
+                              v-model="checked.categories">
+                            {{ x.name }} ({{ x.total_jobs }})
                           </label>
-                          <label class="list-group-item border-0">
-                            <input class="form-check-input me-1" type="checkbox" value="">
-                            Sales(3)
-                          </label>
-                          <label class="list-group-item border-0">
-                            <input class="form-check-input me-1" type="checkbox" value="">
-                            Marketting (14)
-                          </label>
-                          <label class="list-group-item border-0">
-                            <input class="form-check-input me-1" type="checkbox" value="" checked>
-                            Business (10)
-                          </label>
-                          <label class="list-group-item border-0">
-                            <input class="form-check-input me-1" type="checkbox" value="">
-                            Finance(20)
-                          </label>
-                          <label class="list-group-item border-0">
-                            <input class="form-check-input me-1" type="checkbox" value="" checked>
-                            Technology(20)
-                          </label>
+
                         </div>
                       </div>
                     </div>
@@ -267,23 +237,46 @@
 import headerVue from '@/components/header.vue'
 import footerVue from '@/components/footer.vue'
 import searchJobForm from '@/components/searchJobForm.vue';
-import { onMounted, ref } from 'vue';
+import { watchEffect, ref, onMounted, reactive, watch } from 'vue';
 import { useJobsStore } from '@/stores/jobsStore';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 const route = useRoute()
+const router = useRouter()
 const jobsStore = useJobsStore()
 
-const queryParams = ref<string[]>([]);
+// const queryParams = ref<string[]>([]);
 
-
+const checked = reactive({
+  categories: [],
+  types: [],
+})
 
 onMounted(() => {
   jobsStore.getJobCategories()
-  queryParams.value = Object.keys(route.query)
-  if (queryParams.value.length) {
-    console.log(queryParams.value);
+  jobsStore.getJobFunctions()
+  jobsStore.getJobTypes()
+
+  let queryParams = Object.keys(route.query)
+  if (queryParams.length) {
+    console.log(queryParams);
   }
+
+})
+
+
+watch(() => [checked.categories, checked.types], () => {
+  let queryObj: any = {};
+  if (checked.categories.length)
+    queryObj.category = checked.categories.toString()
+
+  if (checked.types.length)
+    queryObj.type = checked.types.toString()
+
+  router.replace({
+    path: `/find-jobs`,
+    query: queryObj
+  })
 
 
 })

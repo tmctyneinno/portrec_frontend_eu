@@ -17,7 +17,8 @@
             </div>
             <div class="col-12 mt-4">
                 <div class="row g-4">
-                    <jobsDisplayVue v-for="i in 8" :key="i" @click="router.push({ 'path': `/job-description/${i}` })" />
+                    <jobsDisplayVue :job="latest" v-for="(latest, i) in jobsStore.latest" :key="i"
+                        @click="router.push({ 'path': `/job-description/${latest.id}` })" />
                 </div>
             </div>
         </div>
@@ -27,6 +28,16 @@
 <script setup lang="ts">
 import jobsDisplayVue from '@/components/jobsDisplay.vue';
 import { useRouter } from 'vue-router';
+import { useJobsStore } from '@/stores/jobsStore';
+import { onMounted } from 'vue';
+
+const jobsStore = useJobsStore()
+
+onMounted(() => {
+    jobsStore.getLatestJobs()
+})
+
+
 const router = useRouter()
 </script>
 

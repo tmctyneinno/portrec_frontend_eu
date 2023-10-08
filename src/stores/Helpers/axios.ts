@@ -41,6 +41,10 @@ export default {
         return $instance.get(`job/all`)
     },
 
+    latestJobs() {
+        return $instance.get(`job/all/latest`)
+    },
+
     jobDetails(id: any) {
         return $instance.get(`job/${id}`)
     },

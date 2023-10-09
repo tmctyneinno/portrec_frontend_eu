@@ -5,11 +5,11 @@ const store = useJobApplicationStore()
 <template>
     <div>
         <h4 class="modal-title fw-bold" id="modalTitleId">{{ store.currentJob.title }}</h4>
-        <span class="text-muted small">
+        <span class="text-muted small text-capitalize">
             {{ store.currentJob.company ? store.currentJob.company.name : 'Company' }}
             <i class="bi bi-dot"></i>
-            {{ store.currentJob.comapny ? store.currentJob.company.city : 'Location' }},
-            {{ store.currentJob.comapny ? store.currentJob.company.country : 'Country' }}
+            {{ store.currentJob.company ? store.currentJob.company.city : 'Location' }},
+            {{ store.currentJob.company ? store.currentJob.company.country : 'Country' }}
             <i class="bi bi-dot"></i>
             {{ store.currentJob.job_type ? store.currentJob.job_type.name : 'Full time' }}
         </span>

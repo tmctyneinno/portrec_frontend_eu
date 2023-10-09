@@ -10,32 +10,40 @@
       <div class="container mb-5">
         <div class="row justify-content-center pt-5 g-3">
 
-          <div class="col-md-12 col-sm-12 col-lg-12 rounded-0">
-            <div class="jbr-wrap text-left border">
-              <div class="cats-box mlb-res rounded bg-white d-flex align-items-center justify-content-between px-3 py-3">
-                <div class="cats-box bg-white d-flex align-items-center">
-                  <div class="text-center"><img :src="''" class="img-fluid" width="55" alt="image">
+          <div class="col-md-12 col-sm-12 col-12 ">
+            <div class="card rounded-0">
+              <div class="card-body">
+                <div class="row gy-3 align-items-center">
+
+                  <div class="col-md-1 text-lg-center">
+                    <img src="@/assets/images/jobs/round.png" class="img-fluid" width="55" alt="">
                   </div>
-                  <div class="cats-box-caption px-2">
-                    <h3 class="fs-m mb-0 ft-medium fw-bold">{{ currentJob.title }}</h3>
+
+                  <div class="col-md-7">
+                    <h4 class="mb-0 fs-4 fw-bold">{{ currentJob.title }}</h4>
                     <div class="d-block mb-2 position-relative">
-                      <span class="text-muted medium"><i class="lni lni-map-marker me-1"></i>Liverpool,
-                        London</span>
-                      <span class="muted medium ms-2 theme-cl"><i class="lni lni-briefcase me-1"></i>Full
-                        Time</span>
+                      <div class="slide-info text-muted small text-capitalize">
+
+                        {{ currentJob.company ? currentJob.company.city : '' }},
+                        {{ currentJob.company ? currentJob.company.country : '' }}
+                        <i class="bi bi-dot"></i>
+                        <i class="bi bi-briefcase ms-2"></i>
+                        {{ currentJob.job_type ? currentJob.job_type.name : '' }}
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="text-center mlb-last">
-                  <span class="line-right pe-4 me-3">
-                    <i class="bi bi-share"></i>
-                  </span>
-                  <button @click="openApplyModal" class="btn btn-primary rounded-0 px-5">Apply</button>
+                  <div class="col-md-4 ">
+                    <div class="float-end">
+                      <span class="line-right pe-4 me-3">
+                        <i class="bi bi-share"></i>
+                      </span>
+                      <button @click="openApplyModal" class="btn btn-primary rounded-0 px-5">Apply</button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-
 
         </div>
       </div>
@@ -91,7 +99,7 @@
                   </span>
                 </li>
                 <li class="list-group-item border-0 px-0">Job Type
-                  <span class="float-end fw-bold"> Full-Time</span>
+                  <span class="float-end fw-bold text-capitalize"> {{ currentJob.job_type.name }}</span>
                 </li>
                 <li class="list-group-item border-0 px-0">Salary
                   <span class="float-end fw-bold">
@@ -108,8 +116,12 @@
 
           <div class="py-2  border-0">
             <h4 class="fw-bold">Categories</h4>
-            <span class="category-tag marketing-tag">Marketing</span>
-            <span class="category-tag design-tag">Design</span>
+            <span class="category-tag text-capitalize" :class="currentJob.category.name + '-tag'">
+              {{ currentJob.category ? currentJob.category.name : 'category' }}
+            </span>
+            <span class="category-tag text-capitalize">
+              {{ currentJob.sub_category ? currentJob.sub_category.name : 'category' }}
+            </span>
           </div>
 
           <hr>

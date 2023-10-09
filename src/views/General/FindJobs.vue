@@ -164,14 +164,14 @@
         <div class="col-lg-9">
           <div class="card p-2 border-0">
             <div class="col-12 my-3">
-              <div class="row">
+              <div class="row mb-3">
                 <div class="col-7">
                   <div>
-                    <span class="fw-bold fs-4">All Jobs</span> <br>
-                    <span class="xsmall text-muted">Showing 73 results</span>
+                    <div class="fw-bold fs-4">All Jobs</div>
+                    <div class="xsmall text-muted" style="line-height:7px; ">Showing 73 results</div>
                   </div>
                 </div>
-                <div class="col-lg-5 col-12 d-flex justify-content-end  align-items-center small ">
+                <!-- <div class="col-lg-5 col-12 d-flex justify-content-end  align-items-center small ">
                   <div class="line-right">
                     <span class="text-muted">Sort By:</span>
                     <span class="ms-2">Most Revelant <i class="bi bi-chevron-down"></i> </span>
@@ -180,7 +180,7 @@
                     <span><i class="bi bi-grid"></i></span>
                     <span class="ms-3 p-2 bg-light"><i class="bi bi-hdd-stack-fill theme-color"></i></span>
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
             <div class="col-12">
@@ -221,6 +221,7 @@
                       </div>
                     </div>
                   </div>
+
                 </div>
               </div>
             </div>

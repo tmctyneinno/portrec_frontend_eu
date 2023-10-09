@@ -6,10 +6,13 @@
 
     <div class="section-panel min-vh-100 pt-5 pb-0">
       <div class="container mb-5">
-        <div class="row g-3">
-          <div class="col-md-12 text-center">
+        <div class="row g-3 justify-content-center ">
+          <div class="col-12 text-center">
             <div class="section-title">Contact</div>
             <small>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </small>
+          </div>
+
+          <div class="col-lg-8 text-center">
             <div class="min-vh-100 bg-light my-3">
               <div>
                 <GoogleMap api-key="GOOGLE_MAPS_API_KEY" style="width: 100%; height: 500px" :center="map_center"
@@ -19,10 +22,40 @@
               </div>
             </div>
           </div>
+
+          <div class="col-lg-4">
+            <div class="col-md-12 ">
+              <div class="section-title fw-light text-center">Say Hello</div>
+              <div class="text-center mb-4">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+              </div>
+              <form @submit.prevent class="row justify-content-center g-3">
+                <div class="col-md-6">
+                  <label class="fw-bold">First Name</label>
+                  <input type="text" class="form-control">
+                </div>
+                <div class="col-md-6">
+                  <label class="fw-bold">Last Name</label>
+                  <input type="text" class="form-control">
+                </div>
+                <div class="col-md-12">
+                  <label class="fw-bold">Email Address</label>
+                  <input type="text" class="form-control">
+                </div>
+                <div class="col-md-12">
+                  <label class="fw-bold">Message</label>
+                  <textarea rows="9" class="form-control"></textarea>
+                </div>
+                <div class="col-md-12 mt-3">
+                  <button class="btn btn-primary float-end">Get in touch</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
-    <div class="section-panel section-panel-light min-vh-100 pt-5 pb-0">
+    <!-- <div class="section-panel section-panel-light min-vh-100 pt-5 pb-0">
       <div class="container">
         <div class="row g-3">
           <div class="col-md-12 ">
@@ -57,7 +90,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 
   <!-- footer -->

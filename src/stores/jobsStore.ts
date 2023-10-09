@@ -35,7 +35,7 @@ export const useJobsStore = defineStore('jobs', () => {
       const resp: any = await api.jobTypes()
       if (resp.status == 200)
         types.value = resp.data.body
-      console.log('jobtypes', resp.data.body);
+      // console.log('jobtypes', resp.data.body);
     } catch (error) {
       console.log(error);
     }
@@ -50,7 +50,7 @@ export const useJobsStore = defineStore('jobs', () => {
       const resp: any = await api.jobFunctions()
       if (resp.status == 200)
         functions.value = resp.data.body
-      console.log('jobfunctions', resp.data.body);
+      // console.log('jobfunctions', resp.data.body);
     } catch (error) {
       console.log(error);
     }
@@ -65,7 +65,7 @@ export const useJobsStore = defineStore('jobs', () => {
       const resp: any = await api.jobCategories()
       if (resp.status == 200)
         categories.value = resp.data.body
-      console.log('jobcategories', resp.data.body);
+      // console.log('jobcategories', resp.data.body);
     } catch (error) {
       console.log(error);
     }
@@ -80,7 +80,7 @@ export const useJobsStore = defineStore('jobs', () => {
       const resp: any = await api.latestJobs()
       if (resp.status == 200)
         latest.value = resp.data.body
-      console.log('latest jobs', resp);
+      // console.log('latest jobs', resp);
     } catch (error) {
       console.log(error);
     }

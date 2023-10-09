@@ -126,7 +126,7 @@ input::placeholder, textarea::placeholder {
   padding: 5px 13px;
   font-size: 11px;
   background-color: #efefef86;
-  text-transform: capitalize;
+  text-transform: capitalize !important;
   margin-right: 5px;
 }
 
@@ -148,6 +148,11 @@ input::placeholder, textarea::placeholder {
 .technology-tag {
   color: #1AB2B5;
   background-color: #FF655010;
+}
+
+.finance-tag {
+  color: #58b51a;
+  background-color: #507cff10;
 }
 
 .fulltime-tag, .parttime-tag, .remote-tag {

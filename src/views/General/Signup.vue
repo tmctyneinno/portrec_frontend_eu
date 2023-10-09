@@ -78,7 +78,15 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive } from "vue";
+import { reactive, onMounted } from "vue";
+//@ts-ignore
+import validator from 'validator';
+
+onMounted(() => {
+    console.log(validator.isEmail('f.ds.oobar.co'));
+
+})
+
 
 const form = reactive({
     type: 'seeker',

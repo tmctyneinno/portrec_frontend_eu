@@ -1,6 +1,7 @@
 <template>
   <!-- header -->
   <headerVue />
+  <overlayLoading v-if="jobsStore.loading" />
   <div class="space-from-header"></div>
 
   <div class="animate__animated animate__fadeIn mb-5">
@@ -237,32 +238,42 @@
 import headerVue from '@/components/header.vue'
 import footerVue from '@/components/footer.vue'
 import searchJobForm from '@/components/searchJobForm.vue';
-import { watchEffect, ref, onMounted, reactive, watch } from 'vue';
+import { onMounted, reactive, watch } from 'vue';
 import { useJobsStore } from '@/stores/jobsStore';
 import { useRoute, useRouter } from 'vue-router';
 
-const route = useRoute()
+const route: any = useRoute()
 const router = useRouter()
 const jobsStore = useJobsStore()
-
-// const queryParams = ref<string[]>([]);
 
 const checked = reactive({
   categories: [],
   types: [],
 })
 
-onMounted(() => {
-  jobsStore.getJobCategories()
-  jobsStore.getJobFunctions()
-  jobsStore.getJobTypes()
+onMounted(async () => {
+  window.scrollTo(0, 0)
+  jobsStore.loading = true
+  await jobsStore.getJobCategories()
+  await jobsStore.getJobFunctions()
+  await jobsStore.getJobTypes()
+  getJobs()
+})
 
-  let queryParams = Object.keys(route.query)
-  if (queryParams.length) {
-    console.log(queryParams);
+function getJobs() {
+
+  if (route.query.category) {
+    checked.categories = route.query.category.split(',')
+  }
+  if (route.query.type) {
+    checked.types = route.query.type.split(',')
   }
 
-})
+  console.log(route.query);
+
+}
+
+watch(() => route.query, () => getJobs())
 
 
 watch(() => [checked.categories, checked.types], () => {
@@ -277,8 +288,6 @@ watch(() => [checked.categories, checked.types], () => {
     path: `/find-jobs`,
     query: queryObj
   })
-
-
 })
 
 </script>

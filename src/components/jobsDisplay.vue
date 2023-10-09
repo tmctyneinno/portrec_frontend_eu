@@ -10,9 +10,9 @@
                         {{ job.title ?? '' }} <i class="bi d-md-none bi-chevron-right"></i>
                     </h5>
                     <div class="slide-info text-muted small text-capitalize">
-                        {{ job.company ? job.company.name : 'Company' }} <i class="bi bi-dot"></i>
-                        {{ job.comapny ? job.company.city : 'Location' }},
-                        {{ job.comapny ? job.company.country : 'Country' }}
+                        {{ job.company ? job.company.name : '' }} <i class="bi bi-dot"></i>
+                        {{ job.company ? job.company.city : '' }},
+                        {{ job.company ? job.company.country : '' }}
                     </div>
                     <div class="col-12 mt-3">
                         <span class="border-right">
@@ -20,8 +20,12 @@
                                 {{ job.job_type ? job.job_type.name : 'Full Time' }}
                             </span>
                         </span>
-                        <span class="category-tag marketing-tag">Marketing</span>
-                        <span class="category-tag design-tag">Design</span>
+                        <span class="category-taga text-capitalize" :class="job.category.name + '-tag'">
+                            {{ job.category ? job.category.name : 'category' }}
+                        </span>
+                        <span class="category-tag text-capitalize">
+                            {{ job.sub_category ? job.sub_category.name : 'category' }}
+                        </span>
                     </div>
                 </div>
             </div>

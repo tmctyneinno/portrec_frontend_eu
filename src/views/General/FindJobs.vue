@@ -222,6 +222,26 @@
                     </div>
                   </div>
 
+                  <div class="col-12 mt-5">
+                    <nav aria-label="Page navigation example">
+                      <ul class="pagination justify-content-center">
+                        <li class="page-item">
+                          <div class="page-link">
+                            <i class="bi bi-chevron-left"></i>
+                          </div>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                          <div class="page-link">
+                            <i class="bi bi-chevron-right"></i>
+                          </div>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
+
                 </div>
               </div>
             </div>
@@ -329,4 +349,20 @@ watch(() => [checked.categories, checked.types], () => {
 }
 
 /* accordion */
+
+
+.pagination .page-link {
+  border: none !important;
+  color: #000 !important;
+  font-weight: bold;
+  border-radius: 7px;
+  padding-inline: 15px;
+  margin-inline: 3px;
+  cursor: pointer;
+}
+
+.pagination .active .page-link {
+  background-color: var(--theme-color) !important;
+  color: #fff !important;
+}
 </style>

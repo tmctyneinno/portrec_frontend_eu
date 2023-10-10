@@ -1,9 +1,9 @@
-import { $instance } from '../instances'
+import { $instance, $instanceJobs } from '../instances'
 
 export default {
 
     allJobs() {
-        return $instance.get(`job/all`)
+        return $instanceJobs.get(`job/all`)
     },
 
     latestJobs() {
@@ -11,18 +11,18 @@ export default {
     },
 
     jobDetails(id: any) {
-        return $instance.get(`job/${id}`)
+        return $instanceJobs.get(`job/${id}`)
     },
 
     jobCategories() {
-        return $instance.get(`job/categories`)
+        return $instanceJobs.get(`job/categories`)
     },
 
     jobTypes() {
-        return $instance.get(`job/types`)
+        return $instanceJobs.get(`job/types`)
     },
 
     jobFunctions() {
-        return $instance.get(`job/functions`)
+        return $instanceJobs.get(`job/functions`)
     },
 }

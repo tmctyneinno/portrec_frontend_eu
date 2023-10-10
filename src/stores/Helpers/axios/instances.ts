@@ -3,28 +3,27 @@ import { type ProgressFinisher, useProgress } from '@marcoschulte/vue3-progress'
 
 const progresses = [] as ProgressFinisher[];
 
-const hostURL = 'https://staging.tmcinstitute.com'
+const hostURL = 'https://staging.tmcinstitute.com';
+const apiURL = `${hostURL}/api/`;
 
-
+const headers = {
+    Accept: 'application/json',
+    withCredentials: true,
+    'Content-Type': 'application/json;charset=UTF-8;text/json;multipart/form-data',
+}
 
 // create instances #######################################################
 const $instance = axios.create({
-    baseURL: `${hostURL}/api/`,
-    headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json;charset=UTF-8;text/json',
-        withCredentials: true,
-    },
+    baseURL: apiURL,
+    headers: headers,
 })
 
-const $instanceForm = axios.create({
-    baseURL: `${hostURL}/api/`,
-    headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json;charset=UTF-8;text/json;multipart/form-data',
-        withCredentials: true,
-    },
+const $instanceJobs = axios.create({
+    baseURL: apiURL,
+    headers: headers,
 })
+
+
 
 
 
@@ -41,19 +40,6 @@ $instance.interceptors.request.use(
     }
 );
 
-$instanceForm.interceptors.request.use(
-    (config: any) => {
-        const token = localStorage.getItem('');
-        if (token) config.headers.Authorization = `Bearer ${token}`;
-        progresses.push(useProgress().start());
-        return config;
-    }
-);
-
-
-
-
-
 
 
 // include progress bar ###########################################################3
@@ -66,5 +52,5 @@ $instance.interceptors.response.use(resp => {
 });
 
 export {
-    $instance, $instanceForm
+    $instance, $instanceJobs
 }

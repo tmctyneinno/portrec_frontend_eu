@@ -16,7 +16,7 @@
                 <div class="row gy-3 align-items-center">
 
                   <div class="col-md-1 text-lg-center">
-                    <img src="@/assets/images/jobs/round.png" class="img-fluid" width="55" alt="">
+                    <img :src="currentJob.company.image" class="img-fluid" width="55" alt="">
                   </div>
 
                   <div class="col-md-7">
@@ -235,19 +235,11 @@ onBeforeRouteLeave(() => {
 </script>
 
 <style scoped>
-@import '@/assets/css/theme-style.css';
+/* @import '@/assets/css/theme-style.css'; */
 
 .img-fluid {
   max-width: 100%;
   height: auto;
-}
-
-.ft-medium {
-  font-weight: 500;
-}
-
-.fs-md {
-  font-size: 16px !important;
 }
 
 .skills-tag {

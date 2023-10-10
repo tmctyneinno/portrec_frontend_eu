@@ -12,9 +12,9 @@
                                     :class="{ 'active': form.type == 'seeker' }">
                                     Job Seeker
                                 </span>
-                                <span @click="form.type = 'company'" class="fw-bolder cursor-pointer"
-                                    :class="{ 'active': form.type == 'company' }">
-                                    Company
+                                <span @click="form.type = 'recruiter'" class="fw-bolder cursor-pointer"
+                                    :class="{ 'active': form.type == 'recruiter' }">
+                                    Recruiter
                                 </span>
                             </div>
                         </div>

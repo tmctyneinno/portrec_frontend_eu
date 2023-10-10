@@ -10,7 +10,6 @@ export const useJobsStore = defineStore('jobsStore', () => {
   // const latest = ref<any[]>([]);
   // const types = ref<any[]>([]);
 
-  const allJobs = ref<any[]>([]);
   const categories: any = useStorage('protrec_$cate', [], sessionStorage)
   const latest: any = useStorage('protrec_$latest_jobs', [], sessionStorage)
   const types: any = useStorage('protrec_$jobTypes', [], sessionStorage)
@@ -113,7 +112,6 @@ export const useJobsStore = defineStore('jobsStore', () => {
 
   return {
     loading,
-    allJobs,
     categories,
     functions,
     types,

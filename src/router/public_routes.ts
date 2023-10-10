@@ -21,7 +21,7 @@ export default [
         component: () => import('../views/General/FindJobs.vue')
     },
     {
-        path: '/job-description',
+        path: '/job-description/:id',
         name: 'Job Description',
         component: () => import('../views/General/JobDescription/_JobDescription.vue')
     },

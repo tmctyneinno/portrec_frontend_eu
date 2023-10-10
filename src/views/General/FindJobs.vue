@@ -46,7 +46,7 @@
                         <div class="list-group list-group-flush">
 
                           <label v-for="x in jobsStore.types" :key="x" class="list-group-item border-0 text-capitalize">
-                            <input @change="getJobs" class="form-check-input me-1" type="checkbox" :value="x.id"
+                            <input @change="respondToCheckBox" class="form-check-input me-1" type="checkbox" :value="x.id"
                               v-model="checked.type_id">
                             {{ x.name }} ({{ x.total_jobs }})
                           </label>
@@ -73,7 +73,7 @@
 
                           <label v-for="x in jobsStore.categories" :key="x"
                             class="list-group-item border-0 text-capitalize">
-                            <input @change="getJobs" class="form-check-input me-1" type="checkbox" :value="x.id"
+                            <input @change="respondToCheckBox" class="form-check-input me-1" type="checkbox" :value="x.id"
                               v-model="checked.cat_id">
                             {{ x.name }} ({{ x.total_jobs }})
                           </label>
@@ -169,7 +169,9 @@
                 <div class="col-7">
                   <div>
                     <div class="fw-bold fs-4">All Jobs</div>
-                    <div class="xsmall text-muted" style="line-height:7px; ">Showing 73 results</div>
+                    <div class="xsmall text-muted" style="line-height:7px; ">
+                      Showing {{ jobsStore.allJobsChunked.total }} results
+                    </div>
                   </div>
                 </div>
                 <!-- <div class="col-lg-5 col-12 d-flex justify-content-end  align-items-center small ">
@@ -218,8 +220,9 @@
                           </div>
                           <div class="col-md-3 justify-content-end">
                             <div class="text-cente">
-                              <div @click="goToDesctiptionPage(job.id)" class="btn p-2 btn-primary rounded-0 w-100">Apply
-                              </div>
+                              <router-link :to="`/job-description/${job.id}`"
+                                class="btn p-2 btn-primary rounded-0 w-100">Apply</router-link>
+
                               <div class="progress mt-2 mb-0 rounded-0" role="progressbar"
                                 :aria-valuenow="job.total_applied" aria-valuemin="0" :aria-valuemax="job.capacity"
                                 style="height: 5px">
@@ -274,12 +277,8 @@ import footerVue from '@/components/footer.vue'
 import searchJobForm from '@/components/searchJobForm.vue';
 import { onMounted, reactive } from 'vue';
 import { useJobsStore } from '@/stores/jobsStore';
-import { useJobApplicationStore } from '@/stores/jobApplicationStore';
-import { useRouter } from 'vue-router';
 
 const jobsStore = useJobsStore()
-const jobApplication = useJobApplicationStore()
-const router = useRouter()
 
 const checked: any = reactive({
   cat_id: [],
@@ -321,12 +320,8 @@ function getJobs() {
 
 }
 
-
-function goToDesctiptionPage(id?: string) {
-  jobApplication.currentJobId = id
-  router.push({
-    path: '/job-description'
-  })
+function respondToCheckBox() {
+  getJobs()
 }
 
 

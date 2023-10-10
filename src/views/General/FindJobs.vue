@@ -46,7 +46,8 @@
                         <div class="list-group list-group-flush">
 
                           <label v-for="x in jobsStore.types" :key="x" class="list-group-item border-0 text-capitalize">
-                            <input class="form-check-input me-1" type="checkbox" :value="x.id" v-model="checked.types">
+                            <input @change="getJobs" class="form-check-input me-1" type="checkbox" :value="x.id"
+                              v-model="checked.type_id">
                             {{ x.name }} ({{ x.total_jobs }})
                           </label>
 
@@ -72,8 +73,8 @@
 
                           <label v-for="x in jobsStore.categories" :key="x"
                             class="list-group-item border-0 text-capitalize">
-                            <input class="form-check-input me-1" type="checkbox" :value="x.id"
-                              v-model="checked.categories">
+                            <input @change="getJobs" class="form-check-input me-1" type="checkbox" :value="x.id"
+                              v-model="checked.cat_id">
                             {{ x.name }} ({{ x.total_jobs }})
                           </label>
 
@@ -185,36 +186,48 @@
             </div>
             <div class="col-12">
               <div class="card border-0">
-                <div class="row justify-content-center gy-3">
+                <div v-if="jobsStore.allJobsChunked.data.length" class="row justify-content-center gy-3">
 
-                  <div v-for="i in 8" :key="i" class="col-md-12 col-sm-12 col-12 ">
+                  <div v-for="job in jobsStore.allJobsChunked.data" :key="job" class="col-md-12 col-sm-12 col-12 ">
                     <div class="card rounded-0">
                       <div class="card-body">
                         <div class="row gy-3 align-items-center">
                           <div class="col-md-2 text-lg-center">
-                            <img src="@/assets/images/jobs/round.png" class="img-fluid" width="55" alt="">
+                            <img :src="job.company ? job.company.image : 's'" class="img-fluid" width="55" alt="">
                           </div>
                           <div class="col-md-7">
-                            <h4 class="fs-md mb-0 ft-medium">Fresher UI/UX Designer (3 Year Exp.)</h4>
+                            <h4 class="fs-md mb-0 ft-medium">{{ job.title }}</h4>
                             <div class="d-block mb-2 position-relative">
-                              <span class="text-muted medium"><i class="lni lni-map-marker me-1"></i>Liverpool,
-                                London</span>
+                              <span class="text-muted medium text-capitalize"><i class="lni lni-map-marker me-1"></i>
+                                {{ job.company ? job.company.city : '' }},
+                                {{ job.company ? job.company.country : '' }},
+
+                              </span>
                             </div>
                             <span class="border-right">
-                              <span class="category-tag fulltime-tag">Full-Time</span>
+                              <span class="category-tag fulltime-tag text-capitalize">
+                                {{ job.job_type ? job.job_type.name : 'Full Time' }}
+                              </span>
                             </span>
-                            <span class="category-tag marketing-tag">Marketing</span>
-                            <span class="category-tag design-tag">Design</span>
+                            <span class="category-tag text-capitalize" :class="job.category.name + '-tag'">
+                              {{ job.category ? job.category.name : 'category' }}
+                            </span>
+                            <span class="category-tag text-capitalize">
+                              {{ job.sub_category ? job.sub_category.name : 'category' }}
+                            </span>
                           </div>
                           <div class="col-md-3 justify-content-end">
                             <div class="text-cente">
-                              <router-link :to="`/job-description/${i}`"
-                                class="btn p-2 btn-primary rounded-0 w-100">Apply</router-link>
-                              <div class="progress mt-2 mb-0 rounded-0" role="progressbar" aria-valuenow="50"
-                                aria-valuemin="0" aria-valuemax="100" style="height: 5px">
-                                <div class="progress-bar bg-danger" style="width: 50%"></div>
+                              <div @click="goToDesctiptionPage(job.id)" class="btn p-2 btn-primary rounded-0 w-100">Apply
                               </div>
-                              <small>5 applied of 10 capacity</small>
+                              <div class="progress mt-2 mb-0 rounded-0" role="progressbar"
+                                :aria-valuenow="job.total_applied" aria-valuemin="0" :aria-valuemax="job.capacity"
+                                style="height: 5px">
+                                <div class="progress-bar bg-danger"
+                                  :style="`width: ${(job.total_applied / job.capacity) * 100}%`">
+                                </div>
+                              </div>
+                              <small>{{ job.total_applied }} applied of {{ job.capacity }} capacity</small>
                             </div>
                           </div>
                         </div>
@@ -259,17 +272,18 @@
 import headerVue from '@/components/header.vue'
 import footerVue from '@/components/footer.vue'
 import searchJobForm from '@/components/searchJobForm.vue';
-import { onMounted, reactive, watch } from 'vue';
+import { onMounted, reactive } from 'vue';
 import { useJobsStore } from '@/stores/jobsStore';
-import { useRoute, useRouter } from 'vue-router';
+import { useJobApplicationStore } from '@/stores/jobApplicationStore';
+import { useRouter } from 'vue-router';
 
-const route: any = useRoute()
-const router = useRouter()
 const jobsStore = useJobsStore()
+const jobApplication = useJobApplicationStore()
+const router = useRouter()
 
-const checked = reactive({
-  categories: [],
-  types: [],
+const checked: any = reactive({
+  cat_id: [],
+  type_id: [],
 })
 
 onMounted(async () => {
@@ -278,38 +292,43 @@ onMounted(async () => {
   await jobsStore.getJobCategories()
   await jobsStore.getJobFunctions()
   await jobsStore.getJobTypes()
+  jobsStore.loading = false
+  checkBoxesAccordingToExistingQuery()
   getJobs()
 })
 
+function checkBoxesAccordingToExistingQuery() {
+  if (jobsStore.queryObj.cat_id) {
+    checked.cat_id.push(jobsStore.queryObj.cat_id)
+  }
+  if (jobsStore.queryObj.type_id) {
+    checked.cat_id.push(jobsStore.queryObj.type_id)
+  }
+}
+
 function getJobs() {
+  let queryObj: any = {}
+  if (checked.cat_id.length)
+    queryObj.cat_id = checked.cat_id
 
-  if (route.query.category) {
-    checked.categories = route.query.category.split(',')
-  }
-  if (route.query.type) {
-    checked.types = route.query.type.split(',')
-  }
+  if (checked.type_id.length)
+    queryObj.type_id = checked.type_id
 
-  console.log(route.query);
+  jobsStore.queryObj = queryObj;
+
+  jobsStore.getAllJobs()
+  console.log(jobsStore.allJobsChunked);
 
 }
 
-watch(() => route.query, () => getJobs())
 
-
-watch(() => [checked.categories, checked.types], () => {
-  let queryObj: any = {};
-  if (checked.categories.length)
-    queryObj.category = checked.categories.toString()
-
-  if (checked.types.length)
-    queryObj.type = checked.types.toString()
-
-  router.replace({
-    path: `/find-jobs`,
-    query: queryObj
+function goToDesctiptionPage(id?: string) {
+  jobApplication.currentJobId = id
+  router.push({
+    path: '/job-description'
   })
-})
+}
+
 
 </script>
 

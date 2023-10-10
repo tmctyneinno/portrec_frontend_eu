@@ -18,8 +18,7 @@
             <div class="col-12 mt-4">
                 <div class="row g-4">
                     <div v-for="(cat, index) in  jobsStore.categories" :key="index" class="col-md-4 col-lg-3">
-                        <div @click="router.push({ path: '/find-jobs', query: { category: cat.id } })"
-                            class="card explore-card p-3 py-lg-4 hover-tiltY">
+                        <div @click="gotoFindJobs(cat.id)" class="card explore-card p-3 py-lg-4 hover-tiltY">
                             <div class="card-icon theme-color"><i class="bi" :class="cateIcon(cat.name)"></i> </div>
                             <h3 class="card-title fw-light my-2 text-capitalize">{{ cat.name }}</h3>
                             <div class="fw-bolder">{{ cat.total_jobs }} jobs available <i class="bi bi-arrow-right"></i>
@@ -58,6 +57,11 @@ const cateIcon = (name: string) => {
     ]
     let $found = iconsArray.find(x => x.name == name.toLocaleLowerCase());
     return $found ? $found.icon : '';
+}
+
+function gotoFindJobs(id: any) {
+    jobsStore.queryObj.cat_id = id;
+    router.push({ path: '/find-jobs' })
 }
 
 </script>

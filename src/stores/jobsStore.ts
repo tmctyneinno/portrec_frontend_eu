@@ -1,9 +1,10 @@
+/* eslint-disable no-prototype-builtins */
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { useStorage } from '@vueuse/core'
 import api from '@/stores/Helpers/axios'
 
-export const useJobsStore = defineStore('jobs', () => {
+export const useJobsStore = defineStore('jobsStore', () => {
   // const functions = ref<any[]>([]);
   // const categories = ref<any[]>([]);
   // const latest = ref<any[]>([]);
@@ -14,13 +15,43 @@ export const useJobsStore = defineStore('jobs', () => {
   const latest: any = useStorage('protrec_$latest_jobs', [], sessionStorage)
   const types: any = useStorage('protrec_$jobTypes', [], sessionStorage)
   const functions: any = useStorage('protrec_$jobfunctions', [], sessionStorage)
+  const allJobsChunked: any = useStorage('protrec_$jobs_Chucked', [], sessionStorage)
   const loading = ref<boolean>(false)
+  const queryObj = ref<any>({});
+  const currentQueryStr = ref<string>('');
 
 
-  async function getAllJobs() {
+  function convertQueryObjToURL(page: number) {
+    if (Object.keys(queryObj.value).length) {
+      const keyValuePairs = [];
+      for (const key in queryObj.value) {
+        if (queryObj.value.hasOwnProperty(key)) {
+          let value = queryObj.value[key];
+          if (Array.isArray(value)) {
+            value = value.map(item => encodeURIComponent(item)).join(',');
+          } else {
+            value = encodeURIComponent(value);
+          }
+          keyValuePairs.push(encodeURIComponent(key) + '=' + value);
+        }
+      }
+      const str = '?' + keyValuePairs.join('&');
+      currentQueryStr.value = `${str}&page=${page}`;
+
+    }
+    else {
+      currentQueryStr.value = '?page=' + page;
+    }
+  }
+
+
+  async function getAllJobs(page = 1) {
+    convertQueryObjToURL(page)
     try {
-      const resp = await api.allJobs()
-      console.log(resp);
+      const resp = await api.allJobs(currentQueryStr.value)
+      if (resp.status == 200)
+        allJobsChunked.value = resp.data.body
+      // console.log('...chunked', resp.data.body);
 
     } catch (error) {
       console.log(error);
@@ -39,10 +70,6 @@ export const useJobsStore = defineStore('jobs', () => {
     } catch (error) {
       console.log(error);
     }
-    finally {
-      loading.value = false
-    }
-
   }
 
   async function getJobFunctions() {
@@ -54,10 +81,6 @@ export const useJobsStore = defineStore('jobs', () => {
     } catch (error) {
       console.log(error);
     }
-    finally {
-      loading.value = false
-    }
-
   }
 
   async function getJobCategories() {
@@ -68,9 +91,6 @@ export const useJobsStore = defineStore('jobs', () => {
       // console.log('jobcategories', resp.data.body);
     } catch (error) {
       console.log(error);
-    }
-    finally {
-      loading.value = false
     }
 
   }
@@ -98,10 +118,12 @@ export const useJobsStore = defineStore('jobs', () => {
     functions,
     types,
     latest,
+    queryObj,
+    allJobsChunked,
     getAllJobs,
     getJobTypes,
     getJobFunctions,
     getJobCategories,
-    getLatestJobs
+    getLatestJobs,
   }
 })

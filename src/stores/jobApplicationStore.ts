@@ -6,6 +6,7 @@ import { useStorage } from '@vueuse/core'
 export const useJobApplicationStore = defineStore('jobApplicationStore', () => {
     const currentModal = ref(0)
     const modalOpen = ref(false)
+    const currentJobId: any = useStorage('protrec_$current_job_id', '', sessionStorage)
     const currentJob: any = useStorage('protrec_$current_job', [], sessionStorage)
     const loading = ref<boolean>(false)
 
@@ -17,10 +18,10 @@ export const useJobApplicationStore = defineStore('jobApplicationStore', () => {
         currentModal.value = (0 > num) ? currentModal.value - 1 : currentModal.value + 1;
     }
 
-    async function currentJobQuery(id: any) {
+    async function currentJobQuery() {
         try {
             // currentJob.value = [];
-            const resp = await api.jobDetails(id)
+            const resp = await api.jobDetails(currentJobId.value)
             if (resp.status == 200)
                 currentJob.value = resp.data.body
         } catch (error) {
@@ -37,6 +38,7 @@ export const useJobApplicationStore = defineStore('jobApplicationStore', () => {
         modalOpen,
         applyData,
         currentJob,
+        currentJobId,
         switchModal,
         currentJobQuery,
     }

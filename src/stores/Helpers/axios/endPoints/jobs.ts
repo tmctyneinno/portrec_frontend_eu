@@ -2,8 +2,8 @@ import { $instance, $instanceJobs } from '../instances'
 
 export default {
 
-    allJobs() {
-        return $instanceJobs.get(`job/all`)
+    allJobs(queryStr?: string) {
+        return $instance.get(`job/all${queryStr}`)
     },
 
     latestJobs() {

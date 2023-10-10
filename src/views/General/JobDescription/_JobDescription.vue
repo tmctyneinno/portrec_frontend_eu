@@ -197,7 +197,7 @@
 
 <script setup lang="ts">
 import { watchEffect } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
+import { useRouter, } from 'vue-router';
 import { onBeforeRouteLeave } from 'vue-router';
 import headerVue from '@/components/header.vue'
 import footerVue from '@/components/footer.vue'
@@ -215,11 +215,10 @@ import modal4 from './jobApplication/modal4.vue';
 const job = useJobApplicationStore()
 const { currentJob, loading, modalOpen, currentModal } = storeToRefs(job)
 const router = useRouter()
-const route = useRoute()
 
 watchEffect(() => {
   loading.value = true
-  job.currentJobQuery(route.params.id)
+  job.currentJobQuery()
   console.log(currentJob);
 })
 

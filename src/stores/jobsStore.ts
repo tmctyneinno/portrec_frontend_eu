@@ -15,12 +15,14 @@ export const useJobsStore = defineStore('jobsStore', () => {
   const types: any = useStorage('protrec_$jobTypes', [], sessionStorage)
   const functions: any = useStorage('protrec_$jobfunctions', [], sessionStorage)
   const allJobsChunked: any = useStorage('protrec_$jobs_Chucked', [], sessionStorage)
+  const allJobsData: any = useStorage('protrec_$jobs_data', [], sessionStorage)
   const loading = ref<boolean>(false)
   const queryObj = ref<any>({});
   const currentQueryStr = ref<string>('');
 
 
   function convertQueryObjToURL(page: number) {
+    currentQueryStr.value = ''
     if (Object.keys(queryObj.value).length) {
       const keyValuePairs = [];
       for (const key in queryObj.value) {
@@ -46,10 +48,14 @@ export const useJobsStore = defineStore('jobsStore', () => {
 
   async function getAllJobs(page = 1) {
     convertQueryObjToURL(page)
+    // console.log(currentQueryStr.value);
+
     try {
       const resp = await api.allJobs(currentQueryStr.value)
-      if (resp.status == 200)
+      if (resp.status == 200) {
         allJobsChunked.value = resp.data.body
+        allJobsData.value = resp.data.body.data
+      }
       // console.log('...chunked', resp.data.body);
 
     } catch (error) {
@@ -118,6 +124,7 @@ export const useJobsStore = defineStore('jobsStore', () => {
     latest,
     queryObj,
     allJobsChunked,
+    allJobsData,
     getAllJobs,
     getJobTypes,
     getJobFunctions,

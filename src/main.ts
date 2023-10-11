@@ -55,6 +55,7 @@ import 'v-calendar/style.css';
 
 import jobsDisplayVue from '@/components/jobsDisplay.vue';
 import overlayLoading from '@/components/overlayLoading.vue';
+import noDataShow from '@/components/noDataShow.vue';
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
@@ -73,6 +74,7 @@ app.component('VCalendar', Calendar)
 app.component('VDatePicker', DatePicker)
 app.component('jobsDisplayVue', jobsDisplayVue)
 app.component('overlayLoading', overlayLoading)
+app.component('noDataShow', noDataShow)
 
 app.use(createPinia())
 app.use(VueApexCharts);

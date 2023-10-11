@@ -166,11 +166,12 @@
           <div class="card p-2 border-0">
             <div class="col-12 my-3">
               <div class="row mb-3">
-                <div class="col-7">
+                <div class="col-12">
                   <div>
                     <div class="fw-bold fs-4">All Jobs</div>
-                    <div class="xsmall text-muted" style="line-height:7px; ">
-                      Showing {{ jobsStore.allJobsChunked.total }} results
+                    <div v-if="jobsStore.allJobsData.length" class="small text-muted" style="line-height:7px; ">
+                      Showing page <span class="fw-bold">{{ currentPage }}/ {{ totalPages }}</span>
+                      of <span class="fw-bold">{{ jobsStore.allJobsChunked.total }}</span> results
                     </div>
                   </div>
                 </div>
@@ -188,9 +189,9 @@
             </div>
             <div class="col-12">
               <div class="card border-0">
-                <div v-if="jobsStore.allJobsChunked.data.length" class="row justify-content-center gy-3">
+                <div v-if="jobsStore.allJobsData.length" class="row justify-content-center gy-3">
 
-                  <div v-for="job in jobsStore.allJobsChunked.data" :key="job" class="col-md-12 col-sm-12 col-12 ">
+                  <div v-for="job in jobsStore.allJobsData" :key="job" class="col-md-12 col-sm-12 col-12 ">
                     <div class="card rounded-0">
                       <div class="card-body">
                         <div class="row gy-3 align-items-center">
@@ -238,27 +239,44 @@
                     </div>
                   </div>
 
+                  <!-- pagination -->
                   <div class="col-12 mt-5">
                     <nav aria-label="Page navigation example">
                       <ul class="pagination justify-content-center">
-                        <li class="page-item">
+                        <li @click="moveToPage(-1)" class="page-item">
                           <div class="page-link">
                             <i class="bi bi-chevron-left"></i>
                           </div>
                         </li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
+                        <li v-if="pagesToShow[0] > 1" @click="changePage(1)" class="page-item">
+                          <span class="page-link">1</span>
+                        </li>
+                        <li v-if="pagesToShow[0] > 2" class="page-item"><span class="page-link mx-0 px-0">....</span></li>
+                        <li v-for="page in pagesToShow" :key="page"
+                          :class="{ 'page-item': true, 'active': page === currentPage }" @click="changePage(page)">
+                          <span class="page-link">{{ page }}</span>
+                        </li>
+
+                        <li v-if="pagesToShow[pagesToShow.length - 1] < totalPages - 1" class="page-item">
+                          <span class="page-link mx-0 px-0">...</span>
+                        </li>
+
+                        <li v-if="pagesToShow[pagesToShow.length - 1] !== totalPages" @click="changePage(totalPages)"
+                          class="page-item">
+                          <span class="page-link">{{ totalPages }}</span>
+                        </li>
+                        <li @click="moveToPage(1)" class="page-item">
                           <div class="page-link">
                             <i class="bi bi-chevron-right"></i>
                           </div>
                         </li>
                       </ul>
                     </nav>
+
                   </div>
 
                 </div>
+                <noDataShow v-else text="No jobs to show" />
               </div>
             </div>
           </div>
@@ -275,7 +293,7 @@
 import headerVue from '@/components/header.vue'
 import footerVue from '@/components/footer.vue'
 import searchJobForm from '@/components/searchJobForm.vue';
-import { onMounted, reactive } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 import { useJobsStore } from '@/stores/jobsStore';
 
 const jobsStore = useJobsStore()
@@ -291,21 +309,22 @@ onMounted(async () => {
   await jobsStore.getJobCategories()
   await jobsStore.getJobFunctions()
   await jobsStore.getJobTypes()
+  await getJobs()
   jobsStore.loading = false
-  checkBoxesAccordingToExistingQuery()
-  getJobs()
+  jobsStore.queryObj = {}
+  // checkBoxesAccordingToExistingQuery()
 })
 
-function checkBoxesAccordingToExistingQuery() {
-  if (jobsStore.queryObj.cat_id) {
-    checked.cat_id.push(jobsStore.queryObj.cat_id)
-  }
-  if (jobsStore.queryObj.type_id) {
-    checked.cat_id.push(jobsStore.queryObj.type_id)
-  }
-}
+// function checkBoxesAccordingToExistingQuery() {
+//   if (jobsStore.queryObj.cat_id) {
+//     checked.cat_id.push(jobsStore.queryObj.cat_id)
+//   }
+//   if (jobsStore.queryObj.type_id) {
+//     checked.type_id.push(jobsStore.queryObj.type_id)
+//   }
+// }
 
-function getJobs() {
+async function getJobs(page = 1) {
   let queryObj: any = {}
   if (checked.cat_id.length)
     queryObj.cat_id = checked.cat_id
@@ -315,14 +334,60 @@ function getJobs() {
 
   jobsStore.queryObj = queryObj;
 
-  jobsStore.getAllJobs()
-  console.log(jobsStore.allJobsChunked);
+  await jobsStore.getAllJobs(page)
+
+  currentPage.value = jobsStore.allJobsChunked.current_page
+  totalPages.value = jobsStore.allJobsChunked.last_page
 
 }
 
 function respondToCheckBox() {
   getJobs()
 }
+
+
+// pagination
+const currentPage = ref();
+const totalPages = ref(0);
+
+const pagesToShow = computed(() => {
+  let startPage = Math.max(1, currentPage.value - 1);
+  let endPage = Math.min(totalPages.value, currentPage.value + 1);
+  let pages = [];
+
+  for (let i = startPage; i <= endPage; i++) {
+    pages.push(i);
+  }
+  return pages;
+});
+
+const changePage = (page: number) => {
+  window.scrollTo(0, 0)
+  getJobs(page)
+  currentPage.value = page;
+  console.log(page);
+
+};
+
+//
+
+const moveToPage = (moveTo: number) => {
+  if (moveTo == 1) {
+    if ((currentPage.value !== totalPages.value)) {
+      changePage(currentPage.value + 1)
+    }
+  }
+  else if (moveTo == -1) {
+    if (currentPage.value != 1)
+      changePage(currentPage.value - 1)
+  }
+};
+
+
+
+
+
+
 
 
 </script>
@@ -344,10 +409,6 @@ function respondToCheckBox() {
 .fs-md {
   font-size: 16px !important;
 }
-
-
-
-
 
 
 /* accordion */

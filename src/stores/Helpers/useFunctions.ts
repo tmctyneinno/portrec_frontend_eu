@@ -1,12 +1,14 @@
-import { reactive } from 'vue'
 import Swal from 'sweetalert2'
+//@ts-ignore
+import validator from 'validator';
 
-const fx = reactive({
-
+export default {
     isEmail: (email: string) => {
-        // eslint-disable-next-line no-useless-escape
-        const regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-        return regex.test(email)
+
+        return validator.isEmail(email)
+        // // eslint-disable-next-line no-useless-escape
+        // const regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        // return regex.test(email)
     },
 
     isExtension: (fileName: string, requiredFormats: string[]) => {
@@ -28,7 +30,7 @@ const fx = reactive({
     },
 
     toast: (text: string, icon: any) => {
-         // @ts-expect-error
+        // @ts-expect-error
         Swal.fire({
             toast: true,
             icon: `${icon}`,
@@ -38,7 +40,7 @@ const fx = reactive({
             timer: 3000,
             timerProgressBar: false,
             padding: 10,
-            iconColor: '#2c3e50',
+            // iconColor: '#2c3e50',
         })
     },
 
@@ -74,8 +76,4 @@ const fx = reactive({
         str[0] = str[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         return str.join(".");
     }
-})
-
-export default {
-    fx
 }

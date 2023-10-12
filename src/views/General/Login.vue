@@ -12,9 +12,9 @@
                                     :class="{ 'active': form.type == 'seeker' }">
                                     Job Seeker
                                 </span>
-                                <span @click="form.type = 'company'" class="fw-bolder cursor-pointer"
-                                    :class="{ 'active': form.type == 'company' }">
-                                    Company
+                                <span @click="form.type = 'recruiter'" class="fw-bolder cursor-pointer"
+                                    :class="{ 'active': form.type == 'recruiter' }">
+                                    Recruiter
                                 </span>
                             </div>
                         </div>
@@ -43,9 +43,17 @@
                                     placeholder="Enter email address">
                             </div>
                             <div class="col-12">
-                                <label class="fw-bold text-muted small">Password:</label>
-                                <input v-model="form.password" type="text" class="form-control form-control-l  rounded-0"
-                                    placeholder="Enter password">
+                                <div class="fw-bold text-muted small">Password:
+
+                                    <span v-if="form.password"
+                                        @click="form.passwordDisplay = form.passwordDisplay == 'password' ? 'text' : 'password'"
+                                        class="float-end cursor-pointer theme-color">
+                                        <span v-if="form.passwordDisplay == 'password'">show</span>
+                                        <span v-else>hide</span>
+                                    </span>
+                                </div>
+                                <input v-model="form.password" :type="form.passwordDisplay"
+                                    class="form-control form-control-l  rounded-0" placeholder="Enter password">
                             </div>
                             <div v-show="form.isError" class="col-12 mt-2">
                                 <div class="alert alert-danger small py-1 border-0 rounded-0 text-danger">
@@ -60,8 +68,11 @@
                                 </label>
                             </div>
                             <div class="col-12 mt-3">
-                                <button type="submit" class="btn btn-lg btn-primary rounded-0 w-100">
+                                <button v-if="!form.isLoading" type="submit" class="btn btn-lg btn-primary rounded-0 w-100">
                                     Login
+                                </button>
+                                <button v-else class="btn btn-primary rounded-0 w-100" disabled>
+                                    <span class="spinner-border spinner-border" aria-hidden="true"></span>
                                 </button>
                             </div>
                             <div class="col-12 mt-3">
@@ -79,20 +90,72 @@
 
 <script lang="ts" setup>
 import { reactive } from "vue";
+import useFxn from "@/stores/Helpers/useFunctions";
+import api from "@/stores/Helpers/axios";
+import { useOnline } from "@vueuse/core";
+import { useRouter } from "vue-router";
+import { useProfileStore } from "@/stores/profileStore";
 
+
+const online = useOnline()
+const router = useRouter()
+const profile = useProfileStore()
 
 const form = reactive({
     type: 'seeker',
     email: '',
     password: '',
+    passwordDisplay: 'password',
     isError: false,
     isLoading: false
 })
 
 function submitForm() {
+    if (!form.email || !form.password) {
+        useFxn.toast('Please complete fields', 'warning')
+        return;
+    }
+
+    if (!useFxn.isEmail(form.email)) {
+        useFxn.toast('Email format is invalid!', 'warning')
+        return;
+    }
+    if (!online.value) {
+        useFxn.toast('No internet, You are offline!', 'warning')
+        return;
+    }
+
+    if (form.type == 'seeker') {
+        form.isLoading = true
+        signinJobSeeker()
+    }
+
 
 }
 
+async function signinJobSeeker() {
+    try {
+        let { data } = await api.userLogin(form)
+        if (data.status == 200) {
+            profile.token = data.body.token
+            profile.userType = 'user'
+            router.push({
+                path: '/user/dashboard'
+            })
+        }
+        else {
+            form.isError = true
+        }
+    } catch (error) {
+        console.log(error);
+
+        useFxn.toast('Sorry, error occured, check your internet', 'error')
+    }
+    finally {
+        form.isLoading = false
+
+    }
+}
 
 
 </script>

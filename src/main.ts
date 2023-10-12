@@ -56,6 +56,7 @@ import 'v-calendar/style.css';
 import jobsDisplayVue from '@/components/jobsDisplay.vue';
 import overlayLoading from '@/components/overlayLoading.vue';
 import noDataShow from '@/components/noDataShow.vue';
+import componentLoading from '@/components/componentLoading.vue';
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
@@ -72,9 +73,13 @@ app.component("downloadExcel", JsonExcel);
 app.component("infinite-loading", InfiniteLoading);
 app.component('VCalendar', Calendar)
 app.component('VDatePicker', DatePicker)
+
+// custom components
 app.component('jobsDisplayVue', jobsDisplayVue)
 app.component('overlayLoading', overlayLoading)
 app.component('noDataShow', noDataShow)
+app.component('componentLoading', componentLoading)
+
 
 app.use(createPinia())
 app.use(VueApexCharts);

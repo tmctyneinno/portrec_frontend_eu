@@ -169,9 +169,9 @@
                 <div class="col-12">
                   <div>
                     <div class="fw-bold fs-4">All Jobs</div>
-                    <div v-if="jobsStore.allJobsData.length" class="small text-muted" style="line-height:7px; ">
+                    <div v-if="!jobsStore.loading" class="small text-muted" style="line-height:7px; ">
                       Showing page <span class="fw-bold">{{ currentPage }}/ {{ totalPages }}</span>
-                      of <span class="fw-bold">{{ jobsStore.allJobsChunked.total }}</span> results
+                      of <span class="fw-bold">{{ totalRecords }}</span> results
                     </div>
                   </div>
                 </div>
@@ -189,94 +189,101 @@
             </div>
             <div class="col-12">
               <div class="card border-0">
-                <div v-if="jobsStore.allJobsData.length" class="row justify-content-center gy-3">
+                <div v-if="jobsStore.loading" style="min-height: 400px;">
+                  <!-- <componentLoading /> -->
+                </div>
 
-                  <div v-for="job in jobsStore.allJobsData" :key="job" class="col-md-12 col-sm-12 col-12 ">
-                    <div class="card rounded-0">
-                      <div class="card-body">
-                        <div class="row gy-3 align-items-center">
-                          <div class="col-md-2 text-lg-center">
-                            <img :src="job.company ? job.company.image : 's'" class="img-fluid" width="55" alt="">
-                          </div>
-                          <div class="col-md-7">
-                            <h4 class="fs-md mb-0 ft-medium">{{ job.title }}</h4>
-                            <div class="d-block mb-2 position-relative">
-                              <span class="text-muted medium text-capitalize"><i class="lni lni-map-marker me-1"></i>
-                                {{ job.company ? job.company.city : '' }},
-                                {{ job.company ? job.company.country : '' }},
+                <div v-else>
+                  <div v-if="jobsStore.allJobsData.length" class="row justify-content-center gy-3">
 
+                    <div v-for="job in jobsStore.allJobsData" :key="job" class="col-md-12 col-sm-12 col-12 ">
+                      <div class="card rounded-0">
+                        <div class="card-body">
+                          <div class="row gy-3 align-items-center">
+                            <div class="col-md-2 text-lg-center">
+                              <img :src="job.company ? job.company.image : ''" class="img-fluid" alt="">
+                            </div>
+                            <div class="col-md-7">
+                              <h4 class="fs-md mb-0 ft-medium">{{ job.title }}</h4>
+                              <div class="d-block mb-2 position-relative">
+                                <span class="text-muted medium text-capitalize"><i class="lni lni-map-marker me-1"></i>
+                                  {{ job.company ? job.company.city : '' }},
+                                  {{ job.company ? job.company.country : '' }},
+
+                                </span>
+                              </div>
+                              <span class="border-right">
+                                <span class="category-tag fulltime-tag text-capitalize">
+                                  {{ job.job_type ? job.job_type.name : 'Full Time' }}
+                                </span>
+                              </span>
+                              <span class="category-tag text-capitalize" :class="job.category.name + '-tag'">
+                                {{ job.category ? job.category.name : 'category' }}
+                              </span>
+                              <span class="category-tag text-capitalize">
+                                {{ job.sub_category ? job.sub_category.name : 'category' }}
                               </span>
                             </div>
-                            <span class="border-right">
-                              <span class="category-tag fulltime-tag text-capitalize">
-                                {{ job.job_type ? job.job_type.name : 'Full Time' }}
-                              </span>
-                            </span>
-                            <span class="category-tag text-capitalize" :class="job.category.name + '-tag'">
-                              {{ job.category ? job.category.name : 'category' }}
-                            </span>
-                            <span class="category-tag text-capitalize">
-                              {{ job.sub_category ? job.sub_category.name : 'category' }}
-                            </span>
-                          </div>
-                          <div class="col-md-3 justify-content-end">
-                            <div class="text-cente">
-                              <router-link :to="`/job-description/${job.id}`"
-                                class="btn p-2 btn-primary rounded-0 w-100">Apply</router-link>
+                            <div class="col-md-3 justify-content-end">
+                              <div class="text-cente">
+                                <router-link :to="`/job-description/${job.id}`"
+                                  class="btn p-2 btn-primary rounded-0 w-100">Apply</router-link>
 
-                              <div class="progress mt-2 mb-0 rounded-0" role="progressbar"
-                                :aria-valuenow="job.total_applied" aria-valuemin="0" :aria-valuemax="job.capacity"
-                                style="height: 5px">
-                                <div class="progress-bar bg-danger"
-                                  :style="`width: ${(job.total_applied / job.capacity) * 100}%`">
+                                <div class="progress mt-2 mb-0 rounded-0" role="progressbar"
+                                  :aria-valuenow="job.total_applied" aria-valuemin="0" :aria-valuemax="job.capacity"
+                                  style="height: 5px">
+                                  <div class="progress-bar bg-danger"
+                                    :style="`width: ${(job.total_applied / job.capacity) * 100}%`">
+                                  </div>
                                 </div>
+                                <small>{{ job.total_applied }} applied of {{ job.capacity }} capacity</small>
                               </div>
-                              <small>{{ job.total_applied }} applied of {{ job.capacity }} capacity</small>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
+
+                    <!-- pagination -->
+                    <div class="col-12 mt-5">
+                      <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                          <li @click="moveToPage(-1)" class="page-item">
+                            <div class="page-link">
+                              <i class="bi bi-chevron-left"></i>
+                            </div>
+                          </li>
+                          <li v-if="pagesToShow[0] > 1" @click="changePage(1)" class="page-item">
+                            <span class="page-link">1</span>
+                          </li>
+                          <li v-if="pagesToShow[0] > 2" class="page-item"><span class="page-link mx-0 px-0">....</span>
+                          </li>
+                          <li v-for="page in pagesToShow" :key="page"
+                            :class="{ 'page-item': true, 'active': page === currentPage }" @click="changePage(page)">
+                            <span class="page-link">{{ page }}</span>
+                          </li>
+
+                          <li v-if="pagesToShow[pagesToShow.length - 1] < totalPages - 1" class="page-item">
+                            <span class="page-link mx-0 px-0">...</span>
+                          </li>
+
+                          <li v-if="pagesToShow[pagesToShow.length - 1] !== totalPages" @click="changePage(totalPages)"
+                            class="page-item">
+                            <span class="page-link">{{ totalPages }}</span>
+                          </li>
+                          <li @click="moveToPage(1)" class="page-item">
+                            <div class="page-link">
+                              <i class="bi bi-chevron-right"></i>
+                            </div>
+                          </li>
+                        </ul>
+                      </nav>
+                    </div>
                   </div>
 
-                  <!-- pagination -->
-                  <div class="col-12 mt-5">
-                    <nav aria-label="Page navigation example">
-                      <ul class="pagination justify-content-center">
-                        <li @click="moveToPage(-1)" class="page-item">
-                          <div class="page-link">
-                            <i class="bi bi-chevron-left"></i>
-                          </div>
-                        </li>
-                        <li v-if="pagesToShow[0] > 1" @click="changePage(1)" class="page-item">
-                          <span class="page-link">1</span>
-                        </li>
-                        <li v-if="pagesToShow[0] > 2" class="page-item"><span class="page-link mx-0 px-0">....</span></li>
-                        <li v-for="page in pagesToShow" :key="page"
-                          :class="{ 'page-item': true, 'active': page === currentPage }" @click="changePage(page)">
-                          <span class="page-link">{{ page }}</span>
-                        </li>
-
-                        <li v-if="pagesToShow[pagesToShow.length - 1] < totalPages - 1" class="page-item">
-                          <span class="page-link mx-0 px-0">...</span>
-                        </li>
-
-                        <li v-if="pagesToShow[pagesToShow.length - 1] !== totalPages" @click="changePage(totalPages)"
-                          class="page-item">
-                          <span class="page-link">{{ totalPages }}</span>
-                        </li>
-                        <li @click="moveToPage(1)" class="page-item">
-                          <div class="page-link">
-                            <i class="bi bi-chevron-right"></i>
-                          </div>
-                        </li>
-                      </ul>
-                    </nav>
-
-                  </div>
+                  <noDataShow v-else text="No jobs to show" />
 
                 </div>
-                <noDataShow v-else text="No jobs to show" />
               </div>
             </div>
           </div>
@@ -309,20 +316,27 @@ onMounted(async () => {
   await jobsStore.getJobCategories()
   await jobsStore.getJobFunctions()
   await jobsStore.getJobTypes()
+  checkBoxesAccordingToExistingQuery()
   await getJobs()
   jobsStore.loading = false
-  jobsStore.queryObj = {}
-  // checkBoxesAccordingToExistingQuery()
+  // jobsStore.queryObj = {}
+  console.log(jobsStore.queryObj);
+
 })
 
-// function checkBoxesAccordingToExistingQuery() {
-//   if (jobsStore.queryObj.cat_id) {
-//     checked.cat_id.push(jobsStore.queryObj.cat_id)
-//   }
-//   if (jobsStore.queryObj.type_id) {
-//     checked.type_id.push(jobsStore.queryObj.type_id)
-//   }
-// }
+function checkBoxesAccordingToExistingQuery() {
+  if (jobsStore.queryObj.cat_id) {
+    jobsStore.queryObj.cat_id.forEach((e: any) => {
+      checked.cat_id.push(e)
+    });
+
+  }
+  if (jobsStore.queryObj.type_id) {
+    jobsStore.queryObj.type_id.forEach((e: any) => {
+      checked.type_id.push(e)
+    });
+  }
+}
 
 async function getJobs(page = 1) {
   let queryObj: any = {}
@@ -338,21 +352,24 @@ async function getJobs(page = 1) {
 
   currentPage.value = jobsStore.allJobsChunked.current_page
   totalPages.value = jobsStore.allJobsChunked.last_page
+  totalRecords.value = jobsStore.allJobsChunked.total
 
 }
 
 function respondToCheckBox() {
+  // window.scrollTo(0, 0)
   getJobs()
 }
 
 
 // pagination
-const currentPage = ref();
+const currentPage = ref(0);
 const totalPages = ref(0);
+const totalRecords = ref(0);
 
 const pagesToShow = computed(() => {
-  let startPage = Math.max(1, currentPage.value - 1);
-  let endPage = Math.min(totalPages.value, currentPage.value + 1);
+  let startPage = Math.max(1, currentPage.value - 2);
+  let endPage = Math.min(totalPages.value, currentPage.value + 2);
   let pages = [];
 
   for (let i = startPage; i <= endPage; i++) {
@@ -362,14 +379,12 @@ const pagesToShow = computed(() => {
 });
 
 const changePage = (page: number) => {
-  window.scrollTo(0, 0)
   getJobs(page)
   currentPage.value = page;
   console.log(page);
 
 };
 
-//
 
 const moveToPage = (moveTo: number) => {
   if (moveTo == 1) {
@@ -386,10 +401,6 @@ const moveToPage = (moveTo: number) => {
 
 
 
-
-
-
-
 </script>
 
 <style scoped>
@@ -397,10 +408,10 @@ const moveToPage = (moveTo: number) => {
   cursor: pointer;
 }
 
-.img-fluid {
+/* .img-fluid {
   max-width: 100%;
   height: auto;
-}
+} */
 
 .ft-medium {
   font-weight: 500;
@@ -432,12 +443,18 @@ const moveToPage = (moveTo: number) => {
   font-weight: bold;
   border-radius: 7px;
   padding-inline: 15px;
-  margin-inline: 3px;
+  margin-inline: 1px;
   cursor: pointer;
 }
 
 .pagination .active .page-link {
   background-color: var(--theme-color) !important;
   color: #fff !important;
+}
+
+@media (max-width: 767px) {
+  .pagination .page-link {
+    font-size: 12px;
+  }
 }
 </style>

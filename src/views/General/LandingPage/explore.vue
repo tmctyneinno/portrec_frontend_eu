@@ -60,7 +60,9 @@ const cateIcon = (name: string) => {
 }
 
 function gotoFindJobs(id: any) {
-    jobsStore.queryObj.cat_id = id;
+    let cat_id = [];
+    cat_id.push(id)
+    jobsStore.queryObj.cat_id = cat_id;
     router.push({ path: '/find-jobs' })
 }
 

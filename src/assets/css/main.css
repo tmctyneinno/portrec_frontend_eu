@@ -9,9 +9,7 @@ button:focus,
 .page-link:focus {
   outline: none !important;
   box-shadow: none !important;
-  border-color: #dee2e6 !important;
-  /* border-color: var(--theme-color-3) !important; */
-  /* background-color: none; */
+  /* border-color: #dee2e6 !important; */
 }
 
 input::placeholder, textarea::placeholder {
@@ -268,4 +266,48 @@ hr.faint:after {
   .border-right {
     margin-right: 3px;
   }
+}
+
+
+/* radio Buton #########################################33 */
+
+/* Hide the default radio button */
+input[type="radio"] {
+  display: none;
+}
+
+/* Style the custom radio button */
+input[type="radio"]+label {
+  position: relative;
+  padding-left: 30px;
+  /* Adjust the spacing between the radio button and the label */
+  cursor: pointer;
+  line-height: 20px;
+  /* Adjust the vertical alignment of the label */
+}
+
+/* Create a custom radio button appearance */
+input[type="radio"]+label:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 20px;
+  /* Adjust the size of the custom radio button */
+  height: 20px;
+  /* Adjust the size of the custom radio button */
+  border: 2px solid #868787;
+  /* Set the border color for the custom radio button */
+  border-radius: 50%;
+  /* Create a circular shape for the custom radio button */
+  background-color: white;
+  /* Set the background color of the custom radio button */
+}
+
+/* Style the custom radio button when it's checked */
+input[type="radio"]:checked+label:before {
+  background-color: var(--theme-color);
+  /* Change the background color of the custom radio button when checked */
+  border-color: var(--theme-color);
+  /* Change the border color of the custom radio button when checked */
 }

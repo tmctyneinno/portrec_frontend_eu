@@ -33,7 +33,7 @@ const $instanceJobs = axios.create({
 // create interceptor for renewing token ##########################################3
 $instance.interceptors.request.use(
     (config: any) => {
-        const token = localStorage.getItem('');
+        const token = localStorage.getItem('protrec_$authTkn');
         if (token) config.headers.Authorization = `Bearer ${token}`;
         progresses.push(useProgress().start());
         return config;

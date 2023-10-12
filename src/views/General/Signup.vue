@@ -7,7 +7,7 @@
                 <div class="col-11 col-lg-12 row justify-content-center">
                     <div class="col-md-6">
                         <div class="col-12 ">
-                            <div class="type-nav theme-color d-flex justify-content-aroun justify-content-evenly mb-3">
+                            <div class="type-nav theme-color d-flex justify-content-aroun justify-content-evenly mb-1">
                                 <span @click="form.type = 'seeker'" class="fw-bolder cursor-pointer"
                                     :class="{ 'active': form.type == 'seeker' }">
                                     Job Seeker
@@ -37,10 +37,10 @@
                         </div>
 
 
-                        <form @submit.prevent="submitForm" class="row g-2">
+                        <form @submit.prevent="submitForm" class="row g-3">
                             <div class="col-12">
                                 <label class="fw-bold text-muted small">Full name:</label>
-                                <input v-model="form.full_name" type="text" class="form-control form-control-l  rounded-0"
+                                <input v-model="form.fullName" type="text" class="form-control form-control-l  rounded-0"
                                     placeholder="Enter your full name">
                             </div>
                             <div class="col-12">
@@ -49,13 +49,23 @@
                                     placeholder="Enter email address">
                             </div>
                             <div class="col-12">
-                                <label class="fw-bold text-muted small">Password:</label>
-                                <input v-model="form.password" type="text" class="form-control form-control-l  rounded-0"
-                                    placeholder="Enter password">
+                                <div class="fw-bold text-muted small col-12">Password:
+                                    <span v-if="form.password"
+                                        @click="form.passwordDisplay = form.passwordDisplay == 'password' ? 'text' : 'password'"
+                                        class="float-end cursor-pointer theme-color">
+                                        <span v-if="form.passwordDisplay == 'password'">show</span>
+                                        <span v-else>hide</span>
+                                    </span>
+                                </div>
+                                <input v-model="form.password" :type="form.passwordDisplay"
+                                    class="form-control form-control-l  rounded-0" placeholder="Enter password">
                             </div>
                             <div class="col-12 mt-3">
-                                <button type="submit" class="btn btn-lg btn-primary rounded-0 w-100">
+                                <button v-if="!form.isLoading" type="submit" class="btn btn-lg btn-primary rounded-0 w-100">
                                     Continue <i class="bi bi-chevron-right"></i>
+                                </button>
+                                <button v-else class="btn btn-primary rounded-0 w-100" disabled>
+                                    <span class="spinner-border spinner-border" aria-hidden="true"></span>
                                 </button>
                             </div>
                             <div class="col-12 mt-3">
@@ -78,26 +88,68 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, onMounted } from "vue";
-//@ts-ignore
-import validator from 'validator';
+import { reactive } from "vue";
+import useFxn from "@/stores/Helpers/useFunctions";
+import api from "@/stores/Helpers/axios";
+import { useOnline } from "@vueuse/core";
+import { useRouter } from "vue-router";
 
-onMounted(() => {
-    console.log(validator.isEmail('f.ds.oobar.co'));
 
-})
-
+const online = useOnline()
+const router = useRouter()
 
 const form = reactive({
     type: 'seeker',
-    full_name: '',
+    fullName: '',
     email: '',
     password: '',
+    passwordDisplay: 'password',
     isError: false,
     isLoading: false
 })
 
 function submitForm() {
+
+    if (!form.fullName || !form.email || !form.password) {
+        useFxn.toast('Please complete fields', 'warning')
+        return;
+    }
+
+    if (!useFxn.isEmail(form.email)) {
+        useFxn.toast('Email format is invalid!', 'warning')
+        return;
+    }
+    if (!online.value) {
+        useFxn.toast('No internet, You are offline!', 'warning')
+        return;
+    }
+
+    if (form.type == 'seeker') {
+        form.isLoading = true
+        registerJobSeeker()
+    }
+}
+
+async function registerJobSeeker() {
+    try {
+        let resp = await api.userRegister(form)
+        if (resp.status == 201) {
+            useFxn.toast('Account created successfully! please login', 'success')
+            router.push({
+                path: '/login'
+            })
+        }
+        else {
+            useFxn.toast('Email already taken', 'error')
+            return;
+        }
+    } catch (error) {
+        useFxn.toast('Sorry, error occured, check your internet', 'error')
+    }
+    finally {
+        form.isLoading = false
+
+    }
 
 }
 </script>

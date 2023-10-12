@@ -129,27 +129,26 @@ function submitForm() {
         form.isLoading = true
         signinJobSeeker()
     }
-
-
 }
 
 async function signinJobSeeker() {
     try {
         let { data } = await api.userLogin(form)
-        if (data.status == 200) {
+
+        if (data.status === 200) {
             profile.token = data.body.token
             profile.userType = 'user'
             router.push({
                 path: '/user/dashboard'
             })
         }
-        else {
+    } catch (error: any) {
+        if (error.response.status === 401) {
             form.isError = true
         }
-    } catch (error) {
-        console.log(error);
-
-        useFxn.toast('Sorry, error occured, check your internet', 'error')
+        else {
+            useFxn.toast('Sorry, error occured, check your internet', 'error')
+        }
     }
     finally {
         form.isLoading = false

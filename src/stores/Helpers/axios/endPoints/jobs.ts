@@ -14,12 +14,20 @@ export default {
         return $instanceJobs.get(`job/${id}`)
     },
 
+    similarJobs(id: any) {
+        return $instanceJobs.get(`job/all/similar/${id}`)
+    },
+
     jobCategories() {
         return $instanceJobs.get(`job/categories`)
     },
 
     jobTypes() {
         return $instanceJobs.get(`job/types`)
+    },
+
+    jobLevels() {
+        return $instanceJobs.get(`job/levels`)
     },
 
     jobFunctions() {

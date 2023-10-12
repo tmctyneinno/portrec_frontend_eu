@@ -1,7 +1,7 @@
 import jobsEndPoints from "./endPoints/jobs"
-import authEndPoints from "./endPoints/auth"
+import userEndPoints from "./endPoints/user"
 
 export default {
     ...jobsEndPoints,
-    ...authEndPoints,
+    ...userEndPoints,
 }

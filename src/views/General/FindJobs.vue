@@ -97,25 +97,10 @@
                     <div id="flush-collapseThree" class="accordion-collapse collapse show" data-bs-parent="#job-level">
                       <div class="accordion-body small">
                         <div class="list-group list-group-flush">
-                          <label class="list-group-item border-0">
-                            <input class="form-check-input me-1" type="checkbox" value="">
-                            Entry Level (23)
-                          </label>
-                          <label class="list-group-item border-0">
-                            <input class="form-check-input me-1" type="checkbox" value="">
-                            Senior level(3)
-                          </label>
-                          <label class="list-group-item border-0">
-                            <input class="form-check-input me-1" type="checkbox" value="">
-                            Mid Level (14)
-                          </label>
-                          <label class="list-group-item border-0">
-                            <input class="form-check-input me-1" type="checkbox" value="" checked>
-                            Director (10)
-                          </label>
-                          <label class="list-group-item border-0">
-                            <input class="form-check-input me-1" type="checkbox" value="">
-                            VP or Above(20)
+                          <label v-for="x in jobsStore.levels" :key="x" class="list-group-item border-0 text-capitalize">
+                            <input @change="respondToCheckBox" class="form-check-input me-1" type="checkbox" :value="x.id"
+                              v-model="checked.level_id">
+                            {{ x.name }} ({{ x.total_jobs }})
                           </label>
 
                         </div>
@@ -245,40 +230,11 @@
                     </div>
 
                     <!-- pagination -->
-                    <div class="col-12 mt-5">
-                      <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-center">
-                          <li @click="moveToPage(-1)" class="page-item">
-                            <div class="page-link">
-                              <i class="bi bi-chevron-left"></i>
-                            </div>
-                          </li>
-                          <li v-if="pagesToShow[0] > 1" @click="changePage(1)" class="page-item">
-                            <span class="page-link">1</span>
-                          </li>
-                          <li v-if="pagesToShow[0] > 2" class="page-item"><span class="page-link mx-0 px-0">....</span>
-                          </li>
-                          <li v-for="page in pagesToShow" :key="page"
-                            :class="{ 'page-item': true, 'active': page === currentPage }" @click="changePage(page)">
-                            <span class="page-link">{{ page }}</span>
-                          </li>
-
-                          <li v-if="pagesToShow[pagesToShow.length - 1] < totalPages - 1" class="page-item">
-                            <span class="page-link mx-0 px-0">...</span>
-                          </li>
-
-                          <li v-if="pagesToShow[pagesToShow.length - 1] !== totalPages" @click="changePage(totalPages)"
-                            class="page-item">
-                            <span class="page-link">{{ totalPages }}</span>
-                          </li>
-                          <li @click="moveToPage(1)" class="page-item">
-                            <div class="page-link">
-                              <i class="bi bi-chevron-right"></i>
-                            </div>
-                          </li>
-                        </ul>
-                      </nav>
+                    <div class="mt-5">
+                      <customPagination :currentPage="currentPage" :perPage="perPage" :totalRecords="totalRecords"
+                        @moveToNext="getJobs" />
                     </div>
+
                   </div>
 
                   <noDataShow v-else text="No jobs to show" />
@@ -300,7 +256,7 @@
 import headerVue from '@/components/header.vue'
 import footerVue from '@/components/footer.vue'
 import searchJobForm from '@/components/searchJobForm.vue';
-import { computed, onMounted, reactive, ref } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 import { useJobsStore } from '@/stores/jobsStore';
 
 const jobsStore = useJobsStore()
@@ -308,43 +264,45 @@ const jobsStore = useJobsStore()
 const checked: any = reactive({
   cat_id: [],
   type_id: [],
+  level_id: [],
 })
 
 onMounted(async () => {
   window.scrollTo(0, 0)
+
   jobsStore.loading = true
-  await jobsStore.getJobCategories()
-  await jobsStore.getJobFunctions()
-  await jobsStore.getJobTypes()
   checkBoxesAccordingToExistingQuery()
   await getJobs()
   jobsStore.loading = false
+
+  jobsStore.getJobCategories()
+  jobsStore.getJobFunctions()
+  jobsStore.getJobTypes()
+  jobsStore.getJobLevels()
+
   // jobsStore.queryObj = {}
-  console.log(jobsStore.queryObj);
+
 
 })
 
 function checkBoxesAccordingToExistingQuery() {
-  if (jobsStore.queryObj.cat_id) {
-    jobsStore.queryObj.cat_id.forEach((e: any) => {
-      checked.cat_id.push(e)
-    });
-
-  }
-  if (jobsStore.queryObj.type_id) {
-    jobsStore.queryObj.type_id.forEach((e: any) => {
-      checked.type_id.push(e)
-    });
+  for (const key of ["cat_id", "type_id", "level_id"]) {
+    if (jobsStore.queryObj[key]) {
+      jobsStore.queryObj[key].forEach((e: any) => {
+        checked[key].push(e);
+      });
+    }
   }
 }
 
 async function getJobs(page = 1) {
-  let queryObj: any = {}
-  if (checked.cat_id.length)
-    queryObj.cat_id = checked.cat_id
+  const queryObj: any = {};
 
-  if (checked.type_id.length)
-    queryObj.type_id = checked.type_id
+  for (const key of ["cat_id", "type_id", "level_id"]) {
+    if (checked[key].length) {
+      queryObj[key] = checked[key];
+    }
+  }
 
   jobsStore.queryObj = queryObj;
 
@@ -352,8 +310,8 @@ async function getJobs(page = 1) {
 
   currentPage.value = jobsStore.allJobsChunked.current_page
   totalPages.value = jobsStore.allJobsChunked.last_page
+  perPage.value = jobsStore.allJobsChunked.per_page
   totalRecords.value = jobsStore.allJobsChunked.total
-
 }
 
 function respondToCheckBox() {
@@ -362,44 +320,12 @@ function respondToCheckBox() {
 }
 
 
+
 // pagination
 const currentPage = ref(0);
 const totalPages = ref(0);
+const perPage = ref(0);
 const totalRecords = ref(0);
-
-const pagesToShow = computed(() => {
-  let startPage = Math.max(1, currentPage.value - 2);
-  let endPage = Math.min(totalPages.value, currentPage.value + 2);
-  let pages = [];
-
-  for (let i = startPage; i <= endPage; i++) {
-    pages.push(i);
-  }
-  return pages;
-});
-
-const changePage = (page: number) => {
-  getJobs(page)
-  currentPage.value = page;
-  console.log(page);
-
-};
-
-
-const moveToPage = (moveTo: number) => {
-  if (moveTo == 1) {
-    if ((currentPage.value !== totalPages.value)) {
-      changePage(currentPage.value + 1)
-    }
-  }
-  else if (moveTo == -1) {
-    if (currentPage.value != 1)
-      changePage(currentPage.value - 1)
-  }
-};
-
-
-
 
 </script>
 
@@ -435,26 +361,4 @@ const moveToPage = (moveTo: number) => {
 }
 
 /* accordion */
-
-
-.pagination .page-link {
-  border: none !important;
-  color: #000 !important;
-  font-weight: bold;
-  border-radius: 7px;
-  padding-inline: 15px;
-  margin-inline: 1px;
-  cursor: pointer;
-}
-
-.pagination .active .page-link {
-  background-color: var(--theme-color) !important;
-  color: #fff !important;
-}
-
-@media (max-width: 767px) {
-  .pagination .page-link {
-    font-size: 12px;
-  }
-}
 </style>

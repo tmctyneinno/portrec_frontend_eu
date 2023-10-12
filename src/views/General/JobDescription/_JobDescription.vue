@@ -176,10 +176,11 @@
           </div>
         </div>
         <div class="col-12 mt-4">
-          <div class="row g-4">
-            <jobsDisplayVue :job="currentJob" @click="router.push({ 'path': `/job-description/${i}` })" v-for="i in 8"
+          <div v-if="similarJobs.length" class="row g-4">
+            <jobsDisplayVue :job="i" @click="router.push({ 'path': `/job-description/${i.id}` })" v-for="i in similarJobs"
               :key="i" />
           </div>
+          <noDataShow v-else text="No similar jobs" />
         </div>
       </div>
     </div>
@@ -196,7 +197,7 @@
 </template>
 
 <script setup lang="ts">
-import { watchEffect } from 'vue';
+import { ref, watchEffect } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { onBeforeRouteLeave } from 'vue-router';
 import headerVue from '@/components/header.vue'
@@ -204,6 +205,7 @@ import footerVue from '@/components/footer.vue'
 import { useJobApplicationStore } from '@/stores/jobApplicationStore';
 import { useDateFormat } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
+import api from '@/stores/Helpers/axios'
 //@ts-ignore
 import numeral from 'numeral';
 
@@ -216,12 +218,25 @@ const job = useJobApplicationStore()
 const { currentJob, loading, modalOpen, currentModal } = storeToRefs(job)
 const router = useRouter()
 const route = useRoute()
+const similarJobs = ref<any[]>([])
 
-watchEffect(() => {
+watchEffect(async () => {
   loading.value = true
-  job.currentJobQuery(route.params.id)
-  console.log(currentJob);
+  await job.currentJobQuery(route.params.id)
+  // console.log(currentJob);
+  getSimilarJobs()
 })
+
+async function getSimilarJobs() {
+  try {
+    const resp: any = await api.similarJobs(route.params.id)
+    if (resp.status == 200)
+      similarJobs.value = resp.data.body
+    console.log('similarJobs', resp.data.body);
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 function openApplyModal() {
   modalOpen.value = true;

@@ -8,4 +8,8 @@ export default {
     userLogin(data: any) {
         return $instance.post(`user/login`, JSON.stringify(data))
     },
+
+    userProfile() {
+        return $instance.get(`/user/profile`,)
+    },
 }

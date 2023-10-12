@@ -57,6 +57,7 @@ import jobsDisplayVue from '@/components/jobsDisplay.vue';
 import overlayLoading from '@/components/overlayLoading.vue';
 import noDataShow from '@/components/noDataShow.vue';
 import componentLoading from '@/components/componentLoading.vue';
+import customPagination from '@/components/customPagination.vue';
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
@@ -73,6 +74,7 @@ app.component("downloadExcel", JsonExcel);
 app.component("infinite-loading", InfiniteLoading);
 app.component('VCalendar', Calendar)
 app.component('VDatePicker', DatePicker)
+app.component('customPagination', customPagination)
 
 // custom components
 app.component('jobsDisplayVue', jobsDisplayVue)

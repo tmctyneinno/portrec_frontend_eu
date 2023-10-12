@@ -11,9 +11,10 @@ export const useJobsStore = defineStore('jobsStore', () => {
   // const types = ref<any[]>([]);
 
   const categories: any = useStorage('protrec_$cate', [], sessionStorage)
-  const latest: any = useStorage('protrec_$latest_jobs', [], sessionStorage)
   const types: any = useStorage('protrec_$jobTypes', [], sessionStorage)
+  const levels: any = useStorage('protrec_$jobLevels', [], sessionStorage)
   const functions: any = useStorage('protrec_$jobfunctions', [], sessionStorage)
+  const latest: any = useStorage('protrec_$latest_jobs', [], sessionStorage)
   const allJobsChunked: any = useStorage('protrec_$jobs_Chucked', [], sessionStorage)
   const allJobsData: any = useStorage('protrec_$jobs_data', [], sessionStorage)
   const loading = ref<boolean>(false)
@@ -77,6 +78,17 @@ export const useJobsStore = defineStore('jobsStore', () => {
     }
   }
 
+  async function getJobLevels() {
+    try {
+      const resp: any = await api.jobLevels()
+      if (resp.status == 200)
+        levels.value = resp.data.body
+      console.log('levels', resp.data.body);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async function getJobFunctions() {
     try {
       const resp: any = await api.jobFunctions()
@@ -121,12 +133,14 @@ export const useJobsStore = defineStore('jobsStore', () => {
     categories,
     functions,
     types,
+    levels,
     latest,
     queryObj,
     allJobsChunked,
     allJobsData,
     getAllJobs,
     getJobTypes,
+    getJobLevels,
     getJobFunctions,
     getJobCategories,
     getLatestJobs,

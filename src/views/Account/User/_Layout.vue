@@ -14,6 +14,25 @@
 <script lang="ts" setup>
 import sideBar from '@/components/Accounts/sideBar.vue'
 import topNav from '@/components/Accounts/topNav.vue'
+import { useProfileStore } from '@/stores/profileStore';
+import { onMounted } from 'vue';
+import api from '@/stores/Helpers/axios'
+
+const profileStore = useProfileStore()
+
+onMounted(() => {
+    console.log(profileStore.userType);
+    getUserProfile()
+
+})
+
+async function getUserProfile() {
+    let { data } = await api.userProfile()
+    if (data.status === 201) {
+        profileStore.data = data.body
+    }
+    console.log(profileStore.data);
+}
 </script>
 
 <style  scoped>

@@ -133,24 +133,19 @@ function submitForm() {
 async function registerJobSeeker() {
     try {
         let resp = await api.userRegister(form)
-        if (resp.status == 201) {
+        if (resp.status === 201) {
             useFxn.toast('Account created successfully! please login', 'success')
-            router.push({
-                path: '/login'
-            })
+            router.push({ path: '/login' })
         }
-        else {
+    } catch (error: any) {
+        if (error.response.status === 409) {
             useFxn.toast('Email already taken', 'error')
-            return;
+        } else {
+            useFxn.toast('Sorry, error occured, check your internet', 'error')
         }
-    } catch (error) {
-        useFxn.toast('Sorry, error occured, check your internet', 'error')
-    }
-    finally {
+    } finally {
         form.isLoading = false
-
     }
-
 }
 </script>
 

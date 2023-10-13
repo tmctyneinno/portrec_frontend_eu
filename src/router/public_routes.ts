@@ -1,4 +1,17 @@
+// @ts-nocheck
 import LandingPage from '../views/General/LandingPage/_LandingPage.vue'
+import { useProfileStore } from '@/stores/profileStore';
+
+const initGuard = (to, from, next) => {
+    const profileStore = useProfileStore();
+    if (profileStore.userType) {
+        next({ path: `/${profileStore.userType}/dashboard` });
+    }
+    else {
+        next()
+    }
+}
+
 export default [
     {
         path: '/',
@@ -25,20 +38,24 @@ export default [
         name: 'Job Description',
         component: () => import('../views/General/JobDescription/_JobDescription.vue')
     },
+
     {
         path: '/login',
         name: 'Login',
-        component: () => import('../views/General/Login.vue')
+        component: () => import('../views/General/Login.vue'),
+        beforeEnter: initGuard
     },
     {
         path: '/reset_password',
         name: 'Reset Password',
-        component: () => import('../views/General/Reset_password.vue')
+        component: () => import('../views/General/Reset_password.vue'),
+        beforeEnter: initGuard
     },
     {
         path: '/signup',
         name: 'Sign Up',
-        component: () => import('../views/General/Signup.vue')
+        component: () => import('../views/General/Signup.vue'),
+        beforeEnter: initGuard
     },
     {
         path: '/:pathMatch(.*)*',

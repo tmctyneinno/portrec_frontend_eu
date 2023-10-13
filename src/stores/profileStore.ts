@@ -7,9 +7,16 @@ export const useProfileStore = defineStore('profileStore', () => {
     const userType: any = useStorage('protrec_$accType', '', localStorage)
     const data = ref<any>(null)
 
+    function logout() {
+        token.value = '';
+        userType.value = '';
+        data.value = '';
+    }
+
     return {
         token,
         userType,
-        data
+        data,
+        logout
     }
 })

@@ -37,18 +37,7 @@
                         </span>
                     </div>
                     <div class="col-lg-7 row g-3 justify-content-center ">
-                        <div class="col-md-4">
-                            <div class="image-circle"></div>
-                        </div>
-                        <div class="col-md-8">
-                            <div class="drag-drop">
-                                <div class="text-center small">
-                                    <div><i class="bi bi-image them-color"></i></div>
-                                    <div><span class="theme-color">Click to replace</span> or drag and drop</div>
-                                    <div class="fw-light">SVG, PNG, JPG or GIF (max. 400 x 400px)</div>
-                                </div>
-                            </div>
-                        </div>
+                        <profilePicUpload />
                     </div>
                 </div>
 
@@ -61,27 +50,28 @@
                         <div class="row g-3">
                             <div class="col-12">
                                 <label> Full Name *</label>
-                                <input class="form-control rounded-0" type="text">
+                                <input v-model="details.name" class="form-control rounded-0" type="text">
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <label> Phone Number *</label>
-                                <input class="form-control rounded-0" type="text">
+                                <input v-maska data-maska="+9" data-maska-tokens="9:\d:multiple" v-model="details.phone"
+                                    class="form-control rounded-0" type="text">
                             </div>
-                            <div class="col-md-6">
+                            <!-- <div class="col-md-7">
                                 <label> Email *</label>
-                                <input class="form-control rounded-0" type="text">
-                            </div>
+                                <input v-model="details.email" class="form-control rounded-0" type="text">
+                            </div> -->
                             <div class="col-md-6">
                                 <label> Date of Birth *</label>
                                 <VueDatePicker input-class-name="dob-settings-input" hide-input-icon :clearable="false"
-                                    :max-date="new Date()" :enable-time-picker="false" auto-apply v-model="date">
+                                    :max-date="new Date()" :enable-time-picker="false" auto-apply v-model="details.dob">
                                 </VueDatePicker>
 
                             </div>
                             <div class="col-md-6">
                                 <label> Gender *</label>
-                                <v-select class="rounded-0" :clearable="false" :searchable="false"
-                                    :options="['Male', 'Female']"></v-select>
+                                <v-select v-model="details.gender" class="rounded-0" :clearable="false" :searchable="false"
+                                    :options="['male', 'female']"></v-select>
                             </div>
                         </div>
                     </div>
@@ -97,15 +87,15 @@
                     <div class="col-lg-7">
                         <div class="row g-3">
                             <div class="col-12 d-flex">
-                                <input name="input-type" class="me-3" type="radio" id="one" value="One" />
+                                <input v-model="details.user_type" class="me-3" type="radio" id="one" value="user" />
                                 <label class="mt-3" for="one">
                                     <div class="fw-bold">Job Seeker</div>
                                     <span class="fw-light">Looking for a job</span>
                                 </label>
                             </div>
                             <div class="col-12 d-flex">
-                                <input name="input-type" class="me-3 custom-radio-button" type="radio" id="two"
-                                    value="Two" />
+                                <input v-model="details.user_type" class="me-3 custom-radio-button" type="radio" id="two"
+                                    value="recruiter" />
                                 <label class="mt-3 " for="two">
                                     <div class="fw-bold ">Employer</div>
                                     <span class="fw-light">Hiring, sourcing candidates, or posting a jobs</span>
@@ -116,10 +106,25 @@
                 </div>
 
                 <hr>
+                <div class="col-12">
+                    <div class="col-md-2 float-lg-end">
+                        <button v-if="!details.isLoading" @click="saveProfile"
+                            class="float-end btn btn-primary rounded-0 w-100" type="button">
+                            Save profile
+                        </button>
+                        <button v-else class="float-en btn btn-primary rounded-0 w-100" type="button" disabled>
+                            <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                        </button>
+                    </div>
 
-                <button class="float-end btn btn-primary rounded-0" type="button">
+                </div>
+
+                <!-- <button v-if="!details.isLoading" class="float-end btn btn-primary rounded-0" type="button">
                     Save profile
                 </button>
+                <button v-else class="float-end btn btn-primary rounded-0" type="button" disabled>
+                    <span class="spinner-border spinner-border" aria-hidden="true"></span>
+                </button> -->
 
             </div>
 
@@ -253,15 +258,74 @@
                 <hr>
             </div>
         </div>
-
-
     </div>
-</template>
+</template>-
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { reactive, ref, watch } from 'vue';
+import { useProfileStore } from '@/stores/profileStore';
+import api from '@/stores/Helpers/axios'
+import useFxn from "@/stores/Helpers/useFunctions";
+import { vMaska } from "maska"
+import profilePicUpload from './profilePicUpload.vue'
 
-const date = ref(new Date())
+const profileStore = useProfileStore()
+const data = profileStore.data
+
+const details = reactive({
+    name: data ? data.name : '',
+    gender: data ? data.gender : '',
+    phone: data ? data.phone : '',
+    dob: data ? new Date(data.dob) : new Date(),
+    isLoading: false,
+    user_type: 'user'
+})
+
+watch(() => profileStore.data, () => {
+    details.name = profileStore.data ? profileStore.data.name : '';
+    details.gender = profileStore.data ? profileStore.data.gender : '';
+    details.phone = profileStore.data ? profileStore.data.phone : '';
+    details.dob = profileStore.data ? new Date(profileStore.data.dob) : new Date();
+})
+
+
+function saveProfile() {
+    if (!details.name || !details.phone || !details.dob || !details.gender) {
+        useFxn.toast('Please complete compulsory fields', 'warning')
+        return;
+    }
+    submitProfileForm()
+}
+
+async function submitProfileForm() {
+    let obj = {
+        name: details.name,
+        gender: details.gender,
+        phone: details.phone,
+        dob: details.dob
+    }
+    try {
+        details.isLoading = true
+        let { data } = await api.userUpdateProfile(obj)
+        if (data.status === 201) {
+            useFxn.toast('Updated successfully', 'success')
+            getUserProfile()
+        }
+    } catch (error) {
+        // 
+    }
+    finally {
+        details.isLoading = false
+    }
+}
+
+async function getUserProfile() {
+    let { data } = await api.userProfile()
+    if (data.status === 201) {
+        profileStore.data = data.body
+    }
+}
+
 </script>
 
 <style lang="css" scoped>
@@ -279,24 +343,6 @@ const date = ref(new Date())
     font-weight: bolder;
     border-bottom: 2px solid var(--theme-color) !important;
 }
-
-.image-circle {
-    background-color: #d2edd26d;
-    height: 100px;
-    width: 100px;
-    border-radius: 50%;
-}
-
-.drag-drop {
-    background-color: var(--bs-light);
-    padding: 20px;
-    border: 2px dashed var(--theme-color);
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-
-
 
 @media (max-width: 767px) {
     .nav-link {

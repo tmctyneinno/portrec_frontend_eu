@@ -11,15 +11,8 @@
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <div class="input-group position-relative">
-                            <span class="input-group-text" id="addon-location"><i class="bi bi-geo-alt"></i></span>
-                            <select class="form-select form-control" id="inputGroupSelect01">
-                                <option selected>Choose...</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
-                        </div>
+                        <v-select :loading="loading" class="country-chooser" placeholder="select country"
+                            :options="allCountries" />
                     </div>
                     <div class="col-lg-3">
                         <button type="submit" class="btn  w-100"
@@ -37,12 +30,32 @@
 </template>
 
 <script lang="ts" setup>
+import { ref, onMounted } from 'vue';
+
 defineProps({
     fromHome: {
         type: Boolean,
         default: false
     }
 })
+
+const allCountries = ref([])
+const loading = ref(true)
+
+onMounted(async () => {
+    const response = await fetch('https://restcountries.com/v3.1/all');
+    if (response.ok) {
+        const data = await response.json();
+        let names = data.map((country: { name: any; }) => country.name.common)
+        allCountries.value = names
+        loading.value = false
+    } else {
+        console.error('', response.statusText);
+    }
+})
+
+
+
 </script>
 
 
@@ -68,4 +81,21 @@ defineProps({
         border-radius: 0px !important;
     }
 }
+</style>
+
+<style>
+.country-chooser .vs__search::placeholder,
+.country-chooser .vs__dropdown-toggle,
+.country-chooser .vs__dropdown-menu {
+    background-color: #fff !important;
+    outline: 0;
+    border-width: 0 0 1px;
+    font-size: 14px;
+    border-radius: 0px;
+}
+
+/* .country-chooser .vs__clear,
+.country-chooser .vs__open-indicator {
+    fill: #394066;
+} */
 </style>

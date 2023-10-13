@@ -104,32 +104,32 @@ const form = reactive({
     email: '',
     password: '',
     passwordDisplay: 'password',
-    isError: false,
     isLoading: false
 })
 
 function submitForm() {
+    const { fullName, email, password } = form;
 
-    if (!form.fullName || !form.email || !form.password) {
-        useFxn.toast('Please complete fields', 'warning')
+    if (!fullName || !email || !password) {
+        useFxn.toast('Please complete fields', 'warning');
         return;
     }
 
-    if (!useFxn.isEmail(form.email)) {
-        useFxn.toast('Email format is invalid!', 'warning')
+    if (!useFxn.isEmail(email)) {
+        useFxn.toast('Email format is invalid!', 'warning');
         return;
     }
+
     if (!online.value) {
-        useFxn.toast('No internet, You are offline!', 'warning')
+        useFxn.toast('No internet, You are offline!', 'warning');
         return;
     }
 
-    if (form.type == 'seeker') {
-        form.isLoading = true
-        registerJobSeeker()
+    if (form.type === 'seeker') {
+        form.isLoading = true;
+        registerJobSeeker();
     }
 }
-
 async function registerJobSeeker() {
     try {
         let resp = await api.userRegister(form)

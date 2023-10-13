@@ -4,7 +4,7 @@
             <img src="@/assets/images/site_logo.png" width="140" alt="site_logo">
         </div>
 
-        <ul class="nav nav-pills flex-column">
+        <ul class="nav nav-pills flex-column mt-3">
             <li class="nav-item" v-for="i in menu" :key="i">
                 <router-link class="nav-link" :to="{ name: i.routeName }">
                     <i :class="i.icon"></i> &nbsp;
@@ -26,22 +26,45 @@
                     Help Center
                 </router-link>
             </li>
+
         </ul>
+
+        <div class="bottom">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-lg-2">
+                    <div class="img-circle"></div>
+                </div>
+                <div class="col-lg-8 small">
+                    <div class="fw-bold text-capitalize">{{ profileStore.data ? profileStore.data.name : '' }}</div>
+                    <div class="fw-lighter">
+                        {{ profileStore.data ? profileStore.data.email : '' }}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script  lang="ts" setup>
 import { computed } from 'vue';
-import { userMenu } from '@/stores/sideBarMenus'
-const menu = computed(() => {
-    let array: any[] = [];
-    if (prop.userType == 'user')
-        array = userMenu
+import { userMenu, recruiterMenu, adminMenu } from '@/stores/sideBarMenus'
+import { useProfileStore } from '@/stores/profileStore';
 
-    return array;
-})
-
+const profileStore = useProfileStore()
 const prop = defineProps(['userType'])
+
+// load menu according to usertype in prop
+const menu = computed(() => {
+    const userType = prop.userType;
+    const menuMap: any = {
+        user: userMenu,
+        recruiter: recruiterMenu,
+        admin: adminMenu,
+    };
+
+    return menuMap[userType];
+});
+
 
 </script>
 
@@ -51,7 +74,7 @@ const prop = defineProps(['userType'])
     top: 0;
     left: 0;
     bottom: 0;
-    width: 250px;
+    width: 250px !important;
     background-color: #fff;
     border-right: 1px solid #cccccc44;
     background-color: #F8F8FD;
@@ -64,7 +87,7 @@ const prop = defineProps(['userType'])
 }
 
 .sidebar li {
-    padding: 5px 15px;
+    padding: 3px 15px;
     border-bottom: 1px solid #ccc;
 }
 
@@ -86,8 +109,27 @@ const prop = defineProps(['userType'])
 .active {
     background-color: #E9EBFD !important;
     color: var(--theme-color) !important;
-    border-left: 1px solid var(--theme-color);
+    border-left: 2px solid var(--theme-color);
 }
+
+.bottom {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1030;
+    /* background-color: var(--bs-danger); */
+    width: 250px;
+    padding: 10px;
+}
+
+.bottom .img-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: rgb(187, 205, 205);
+}
+
 
 @media (max-width: 767px) {
     .sidebar {

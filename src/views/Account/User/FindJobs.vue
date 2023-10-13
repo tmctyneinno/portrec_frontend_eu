@@ -1,14 +1,9 @@
 <script lang="ts" setup>
-
+import FindJobs_page_content from '@/views/General/FindJobs_page_content.vue';
 </script>
 
 <template>
-    <div>
-
-        Find Jobs
-
-
-    </div>
+    <FindJobs_page_content />
 </template>
 
 <style lang="css" scoped></style>

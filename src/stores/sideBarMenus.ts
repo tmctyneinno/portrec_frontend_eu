@@ -33,6 +33,15 @@ const userMenu = [
     },
 ]
 
+const recruiterMenu = [{
+
+}]
+const adminMenu = [{
+
+}]
+
 export {
-    userMenu
+    userMenu,
+    recruiterMenu,
+    adminMenu
 }

@@ -6,10 +6,11 @@ const progresses = [] as ProgressFinisher[];
 const hostURL = 'https://staging.tmcinstitute.com';
 const apiURL = `${hostURL}/api/`;
 
+// 'Content-Type': 'application/json;charset=UTF-8;text/json;multipart/form-data',
 const headers = {
     Accept: 'application/json',
     withCredentials: true,
-    'Content-Type': 'application/json;charset=UTF-8;text/json;multipart/form-data',
+    'Content-Type': 'application/json',
 }
 
 // create instances #######################################################
@@ -22,12 +23,6 @@ const $instanceJobs = axios.create({
     baseURL: apiURL,
     headers: headers,
 })
-
-
-
-
-
-
 
 
 // create interceptor for renewing token ##########################################3

@@ -82,7 +82,7 @@ input::placeholder, textarea::placeholder {
 /* SECTION */
 
 .section-panel {
-  overflow: hidden;
+  /* overflow: hidden; */
   padding-block: 100px;
 }
 

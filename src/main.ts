@@ -53,6 +53,8 @@ import "v3-infinite-loading/lib/style.css";
 import { setupCalendar, Calendar, DatePicker } from 'v-calendar';
 import 'v-calendar/style.css';
 
+import piniaPersist from 'pinia-plugin-persist'
+
 import jobsDisplayVue from '@/components/jobsDisplay.vue';
 import overlayLoading from '@/components/overlayLoading.vue';
 import noDataShow from '@/components/noDataShow.vue';
@@ -64,6 +66,9 @@ import { createPinia } from 'pinia'
 
 import App from './App.vue'
 import router from './router'
+
+const pinia = createPinia()
+pinia.use(piniaPersist)
 
 const app = createApp(App)
 
@@ -83,7 +88,7 @@ app.component('noDataShow', noDataShow)
 app.component('componentLoading', componentLoading)
 
 
-app.use(createPinia())
+app.use(pinia)
 app.use(VueApexCharts);
 app.use(VueSweetalert2);
 app.use(Vue3ProgressPlugin);

@@ -21,17 +21,16 @@ import api from '@/stores/Helpers/axios'
 const profileStore = useProfileStore()
 
 onMounted(() => {
-    console.log(profileStore.userType);
     getUserProfile()
-
 })
 
 async function getUserProfile() {
     let { data } = await api.userProfile()
     if (data.status === 201) {
         profileStore.data = data.body
+        console.log(profileStore.data);
+
     }
-    console.log(profileStore.data);
 }
 </script>
 

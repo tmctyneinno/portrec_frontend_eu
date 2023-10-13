@@ -4,11 +4,7 @@ import validator from 'validator';
 
 export default {
     isEmail: (email: string) => {
-
         return validator.isEmail(email)
-        // // eslint-disable-next-line no-useless-escape
-        // const regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-        // return regex.test(email)
     },
 
     isExtension: (fileName: string, requiredFormats: string[]) => {

@@ -1,4 +1,4 @@
-import { $instance } from '../instances'
+import { $instance, $instanceForm } from '../instances'
 
 export default {
     userRegister(data: any) {
@@ -17,8 +17,9 @@ export default {
         return $instance.put(`user/profile`, JSON.stringify(data))
     },
 
-    userProfilePicture(form: FormData) {
-        return $instance.post(`/user/profile/picture`, form)
+    userProfilePicture(form: FormData, id?: any) {
+        const str: string = id ? `/user/profile/picture/${id}` : `/user/profile/picture`
+        return $instanceForm.post(`${str}`, form)
     },
 
     userCoverLetterText(data: any) {

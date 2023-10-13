@@ -1,67 +1,85 @@
-
-
 <template>
     <div class="col-md-3">
         <div class="image-circle"></div>
     </div>
     <div class="col-md-8">
-        <div @click="dropzoneFile.click" @dragenter.prevent="toggleActive" @dragleave.prevent="toggleActive"
-            @dragover.prevent @drop.prevent="toggleActive" :class="{ 'active-dropzone': active }" class="dropzone">
+        <div class="dropzone" v-bind="getRootProps()">
             <div class="text-center small">
-                <div><i class="bi bi-image them-color"></i></div>
+                <div v-if="!imgSaving"><i class="bi bi-image them-color"></i></div>
+                <span v-else class="spinner-border spinner-border-sm" aria-hidden="true"></span>
                 <div><span class="theme-color">Click to replace</span> or drag and drop</div>
                 <div class="fw-light">SVG, PNG, JPG or GIF (max. 400 x 400px)</div>
             </div>
-            <input @change="fileUploadFn" ref="dropzoneFile" accept="image/jpg, image/png" type="file" id="dropzoneFile"
-                class="dropzoneFile" />
+            <input v-bind="getInputProps()" />
         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from 'vue';
+import { ref } from 'vue';
 import { useProfileStore } from '@/stores/profileStore';
 import api from '@/stores/Helpers/axios'
 import useFxn from "@/stores/Helpers/useFunctions";
-import { fileUploader } from '@/stores/Helpers/fileUploader';
-
-const { fileUploadFn, fileURL, mainFile } = fileUploader()
+//@ts-ignore
+import { useDropzone } from "vue3-dropzone";
 
 const profileStore = useProfileStore()
 
+const acceptedFormats = ['png', 'jpg', 'jpeg', 'svg']
+const img = ref<any>(null)
+const imgSaving = ref(false)
 
+const { getRootProps, getInputProps } = useDropzone({
+    onDrop: (acceptFiles: any[], rejectReasons: any) => {
+        if (!useFxn.isExtension(acceptFiles[0].name, acceptedFormats)) {
+            useFxn.toast('Please upload an image', 'warning');
+            return;
+        }
 
+        let formData = new FormData();
+        img.value = acceptFiles[0]
+        formData.append("img", img.value);
+        submitImage(formData)
+        console.log(rejectReasons);
+    },
+});
 
+async function submitImage(formData: FormData) {
 
-async function submitProfileForm() {
+    try {
+        // var pic_id: any = null
+        // if (profileStore.data) {
+        //     if (profileStore.data.profile_pic) {
+        //         pic_id = profileStore.data.profile_pic.id
+        //     }
+        // }
+        const pic_id = profileStore.data?.profile_pic?.id ?? null;
 
-    // try {
-    //     let { data } = await api.userUpdateProfile(obj)
-    //     if (data.status === 201) {
-    //         useFxn.toast('Updated successfully', 'success')
-    //         getUserProfile()
-    //     }
-    // } catch (error) {
-    //     // 
-    // }
-    // finally {
-    //     details.isLoading = false
-    // }
+        let { data } = await api.userProfilePicture(formData, pic_id)
+        console.log(data);
+
+        if (data.status === 200) {
+            useFxn.toast('Updated successfully', 'success')
+            getUserProfile()
+        }
+    } catch (error) {
+        // 
+    }
+    finally {
+        imgSaving.value = false
+    }
 }
+
+
 
 async function getUserProfile() {
     let { data } = await api.userProfile()
     if (data.status === 201) {
         profileStore.data = data.body
+        console.log(data.body);
+
     }
 }
-
-const active = ref(false);
-const dropzoneFile = ref<any>(null)
-
-const toggleActive = () => {
-    active.value = !active.value;
-};
 
 </script>
 
@@ -90,9 +108,9 @@ const toggleActive = () => {
     border-radius: 10px;
 }
 
-.dropzone input {
+/* .dropzone input {
     display: none;
-}
+} */
 
 .active-dropzone {
     color: #fff;

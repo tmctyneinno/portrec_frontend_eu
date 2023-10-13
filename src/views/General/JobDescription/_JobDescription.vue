@@ -99,7 +99,9 @@
                   </span>
                 </li>
                 <li class="list-group-item border-0 px-0">Job Type
-                  <span class="float-end fw-bold text-capitalize"> {{ currentJob.job_type.name }}</span>
+                  <span class="float-end fw-bold text-capitalize">
+                    {{ currentJob.job_type ? currentJob.job_type.name : '' }}
+                  </span>
                 </li>
                 <li class="list-group-item border-0 px-0">Salary
                   <span class="float-end fw-bold">
@@ -116,11 +118,12 @@
 
           <div class="py-2  border-0">
             <h4 class="fw-bold">Categories</h4>
-            <span class="category-tag text-capitalize" :class="currentJob.category.name + '-tag'">
-              {{ currentJob.category ? currentJob.category.name : 'category' }}
+            <span class="category-tag text-capitalize"
+              :class="currentJob.category ? currentJob.category.name : 'category' + '-tag'">
+              {{ currentJob.category ? currentJob.category.name : '___' }}
             </span>
             <span class="category-tag text-capitalize">
-              {{ currentJob.sub_category ? currentJob.sub_category.name : 'category' }}
+              {{ currentJob.sub_category ? currentJob.sub_category.name : '___' }}
             </span>
           </div>
 

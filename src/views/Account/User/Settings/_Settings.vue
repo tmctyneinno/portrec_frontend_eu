@@ -270,22 +270,23 @@ import { vMaska } from "maska"
 import profilePicUpload from './profilePicUpload.vue'
 
 const profileStore = useProfileStore()
-const data = profileStore.data
 
-const details = reactive({
-    name: data ? data.name : '',
-    gender: data ? data.gender : '',
-    phone: data ? data.phone : '',
-    dob: data ? new Date(data.dob) : new Date(),
+const userData = {
+    name: profileStore.data ? profileStore.data.name : '',
+    gender: profileStore.data ? profileStore.data.gender : '',
+    phone: profileStore.data ? profileStore.data.phone : '',
+    dob: profileStore.data ? new Date(profileStore.data.dob) : null,
     isLoading: false,
     user_type: 'user'
-})
+}
+
+const details = reactive(userData)
 
 watch(() => profileStore.data, () => {
     details.name = profileStore.data ? profileStore.data.name : '';
     details.gender = profileStore.data ? profileStore.data.gender : '';
     details.phone = profileStore.data ? profileStore.data.phone : '';
-    details.dob = profileStore.data ? new Date(profileStore.data.dob) : new Date();
+    details.dob = profileStore.data ? new Date(profileStore.data.dob) : null;
 })
 
 

@@ -10,7 +10,8 @@
                 </button>
 
                 <div class="d-none d-md-block">
-                    <button class="btn btn-outline-secondary rounded-0 me-5 btn-sm">Back to homepage</button>
+                    <router-link to="/" class="btn btn-outline-secondary rounded-0 me-5 btn-sm">Back to
+                        homepage</router-link>
                     <span class="me-5 cursor-pointer">
                         <i class="bi bi-bell"></i>
                     </span>

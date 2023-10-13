@@ -20,7 +20,8 @@
                                 {{ job.job_type ? job.job_type.name : 'Full Time' }}
                             </span>
                         </span>
-                        <span class="category-tag text-capitalize" :class="job.category.name + '-tag'">
+                        <span class="category-tag text-capitalize"
+                            :class="job.category ? job.category.name : 'category' + '-tag'">
                             {{ job.category ? job.category.name : 'category' }}
                         </span>
                         <span class="category-tag text-capitalize">

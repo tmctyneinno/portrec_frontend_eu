@@ -29,7 +29,7 @@
 
         </ul>
 
-        <div class="bottom">
+        <div v-if="profileStore.data" class="bottom">
             <div class="row justify-content-center align-items-center">
                 <div class="col-lg-2">
                     <div class="img-circle"></div>
@@ -41,6 +41,9 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div v-else class="bottom bg-secondary-subtle">
+            <span class="text-center small">You are offline, please reload page</span>
         </div>
     </div>
 </template>

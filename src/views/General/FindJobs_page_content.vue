@@ -26,9 +26,9 @@
       </div>
     </div>
 
-    <div class="container">
+    <div class="containe">
       <div class="row">
-        <div class="col-lg-3 small">
+        <div class="col-lg-3">
           <div class="card border-0 pt-5">
             <div class="row gy-3">
               <div class="col-12 col-md-6 col-lg-12">

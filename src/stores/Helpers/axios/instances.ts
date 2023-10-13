@@ -6,35 +6,52 @@ const progresses = [] as ProgressFinisher[];
 const hostURL = 'https://staging.tmcinstitute.com';
 const apiURL = `${hostURL}/api/`;
 
-// 'Content-Type': 'application/json;charset=UTF-8;text/json;multipart/form-data',
-const headers = {
+const headersNormal = {
     Accept: 'application/json',
     withCredentials: true,
+    // 'Content-Type': 'application/json;charset=UTF-8;text/json;multipart/form-data',
     'Content-Type': 'application/json',
 }
+
+const headersForForm = {
+    Accept: 'application/json',
+    withCredentials: true,
+    'Content-Type': 'multipart/form-data',
+}
+
+
 
 // create instances #######################################################
 const $instance = axios.create({
     baseURL: apiURL,
-    headers: headers,
+    headers: headersNormal
 })
 
 const $instanceJobs = axios.create({
     baseURL: apiURL,
-    headers: headers,
+    headers: headersNormal,
+})
+const $instanceForm = axios.create({
+    baseURL: apiURL,
+    headers: headersForForm,
 })
 
 
 // create interceptor for renewing token ##########################################3
-$instance.interceptors.request.use(
-    (config: any) => {
-        const token = localStorage.getItem('protrec_$authTkn');
-        if (token) config.headers.Authorization = `Bearer ${token}`;
-        progresses.push(useProgress().start());
-        return config;
+const setAuthorizationAndAddProgress = (config: any) => {
+    const token = localStorage.getItem('protrec_$authTkn');
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
     }
-);
 
+    progresses.push(useProgress().start());
+
+    return config;
+};
+
+// Set interceptors
+$instance.interceptors.request.use(setAuthorizationAndAddProgress);
+$instanceForm.interceptors.request.use(setAuthorizationAndAddProgress);
 
 
 // include progress bar ###########################################################3
@@ -47,5 +64,5 @@ $instance.interceptors.response.use(resp => {
 });
 
 export {
-    $instance, $instanceJobs
+    $instance, $instanceJobs, $instanceForm
 }

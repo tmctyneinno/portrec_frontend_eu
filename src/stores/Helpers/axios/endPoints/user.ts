@@ -22,12 +22,9 @@ export default {
         return $instanceForm.post(`${str}`, form)
     },
 
-    userCoverLetterText(data: any) {
-        return $instance.post(`/user/cover-letter`, JSON.stringify(data))
-    },
-
-    userCoverLetterTextUpdate(data: any, id: any) {
-        return $instance.put(`/user/cover-letter/${id}`, JSON.stringify(data))
+    userCoverLetterText(data: any, id?: any) {
+        return id ? $instance.put(`/user/cover-letter/${id}`, JSON.stringify(data))
+            : $instance.post(`/user/cover-letter`, JSON.stringify(data))
     },
 
     userCoverLetterFile(form: FormData) {

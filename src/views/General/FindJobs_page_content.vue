@@ -26,7 +26,7 @@
       </div>
     </div>
 
-    <div class="containe">
+    <div class="container" :class="{ 'small': route.path != '/find-jobs' }">
       <div class="row">
         <div class="col-lg-3">
           <div class="card border-0 pt-5">
@@ -256,8 +256,10 @@
 import searchJobForm from '@/components/searchJobForm.vue';
 import { onMounted, reactive, ref } from 'vue';
 import { useJobsStore } from '@/stores/jobsStore';
+import { useRoute } from 'vue-router';
 
 const jobsStore = useJobsStore()
+const route = useRoute()
 
 // pagination
 const currentPage = ref(0);

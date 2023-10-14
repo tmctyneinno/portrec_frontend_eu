@@ -28,6 +28,7 @@ async function getUserProfile() {
     let { data } = await api.userProfile()
     if (data.status === 201) {
         profileStore.data = data.body
+        profileStore.avatar = data.body.profile_pic ? data.body.profile_pic.image : ''
         console.log(profileStore.data);
 
     }

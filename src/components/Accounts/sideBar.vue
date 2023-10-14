@@ -32,7 +32,7 @@
         <div v-if="profileStore.data" class="bottom">
             <div class="row justify-content-center align-items-center">
                 <div class="col-lg-2">
-                    <div class="img-circle"></div>
+                    <div class="img-circle" :style="{ 'background-image': `url(${profileStore.avatar})` }"></div>
                 </div>
                 <div class="col-lg-8 small">
                     <div class="fw-bold text-capitalize">{{ profileStore.data ? profileStore.data.name : '' }}</div>
@@ -130,8 +130,13 @@ const menu = computed(() => {
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    background-color: rgb(187, 205, 205);
+    background-color: var(--theme-color-soft);
+    border: 1px solid #e8e5e5;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
 }
+
 
 
 @media (max-width: 767px) {

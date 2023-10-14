@@ -1,6 +1,9 @@
 <template>
     <div class="col-md-3">
-        <div class="image-circle"></div>
+        <div class="image-circle" :style="{ 'background-image': `url(${profileStore.avatar})` }"></div>
+        <!-- <div class="image-circle">
+            <img :src="profileStore.avatar" alt="avatar">
+        </div> -->
     </div>
     <div class="col-md-8">
         <div class="dropzone" v-bind="getRootProps()">
@@ -45,22 +48,16 @@ const { getRootProps, getInputProps } = useDropzone({
 });
 
 async function submitImage(formData: FormData) {
-
     try {
-        // var pic_id: any = null
-        // if (profileStore.data) {
-        //     if (profileStore.data.profile_pic) {
-        //         pic_id = profileStore.data.profile_pic.id
-        //     }
-        // }
+        imgSaving.value = true
         const pic_id = profileStore.data?.profile_pic?.id ?? null;
 
         let { data } = await api.userProfilePicture(formData, pic_id)
-        console.log(data);
 
         if (data.status === 200) {
+            profileStore.avatar = data.body
+            // profileStore.avatar = 'https://picsum.photos/100/100'
             useFxn.toast('Updated successfully', 'success')
-            getUserProfile()
         }
     } catch (error) {
         // 
@@ -70,25 +67,18 @@ async function submitImage(formData: FormData) {
     }
 }
 
-
-
-async function getUserProfile() {
-    let { data } = await api.userProfile()
-    if (data.status === 201) {
-        profileStore.data = data.body
-        console.log(data.body);
-
-    }
-}
-
 </script>
 
 <style lang="css" scoped>
 .image-circle {
-    background-color: #d2edd26d;
     height: 100px;
     width: 100px;
     border-radius: 50%;
+    background-color: var(--theme-color-soft);
+    border: 1px solid #e8e5e5;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 
 

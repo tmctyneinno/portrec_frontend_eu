@@ -49,16 +49,21 @@ const setAuthorizationAndAddProgress = (config: any) => {
     return config;
 };
 
+const finishProgressAndReturnResponse = (resp: any) => {
+    progresses.pop()?.finish();
+    return resp;
+}
+
 // Set interceptors
 $instance.interceptors.request.use(setAuthorizationAndAddProgress);
 $instanceForm.interceptors.request.use(setAuthorizationAndAddProgress);
 
-
-// include progress bar ###########################################################3
-$instance.interceptors.response.use(resp => {
+$instance.interceptors.response.use(finishProgressAndReturnResponse, error => {
     progresses.pop()?.finish();
-    return resp;
-}, (error) => {
+    return Promise.reject(error);
+});
+
+$instanceForm.interceptors.response.use(finishProgressAndReturnResponse, error => {
     progresses.pop()?.finish();
     return Promise.reject(error);
 });

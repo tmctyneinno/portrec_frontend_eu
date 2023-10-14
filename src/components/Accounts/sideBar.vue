@@ -29,12 +29,22 @@
 
         </ul>
 
-        <div v-if="profileStore.data" class="bottom">
-            <div class="row justify-content-center align-items-center">
+
+        <div class="bottom ps-3">
+            <div class="row mb-2">
+                <div class="col-12">
+                    <div class="card text-center theme-color">
+                        <div class="card-body p-1">
+                            <i class="bi bi-box-arrow-right"></i> Logout
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div v-if="profileStore.data" class="row justify-content-center align-items-center xsmall">
                 <div class="col-lg-2">
                     <div class="img-circle" :style="{ 'background-image': `url(${profileStore.avatar})` }"></div>
                 </div>
-                <div class="col-lg-8 small">
+                <div class="col-lg-8">
                     <div class="fw-bold text-capitalize">{{ profileStore.data ? profileStore.data.name : '' }}</div>
                     <div class="fw-lighter">
                         {{ profileStore.data ? profileStore.data.email : '' }}
@@ -42,9 +52,9 @@
                 </div>
             </div>
         </div>
-        <div v-else class="bottom bg-secondary-subtle">
+        <!-- <div v-else class="bottom bg-secondary-subtle">
             <span class="text-center small">You are offline, please reload page</span>
-        </div>
+        </div> -->
     </div>
 </template>
 

@@ -48,6 +48,7 @@ defineProps(['userType'])
 .btn-outline-secondary {
     color: var(--theme-color);
     font-weight: bolder;
+    border-color: #ccc;
 }
 
 .btn-outline-secondary:hover {

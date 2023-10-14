@@ -118,14 +118,6 @@
                     </div>
 
                 </div>
-
-                <!-- <button v-if="!details.isLoading" class="float-end btn btn-primary rounded-0" type="button">
-                    Save profile
-                </button>
-                <button v-else class="float-end btn btn-primary rounded-0" type="button" disabled>
-                    <span class="spinner-border spinner-border" aria-hidden="true"></span>
-                </button> -->
-
             </div>
 
             <!-- LOGIN DETAILS TAB -->

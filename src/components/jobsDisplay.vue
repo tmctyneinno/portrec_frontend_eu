@@ -3,7 +3,7 @@
         <div class="card rounded-0 card-latest p-3 py-lg-4 hover-tiltY cursor-pointer">
             <div class="row">
                 <div class="col-3 row align-content-center ">
-                    <img :src="job.company ? job.company.image : ''">
+                    <img :src="job.company ? job.company.image : ''" alt="_img">
                 </div>
                 <div class="col-9">
                     <h5 class="slide-title text-capitalize">

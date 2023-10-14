@@ -24,7 +24,7 @@ export default [
             { path: 'applied-jobs', name: 'user_Applied Jobs', component: () => import('../views/Account/User/AppliedJobs.vue') },
             { path: 'find-jobs', name: 'user_Find Jobs', component: () => import('../views/Account/User/FindJobs.vue') },
             { path: 'browse-companies', name: 'user_Browse Companies', component: () => import('../views/Account/User/Companies.vue') },
-            { path: 'profile', name: 'user_Profile', component: () => import('../views/Account/User/Profile.vue') },
+            { path: 'profile', name: 'user_Profile', component: () => import('../views/Account/User/Profile/_Profile.vue') },
         ],
         beforeEnter: accountGuard
     },

@@ -186,7 +186,7 @@
                         <div class="card-body">
                           <div class="row gy-3 align-items-center">
                             <div class="col-md-2 text-lg-center">
-                              <img :src="job.company ? job.company.image : ''" class="img-fluid" alt="">
+                              <img :src="job.company ? job.company.image : ''" class="img-fluid" alt="_img">
                             </div>
                             <div class="col-md-7">
                               <h4 class="fs-md mb-0 ft-medium">{{ job.title }}</h4>

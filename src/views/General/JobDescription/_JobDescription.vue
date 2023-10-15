@@ -16,7 +16,7 @@
                 <div class="row gy-3 align-items-center">
 
                   <div class="col-md-1 text-lg-center">
-                    <img :src="currentJob.company.image" class="img-fluid" width="55" alt="">
+                    <img :src="currentJob.company ? currentJob.company.image : ''" class="img-fluid" width="55" alt="">
                   </div>
 
                   <div class="col-md-7">

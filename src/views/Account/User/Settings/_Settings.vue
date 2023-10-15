@@ -254,7 +254,7 @@
 </template>-
 
 <script lang="ts" setup>
-import { reactive, ref, watch } from 'vue';
+import { reactive, watch } from 'vue';
 import { useProfileStore } from '@/stores/profileStore';
 import api from '@/stores/Helpers/axios'
 import useFxn from "@/stores/Helpers/useFunctions";
@@ -302,20 +302,13 @@ async function submitProfileForm() {
         let { data } = await api.userUpdateProfile(obj)
         if (data.status === 201) {
             useFxn.toast('Updated successfully', 'success')
-            getUserProfile()
+            profileStore.getUserProfile()
         }
     } catch (error) {
         // 
     }
     finally {
         details.isLoading = false
-    }
-}
-
-async function getUserProfile() {
-    let { data } = await api.userProfile()
-    if (data.status === 201) {
-        profileStore.data = data.body
     }
 }
 
@@ -346,7 +339,7 @@ async function getUserProfile() {
 
 <style>
 .dp__pointer {
-    border-radius: 0px;
+    border-radius: 0px !important;
 }
 
 /* .dob-settings-input {

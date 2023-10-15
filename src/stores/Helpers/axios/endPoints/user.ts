@@ -22,6 +22,11 @@ export default {
         return $instanceForm.post(`${str}`, form)
     },
 
+    userExperience(data: any, id?: any) {
+        return id ? $instance.put(`/user/experience/${id}`, JSON.stringify(data))
+            : $instance.post(`/user/experience`, JSON.stringify(data))
+    },
+
     userCoverLetterText(data: any, id?: any) {
         return id ? $instance.put(`/user/cover-letter/${id}`, JSON.stringify(data))
             : $instance.post(`/user/cover-letter`, JSON.stringify(data))

@@ -5,8 +5,8 @@
         <div class="card rounded-0">
             <div class="card-header bg-transparent fw-bold border-0 pt-3">
                 Skills
-                <span class="float-end">
-                    <span class="profile-edit-btn">
+                <span class="float-end" data-bs-toggle="modal" data-bs-target="#editSkillsModal">
+                    <span class="profile-edit-btn click-ripple">
                         <i class="bi bi-pencil-square"></i>
                     </span>
                 </span>

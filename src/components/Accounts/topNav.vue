@@ -12,7 +12,7 @@
                 <div class="d-none d-md-block">
                     <router-link to="/" class="btn btn-outline-secondary rounded-0 me-5 btn-sm">Back to
                         homepage</router-link>
-                    <span class="me-5 cursor-pointer">
+                    <span class=" me-3 cursor-pointer bell click-ripple">
                         <i class="bi bi-bell"></i>
                     </span>
                 </div>
@@ -53,5 +53,10 @@ defineProps(['userType'])
 
 .btn-outline-secondary:hover {
     background-color: #f7f5f5 !important;
+}
+
+.bell {
+    padding-left: 6px;
+    padding-top: 6px;
 }
 </style>

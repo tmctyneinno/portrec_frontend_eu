@@ -4,7 +4,7 @@
             <img src="@/assets/images/site_logo.png" width="140" alt="site_logo">
         </div>
 
-        <ul class="nav nav-pills flex-column mt-3">
+        <ul class="nav nav-pills flex-column mt-2">
             <li class="nav-item" v-for="i in menu" :key="i">
                 <router-link class="nav-link" :to="{ name: i.routeName }">
                     <i :class="i.icon"></i> &nbsp;
@@ -12,7 +12,7 @@
                 </router-link>
             </li>
 
-            <hr>
+            <hr class="my-2 mx-3">
             <li class="nav-item">
                 <router-link class="nav-link " to="/user/settings">
                     <i class="bi bi-gear"></i> &nbsp;
@@ -29,32 +29,32 @@
 
         </ul>
 
-
         <div class="bottom ps-3">
-            <div class="row mb-2">
-                <div class="col-12">
-                    <div class="card text-center theme-color">
-                        <div class="card-body p-1">
+            <div class="row justify-content-center g-2">
+                <div class="col-9">
+                    <div class="card text-center theme-color2">
+                        <div @click="logout" class="card-body p-1 cursor-pointer">
                             <i class="bi bi-box-arrow-right"></i> Logout
                         </div>
                     </div>
                 </div>
-            </div>
-            <div v-if="profileStore.data" class="row justify-content-center align-items-center xsmall">
-                <div class="col-lg-2">
-                    <div class="img-circle" :style="{ 'background-image': `url(${profileStore.avatar})` }"></div>
-                </div>
-                <div class="col-lg-8">
-                    <div class="fw-bold text-capitalize">{{ profileStore.data ? profileStore.data.name : '' }}</div>
-                    <div class="fw-lighter">
-                        {{ profileStore.data ? profileStore.data.email : '' }}
+                <div class="col-9">
+                    <div v-if="profileStore.data" class="row gx-5 justify-content-center align-items-cente xsmall">
+                        <div class="col-lg-2">
+                            <div class="img-circle" :style="{ 'background-image': `url(${profileStore.avatar})` }"></div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="fw-bold text-capitalize">{{ profileStore.data ? profileStore.data.name : '' }}</div>
+                            <div class="fw-lighter">
+                                {{ profileStore.data ? profileStore.data.email : '' }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
-        <!-- <div v-else class="bottom bg-secondary-subtle">
-            <span class="text-center small">You are offline, please reload page</span>
-        </div> -->
+
     </div>
 </template>
 
@@ -62,9 +62,11 @@
 import { computed } from 'vue';
 import { userMenu, recruiterMenu, adminMenu } from '@/stores/sideBarMenus'
 import { useProfileStore } from '@/stores/profileStore';
+import { useRouter } from 'vue-router';
 
 const profileStore = useProfileStore()
 const prop = defineProps(['userType'])
+const router = useRouter()
 
 // load menu according to usertype in prop
 const menu = computed(() => {
@@ -77,6 +79,11 @@ const menu = computed(() => {
 
     return menuMap[userType];
 });
+
+function logout() {
+    profileStore.logout()
+    router.replace({ path: '/login' })
+}
 
 
 </script>
@@ -100,7 +107,7 @@ const menu = computed(() => {
 }
 
 .sidebar li {
-    padding: 3px 15px;
+    padding: 2px 15px;
     border-bottom: 1px solid #ccc;
 }
 
@@ -131,9 +138,9 @@ const menu = computed(() => {
     bottom: 0;
     left: 0;
     z-index: 1030;
-    /* background-color: var(--bs-danger); */
-    width: 250px;
+    width: 249px;
     padding: 10px;
+    background-color: #F8F8FD;
 }
 
 .bottom .img-circle {

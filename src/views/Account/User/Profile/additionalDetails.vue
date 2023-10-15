@@ -5,8 +5,8 @@
         <div class="card rounded-0">
             <div class="card-header bg-transparent fw-bold border-0 pt-3">
                 Additional Details
-                <span class="float-end">
-                    <span class="profile-edit-btn">
+                <span class="float-end " data-bs-toggle="modal" data-bs-target="#editAdditionalDetailsModal">
+                    <span class="profile-edit-btn click-ripple ">
                         <i class="bi bi-pencil-square"></i>
                     </span>
                 </span>
@@ -20,7 +20,7 @@
                             </div>
                             <div class="col">
                                 <div class="text-muted">Email</div>
-                                <div>xxxxxxx</div>
+                                <div>{{ profileStore.data ? profileStore.data.email : '__' }}</div>
                             </div>
                         </div>
                     </li>
@@ -31,7 +31,7 @@
                             </div>
                             <div class="col">
                                 <div class="text-muted">Phone</div>
-                                <div>080</div>
+                                <div>{{ profileStore.data ? profileStore.data.phone : '__' }}</div>
                             </div>
                         </div>
                     </li>
@@ -40,10 +40,10 @@
                             <div class="col-2">
                                 <i class="bi bi-translate"></i>
                             </div>
-                            <div class="col">
+                            <div class="col mb-4">
                                 <div class="text-muted">Languages</div>
                                 <div>
-                                    <span class="languages-list text-dark bg-transparen">English</span>
+                                    {{ languages }}
                                 </div>
                             </div>
                         </div>
@@ -55,16 +55,22 @@
 </template>
 
 <script lang="ts" setup>
+import { useProfileStore } from '@/stores/profileStore';
+import { computed } from 'vue';
+
+const profileStore = useProfileStore()
+
+const languages = computed(() => {
+    // let arr: string[] = [];
+    let arr: string = '__';
+    if (profileStore.data)
+        if (profileStore.data.languages)
+            arr = profileStore.data.languages
+    // arr = JSON.parse(profileStore.data.languages)
+    // return arr.toString();
+    return arr;
+
+})
 
 </script>
 
-<style lang="css" scoped>
-.languages-list {
-    background-color: var(--bs-light);
-    padding-inline: 5px;
-    display: inline-block;
-    margin-right: 5px;
-    margin-block: 5px;
-    font-size: small;
-}
-</style>

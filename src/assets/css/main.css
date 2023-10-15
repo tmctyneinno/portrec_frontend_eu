@@ -203,6 +203,10 @@ hr.faint:after {
   font-size: .754em;
 }
 
+.text-muted2 {
+  color: rgba(188, 192, 197, 0.75) !important;
+}
+
 .line-right {
   border-right: 1px solid #e5e5e5;
   padding-right: 10px;
@@ -310,4 +314,68 @@ input[type="radio"]:checked+label:before {
   /* Change the background color of the custom radio button when checked */
   border-color: var(--theme-color);
   /* Change the border color of the custom radio button when checked */
+}
+
+
+
+
+
+/* RIPPLE EFFECT ################################## */
+.click-ripple {
+  position: relative;
+}
+
+.click-ripple:active:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  background-color: rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(2);
+  }
+}
+
+
+
+/* date picker and vue-select ##################### */
+.dp__pointer {
+  border-radius: 0px !important;
+}
+
+.dp__range_end,
+.dp__range_start,
+.dp__active_date {
+  background: var(--theme-color);
+  color: var(--dp-primary-text-color);
+}
+
+.vs__search,
+.vs__search:focus {
+  line-height: 25px !important;
+  border-radius: 0px !important;
+}
+
+.vs--unsearchable .vs__dropdown-toggle {
+  border-radius: 0px !important;
+
+}
+
+.vs__dropdown-toggle {
+  border-radius: 0px !important;
 }

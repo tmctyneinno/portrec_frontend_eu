@@ -112,16 +112,16 @@ const form = reactive({
 
 function submitForm() {
     if (!form.email || !form.password) {
-        useFxn.toast('Please complete fields', 'warning')
+        useFxn.toastShort('Please complete fields')
         return;
     }
 
     if (!useFxn.isEmail(form.email)) {
-        useFxn.toast('Email format is invalid!', 'warning')
+        useFxn.toastShort('Email format is invalid!')
         return;
     }
     if (!online.value) {
-        useFxn.toast('No internet, You are offline!', 'warning')
+        useFxn.toastShort('No internet, You are offline!')
         return;
     }
 

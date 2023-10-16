@@ -32,7 +32,6 @@
 
 <script lang="ts" setup>
 
-
 import ProfilePictureComponent from './profilePicture.vue';
 import AboutMeComponent from './aboutMe.vue';
 import ExperiencesComponent from './experiences.vue';

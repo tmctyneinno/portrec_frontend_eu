@@ -27,6 +27,19 @@ export default {
             : $instance.post(`/user/experience`, JSON.stringify(data))
     },
 
+    userExperienceDelete(id: any) {
+        return $instance.delete(`/user/experience/${id}`)
+    },
+
+    userEducation(data: any, id?: any) {
+        return id ? $instance.put(`/user/education/${id}`, JSON.stringify(data))
+            : $instance.post(`/user/education`, JSON.stringify(data))
+    },
+
+    userEducationDelete(id: any) {
+        return $instance.delete(`/user/education/${id}`)
+    },
+
     userCoverLetterText(data: any, id?: any) {
         return id ? $instance.put(`/user/cover-letter/${id}`, JSON.stringify(data))
             : $instance.post(`/user/cover-letter`, JSON.stringify(data))

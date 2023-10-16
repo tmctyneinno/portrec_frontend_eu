@@ -111,17 +111,17 @@ function submitForm() {
     const { fullName, email, password } = form;
 
     if (!fullName || !email || !password) {
-        useFxn.toast('Please complete fields', 'warning');
+        useFxn.toastShort('Please complete fields');
         return;
     }
 
     if (!useFxn.isEmail(email)) {
-        useFxn.toast('Email format is invalid!', 'warning');
+        useFxn.toastShort('Email format is invalid!');
         return;
     }
 
     if (!online.value) {
-        useFxn.toast('No internet, You are offline!', 'warning');
+        useFxn.toastShort('No internet, You are offline!');
         return;
     }
 
@@ -139,7 +139,7 @@ async function registerJobSeeker() {
         }
     } catch (error: any) {
         if (error.response.status === 409) {
-            useFxn.toast('Email already taken', 'error')
+            useFxn.toastShort('Email already taken')
         } else {
             useFxn.toast('Sorry, error occured, check your internet', 'error')
         }

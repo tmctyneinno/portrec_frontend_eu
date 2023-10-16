@@ -18,15 +18,15 @@
                 </p>
                 <!-- Some borders are removed -->
                 <ul v-else class="list-group list-group-flush">
-                    <li v-for="({ institution, qualification, description, start_date, end_date }, index ) in profileStore.data.education"
-                        :key="index" class="list-group-item">
+                    <li v-for="(edu, index ) in profileStore.data.education" :key="index" class="list-group-item">
                         <div class="row g-3">
                             <!-- <div class="col-lg-2">
                                 <img src="" alt="_img" class="">
                             </div> -->
                             <div class="col">
-                                <div class="fw-bold mb-2">{{ institution }}
-                                    <span class="float-end" data-bs-toggle="modal" data-bs-target="#editEducationModal">
+                                <div class="fw-bold mb-2">{{ edu.institution }}
+                                    <span @click="editingStore.educationToEdit = edu" class="float-end"
+                                        data-bs-toggle="modal" data-bs-target="#editEducationModal">
                                         <span class="profile-edit-btn click-ripple">
                                             <i class="bi bi-pencil-square"></i>
                                         </span>
@@ -34,13 +34,14 @@
 
                                 </div>
                                 <div class="text-muted mb-2">
-                                    {{ qualification }}
-                                    <div v-if="start_date && end_date">
-                                        {{ new Date(start_date).getFullYear() }} - {{ new Date(end_date.getFullYear()) }}
+                                    {{ edu.qualification }}
+                                    <div v-if="edu.start_date">
+                                        {{ new Date(edu.start_date).getFullYear() }} -
+                                        {{ edu.end_date ? new Date(edu.end_date).getFullYear() : 'present' }}
                                     </div>
                                 </div>
                                 <div>
-                                    {{ description }}
+                                    {{ edu.description }}
                                 </div>
                             </div>
                         </div>
@@ -53,9 +54,11 @@
 
 <script lang="ts" setup>
 import { useProfileStore } from '@/stores/profileStore';
+import { useEditingProfileStore } from './editingProfileStore'
 import { computed } from 'vue';
 
 const profileStore = useProfileStore()
+const editingStore = useEditingProfileStore()
 
 const isEducations = computed(() => {
     let edu: boolean = false

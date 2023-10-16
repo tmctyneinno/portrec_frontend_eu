@@ -19,8 +19,8 @@ import { onMounted } from 'vue';
 
 const profileStore = useProfileStore()
 
-onMounted(() => {
-    profileStore.getUserProfile()
+onMounted(async () => {
+    await profileStore.getUserProfile()
 })
 
 </script>

@@ -14,14 +14,14 @@
 
             <hr class="my-2 mx-3">
             <li class="nav-item">
-                <router-link class="nav-link " to="/user/settings">
+                <router-link class="nav-link " :to="`/${prop.userType}/settings`">
                     <i class="bi bi-gear"></i> &nbsp;
                     Settings
                 </router-link>
             </li>
 
             <li class="nav-item">
-                <router-link class="nav-link " to="/user/help_center">
+                <router-link class="nav-link" :to="`/${prop.userType}/help-center`">
                     <i class="bi bi-question-circle"></i> &nbsp;
                     Help Center
                 </router-link>

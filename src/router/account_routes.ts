@@ -25,6 +25,7 @@ export default [
             { path: 'find-jobs', name: 'user_Find Jobs', component: () => import('../views/Account/User/FindJobs.vue') },
             { path: 'browse-companies', name: 'user_Browse Companies', component: () => import('../views/Account/User/Companies.vue') },
             { path: 'profile', name: 'user_Profile', component: () => import('../views/Account/User/Profile/_Profile.vue') },
+            { path: 'help-center', name: 'user_Help Center', component: () => import('../views/Account/User/HelpCenter.vue') },
         ],
         beforeEnter: accountGuard
     },

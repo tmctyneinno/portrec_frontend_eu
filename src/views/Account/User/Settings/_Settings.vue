@@ -238,7 +238,7 @@
                                 <div class="row">
                                     <div class="col-2 "></div>
                                     <div class="col-10 col-md-6">
-                                        <button class="btn btn-primary w-100">Update Settings</button>
+                                        <button class="btn btn-primary w-100 rounded-0">Update Settings</button>
                                     </div>
                                 </div>
                             </div>

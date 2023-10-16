@@ -67,16 +67,11 @@
 import { useProfileStore } from '@/stores/profileStore';
 import { useEditingProfileStore } from './editingProfileStore'
 import { useJobsStore } from '@/stores/jobsStore';
-import { computed, onMounted } from 'vue';
 
 
 const profileStore = useProfileStore()
 const jobsStore = useJobsStore()
 const editingStore = useEditingProfileStore()
-
-onMounted(async () => {
-    await jobsStore.getJobTypes()
-})
 
 const experienceArray = () => {
     let arr = []
@@ -85,7 +80,6 @@ const experienceArray = () => {
             arr = profileStore.data.experience;
         }
     }
-
     return arr;
 }
 

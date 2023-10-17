@@ -22,10 +22,14 @@
                                 :max-date="new Date()" :enable-time-picker="false" auto-apply
                                 v-model="education.start_date">
                             </VueDatePicker>
+                            <label class="cursor-pointer small">
+                                <input v-model="isCurrentlyHere" class="form-check-input me-1" type="checkbox">
+                                I currently school here
+                            </label>
                         </div>
-                        <div class="col-md-6">
-                            <label class="small">To {{ !education.end_date ? '(present)' : '' }} </label>
-                            <VueDatePicker :format="dp_format" :teleport="true" hide-input-icon
+                        <div class="col-md-6" v-if="!isCurrentlyHere">
+                            <label class="small">To * </label>
+                            <VueDatePicker :format="dp_format" :teleport="true" hide-input-icon :clearable="false"
                                 :min-date="education.start_date" :enable-time-picker="false" auto-apply
                                 v-model="education.end_date">
                             </VueDatePicker>
@@ -60,26 +64,26 @@ import { useProfileStore } from '@/stores/profileStore';
 import api from '@/stores/Helpers/axios'
 import useFxn from '@/stores/Helpers/useFunctions';
 import { useEditingProfileStore } from '../editingProfileStore'
+import { useDateFormat } from '@vueuse/core';
 
 const route = useRoute()
 const profileStore = useProfileStore()
 const editingStore = useEditingProfileStore()
 
+const isCurrentlyHere = ref(false)
+
+
 
 const dp_format = (date: Date) => {
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-
-    return `${day}/${month}/${year}`;
+    const dateMe = useDateFormat(date, 'MMMM D, YYYY')
+    return dateMe.value
 }
-
 
 const education = reactive({
     institution: '',
     qualification: '',
     start_date: new Date(),
-    end_date: null,
+    end_date: new Date(),
     description: '',
 })
 
@@ -101,11 +105,12 @@ function clickSave() {
 
 async function save() {
 
+    let thisEndDate = isCurrentlyHere.value ? null : education.end_date;
     let obj = {
         institution: education.institution,
         qualification: education.qualification,
         start_date: editingStore.dateSubmitFormat(education.start_date),
-        end_date: editingStore.dateSubmitFormat(education.end_date),
+        end_date: editingStore.dateSubmitFormat(thisEndDate),
         description: education.description
     }
 

@@ -53,6 +53,9 @@ import "v3-infinite-loading/lib/style.css";
 import { setupCalendar, Calendar, DatePicker } from 'v-calendar';
 import 'v-calendar/style.css';
 
+// https://vue3-google-signin.vercel.app/guide/
+import GoogleSignInPlugin from "vue3-google-signin"
+
 import piniaPersist from 'pinia-plugin-persist'
 
 import jobsDisplayVue from '@/components/jobsDisplay.vue';
@@ -87,7 +90,9 @@ app.component('overlayLoading', overlayLoading)
 app.component('noDataShow', noDataShow)
 app.component('componentLoading', componentLoading)
 
-
+app.use(GoogleSignInPlugin, {
+    clientId: 'CLIENT ID OBTAINED FROM GOOGLE API CONSOLE',
+});
 app.use(pinia)
 app.use(VueApexCharts);
 app.use(VueSweetalert2);

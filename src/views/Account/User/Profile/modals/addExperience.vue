@@ -39,10 +39,13 @@
                                 :max-date="new Date()" :enable-time-picker="false" auto-apply
                                 v-model="experience.start_date">
                             </VueDatePicker>
-
+                            <label class="cursor-pointer small">
+                                <input v-model="isCurrentlyHere" class="form-check-input me-1" type="checkbox">
+                                I currently work here
+                            </label>
                         </div>
-                        <div class="col-md-6">
-                            <label class="small">To {{ !experience.end_date ? '(present)' : '' }} </label>
+                        <div class="col-md-6" v-if="!isCurrentlyHere">
+                            <label class="small">To * </label>
                             <VueDatePicker :format="dp_format" :teleport="true" hide-input-icon :clearable="false"
                                 :min-date="experience.start_date" :enable-time-picker="false" auto-apply
                                 v-model="experience.end_date">
@@ -72,10 +75,13 @@ import { useProfileStore } from '@/stores/profileStore';
 import api from '@/stores/Helpers/axios'
 import useFxn from '@/stores/Helpers/useFunctions';
 import { useEditingProfileStore } from '../editingProfileStore'
+import { useDateFormat } from '@vueuse/core';
 
 const jobsStore = useJobsStore()
 const profileStore = useProfileStore()
 const editingStore = useEditingProfileStore()
+
+const isCurrentlyHere = ref(false)
 
 onMounted(() => {
     jobsStore.getJobTypes()
@@ -86,19 +92,15 @@ const jobTypesArray = computed(() => {
 })
 
 const dp_format = (date: Date) => {
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-
-    return `${day}/${month}/${year}`;
+    const dateMe = useDateFormat(date, 'MMMM D, YYYY')
+    return dateMe.value
 }
-
 
 const experience = reactive({
     company_name: '',
     company_location: '',
     start_date: new Date(),
-    end_date: null,
+    end_date: new Date(),
     job_title: '',
     work_type_id: '',
     description: '',
@@ -121,11 +123,12 @@ function clickSave() {
 
     isSaving.value = true
 
+    let thisEndDate = isCurrentlyHere.value ? null : experience.end_date;
     let obj = {
         company_name: experience.company_name,
         company_location: experience.company_location,
         start_date: editingStore.dateSubmitFormat(experience.start_date),
-        end_date: editingStore.dateSubmitFormat(experience.end_date),
+        end_date: editingStore.dateSubmitFormat(thisEndDate),
         job_title: experience.job_title,
         // @ts-ignore
         work_type_id: experience.work_type_id.id,
@@ -137,7 +140,6 @@ function clickSave() {
 }
 
 async function save(obj: any) {
-
     try {
         let { data } = await api.userExperience(obj)
         if (data.status === 200) {

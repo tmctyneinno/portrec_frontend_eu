@@ -5,7 +5,7 @@
         <div class="card rounded-0">
             <div class="card-header bg-transparent fw-bold border-0 pt-3">
                 About me
-                <span class="float-end" data-bs-toggle="modal" data-bs-target="#editAboutModal">
+                <span @click="saveAboutMeToStore" class="float-end" data-bs-toggle="modal" data-bs-target="#editAboutModal">
                     <span class="profile-edit-btn click-ripple">
                         <i class="bi bi-pencil-square"></i>
                     </span>
@@ -25,9 +25,16 @@
 
 <script lang="ts" setup>
 import { useProfileStore } from '@/stores/profileStore';
+import { useEditingProfileStore } from './editingProfileStore';
+
 
 const profileStore = useProfileStore()
+const editingStore = useEditingProfileStore()
 
+function saveAboutMeToStore() {
+    editingStore.aboutMe.isEdit = editingStore.aboutMe.isEdit == 1 ? 2 : 1
+    editingStore.aboutMe.text = profileStore.data.about_me
+}
 </script>
 
 <style lang="css" scoped></style>

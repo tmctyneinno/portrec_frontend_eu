@@ -13,12 +13,12 @@
             </div>
             <div class="card-body small">
 
-                <p v-if="!isEducations" class="text-muted2">
+                <p v-if="!educationsArray().length" class="text-muted2">
                     Add institutions attended
                 </p>
                 <!-- Some borders are removed -->
                 <ul v-else class="list-group list-group-flush">
-                    <li v-for="(edu, index ) in profileStore.data.education" :key="index" class="list-group-item">
+                    <li v-for="(edu, index ) in educationsArray()" :key="index" class="list-group-item">
                         <div class="row g-3">
                             <!-- <div class="col-lg-2">
                                 <img src="" alt="_img" class="">
@@ -55,19 +55,12 @@
 <script lang="ts" setup>
 import { useProfileStore } from '@/stores/profileStore';
 import { useEditingProfileStore } from './editingProfileStore'
-import { computed } from 'vue';
 
 const profileStore = useProfileStore()
 const editingStore = useEditingProfileStore()
 
-const isEducations = computed(() => {
-    let edu: boolean = false
-    if (profileStore.data) {
-        if (profileStore.data.education)
-            edu = true;
-    }
-    return edu;
-})
+const educationsArray = () => profileStore.data?.education ?? [];
+
 </script>
 
 <style lang="css" scoped></style>

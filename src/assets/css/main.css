@@ -9,7 +9,14 @@ button:focus,
 .page-link:focus {
   outline: none !important;
   box-shadow: none !important;
-  /* border-color: #dee2e6 !important; */
+  border-color: #dee2e6 !important;
+}
+
+/* remove tiny mark at bottom left of textareas */
+textarea {
+  resize: none;
+  /* -webkit-appearance: none;
+  -moz-appearance: none; */
 }
 
 input::placeholder, textarea::placeholder {
@@ -18,6 +25,8 @@ input::placeholder, textarea::placeholder {
   font-weight: lighter;
   font-size: 16px;
 }
+
+
 
 .btn-primary {
   background-color: var(--theme-btn) !important;
@@ -369,6 +378,7 @@ input[type="radio"]:checked+label:before {
 .vs__search:focus {
   line-height: 25px !important;
   border-radius: 0px !important;
+  border: 0px !important;
 }
 
 .vs--unsearchable .vs__dropdown-toggle {

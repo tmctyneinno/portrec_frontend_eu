@@ -77,6 +77,7 @@ import { useEditingProfileStore } from '../editingProfileStore'
 import { useJobsStore } from '@/stores/jobsStore';
 import api from '@/stores/Helpers/axios'
 import useFxn from '@/stores/Helpers/useFunctions';
+import { useDateFormat } from '@vueuse/core';
 
 const profileStore = useProfileStore()
 const editingStore = useEditingProfileStore()
@@ -91,11 +92,8 @@ const jobTypesArray = computed(() => {
 })
 
 const dp_format = (date: Date) => {
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-
-    return `${day}/${month}/${year}`;
+    const dateMe = useDateFormat(date, 'MMMM D, YYYY')
+    return dateMe.value
 }
 
 const experience = reactive({

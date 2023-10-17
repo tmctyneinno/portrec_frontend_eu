@@ -32,16 +32,18 @@ import { useRoute } from 'vue-router'
 import { useProfileStore } from '@/stores/profileStore';
 import api from '@/stores/Helpers/axios'
 import useFxn from '@/stores/Helpers/useFunctions';
+import { useEditingProfileStore } from '../editingProfileStore';
 
 import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 
 const profileStore = useProfileStore()
+const editingStore = useEditingProfileStore()
 const route = useRoute()
 
-const editorData = ref(profileStore.data ? profileStore.data.about_me : '')
-watch(() => profileStore.data, () => {
-    editorData.value = profileStore.data ? profileStore.data.about_me : ''
+const editorData = ref<string>(editingStore.aboutMe.text)
+watch(() => editingStore.aboutMe.isEdit, () => {
+    editorData.value = editingStore.aboutMe.text
 })
 
 const isSaving = ref(false)

@@ -48,14 +48,14 @@ const route = useRoute()
 const profileStore = useProfileStore()
 
 const details = reactive({
-    email: profileStore.data ? profileStore.data.email : '',
-    phone: profileStore.data ? profileStore.data.phone : '',
+    email: profileStore.data?.email ?? '',
+    phone: profileStore.data?.phone ?? '',
     // languages: profileStore.data ? profileStore.data.languages : []
 })
 
 watch(() => profileStore.data, () => {
-    details.email = profileStore.data ? profileStore.data.email : '';
-    details.phone = profileStore.data ? profileStore.data.phone : '';
+    details.email = profileStore.data?.email ?? '';
+    details.phone = profileStore.data?.phone ?? '';
     // details.languages = profileStore.data ? profileStore.data.languages : []
 })
 

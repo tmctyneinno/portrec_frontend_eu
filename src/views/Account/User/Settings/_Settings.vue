@@ -264,9 +264,9 @@ import profilePicUpload from './profilePicUpload.vue'
 const profileStore = useProfileStore()
 
 const userData = {
-    name: profileStore.data ? profileStore.data.name : '',
-    gender: profileStore.data ? profileStore.data.gender : '',
-    phone: profileStore.data ? profileStore.data.phone : '',
+    name: profileStore.data?.name ?? '',
+    gender: profileStore.data?.gender ?? '',
+    phone: profileStore.data?.phone ?? '',
     dob: profileStore.data ? new Date(profileStore.data.dob) : null,
     isLoading: false,
     user_type: 'user'
@@ -275,9 +275,9 @@ const userData = {
 const details = reactive(userData)
 
 watch(() => profileStore.data, () => {
-    details.name = profileStore.data ? profileStore.data.name : '';
-    details.gender = profileStore.data ? profileStore.data.gender : '';
-    details.phone = profileStore.data ? profileStore.data.phone : '';
+    details.name = profileStore.data?.name ?? '';
+    details.gender = profileStore.data?.gender ?? '';
+    details.phone = profileStore.data?.phone ?? '';
     details.dob = profileStore.data ? new Date(profileStore.data.dob) : null;
 })
 

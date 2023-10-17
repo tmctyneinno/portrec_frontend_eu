@@ -20,13 +20,16 @@
                         </div>
                         <div class="col-12 ">
                             <div class="fs-4 fw-lighter text-center mb-2">Welcom back, Dude</div>
+
                         </div>
 
-                        <div class="col-12 mb-2">
-                            <div class="card google-card rounded-0 p-2 ">
-                                <div class="fw-bolder text-center theme-color">
-                                    <img src="@/assets/images/google_icon.png"> &nbsp;Login with Google
-                                </div>
+                        <!-- <div class="col-12 mb-2">
+                            <GoogleSignInButton @success="handleLoginSuccess" @error="handleLoginError">
+                            </GoogleSignInButton>
+                        </div> -->
+                        <div :disabled="!isReady" @click="() => loginWithGoogle()" class="card google-card rounded-0 p-2 ">
+                            <div class="fw-bolder text-center theme-color">
+                                <img src="@/assets/images/google_icon.png" width="20"> &nbsp;signin with Google
                             </div>
                         </div>
 
@@ -95,7 +98,8 @@ import api from "@/stores/Helpers/axios";
 import { useOnline } from "@vueuse/core";
 import { useRouter } from "vue-router";
 import { useProfileStore } from "@/stores/profileStore";
-
+// @ts-ignore
+import { useCodeClient, type ImplicitFlowSuccessResponse, type ImplicitFlowErrorResponse, } from "vue3-google-signin";
 
 const online = useOnline()
 const router = useRouter()
@@ -155,6 +159,34 @@ async function signinJobSeeker() {
 
     }
 }
+
+
+
+// google sign in
+const handleOnSuccess = async (response: ImplicitFlowSuccessResponse) => {
+    // send code to a backend server to verify it.
+    console.log("Code: ", response.code);
+
+    // use axios or something to reach backend server
+    const result = await fetch("https://_BACKEND/", {
+        method: "POST",
+        body: JSON.stringify({
+            code: response.code,
+        }),
+    });
+
+    console.log(result);
+};
+
+const handleOnError = (errorResponse: ImplicitFlowErrorResponse) => {
+    console.log("Error: ", errorResponse);
+};
+
+const { isReady, login: loginWithGoogle } = useCodeClient({
+    onSuccess: handleOnSuccess,
+    onError: handleOnError,
+    // other options
+});
 
 
 </script>

@@ -90,12 +90,12 @@
               <ul class="list-group list-group-flush">
                 <li class="list-group-item border-0 px-0">Apply Before
                   <span class="float-end fw-bold">
-                    {{ useDateFormat(currentJob.deadline, `MMMM D, YYYY`) }}
+                    {{ dateShow(currentJob.deadline) }}
                   </span>
                 </li>
                 <li class="list-group-item border-0 px-0">Job Posted On
                   <span class="float-end fw-bold">
-                    {{ useDateFormat(currentJob.created_at, `MMMM D, YYYY`) }}
+                    {{ dateShow(currentJob.created_at) }}
                   </span>
                 </li>
                 <li class="list-group-item border-0 px-0">Job Type
@@ -245,6 +245,12 @@ function openApplyModal() {
   modalOpen.value = true;
   currentModal.value = 1
 }
+
+function dateShow(date: any) {
+  let d = useDateFormat(date, `MMMM D, YYYY`)
+  return d.value
+}
+
 
 onBeforeRouteLeave(() => {
   modalOpen.value = false

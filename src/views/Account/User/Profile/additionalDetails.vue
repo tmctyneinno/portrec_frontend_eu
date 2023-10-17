@@ -35,7 +35,7 @@
                             </div>
                         </div>
                     </li>
-                    <li class="list-group-item border-0">
+                    <li v-if="languages" class="list-group-item border-0">
                         <div class="row">
                             <div class="col-2">
                                 <i class="bi bi-translate"></i>
@@ -60,17 +60,12 @@ import { computed } from 'vue';
 
 const profileStore = useProfileStore()
 
-const languages = computed(() => {
-    // let arr: string[] = [];
-    let arr: string = '__';
-    if (profileStore.data)
-        if (profileStore.data.languages)
-            arr = profileStore.data.languages
-    // arr = JSON.parse(profileStore.data.languages)
-    // return arr.toString();
-    return arr;
+// const languages = computed(() => {
+//     const languages = JSON.parse(profileStore.data?.languages ?? '[]');
+//     return languages.toString();
+// });
 
-})
+const languages = computed(() => profileStore.data?.languages ?? '');
 
 </script>
 

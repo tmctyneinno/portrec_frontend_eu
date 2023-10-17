@@ -60,6 +60,7 @@ import { useProfileStore } from '@/stores/profileStore';
 import { useEditingProfileStore } from '../editingProfileStore'
 import api from '@/stores/Helpers/axios'
 import useFxn from '@/stores/Helpers/useFunctions';
+import { useDateFormat } from '@vueuse/core';
 
 const profileStore = useProfileStore()
 const editingStore = useEditingProfileStore()
@@ -67,11 +68,8 @@ const isLoading = ref(false)
 
 
 const dp_format = (date: Date) => {
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-
-    return `${day}/${month}/${year}`;
+    const dateMe = useDateFormat(date, 'MMMM D, YYYY')
+    return dateMe.value
 }
 
 const education = reactive({

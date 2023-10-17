@@ -9,7 +9,7 @@ export const useEditingProfileStore = defineStore('editingStore', () => {
     function dateSubmitFormat(date: any) {
         let toReturn = null;
         if (date)
-            toReturn = `${new Date(date).getFullYear()}/${new Date(date).getMonth() + 1}/${new Date(date).getDay()}`
+            toReturn = `${new Date(date).getFullYear()}/${new Date(date).getMonth() + 1}/${new Date(date).getDate()}`
         return toReturn;
     }
 

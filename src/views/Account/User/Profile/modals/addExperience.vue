@@ -1,5 +1,3 @@
-
-
 <template>
     <div class="modal fade" id="addExperienceModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
         role="dialog" aria-hidden="true">
@@ -158,13 +156,6 @@ async function save(obj: any) {
     }
 }
 
-
-
-
-
-
-
-
 const route = useRoute()
 const btnX = ref<any>(null)
 watch(() => route.path, () => {
@@ -172,7 +163,3 @@ watch(() => route.path, () => {
 })
 
 </script>
-
-
-<style lang="css" scoped></style>
-

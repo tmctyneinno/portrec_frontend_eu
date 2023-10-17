@@ -251,7 +251,7 @@
             </div>
         </div>
     </div>
-</template>-
+</template>
 
 <script lang="ts" setup>
 import { reactive, watch } from 'vue';

@@ -108,6 +108,7 @@ async function save() {
         end_date: editingStore.dateSubmitFormat(education.end_date),
         description: education.description
     }
+
     try {
         let { data } = await api.userEducation(obj)
         if (data.status === 200) {

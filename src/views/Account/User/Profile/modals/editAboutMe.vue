@@ -10,9 +10,8 @@
                     <button ref="btnX" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="col-12">
-                        <QuillEditor style="min-height: 200px;" v-model:content="editorData" contentType="html"
-                            toolbar="minimal" />
+                    <div class="col-12" style="margin-bottom: 70px; height:200px">
+                        <QuillEditor v-model:content="editorData" contentType="html" toolbar="minimal" />
                     </div>
                 </div>
                 <div class="modal-footer border-0">

@@ -1,5 +1,3 @@
-
-
 <template>
     <div class="row justify-content-center g-3">
         <div class="col-lg-8">

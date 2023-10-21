@@ -36,5 +36,3 @@ function saveAboutMeToStore() {
     editingStore.aboutMe.text = profileStore.data.about_me
 }
 </script>
-
-<style lang="css" scoped></style>

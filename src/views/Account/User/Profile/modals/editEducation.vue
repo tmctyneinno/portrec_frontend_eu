@@ -161,17 +161,6 @@ async function save() {
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
 const btnX = ref<any>(null)
 watch(() => route.path, () => {
     btnX.value.click();

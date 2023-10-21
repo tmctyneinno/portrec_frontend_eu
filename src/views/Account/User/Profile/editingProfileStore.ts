@@ -10,6 +10,8 @@ export const useEditingProfileStore = defineStore('editingStore', () => {
         isEdit: 1
     })
 
+    const skillsArray = ref([])
+
     function dateSubmitFormat(date: any) {
         let toReturn = null;
         if (date)
@@ -17,5 +19,5 @@ export const useEditingProfileStore = defineStore('editingStore', () => {
         return toReturn;
     }
 
-    return { educationToEdit, experienceToEdit, aboutMe, dateSubmitFormat }
+    return { educationToEdit, experienceToEdit, aboutMe, skillsArray, dateSubmitFormat }
 })

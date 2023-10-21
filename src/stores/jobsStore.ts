@@ -83,7 +83,7 @@ export const useJobsStore = defineStore('jobsStore', () => {
       const resp: any = await api.jobLevels()
       if (resp.status == 200)
         levels.value = resp.data.body
-      console.log('levels', resp.data.body);
+      // console.log('levels', resp.data.body);
     } catch (error) {
       console.log(error);
     }

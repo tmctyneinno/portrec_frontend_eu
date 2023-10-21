@@ -84,7 +84,8 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header fw-bold py-3 bg-transparent ">Recent Applications History</div>
-                <div class="card-body min-vh-100"></div>
+                <div class="card-body min-vh-100">
+                </div>
             </div>
         </div>
     </div>
@@ -95,14 +96,9 @@ import { useProfileStore } from '@/stores/profileStore';
 import { onMounted } from 'vue';
 
 const profileStore = useProfileStore()
-
 onMounted(() => {
     console.log(profileStore.data);
-
 })
-
-
-
 
 
 const chartOptions = {

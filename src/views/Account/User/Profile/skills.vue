@@ -12,13 +12,28 @@
                 </span>
             </div>
             <div class="card-body small">
-                <span v-for="i in 8" :key="i" class="skills-tag">my_skill_{{ i }}</span>
+                <span v-for="skill in userSkills" :key="skill.id" class="skills-tag">{{ skill.name }}</span>
             </div>
         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
+import { onMounted } from 'vue';
+import api from '@/stores/Helpers/axios'
+import { useProfileStore } from '@/stores/profileStore';
+import { useEditingProfileStore } from './editingProfileStore';
+
+const profileStore = useProfileStore()
+const editingStore = useEditingProfileStore()
+
+const userSkills: any = () => profileStore.data?.skills ?? [];
+
+onMounted(async () => {
+    let { data } = await api.skills()
+    if (data.status == 200)
+        editingStore.skillsArray = data.body
+})
 
 </script>
 

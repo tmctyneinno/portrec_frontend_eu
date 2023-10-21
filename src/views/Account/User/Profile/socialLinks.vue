@@ -11,7 +11,7 @@
                     </span>
                 </span>
             </div>
-            <div class="card-body small py-0">
+            <div class="card-body small">
                 <ul class="list-group list-group-flush">
                     <li v-if="userHas('instagram')" class="list-group-item border-0">
                         <div class="row">
@@ -68,7 +68,7 @@
                     <li v-if="userHas('website')" class="list-group-item border-0">
                         <div class="row">
                             <div class="col-2">
-                                <i class="bi bi-translate"></i>
+                                <i class="bi bi-globe"></i>
                             </div>
                             <div class="col">
                                 <div class="text-muted">Website</div>

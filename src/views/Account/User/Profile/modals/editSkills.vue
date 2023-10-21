@@ -14,7 +14,7 @@
                         <div class="col-12">
                             <div class="card shadow-sm border-0  rounded-0">
                                 <div class="card-body xsmall ">
-                                    <span v-for="i in 8" :key="i" class="skills-tag">my_skill_{{ i }}
+                                    <span v-for="skill in userSkills" :key="skill.id" class="skills-tag">{{ skill.name }}
                                         <i class="bi bi-x-lg theme-color cursor-pointer ms-3"></i>
                                     </span>
                                 </div>
@@ -23,11 +23,11 @@
 
                         <div class="col-12">
                             <label class="small">Add New Skill: </label>
-                            <input type="text" class="form-control rounded-0">
-                            <!-- <small id="helpId" class="form-text text-muted">Help text</small> -->
+                            <v-select v-model="selectedSkill" :clearable="false" :options="skillsDropdown"></v-select>
                         </div>
                         <div class="col-12">
-                            <button type="button" class="btn btn-primary w-100 rounded-0">Save</button>
+                            <button :disabled="isSaving" @click="addSkill" type="button"
+                                class="btn btn-primary w-100 rounded-0">Add</button>
                         </div>
                     </div>
                 </div>
@@ -37,12 +37,41 @@
 </template>
 
 <script lang="ts" setup>
-import { watch, ref } from 'vue';
+import { watch, ref, computed } from 'vue';
 import { useRoute } from 'vue-router'
+import { useProfileStore } from '@/stores/profileStore';
+import { useEditingProfileStore } from '../editingProfileStore';
+import api from '@/stores/Helpers/axios'
 
+
+const profileStore = useProfileStore()
+const editingStore = useEditingProfileStore()
 const route = useRoute()
-const btnX = ref<any>(null)
 
+const userSkills: any = () => profileStore.data?.skills ?? [];
+const selectedSkill = ref<any>('')
+const isSaving = ref<boolean>(false)
+
+
+const skillsDropdown = computed(() => {
+    return editingStore.skillsArray.map((x: any) => ({ id: x.id, label: x.name }))
+})
+
+
+function addSkill() {
+    isSaving.value = true
+    saveSkill()
+}
+
+async function saveSkill() {
+    let resp = await api.userSkillAdd({ skill_id: selectedSkill.value.id })
+    console.log(resp);
+
+}
+
+
+
+const btnX = ref<any>(null)
 watch(() => route.path, () => {
     btnX.value.click();
 })

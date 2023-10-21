@@ -20,8 +20,8 @@
                             <input v-model="details.phone" type="text" class="form-control rounded-0">
                         </div>
                         <div class="col-12">
-                            <label class="small">Languages: </label>
-                            <textarea class="form-control rounded-0" rows="3"></textarea>
+                            <label class="small">Languages (Seperate with commas): </label>
+                            <textarea v-model="details.languages" class="form-control rounded-0" rows="3"></textarea>
                         </div>
                     </div>
                 </div>
@@ -50,13 +50,13 @@ const profileStore = useProfileStore()
 const details = reactive({
     email: profileStore.data?.email ?? '',
     phone: profileStore.data?.phone ?? '',
-    // languages: profileStore.data ? profileStore.data.languages : []
+    languages: profileStore.data?.languages ?? ''
 })
 
 watch(() => profileStore.data, () => {
     details.email = profileStore.data?.email ?? '';
     details.phone = profileStore.data?.phone ?? '';
-    // details.languages = profileStore.data ? profileStore.data.languages : []
+    details.languages = profileStore.data?.languages ?? '';
 })
 
 

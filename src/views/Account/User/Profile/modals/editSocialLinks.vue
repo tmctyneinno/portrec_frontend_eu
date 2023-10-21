@@ -13,7 +13,7 @@
                     <div class="row g-3">
                         <div class="col-12">
                             <label class="small">Instagram: </label>
-                            <input type="text" class="form-control rounded-0">
+                            <input v-model="details.instagram" type="text" class="form-control rounded-0">
                         </div>
                         <div class="col-12">
                             <label class="small">Twitter: </label>
@@ -27,10 +27,10 @@
                             <label class="small">LinkedIn: </label>
                             <input v-model="details.linkedin" type="text" class="form-control rounded-0">
                         </div>
-                        <!-- <div class="col-12">
+                        <div class="col-12">
                             <label class="small">Website: </label>
                             <input v-model="details.website" type="text" class="form-control rounded-0">
-                        </div> -->
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer border-0">
@@ -57,18 +57,18 @@ const route = useRoute()
 
 const details = reactive({
     facebook: profileStore.data ? profileStore.data.facebook : '',
-    // instagram: profileStore.data ? profileStore.data.instagram : '',
+    instagram: profileStore.data ? profileStore.data.instagram : '',
     twitter: profileStore.data ? profileStore.data.twitter : '',
     linkedin: profileStore.data ? profileStore.data.linkedin : '',
-    // website: profileStore.data ? profileStore.data.website : '',
+    website: profileStore.data ? profileStore.data.website : '',
 })
 
 watch(() => profileStore.data, () => {
     details.facebook = profileStore.data ? profileStore.data.facebook : '';
-    // details.instagram = profileStore.data ? profileStore.data.instagram : '';
+    details.instagram = profileStore.data ? profileStore.data.instagram : '';
     details.twitter = profileStore.data ? profileStore.data.twitter : '';
     details.linkedin = profileStore.data ? profileStore.data.linkedin : '';
-    // details.website = profileStore.data ? profileStore.data.website : '';
+    details.website = profileStore.data ? profileStore.data.website : '';
 
 })
 

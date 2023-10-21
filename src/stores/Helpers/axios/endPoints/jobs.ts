@@ -33,4 +33,8 @@ export default {
     jobFunctions() {
         return $instanceJobs.get(`job/functions`)
     },
+
+    skills() {
+        return $instanceJobs.get(`skills`)
+    },
 }

@@ -32,16 +32,52 @@
                 </li>
             </ul>
         </div>
+        <div class="offcanvas-footer">
+            <hr class="mt-0">
+            <div class="">
+                <div class=" d-flex justify-content-center">
+                    <div class="col-9">
+                        <div v-if="profileStore.data" class="row gx-5 justify-content-center align-items-cente xsmall">
+                            <div class="col-2">
+                                <div class="img-circle" :style="{ 'background-image': `url(${profileStore.avatar})` }">
+                                </div>
+                            </div>
+                            <div class="col-8">
+                                <div class="fw-bold text-capitalize">{{ profileStore.data ? profileStore.data.name : '' }}
+                                </div>
+                                <div class="fw-lighter">
+                                    {{ profileStore.data ? profileStore.data.email : '' }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center text-center  my-3">
+                    <div class="col-8">
+                        <div class="card rounded-0 theme-color2">
+                            <div @click="logout" class="card-body p-1 cursor-pointer">
+                                <i class="bi bi-box-arrow-right"></i> Logout
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
     </div>
 </template>
 
 <script  lang="ts" setup>
 import { computed, ref, watch } from 'vue';
 import { userMenu } from '@/stores/sideBarMenus'
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
+import { useProfileStore } from '@/stores/profileStore';
 
 
+const profileStore = useProfileStore()
 const route = useRoute()
+const router = useRouter()
 
 const prop = defineProps(['userType'])
 const menu = computed(() => {
@@ -51,6 +87,17 @@ const menu = computed(() => {
 
     return array;
 })
+
+
+
+
+
+function logout() {
+    profileStore.logout()
+    router.replace({ path: '/login' })
+}
+
+
 
 
 const btnX = ref<any>(null)
@@ -92,6 +139,18 @@ watch(() => route.path, () => {
 
 .nav-item {
     border: none !important;
+}
+
+
+.img-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: var(--theme-color-soft);
+    border: 1px solid #e8e5e5;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 
 

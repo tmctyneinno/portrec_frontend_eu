@@ -260,8 +260,10 @@ import api from '@/stores/Helpers/axios'
 import useFxn from "@/stores/Helpers/useFunctions";
 import { vMaska } from "maska"
 import profilePicUpload from './profilePicUpload.vue'
+import { useOnline } from '@vueuse/core';
 
 const profileStore = useProfileStore()
+const isOnline = useOnline()
 
 const userData = {
     name: profileStore.data?.name ?? '',
@@ -284,7 +286,12 @@ watch(() => profileStore.data, () => {
 
 function saveProfile() {
     if (!details.name || !details.phone || !details.dob || !details.gender) {
-        useFxn.toast('Please complete compulsory fields', 'warning')
+        useFxn.toastShort('Please complete compulsory fields')
+        return;
+    }
+
+    if (!isOnline.value) {
+        useFxn.toastShort('You are offline!')
         return;
     }
     submitProfileForm()
@@ -305,7 +312,7 @@ async function submitProfileForm() {
             profileStore.getUserProfile()
         }
     } catch (error) {
-        // 
+        useFxn.toast('Could not save data, Check your internet', 'error')
     }
     finally {
         details.isLoading = false

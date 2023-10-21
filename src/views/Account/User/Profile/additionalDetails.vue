@@ -40,10 +40,10 @@
                             <div class="col-2">
                                 <i class="bi bi-translate"></i>
                             </div>
-                            <div class="col mb-4">
+                            <div class="col-10 mb-4">
                                 <div class="text-muted">Languages</div>
                                 <div>
-                                    {{ languages }}
+                                    {{ languages }}.
                                 </div>
                             </div>
                         </div>
@@ -60,12 +60,19 @@ import { computed } from 'vue';
 
 const profileStore = useProfileStore()
 
-// const languages = computed(() => {
-//     const languages = JSON.parse(profileStore.data?.languages ?? '[]');
-//     return languages.toString();
-// });
+const languages = computed(() => {
+    const data = profileStore.data?.languages;
+    if (!data) return '';
 
-const languages = computed(() => profileStore.data?.languages ?? '');
+    const formattedLanguages = data
+        .replace(/\s/g, '') // Remove spaces
+        .split(',') // Split into an array
+        .map((string: any) => string.charAt(0).toUpperCase() + string.slice(1)) // Capitalize first letters
+        .join(','); // Join back into a comma-separated string
+
+    return formattedLanguages;
+});
+
 
 </script>
 

@@ -46,10 +46,18 @@ export default {
     },
 
     userCoverLetterFile(form: FormData) {
-        return $instance.post(`/user/cover-letter/upload`, form)
+        return $instanceForm.post(`/user/cover-letter/upload`, form)
     },
 
     userCoverLetterDelete(id: any) {
         return $instance.delete(`/user/cover-letter/${id}`)
+    },
+
+    userSkillAdd(obj: Object) {
+        return $instance.post(`/user/skill`, obj)
+    },
+
+    useSkillDelete(id: any) {
+        return $instance.delete(`/user/skill/${id}`)
     },
 }

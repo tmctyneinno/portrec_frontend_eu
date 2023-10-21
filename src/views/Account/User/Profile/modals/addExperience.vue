@@ -96,7 +96,7 @@ const dp_format = (date: Date) => {
     return dateMe.value
 }
 
-const experience = reactive({
+const experience = reactive<any>({
     company_name: '',
     company_location: '',
     start_date: new Date(),
@@ -110,15 +110,20 @@ const experience = reactive({
 const isSaving = ref(false)
 
 function clickSave() {
-    if (!experience.company_location ||
-        !experience.start_date ||
-        !experience.job_title ||
-        !experience.work_type_id ||
-        !experience.company_name
-    ) {
-        useFxn.toastShort('Please complete all compulsory fields')
-        return;
 
+    if (!useFxn.isOnline()) {
+        useFxn.toastShort('You are offline')
+        return
+    }
+
+
+    const requiredFields = ['start_date', 'company_location', 'job_title', 'work_type_id', 'company_name'];
+
+    for (const field of requiredFields) {
+        if (!experience[field]) {
+            useFxn.toastShort('Please complete all compulsory fields')
+            return;
+        }
     }
 
     isSaving.value = true

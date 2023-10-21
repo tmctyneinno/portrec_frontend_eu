@@ -72,7 +72,7 @@ const dp_format = (date: Date) => {
     return dateMe.value
 }
 
-const education = reactive({
+const education = reactive<any>({
     institution: editingStore.educationToEdit.institution,
     qualification: editingStore.educationToEdit.qualification,
     start_date: new Date(editingStore.educationToEdit.start_date),
@@ -91,6 +91,10 @@ watch(() => editingStore.educationToEdit, () => {
 const route = useRoute()
 
 function deleteEducation() {
+    if (!useFxn.isOnline()) {
+        useFxn.toastShort('You are offline')
+        return
+    }
     useFxn.confirmDelete('Remove this History?', 'Yes, Remove')
         .then((result) => {
             if (result.isConfirmed) {
@@ -118,13 +122,18 @@ async function userDeleteEducation() {
 
 
 function updateClick() {
+    if (!useFxn.isOnline()) {
+        useFxn.toastShort('You are offline')
+        return
+    }
 
-    if (!education.start_date ||
-        !education.qualification ||
-        !education.institution
-    ) {
-        useFxn.toastShort('Please complete all compulsory fields')
-        return;
+    const requiredFields = ['start_date', 'qualification', 'institution'];
+
+    for (const field of requiredFields) {
+        if (!education[field]) {
+            useFxn.toastShort(`Please complete field: ${field}`);
+            return;
+        }
     }
 
     useFxn.confirm('Confirm update?', 'Update History')

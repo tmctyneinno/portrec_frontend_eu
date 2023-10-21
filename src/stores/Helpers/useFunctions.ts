@@ -1,6 +1,7 @@
 import Swal from 'sweetalert2'
 //@ts-ignore
 import validator from 'validator';
+import { useOnline } from '@vueuse/core';
 
 export default {
     isEmail: (email: string) => {
@@ -86,5 +87,10 @@ export default {
         const str = !numb ? ['0'] : numb.toString().split(".");
         str[0] = str[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         return str.join(".");
+    },
+
+    isOnline: () => {
+        const online = useOnline()
+        return online.value;
     }
 }

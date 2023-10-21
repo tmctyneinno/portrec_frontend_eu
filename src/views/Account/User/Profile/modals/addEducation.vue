@@ -79,7 +79,7 @@ const dp_format = (date: Date) => {
     return dateMe.value
 }
 
-const education = reactive({
+const education = reactive<any>({
     institution: '',
     qualification: '',
     start_date: new Date(),
@@ -91,12 +91,20 @@ const education = reactive({
 const isSaving = ref(false)
 
 function clickSave() {
-    if (!education.start_date ||
-        !education.qualification ||
-        !education.institution
-    ) {
-        useFxn.toastShort('Please complete all compulsory fields')
-        return;
+
+    if (!useFxn.isOnline()) {
+        useFxn.toastShort('You are offline')
+        return
+    }
+
+
+    const requiredFields = ['start_date', 'qualification', 'institution'];
+
+    for (const field of requiredFields) {
+        if (!education[field]) {
+            useFxn.toastShort(`Please complete field: ${field}`);
+            return;
+        }
     }
 
     isSaving.value = true

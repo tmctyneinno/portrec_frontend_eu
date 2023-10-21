@@ -49,6 +49,12 @@ watch(() => editingStore.aboutMe.isEdit, () => {
 const isSaving = ref(false)
 
 function clickSave() {
+
+    if (!useFxn.isOnline()) {
+        useFxn.toastShort('You are offline')
+        return
+    }
+
     isSaving.value = true
     save()
 }

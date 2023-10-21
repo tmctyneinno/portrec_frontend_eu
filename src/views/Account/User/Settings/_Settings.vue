@@ -260,10 +260,8 @@ import api from '@/stores/Helpers/axios'
 import useFxn from "@/stores/Helpers/useFunctions";
 import { vMaska } from "maska"
 import profilePicUpload from './profilePicUpload.vue'
-import { useOnline } from '@vueuse/core';
 
 const profileStore = useProfileStore()
-const isOnline = useOnline()
 
 const userData = {
     name: profileStore.data?.name ?? '',
@@ -274,7 +272,7 @@ const userData = {
     user_type: 'user'
 }
 
-const details = reactive(userData)
+const details = reactive<any>(userData)
 
 watch(() => profileStore.data, () => {
     details.name = profileStore.data?.name ?? '';
@@ -285,14 +283,19 @@ watch(() => profileStore.data, () => {
 
 
 function saveProfile() {
-    if (!details.name || !details.phone || !details.dob || !details.gender) {
-        useFxn.toastShort('Please complete compulsory fields')
-        return;
+
+    if (!useFxn.isOnline()) {
+        useFxn.toastShort('You are offline')
+        return
     }
 
-    if (!isOnline.value) {
-        useFxn.toastShort('You are offline!')
-        return;
+    const requiredFields = ['name', 'phone', 'dob', 'gender'];
+
+    for (const field of requiredFields) {
+        if (!details[field]) {
+            useFxn.toastShort(`Please complete field: ${field}`);
+            return;
+        }
     }
     submitProfileForm()
 }

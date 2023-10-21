@@ -17,7 +17,8 @@
                         </div>
                         <div class="col-12">
                             <label class="small">Phone: </label>
-                            <input v-model="details.phone" type="text" class="form-control rounded-0">
+                            <input v-maska data-maska="+9" data-maska-tokens="9:\d:multiple" v-model="details.phone"
+                                type="text" class="form-control rounded-0">
                         </div>
                         <div class="col-12">
                             <label class="small">Languages (Seperate with commas): </label>
@@ -43,6 +44,7 @@ import { useRoute } from 'vue-router'
 import { useProfileStore } from '@/stores/profileStore';
 import api from '@/stores/Helpers/axios'
 import useFxn from '@/stores/Helpers/useFunctions';
+import { vMaska } from "maska"
 
 const route = useRoute()
 const profileStore = useProfileStore()
@@ -63,6 +65,10 @@ watch(() => profileStore.data, () => {
 const isSaving = ref(false)
 
 function clickSave() {
+    if (!useFxn.isOnline()) {
+        useFxn.toastShort('You are offline')
+        return
+    }
     isSaving.value = true
     save()
 }

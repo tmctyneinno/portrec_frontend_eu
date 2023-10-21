@@ -20,7 +20,7 @@
                             </div>
                             <div class="col">
                                 <div class="text-muted">Email</div>
-                                <div>{{ profileStore.data ? profileStore.data.email : '__' }}</div>
+                                <div>{{ profileStore.data?.email ?? '__' }}</div>
                             </div>
                         </div>
                     </li>
@@ -31,7 +31,7 @@
                             </div>
                             <div class="col">
                                 <div class="text-muted">Phone</div>
-                                <div>{{ profileStore.data ? profileStore.data.phone : '__' }}</div>
+                                <div>{{ profileStore.data?.phone ?? '__' }}</div>
                             </div>
                         </div>
                     </li>

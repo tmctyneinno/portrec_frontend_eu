@@ -42,6 +42,7 @@ import { useRoute } from 'vue-router'
 import { useProfileStore } from '@/stores/profileStore';
 import { useEditingProfileStore } from '../editingProfileStore';
 import api from '@/stores/Helpers/axios'
+import useFxn from '@/stores/Helpers/useFunctions';
 
 
 const profileStore = useProfileStore()
@@ -59,13 +60,29 @@ const skillsDropdown = computed(() => {
 
 
 function addSkill() {
+    if (!useFxn.isOnline()) {
+        useFxn.toastShort('You are offline')
+        return
+    }
     isSaving.value = true
     saveSkill()
 }
 
 async function saveSkill() {
-    let resp = await api.userSkillAdd({ skill_id: selectedSkill.value.id })
-    console.log(resp);
+    try {
+        let { data } = await api.userSkillAdd({ skill_id: selectedSkill.value.id })
+        console.log(data);
+        if (data.status === 201) {
+            useFxn.toast('Updated successfully', 'success')
+            btnX.value.click();
+            profileStore.getUserProfile()
+        }
+    } catch (error) {
+        // 
+    }
+    finally {
+        isSaving.value = false
+    }
 
 }
 

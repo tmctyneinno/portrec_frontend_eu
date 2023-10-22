@@ -45,12 +45,16 @@
                                 :max-date="new Date()" :enable-time-picker="false" auto-apply
                                 v-model="experience.start_date">
                             </VueDatePicker>
+                            <label class="cursor-pointer small">
+                                <input v-model="isCurrentlyHere" class="form-check-input me-1" type="checkbox">
+                                I currently work here
+                            </label>
                         </div>
-                        <div class="col-md-6">
-                            <label class="small">To {{ !experience.end_date ? '(present)' : '' }} </label>
-                            <VueDatePicker :format="dp_format" :teleport="true" hide-input-icon
-                                :min-date="experience.start_date" :enable-time-picker="false" auto-apply
-                                v-model="experience.end_date">
+                        <div class="col-md-6" v-if="!isCurrentlyHere">
+                            <label class="small">To * </label>
+                            <VueDatePicker :format="dp_format" :teleport="true" hide-input-icon :clearable="false"
+                                :max-date="new Date()" :min-date="experience.start_date" :enable-time-picker="false"
+                                auto-apply v-model="experience.end_date">
                             </VueDatePicker>
                         </div>
 
@@ -100,7 +104,7 @@ const experience = reactive<any>({
     company_name: editingStore.experienceToEdit.company_name,
     company_location: editingStore.experienceToEdit.company_location,
     start_date: new Date(editingStore.experienceToEdit.start_date),
-    end_date: editingStore.experienceToEdit.end_date ? new Date(editingStore.experienceToEdit.end_date) : null,
+    end_date: new Date(editingStore.experienceToEdit.end_date ?? new Date()),
     job_title: editingStore.experienceToEdit.job_title,
     work_type_id: editingStore.experienceToEdit.work_type_id,
     description: editingStore.experienceToEdit.description,
@@ -111,12 +115,14 @@ watch(() => editingStore.experienceToEdit, () => {
     experience.company_name = editingStore.experienceToEdit.company_name;
     experience.company_location = editingStore.experienceToEdit.company_location;
     experience.start_date = new Date(editingStore.experienceToEdit.start_date);
-    experience.end_date = editingStore.experienceToEdit.end_date ? new Date(editingStore.experienceToEdit.end_date) : null;
+    experience.end_date = new Date(editingStore.experienceToEdit.end_date ?? new Date());
     experience.job_title = editingStore.experienceToEdit.job_title;
     experience.work_type_id = editingStore.experienceToEdit.work_type_id;
     experience.description = editingStore.experienceToEdit.description;
     experience.job_function_id = editingStore.experienceToEdit.job_function_id;
 })
+
+const isCurrentlyHere = ref(false)
 
 
 function deleteExperience() {
@@ -135,12 +141,10 @@ function deleteExperience() {
 
 async function userDeleteExperience() {
     try {
-        await api.userExperienceDelete(editingStore.educationToEdit.id);
+        await api.userExperienceDelete(editingStore.experienceToEdit.id);
         useFxn.toast('Experience Deleted', 'success');
         profileStore.getUserProfile();
         btnX.value.click();
-
-
     } catch (error) {
         // 
     }
@@ -177,12 +181,13 @@ function updateClick() {
 }
 
 async function save() {
-    let id = editingStore.educationToEdit.id
+    let id = editingStore.experienceToEdit.id
+    let thisEndDate = isCurrentlyHere.value ? null : experience.end_date;
     let obj = {
         company_name: experience.company_name,
         company_location: experience.company_location,
         start_date: editingStore.dateSubmitFormat(experience.start_date),
-        end_date: editingStore.dateSubmitFormat(experience.end_date),
+        end_date: editingStore.dateSubmitFormat(thisEndDate),
         job_title: experience.job_title,
         // @ts-ignore
         work_type_id: experience.work_type_id.id,
@@ -191,7 +196,7 @@ async function save() {
     }
     try {
         let resp = await api.userExperience(obj, id)
-        if (resp.status === 200) {
+        if (resp.status === 204) {
             useFxn.toast('Updated successfully', 'success')
             btnX.value.click();
             profileStore.getUserProfile()

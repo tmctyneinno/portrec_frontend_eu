@@ -14,8 +14,10 @@
                         <div class="col-12">
                             <div class="card shadow-sm border-0  rounded-0">
                                 <div class="card-body xsmall ">
-                                    <span v-for="skill in userSkills" :key="skill.id" class="skills-tag">{{ skill.name }}
-                                        <i class="bi bi-x-lg theme-color cursor-pointer ms-3"></i>
+                                    <span v-for="skill in userSkills" :key="skill.id" class="skills-tag">
+                                        {{ editingStore.getSkillName(skill.id) }}
+                                        <i @click="removeSkill(skill.id)"
+                                            class="bi bi-x-lg theme-color cursor-pointer ms-3"></i>
                                     </span>
                                 </div>
                             </div>
@@ -53,10 +55,18 @@ const userSkills: any = () => profileStore.data?.skills ?? [];
 const selectedSkill = ref<any>('')
 const isSaving = ref<boolean>(false)
 
-
 const skillsDropdown = computed(() => {
     return editingStore.skillsArray.map((x: any) => ({ id: x.id, label: x.name }))
 })
+
+async function removeSkill(id: string | number) {
+    try {
+        await api.useSkillDelete(id)
+        profileStore.getUserProfile()
+    } catch (error) {
+        // 
+    }
+}
 
 
 function addSkill() {

@@ -22,12 +22,16 @@
                                 :max-date="new Date()" :enable-time-picker="false" auto-apply
                                 v-model="education.start_date">
                             </VueDatePicker>
+                            <label class="cursor-pointer small">
+                                <input v-model="isCurrentlyHere" class="form-check-input me-1" type="checkbox">
+                                I currently school here
+                            </label>
                         </div>
-                        <div class="col-md-6">
-                            <label class="small">To {{ !education.end_date ? '(present)' : '' }} </label>
-                            <VueDatePicker :format="dp_format" :teleport="true" hide-input-icon
-                                :min-date="education.start_date" :enable-time-picker="false" auto-apply
-                                v-model="education.end_date">
+                        <div class="col-md-6" v-if="!isCurrentlyHere">
+                            <label class="small">To * </label>
+                            <VueDatePicker :format="dp_format" :teleport="true" :clearable="false" hide-input-icon
+                                :max-date="new Date()" :min-date="education.start_date" :enable-time-picker="false"
+                                auto-apply v-model="education.end_date">
                             </VueDatePicker>
                         </div>
                         <div class="col-12">
@@ -67,6 +71,7 @@ const editingStore = useEditingProfileStore()
 const isLoading = ref(false)
 
 
+
 const dp_format = (date: Date) => {
     const dateMe = useDateFormat(date, 'MMMM D, YYYY')
     return dateMe.value
@@ -76,7 +81,8 @@ const education = reactive<any>({
     institution: editingStore.educationToEdit.institution,
     qualification: editingStore.educationToEdit.qualification,
     start_date: new Date(editingStore.educationToEdit.start_date),
-    end_date: editingStore.educationToEdit.end_date ? new Date(editingStore.educationToEdit.end_date) : null,
+    end_date: new Date(editingStore.educationToEdit.end_date ?? new Date()),
+    // end_date: editingStore.educationToEdit.end_date ? new Date(editingStore.educationToEdit.end_date) : new Date(),
     description: editingStore.educationToEdit.description
 })
 
@@ -84,9 +90,12 @@ watch(() => editingStore.educationToEdit, () => {
     education.institution = editingStore.educationToEdit.institution;
     education.qualification = editingStore.educationToEdit.qualification;
     education.start_date = new Date(editingStore.educationToEdit.start_date);
-    education.end_date = editingStore.educationToEdit.end_date ? new Date(editingStore.educationToEdit.end_date) : null;
+    education.end_date = new Date(editingStore.educationToEdit.end_date ?? new Date());
+    // education.end_date = editingStore.educationToEdit.end_date ? new Date(editingStore.educationToEdit.end_date) : new Date();
     education.description = editingStore.educationToEdit.description
 })
+
+const isCurrentlyHere = ref(editingStore.educationToEdit.end_date ? true : false)
 
 const route = useRoute()
 
@@ -147,11 +156,12 @@ function updateClick() {
 
 async function save() {
     let id = editingStore.educationToEdit.id
+    let thisEndDate = isCurrentlyHere.value ? null : education.end_date;
     let obj = {
         institution: education.institution,
         qualification: education.qualification,
         start_date: editingStore.dateSubmitFormat(education.start_date),
-        end_date: editingStore.dateSubmitFormat(education.end_date),
+        end_date: editingStore.dateSubmitFormat(thisEndDate),
         description: education.description
     }
     try {

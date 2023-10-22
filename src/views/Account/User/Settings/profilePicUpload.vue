@@ -34,6 +34,12 @@ const imgSaving = ref(false)
 
 const { getRootProps, getInputProps } = useDropzone({
     onDrop: (acceptFiles: any[], rejectReasons: any) => {
+
+        if (!useFxn.isOnline()) {
+            useFxn.toastShort('You are offline')
+            return
+        }
+
         if (!useFxn.isExtension(acceptFiles[0].name, acceptedFormats)) {
             useFxn.toast('Please upload an image', 'warning');
             return;
@@ -53,6 +59,8 @@ async function submitImage(formData: FormData) {
         const pic_id = profileStore.data?.profile_pic?.id ?? null;
 
         let { data } = await api.userProfilePicture(formData, pic_id)
+        console.log(data);
+
 
         if (data.status === 200) {
             profileStore.avatar = data.body

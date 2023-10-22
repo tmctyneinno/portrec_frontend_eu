@@ -12,7 +12,9 @@
                 </span>
             </div>
             <div class="card-body small">
-                <span v-for="skill in userSkills" :key="skill.id" class="skills-tag">{{ skill.name }}</span>
+                <span v-for="skill in userSkills" :key="skill.id" class="skills-tag">
+                    {{ editingStore.getSkillName(skill.id) }}
+                </span>
             </div>
         </div>
     </div>

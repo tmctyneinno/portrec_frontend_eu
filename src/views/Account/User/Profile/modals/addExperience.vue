@@ -47,8 +47,8 @@
                         <div class="col-md-6" v-if="!isCurrentlyHere">
                             <label class="small">To * </label>
                             <VueDatePicker :format="dp_format" :teleport="true" hide-input-icon :clearable="false"
-                                :min-date="experience.start_date" :enable-time-picker="false" auto-apply
-                                v-model="experience.end_date">
+                                :max-date="new Date()" :min-date="experience.start_date" :enable-time-picker="false"
+                                auto-apply v-model="experience.end_date">
                             </VueDatePicker>
                         </div>
 

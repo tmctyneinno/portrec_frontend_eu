@@ -6,6 +6,7 @@ input:focus,
 select:focus,
 textarea:focus,
 button:focus,
+.vue-tel-input,
 .page-link:focus {
   outline: none !important;
   box-shadow: none !important;

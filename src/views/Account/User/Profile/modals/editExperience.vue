@@ -124,6 +124,11 @@ watch(() => editingStore.experienceToEdit, () => {
 
 const isCurrentlyHere = ref(false)
 
+watch(() => editingStore.experienceToEdit.end_date, () => {
+    isCurrentlyHere.value = editingStore.experienceToEdit.end_date ? false : true
+})
+
+
 
 function deleteExperience() {
     if (!useFxn.isOnline()) {

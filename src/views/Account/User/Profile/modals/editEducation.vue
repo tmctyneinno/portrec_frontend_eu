@@ -95,7 +95,12 @@ watch(() => editingStore.educationToEdit, () => {
     education.description = editingStore.educationToEdit.description
 })
 
-const isCurrentlyHere = ref(editingStore.educationToEdit.end_date ? true : false)
+const isCurrentlyHere = ref(false)
+
+watch(() => editingStore.educationToEdit.end_date, () => {
+    isCurrentlyHere.value = editingStore.educationToEdit.end_date ? false : true
+})
+
 
 const route = useRoute()
 

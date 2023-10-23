@@ -56,6 +56,10 @@ import 'v-calendar/style.css';
 // https://vue3-google-signin.vercel.app/guide/
 import GoogleSignInPlugin from "vue3-google-signin"
 
+// https://vue-tel-input.iamstevendao.com/guide/getting-started.html
+import VueTelInput from 'vue-tel-input';
+import 'vue-tel-input/vue-tel-input.css';
+
 import piniaPersist from 'pinia-plugin-persist'
 
 import jobsDisplayVue from '@/components/jobsDisplay.vue';
@@ -99,6 +103,7 @@ app.use(VueSweetalert2);
 app.use(Vue3ProgressPlugin);
 app.use(VueWriter);
 app.use(setupCalendar, {});
+app.use(VueTelInput);
 app.use(router);
 
 app.mount('#app')

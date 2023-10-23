@@ -54,8 +54,8 @@
                             </div>
                             <div class="col-md-12">
                                 <label> Phone Number *</label>
-                                <input v-maska data-maska="+9" data-maska-tokens="9:\d:multiple" v-model="details.phone"
-                                    class="form-control rounded-0" type="text">
+                                <vue-tel-input :inputOptions="phoneField.input" :dropdownOptions="phoneField.dropDown"
+                                    :autoFormat="true" v-model="details.phone"></vue-tel-input>
                             </div>
                             <!-- <div class="col-md-7">
                                 <label> Email *</label>
@@ -272,6 +272,22 @@ const userData = {
     user_type: 'user'
 }
 
+const phoneField = {
+    dropDown: {
+        showDialCodeInSelection: false,
+        showFlags: true,
+        showSearchBox: true,
+        showDialCodeInList: true,
+
+    },
+    input: {
+        showDialCode: true,
+        placeholder: 'Enter phone',
+        styleClasses: 'phone-input-class'
+    }
+
+}
+
 const details = reactive<any>(userData)
 
 watch(() => profileStore.data, () => {
@@ -345,6 +361,11 @@ async function submitProfileForm() {
         font-size: 13px;
     }
 }
+
+.vue-tel-input {
+    border-radius: 0px;
+    line-height: 27px;
+}
 </style>
 
 <style>
@@ -365,7 +386,7 @@ async function submitProfileForm() {
 
 .vs__search,
 .vs__search:focus {
-    line-height: 25px !important;
+    line-height: 28px !important;
     border-radius: 0px !important;
 }
 

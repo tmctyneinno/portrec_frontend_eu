@@ -13,7 +13,7 @@
             </div>
             <div class="card-body small">
                 <span v-for="skill in userSkills" :key="skill.id" class="skills-tag">
-                    {{ editingStore.getSkillName(skill.id) }}
+                    {{ editingStore.getSkillName(skill.skill_id) }}
                 </span>
             </div>
         </div>
@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted } from 'vue';
+import { onMounted, computed } from 'vue';
 import api from '@/stores/Helpers/axios'
 import { useProfileStore } from '@/stores/profileStore';
 import { useEditingProfileStore } from './editingProfileStore';
@@ -29,7 +29,7 @@ import { useEditingProfileStore } from './editingProfileStore';
 const profileStore = useProfileStore()
 const editingStore = useEditingProfileStore()
 
-const userSkills: any = () => profileStore.data?.skills ?? [];
+const userSkills: any = computed(() => profileStore.data?.skills ?? []);
 
 onMounted(async () => {
     let { data } = await api.skills()

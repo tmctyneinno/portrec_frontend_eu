@@ -92,5 +92,9 @@ export default {
     isOnline: () => {
         const online = useOnline()
         return online.value;
+    },
+
+    capsFirstLetter: (string: string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1)
     }
 }

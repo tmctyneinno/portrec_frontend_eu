@@ -23,7 +23,7 @@
                         </div>
                         <div class="col-md-6">
                             <label class="small">Type * </label>
-                            <v-select v-model="experience.work_type_id" class="rounded-0" :clearable="false"
+                            <v-select v-model="experience.work_type_id" class="rounded-0 text-capitalize" :clearable="false"
                                 :options="jobTypesArray"></v-select>
                         </div>
 

@@ -15,8 +15,8 @@
                             <div class="card shadow-sm border-0  rounded-0">
                                 <div class="card-body xsmall ">
                                     <span v-for="skill in userSkills" :key="skill.id" class="skills-tag">
-                                        {{ editingStore.getSkillName(skill.id) }}
-                                        <i @click="removeSkill(skill.id)"
+                                        {{ editingStore.getSkillName(skill.skill_id) }}
+                                        <i @click="removeSkill(skill.skill_id)"
                                             class="bi bi-x-lg theme-color cursor-pointer ms-3"></i>
                                     </span>
                                 </div>
@@ -51,7 +51,7 @@ const profileStore = useProfileStore()
 const editingStore = useEditingProfileStore()
 const route = useRoute()
 
-const userSkills: any = () => profileStore.data?.skills ?? [];
+const userSkills: any = computed(() => profileStore.data?.skills ?? []);
 const selectedSkill = ref<any>('')
 const isSaving = ref<boolean>(false)
 
@@ -60,6 +60,7 @@ const skillsDropdown = computed(() => {
 })
 
 async function removeSkill(id: string | number) {
+
     try {
         await api.useSkillDelete(id)
         profileStore.getUserProfile()
@@ -84,7 +85,7 @@ async function saveSkill() {
         console.log(data);
         if (data.status === 201) {
             useFxn.toast('Updated successfully', 'success')
-            btnX.value.click();
+            // btnX.value.click();
             profileStore.getUserProfile()
         }
     } catch (error) {

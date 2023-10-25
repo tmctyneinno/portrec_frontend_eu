@@ -16,23 +16,23 @@
                 <div class="row gy-3 align-items-center">
 
                   <div class="col-md-1 text-lg-center">
-                    <img :src="currentJob.company ? currentJob.company.image : ''" class="img-fluid" width="55" alt="">
+                    <img :src="currentJob.company?.image ?? ''" class="img-fluid" width="55" alt="_img">
                   </div>
 
                   <div class="col-md-7">
-                    <h4 class="mb-0 fs-4 fw-bold">{{ currentJob.title }}</h4>
+                    <h4 class="mb-0 fs-3 fw-bold text-capitalize">{{ currentJob.title }}</h4>
                     <div class="d-block mb-2 position-relative">
                       <div class="slide-info text-muted small text-capitalize">
 
-                        {{ currentJob.company ? currentJob.company.city : '' }},
-                        {{ currentJob.company ? currentJob.company.country : '' }}
+                        {{ currentJob.company?.city ?? '' }},
+                        {{ currentJob.company?.country ?? '' }}
                         <i class="bi bi-dot"></i>
                         <i class="bi bi-briefcase ms-2"></i>
-                        {{ currentJob.job_type ? currentJob.job_type.name : '' }}
+                        {{ currentJob.job_type?.name ?? '' }}
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-4 ">
+                  <div class="col-md-4 my-3 ">
                     <div class="float-end">
                       <span class="line-right pe-4 me-3">
                         <i class="bi bi-share"></i>
@@ -60,7 +60,7 @@
             </div>
           </div>
 
-          <div v-for="(qualification, i) in JSON.parse(currentJob.other_qualifications)" :key="i" class="py-3">
+          <div v-for="(qualification, i) in  JSON.parse(currentJob.other_qualifications ?? '[]')" :key="i" class="py-3">
             <h4 class="fw-bold">{{ qualification.title }}</h4>
             <ul class="list-group list-group-flush">
               <li v-for="(description, d) in qualification.descriptions" :key="d" class="list-group-item border-0 px-0">
@@ -100,7 +100,7 @@
                 </li>
                 <li class="list-group-item border-0 px-0">Job Type
                   <span class="float-end fw-bold text-capitalize">
-                    {{ currentJob.job_type ? currentJob.job_type.name : '' }}
+                    {{ currentJob.job_type?.name ?? '' }}
                   </span>
                 </li>
                 <li class="list-group-item border-0 px-0">Salary
@@ -118,12 +118,11 @@
 
           <div class="py-2  border-0">
             <h4 class="fw-bold">Categories</h4>
-            <span class="category-tag text-capitalize"
-              :class="currentJob.category ? currentJob.category.name : 'category' + '-tag'">
-              {{ currentJob.category ? currentJob.category.name : '___' }}
+            <span class=" text-capitalize" :class="currentJob.category?.name ?? '' + '-tag'">
+              {{ currentJob.category?.name ?? '' }}
             </span>
             <span class="category-tag text-capitalize">
-              {{ currentJob.sub_category ? currentJob.sub_category.name : '___' }}
+              {{ currentJob.sub_category?.name ?? '' }}
             </span>
           </div>
 
@@ -131,7 +130,7 @@
 
           <div class="py-2 border-0">
             <h4 class="fw-bold">Required Skills</h4>
-            <span v-for="skill in JSON.parse(currentJob.required_skills)" :key="skill" class=" skills-tag">
+            <span v-for="skill in JSON.parse(currentJob.required_skills ?? '[]')" :key="skill" class=" skills-tag">
               {{ skill.name }}
             </span>
           </div>
@@ -148,7 +147,7 @@
         <div class="col-12">
           <div class="row g-3">
 
-            <div v-for="benefit in JSON.parse(currentJob.benefits)" :key="benefit" class="col-md-6 col-lg-3">
+            <div v-for="benefit in JSON.parse(currentJob.benefits ?? '[]')" :key="benefit" class="col-md-6 col-lg-3">
               <div class="card border-0">
                 <div class="benefit-icon">
                   <i class="bi bi-check-circle"></i>

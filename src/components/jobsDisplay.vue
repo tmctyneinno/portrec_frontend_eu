@@ -1,31 +1,30 @@
 <template>
     <div class="col-lg-6">
-        <div class="card rounded-0 card-latest p-3 py-lg-4 hover-tiltY cursor-pointer">
+        <div class="card card-latest p-3 py-lg-4 hover-tiltY cursor-pointer">
             <div class="row">
                 <div class="col-3 row align-content-center ">
-                    <img :src="job.company ? job.company.image : ''" alt="_img">
+                    <img :src="job.company?.image ?? ''" alt="_img">
                 </div>
                 <div class="col-9">
-                    <h5 class="slide-title text-capitalize">
+                    <h5 class="slide-title job_title">
                         {{ job.title ?? '' }} <i class="bi d-md-none bi-chevron-right"></i>
                     </h5>
                     <div class="slide-info text-muted small text-capitalize">
-                        {{ job.company ? job.company.name : '' }} <i class="bi bi-dot"></i>
-                        {{ job.company ? job.company.city : '' }},
-                        {{ job.company ? job.company.country : '' }}
+                        {{ job.company?.name ?? '' }} <i class="bi bi-dot"></i>
+                        {{ job.company?.city ?? '' }},
+                        {{ job.company?.country ?? '' }}
                     </div>
                     <div class="col-12 mt-3">
                         <span class="border-right">
                             <span class="category-tag fulltime-tag text-capitalize">
-                                {{ job.job_type ? job.job_type.name : 'Full Time' }}
+                                {{ job.job_type?.name ?? 'Full Time' }}
                             </span>
                         </span>
-                        <span class="category-tag text-capitalize"
-                            :class="job.category ? job.category.name : 'category' + '-tag'">
-                            {{ job.category ? job.category.name : 'category' }}
+                        <span class="category-tag text-capitalize" :class="job.category?.name ?? '' + '-tag'">
+                            {{ job.category?.name ?? '' }}
                         </span>
                         <span class="category-tag text-capitalize">
-                            {{ job.sub_category ? job.sub_category.name : 'category' }}
+                            {{ job.sub_category?.name ?? '' }}
                         </span>
                     </div>
                 </div>
@@ -46,17 +45,24 @@ defineProps({
     /* border-color: #fff; */
     /* border-width: 2px; */
     border-color: transparent;
+    border-left: 1px solid var(--theme-color);
+    box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) !important;
 }
 
-.card-latest:hover {
-    box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) !important;
-    /* border: 2px solid var(--theme-color); */
+/* .card-latest:hover {
+    border: 2px solid var(--theme-color);
     border-color: var(--theme-color);
     background-color: var(--theme-color2-soft);
-}
+} */
 
 .card-latest:hover .slide-title {
     color: var(--theme-color);
+}
+
+.job_title {
+    font-size: 20px !important;
+    font-weight: 700;
+    text-transform: capitalize;
 }
 
 

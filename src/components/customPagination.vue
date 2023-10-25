@@ -120,6 +120,7 @@ const moveToPage = (moveTo: number) => {
     padding-inline: 15px;
     margin-inline: 1px;
     cursor: pointer;
+    background-color: transparent;
 }
 
 .pagination .active .page-link {

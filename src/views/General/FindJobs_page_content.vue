@@ -173,23 +173,23 @@
               </div>
             </div>
             <div class="col-12">
-              <div class="card border-0">
+              <div class="card border-0 rounded-0 bg-light p-4">
                 <div v-if="jobsStore.loading" style="min-height: 400px;">
                   <!-- <componentLoading /> -->
                 </div>
 
                 <div v-else>
-                  <div v-if="jobsStore.allJobsData.length" class="row justify-content-center gy-3">
+                  <div v-if="jobsStore.allJobsData.length" class="row justify-content-center gy-4">
 
                     <div v-for="job in jobsStore.allJobsData" :key="job" class="col-md-12 col-sm-12 col-12 ">
-                      <div class="card rounded-0">
+                      <div class="card rounded- job-card">
                         <div class="card-body">
                           <div class="row gy-3 align-items-center">
                             <div class="col-md-2 text-lg-center">
                               <img :src="job.company ? job.company.image : ''" class="img-fluid" alt="_img">
                             </div>
                             <div class="col-md-7">
-                              <h4 class="fs-md mb-0 ft-medium">{{ job.title }}</h4>
+                              <h4 class="mb-0 job_title">{{ job.title }}</h4>
                               <div class="d-block mb-2 position-relative">
                                 <span class="text-muted medium text-capitalize"><i class="lni lni-map-marker me-1"></i>
                                   {{ job.company ? job.company.city : '' }},
@@ -232,7 +232,7 @@
                     <!-- pagination -->
                     <div class="mt-5">
                       <customPagination :currentPage="currentPage" :perPage="perPage" :totalRecords="totalRecords"
-                        @moveToNext="getJobs" />
+                        @moveToNext="paginateToNext" />
                     </div>
 
                   </div>
@@ -320,6 +320,11 @@ async function getJobs(page = 1) {
   totalRecords.value = jobsStore.allJobsChunked.total
 }
 
+function paginateToNext(page: any) {
+  window.scrollTo(0, 0)
+  getJobs(page)
+}
+
 function respondToCheckBox() {
   // window.scrollTo(0, 0)
   getJobs()
@@ -338,12 +343,19 @@ function respondToCheckBox() {
   height: auto;
 } */
 
-.ft-medium {
-  font-weight: 500;
+.job-card {
+  /* border-color: #fff; */
+  /* border-width: 2px; */
+  border-color: transparent;
+  border-left: 1px solid var(--theme-color);
+  box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) !important;
 }
 
-.fs-md {
-  font-size: 16px !important;
+
+.job_title {
+  font-size: 20px !important;
+  font-weight: 700;
+  text-transform: capitalize;
 }
 
 
@@ -360,4 +372,11 @@ function respondToCheckBox() {
 }
 
 /* accordion */
+
+@media (max-width: 767px) {
+  .img-fluid {
+    max-width: 20%;
+    height: auto;
+  }
+}
 </style>

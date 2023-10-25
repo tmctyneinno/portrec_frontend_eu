@@ -14,8 +14,8 @@
                 </button>
 
                 <div class="d-none d-md-block">
-                    <router-link to="/" class="btn btn-outline-secondary rounded-0 me-5 btn-sm">Back to
-                        homepage</router-link>
+                    <!-- <router-link to="/" class="btn btn-outline-secondary rounded-0 me-5 btn-sm">Back to
+                        homepage</router-link> -->
                     <span class=" me-3 cursor-pointer bell click-ripple">
                         <i class="bi bi-bell"></i>
                     </span>

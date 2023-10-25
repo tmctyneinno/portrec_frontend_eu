@@ -74,7 +74,7 @@ function gotoFindJobs(id: any) {
 }
 
 .explore-card {
-    border-radius: 0%;
+    /* border-radius: 0%; */
     cursor: pointer;
 }
 

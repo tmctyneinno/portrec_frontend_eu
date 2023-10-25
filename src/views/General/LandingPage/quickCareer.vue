@@ -12,8 +12,8 @@
             <div class="col-12 mt-4">
                 <div class="row g-4">
                     <div v-for="i in 3" :key="i" class="col-md-4">
-                        <div class="card border-0 rounded-0">
-                            <img class="card-img-top rounded-0" src="@/assets/images/career.jpg" alt="Title">
+                        <div class="card border-0 rounded-">
+                            <img class="card-img-top rounded-" src="@/assets/images/career.jpg" alt="Title">
                             <div class="card-body">
                                 <div class="card-title">
                                     <span class="fs-6 fw-bold">2022 Salary guide</span>

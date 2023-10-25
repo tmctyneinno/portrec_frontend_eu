@@ -105,4 +105,10 @@ const dataList: any = [
 
 </script>
 
+<style scoped>
+.section-panel {
+    background-color: var(--theme-color2-soft);
+}
+</style>
+
 

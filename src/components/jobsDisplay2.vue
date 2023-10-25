@@ -1,6 +1,6 @@
 <template>
     <div class="col-sm-6 col-lg-3">
-        <div class="featured-card card h-100 hover-tiltY">
+        <div class="featured-card card h-100 hover-tiltY shadow-sm">
             <div class="card-header border-0 bg-transparent pt-3 ">
                 <span>Logo</span>
                 <span class="float-end top-tag">
@@ -46,14 +46,15 @@ const props = defineProps({
 }
 
 .featured-card {
-    border-radius: 0%;
+    /* border-radius: 0%; */
     cursor: pointer;
+    border: 0px;
 }
 
 .featured-card:hover {
-    box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) !important;
-    border-color: var(--theme-color);
-    background-color: var(--theme-color2-soft);
+    /* box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) !important; */
+    /* border-color: var(--theme-color); */
+    /* background-color: var(--theme-color2-soft); */
     /* border-width: 2px; */
 }
 

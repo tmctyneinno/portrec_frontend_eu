@@ -171,7 +171,7 @@ async function save() {
     }
     try {
         let resp = await api.userEducation(obj, id)
-        if (resp.status === 200) {
+        if (resp.status) {
             useFxn.toast('Updated successfully', 'success')
             btnX.value.click();
             profileStore.getUserProfile()

@@ -176,7 +176,7 @@ function updateClick() {
         }
     }
 
-    useFxn.confirm('Confirm update?', 'Update Education')
+    useFxn.confirm('Confirm update?', 'Update Experience')
         .then((result) => {
             if (result.isConfirmed) {
                 isLoading.value = true
@@ -201,7 +201,8 @@ async function save() {
     }
     try {
         let resp = await api.userExperience(obj, id)
-        if (resp.status === 204) {
+
+        if (resp.status) {
             useFxn.toast('Updated successfully', 'success')
             btnX.value.click();
             profileStore.getUserProfile()

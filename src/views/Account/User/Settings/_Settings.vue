@@ -49,29 +49,44 @@
                     <div class="col-lg-5">
                         <div class="row g-3">
                             <div class="col-12">
-                                <label> Full Name *</label>
+                                <label> Full Name * </label>
                                 <input v-model="details.name" class="form-control rounded-0" type="text">
                             </div>
                             <div class="col-md-12">
-                                <label> Phone Number *</label>
+                                <label> Phone Number </label>
                                 <vue-tel-input :inputOptions="phoneField.input" :dropdownOptions="phoneField.dropDown"
                                     :autoFormat="true" v-model="details.phone"></vue-tel-input>
                             </div>
                             <!-- <div class="col-md-7">
-                                <label> Email *</label>
+                                <label> Email </label>
                                 <input v-model="details.email" class="form-control rounded-0" type="text">
                             </div> -->
                             <div class="col-md-6">
-                                <label> Date of Birth *</label>
+                                <label> Date of Birth </label>
                                 <VueDatePicker input-class-name="dob-settings-input" hide-input-icon :clearable="false"
                                     :max-date="new Date()" :enable-time-picker="false" auto-apply v-model="details.dob">
                                 </VueDatePicker>
 
                             </div>
                             <div class="col-md-6">
-                                <label> Gender *</label>
-                                <v-select v-model="details.gender" class="rounded-0" :clearable="false" :searchable="false"
-                                    :options="['male', 'female']"></v-select>
+                                <label> Gender </label>
+                                <v-select v-model="details.gender" class="rounded-0 text-capitalize" :clearable="false"
+                                    :searchable="false" :options="['Male', 'Female']"></v-select>
+                            </div>
+                            <div class="col-6">
+                                <label> Country</label>
+                                <v-select :clearable="false" v-model="details.country" :loading="loading"
+                                    placeholder="select country" :options="allCountries" />
+                                <!-- <input v-model="details.country" class="form-control rounded-0" type="text"> -->
+                            </div>
+                            <div class="col-6">
+                                <label> City</label>
+                                <input v-model="details.location" class="form-control rounded-0" type="text">
+                            </div>
+                            <div class="col-12">
+                                <label> Title </label>
+                                <input v-model="details.title" class="form-control rounded-0" type="text"
+                                    placeholder="e.g: Software Enginner">
                             </div>
                         </div>
                     </div>
@@ -135,14 +150,14 @@
                         </span>
                     </div>
                     <div class="col-lg-5 ">
-                        <h6 class="fw-bold">jakegyll@email.com <i class="bi bi-check-circle text-danger"></i> </h6>
+                        <h6 class="fw-bold">jakegyll@email.com <i class="bi bi-exclamation-circle text-danger"></i> </h6>
                         <div class="fw-light small">
-                            Your email address is verified.
+                            Your email address is not verified.
                         </div>
                         <div class="col-12 mt-3">
                             <label class="fw-bold">Update Email</label>
                             <input class="form-control rounded-0" type="text" placeholder="Enter your new email">
-                            <button class="btn btn-primary mt-3 rounded-0">Update Email</button>
+                            <button disabled class="btn btn-primary mt-3 rounded-0">Update Email</button>
                         </div>
                     </div>
                 </div>
@@ -254,7 +269,7 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, watch } from 'vue';
+import { onMounted, reactive, ref, watch } from 'vue';
 import { useProfileStore } from '@/stores/profileStore';
 import api from '@/stores/Helpers/axios'
 import useFxn from "@/stores/Helpers/useFunctions";
@@ -262,10 +277,33 @@ import profilePicUpload from './profilePicUpload.vue'
 
 const profileStore = useProfileStore()
 
+
+const allCountries = ref([])
+const loading = ref(true)
+
+onMounted(async () => {
+    const response = await fetch('https://restcountries.com/v3.1/all');
+    if (response.ok) {
+        const data = await response.json();
+        let names = data.map((country: { name: any; }) => country.name.common)
+        allCountries.value = names
+        loading.value = false
+    } else {
+        console.error('', response.statusText);
+    }
+})
+
+
+
+
+
 const userData = {
     name: profileStore.data?.name ?? '',
     gender: profileStore.data?.gender ?? '',
     phone: profileStore.data?.phone ?? '',
+    country: profileStore.data?.country ?? '',
+    location: profileStore.data?.location ?? '',
+    title: profileStore.data?.title ?? '',
     dob: profileStore.data ? new Date(profileStore.data.dob) : null,
     isLoading: false,
     user_type: 'user'
@@ -293,6 +331,9 @@ watch(() => profileStore.data, () => {
     details.name = profileStore.data?.name ?? '';
     details.gender = profileStore.data?.gender ?? '';
     details.phone = profileStore.data?.phone ?? '';
+    details.location = profileStore.data?.location ?? '';
+    details.country = profileStore.data?.country ?? '';
+    details.title = profileStore.data?.title ?? '';
     details.dob = profileStore.data ? new Date(profileStore.data.dob) : null;
 })
 
@@ -304,7 +345,8 @@ function saveProfile() {
         return
     }
 
-    const requiredFields = ['name', 'phone', 'dob', 'gender'];
+    // const requiredFields = ['name', 'phone', 'dob', 'gender', 'location', 'country'];
+    const requiredFields = ['name', 'phone'];
 
     for (const field of requiredFields) {
         if (!details[field]) {
@@ -320,8 +362,12 @@ async function submitProfileForm() {
         name: details.name,
         gender: details.gender,
         phone: details.phone,
-        dob: details.dob
+        dob: details.dob,
+        title: details.title,
+        location: details.location,
+        country: details.country,
     }
+
     try {
         details.isLoading = true
         let { data } = await api.userUpdateProfile(obj)

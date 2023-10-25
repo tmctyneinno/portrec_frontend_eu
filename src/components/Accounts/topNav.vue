@@ -86,10 +86,7 @@ defineProps(['userType'])
     content: none !important;
 }
 
-/* .dropdown-menu {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-} */
+.dropdown-menu {
+    border-radius: 0px;
+}
 </style>

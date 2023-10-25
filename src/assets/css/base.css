@@ -23,6 +23,8 @@
 
   --theme-btn: #773062;
   --theme-btn-hover: #873A70;
+
+  --vs-dropdown-option--active-bg: #773062 !important;
 }
 
 

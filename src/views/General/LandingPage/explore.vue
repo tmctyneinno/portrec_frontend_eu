@@ -18,7 +18,7 @@
             <div class="col-12 mt-4">
                 <div class="row g-4">
                     <div v-for="(cat, index) in  jobsStore.categories" :key="index" class="col-md-4 col-lg-3">
-                        <div @click="gotoFindJobs(cat.id)" class="card explore-card p-3 py-lg-4 hover-tiltY">
+                        <div @click="gotoFindJobs(cat.id)" class="card explore-card shadow-sm p-3 py-lg-4 hover-tiltY">
                             <div class="card-icon theme-color"><i class="bi" :class="cateIcon(cat.name)"></i> </div>
                             <h3 class="card-title fw-light my-2 text-capitalize">{{ cat.name }}</h3>
                             <div class="fw-bolder">{{ cat.total_jobs }} jobs available <i class="bi bi-arrow-right"></i>
@@ -69,6 +69,10 @@ function gotoFindJobs(id: any) {
 </script>
 
 <style scoped>
+.section-panel {
+    background-color: var(--theme-color2-soft);
+}
+
 .card-icon {
     font-size: 2.51rem;
 }
@@ -76,6 +80,7 @@ function gotoFindJobs(id: any) {
 .explore-card {
     /* border-radius: 0%; */
     cursor: pointer;
+    border: 0px;
 }
 
 .explore-card:hover {

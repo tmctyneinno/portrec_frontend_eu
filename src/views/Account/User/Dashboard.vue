@@ -2,10 +2,16 @@
     <div class="row g-3 p-lg-3">
         <div class="col-12">
             <div class="row">
-                <div class="col-lg-10">
+                <div class="col-12">
                     <div class="fw-bold">Good morning, Jake</div>
-                    <span class="text-muted">Here is what’s happening with your job search applications from July 19 - July
-                        25.</span>
+                    <span class="text-muted">Here is what’s happening with your job search applications from
+                        {{ dateRange ? dp_format(dateRange) : '' }}.
+                    </span>
+                    <span class="float-start float-lg-end" style="width: 180px;">
+                        <VueDatePicker disable-year-select :format="dp_format" range multi-calendars :clearable="false"
+                            :max-date="new Date()" :enable-time-picker="false" auto-apply v-model="dateRange">
+                        </VueDatePicker>
+                    </span>
                 </div>
             </div>
         </div>
@@ -93,14 +99,40 @@
 
 <script lang="ts" setup>
 import { useProfileStore } from '@/stores/profileStore';
-import { onMounted } from 'vue';
+import { useDateFormat } from '@vueuse/core';
+import { onMounted, ref } from 'vue';
 
 const profileStore = useProfileStore()
 onMounted(() => {
     console.log(profileStore.data);
+    setDateRange()
+    console.log(dateRange.value);
+
 })
 
+const dateRange = ref();
 
+const dp_format = (date: Date[]) => {
+    const dateMe1 = useDateFormat(date[0], 'MMM D')
+    const dateMe2 = useDateFormat(date[1], 'MMM D')
+    return `${dateMe1.value} - ${dateMe2.value}`;
+}
+
+function setDateRange() {
+    const endDate = new Date();
+    const startDate = new Date(new Date().setDate(endDate.getDate() - 7));
+    dateRange.value = [startDate, endDate];
+}
+
+
+
+
+
+
+
+
+
+// chart
 const chartOptions = {
     chart: {
         type: 'donut',

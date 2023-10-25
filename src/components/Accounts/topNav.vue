@@ -16,8 +16,26 @@
                 <div class="d-none d-md-block">
                     <!-- <router-link to="/" class="btn btn-outline-secondary rounded-0 me-5 btn-sm">Back to
                         homepage</router-link> -->
-                    <span class=" me-3 cursor-pointer bell click-ripple">
-                        <i class="bi bi-bell"></i>
+
+                    <span class="position-relative me-2 cursor-pointer bell dropdown-center">
+                        <i class="bi bi-bell dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                        <span
+                            class="position-absolute top-0 start-100 translate-middle p-1 mt-2 bg-danger border border-light rounded-circle">
+                            <span class="visually-hidden"></span>
+                        </span>
+                        <ul class="dropdown-menu dropdown-menu-end ">
+                            <li>
+                                <span class="dropdown-item fw-bold small"><i class="bi bi-envelope-fill me-1"></i>Message
+                                </span>
+                            </li>
+                            <li>
+                                <span class="dropdown-item fw-bold small"><i class="bi bi-envelope-fill me-1"></i>Message
+                                </span>
+                            </li>
+                            <li>
+                                <span class="dropdown-item small"><i class="bi bi-envelope me-1"></i>Message </span>
+                            </li>
+                        </ul>
                     </span>
                 </div>
             </div>
@@ -63,4 +81,15 @@ defineProps(['userType'])
     padding-left: 6px;
     padding-top: 6px;
 }
+
+.dropdown-toggle::after {
+    content: none !important;
+}
+
+/* .dropdown-menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+} */
 </style>

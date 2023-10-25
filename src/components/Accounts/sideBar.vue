@@ -114,6 +114,7 @@ function logout() {
 .sidebar a {
     color: #333;
     border-radius: 0px;
+    font-weight: 600;
 }
 
 .sidebar a:hover {

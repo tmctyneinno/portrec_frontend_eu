@@ -130,6 +130,7 @@ watch(() => route.path, () => {
 .offcanvas a {
     color: #333;
     border-radius: 0px;
+    font-weight: 600;
 }
 
 .offcanvas a:hover {

@@ -6,41 +6,54 @@
                     <div class="col-lg-5">
                         <div class="input-group position-relative">
                             <span class="input-group-text" id="addon-search"><i class="bi bi-search"></i> </span>
-                            <input type="text" class="form-control" placeholder="Job title or keyword"
+                            <input v-model="form.title" type="text" class="form-control" placeholder="Job title or keyword"
                                 aria-describedby="addon-search">
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <v-select :loading="loading" class="country-chooser" placeholder="select country"
-                            :options="allCountries" />
+                        <v-select v-model="form.location" :loading="loading" class="country-chooser"
+                            placeholder="select country" :options="allCountries" />
                     </div>
                     <div class="col-lg-3">
-                        <button type="submit" class="btn  w-100"
+                        <button @click="searchJobs" :disabled="form.isSearching" type="submit" class="btn  w-100"
                             :class="{ 'btn-dark': fromHome, 'btn-primary': !fromHome }">
-                            Search my job
+                            {{ form.isSearching ? 'Searching...' : 'Search my job' }}
                         </button>
                     </div>
                 </div>
             </div>
         </form>
-        <!-- <div class="mt-2">
+        <div v-if="!fromHome" class="mt-2 small">
             Popupar: UI Designer, UX Researcher, Andrioid, Admin
-        </div> -->
+        </div>
     </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, reactive } from 'vue';
+import { useJobsStore } from '@/stores/jobsStore';
+import api from '@/stores/Helpers/axios'
+import fxn from '@/stores/Helpers/useFunctions'
+import { useRouter } from 'vue-router';
 
-defineProps({
+const prop = defineProps({
     fromHome: {
         type: Boolean,
         default: false
     }
 })
 
+const jobsStore = useJobsStore()
 const allCountries = ref([])
 const loading = ref(true)
+
+const router = useRouter()
+
+const form = reactive({
+    title: '',
+    location: '',
+    isSearching: false
+})
 
 onMounted(async () => {
     const response = await fetch('https://restcountries.com/v3.1/all');
@@ -53,6 +66,39 @@ onMounted(async () => {
         console.error('', response.statusText);
     }
 })
+
+
+async function searchJobs() {
+
+    if (!fxn.isOnline()) {
+        fxn.toastShort('You are offline!')
+        return
+    }
+
+    if (form.title && form.location) {
+        form.isSearching = true
+
+        try {
+            let resp = await api.searchByLocation(form.title, form.location)
+            if (resp.status == 200) {
+                jobsStore.allJobsChunked = resp.data.body
+                jobsStore.allJobsData = resp.data.body.data
+                jobsStore.isFromSearch = true
+
+                if (prop.fromHome) {
+                    router.push({
+                        path: '/find-jobs'
+                    })
+                }
+            }
+        } catch (error) {
+            // 
+        }
+        finally {
+            form.isSearching = false
+        }
+    }
+}
 
 
 

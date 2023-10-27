@@ -37,4 +37,9 @@ export default {
     skills() {
         return $instanceJobs.get(`skills`)
     },
+
+    searchByLocation(title: string, location: string) {
+        // return $instance.get(`/job/search?location=fIe790x166&title=JuPAEBt7nY`)
+        return $instance.get(`/job/search?location=${location}&title=${title}`)
+    }
 }

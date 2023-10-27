@@ -73,7 +73,6 @@ const editingStore = useEditingProfileStore()
 const isCurrentlyHere = ref(false)
 
 
-
 const dp_format = (date: Date) => {
     const dateMe = useDateFormat(date, 'MMMM D, YYYY')
     return dateMe.value

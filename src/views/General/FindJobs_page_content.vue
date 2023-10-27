@@ -153,13 +153,22 @@
               <div class="row mb-3">
                 <div class="col-12">
                   <div>
-                    <div class="fw-bold fs-4">All Jobs</div>
+
+                    <div class="fw-bold fs-4">
+                      {{ jobsStore.isFromSearch ? 'Search Results' : 'All Jobs' }}
+                    </div>
                     <div v-if="!jobsStore.loading" class="small text-muted" style="line-height:7px; ">
                       Showing page <span class="fw-bold">{{ currentPage }}/ {{ totalPages }}</span>
                       of <span class="fw-bold">{{ totalRecords }}</span> results
                     </div>
                   </div>
+                  <span v-show="jobsStore.isFromSearch" @click="getJobs()"
+                    class="float-end fw-bold cursor-pointer theme-color hover-tiltX">
+                    Show all jobs <i class="bi bi-chevron-right"></i>
+                  </span>
+
                 </div>
+
                 <!-- <div class="col-lg-5 col-12 d-flex justify-content-end  align-items-center small ">
                   <div class="line-right">
                     <span class="text-muted">Sort By:</span>
@@ -247,14 +256,11 @@
       </div>
     </div>
   </div>
-
-  <!-- footer -->
-  <!-- <footerVue /> -->
 </template>
 
 <script setup lang="ts">
 import searchJobForm from '@/components/searchJobForm.vue';
-import { onMounted, reactive, ref } from 'vue';
+import { onMounted, reactive, ref, watch } from 'vue';
 import { useJobsStore } from '@/stores/jobsStore';
 import { useRoute } from 'vue-router';
 
@@ -278,17 +284,14 @@ onMounted(async () => {
 
   jobsStore.loading = true
   checkBoxesAccordingToExistingQuery()
-  await getJobs()
+  if (!jobsStore.isFromSearch)
+    await getJobs()
   jobsStore.loading = false
 
   jobsStore.getJobCategories()
   jobsStore.getJobFunctions()
   jobsStore.getJobTypes()
   jobsStore.getJobLevels()
-
-  // jobsStore.queryObj = {}
-
-
 })
 
 function checkBoxesAccordingToExistingQuery() {
@@ -302,6 +305,8 @@ function checkBoxesAccordingToExistingQuery() {
 }
 
 async function getJobs(page = 1) {
+
+
   const queryObj: any = {};
 
   for (const key of ["cat_id", "type_id", "level_id"]) {
@@ -313,12 +318,17 @@ async function getJobs(page = 1) {
   jobsStore.queryObj = queryObj;
 
   await jobsStore.getAllJobs(page)
+  jobsStore.isFromSearch = false
 
+
+}
+
+watch(() => jobsStore.allJobsChunked, () => {
   currentPage.value = jobsStore.allJobsChunked.current_page
   totalPages.value = jobsStore.allJobsChunked.last_page
   perPage.value = jobsStore.allJobsChunked.per_page
   totalRecords.value = jobsStore.allJobsChunked.total
-}
+})
 
 function paginateToNext(page: any) {
   window.scrollTo(0, 0)

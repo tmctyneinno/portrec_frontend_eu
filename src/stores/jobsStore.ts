@@ -21,6 +21,8 @@ export const useJobsStore = defineStore('jobsStore', () => {
   const queryObj = ref<any>({});
   const currentQueryStr = ref<string>('');
 
+  const isFromSearch = ref<boolean>(false)
+
 
   function convertQueryObjToURL(page: number) {
     currentQueryStr.value = ''
@@ -138,6 +140,7 @@ export const useJobsStore = defineStore('jobsStore', () => {
     queryObj,
     allJobsChunked,
     allJobsData,
+    isFromSearch,
     getAllJobs,
     getJobTypes,
     getJobLevels,

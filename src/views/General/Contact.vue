@@ -31,22 +31,22 @@
               <form @submit.prevent class="row justify-content-center g-3">
                 <div class="col-md-6">
                   <label class="fw-bold">First Name</label>
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control rounded-0">
                 </div>
                 <div class="col-md-6">
                   <label class="fw-bold">Last Name</label>
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control rounded-0">
                 </div>
                 <div class="col-md-12">
                   <label class="fw-bold">Email Address</label>
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control rounded-0">
                 </div>
                 <div class="col-md-12">
                   <label class="fw-bold">Message</label>
-                  <textarea rows="9" class="form-control"></textarea>
+                  <textarea rows="9" class="form-control rounded-0"></textarea>
                 </div>
                 <div class="col-md-12 mt-3">
-                  <button class="btn btn-primary float-end">Get in touch</button>
+                  <button class="btn btn-primary float-end rounded-0">Get in touch</button>
                 </div>
               </form>
             </div>

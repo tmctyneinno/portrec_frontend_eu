@@ -11,7 +11,7 @@
         <div class="row justify-content-center pt-5 g-3">
 
           <div class="col-md-12 col-sm-12 col-12 ">
-            <div class="card rounded-0">
+            <div class="card rounded-">
               <div class="card-body">
                 <div class="row gy-3 align-items-center">
 
@@ -37,7 +37,7 @@
                       <span class="line-right pe-4 me-3">
                         <i class="bi bi-share"></i>
                       </span>
-                      <button @click="openApplyModal" class="btn btn-primary rounded-0 px-5">Apply</button>
+                      <button @click="openApplyModal" class="btn btn-primary rounded- px-3">Apply now</button>
                     </div>
                   </div>
                 </div>

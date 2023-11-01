@@ -6,18 +6,18 @@
                     <div class="col-lg-5">
                         <div class="input-group position-relative">
                             <span class="input-group-text" id="addon-search"><i class="bi bi-search"></i> </span>
-                            <input v-model="form.title" type="text" class="form-control" placeholder="Job title or keyword"
-                                aria-describedby="addon-search">
+                            <input ref="titleField" v-model="form.title" type="text" class="form-control"
+                                placeholder="Job title or keyword" aria-describedby="addon-search">
                         </div>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-5">
                         <v-select v-model="form.location" :loading="loading" class="country-chooser"
                             placeholder="select country" :options="allCountries" />
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col-lg-2">
                         <button @click="searchJobs" :disabled="form.isSearching" type="submit" class="btn  w-100"
                             :class="{ 'btn-dark': fromHome, 'btn-primary': !fromHome }">
-                            {{ form.isSearching ? 'Searching...' : 'Search my job' }}
+                            {{ form.isSearching ? 'Searching...' : 'Search job' }}
                         </button>
                     </div>
                 </div>
@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, reactive } from 'vue';
+import { ref, onMounted, reactive, computed } from 'vue';
 import { useJobsStore } from '@/stores/jobsStore';
 import api from '@/stores/Helpers/axios'
 import fxn from '@/stores/Helpers/useFunctions'
@@ -46,6 +46,7 @@ const prop = defineProps({
 const jobsStore = useJobsStore()
 const allCountries = ref([])
 const loading = ref(true)
+const titleField = ref<any>(null)
 
 const router = useRouter()
 
@@ -56,6 +57,7 @@ const form = reactive({
 })
 
 onMounted(async () => {
+    titleField.value.focus()
     const response = await fetch('https://restcountries.com/v3.1/all');
     if (response.ok) {
         const data = await response.json();
@@ -102,13 +104,26 @@ async function searchJobs() {
 
 
 
+// suggestions
+// function debounce<T extends (...args: any[]) => void>(fn: T, delay: number): (...args: Parameters<T>) => void {
+//     let timer: ReturnType<typeof setTimeout> | undefined;
+//     return (...args: Parameters<T>) => {
+//         if (timer) {
+//             clearTimeout(timer);
+//         }
+//         timer = setTimeout(() => {
+//             fn(...args);
+//         }, delay);
+//     };
+// }
+
 </script>
 
 
 <style lang="css" scoped>
 .form-container,
 .btn {
-    border-radius: 100px;
+    border-radius: 10px;
 }
 
 .input-group .form-control,
@@ -118,15 +133,16 @@ async function searchJobs() {
     border-width: 0 0 1px;
     font-size: 14px;
     border-radius: 0px;
+    border: none !important;
 }
 
-@media (max-width: 994px) {
+/* @media (max-width: 994px) {
 
     .form-container,
     .btn {
         border-radius: 0px !important;
     }
-}
+} */
 </style>
 
 <style>
@@ -138,6 +154,7 @@ async function searchJobs() {
     border-width: 0 0 1px;
     font-size: 14px;
     border-radius: 0px;
+    border: none !important;
 }
 
 /* .country-chooser .vs__clear,

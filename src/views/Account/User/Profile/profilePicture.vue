@@ -15,7 +15,7 @@
                         </div>
                         <div v-show="location_country" class="text-muted text-capitalize">
                             <i class="bi bi-geo-alt"></i>
-                            {{ profileStore.data.location }}, {{ profileStore.data.country }}
+                            {{ profileStore.data?.location ?? '' }}, {{ profileStore.data?.country ?? '' }}
                         </div>
                     </div>
                     <div class="mt-5 mt-lg-0">

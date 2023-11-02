@@ -4,20 +4,25 @@
             <div class="col-12">
                 <div class="row g-3">
                     <div class="col-lg-5">
-                        <div class="input-group position-relative">
+                        <div class="input-group position-relative searchingBar" ref="dropdownElement">
                             <span class="input-group-text" id="addon-search"><i class="bi bi-search"></i> </span>
-                            <input ref="titleField" v-model="form.title" type="text" class="form-control"
-                                placeholder="Job title or keyword" aria-describedby="addon-search">
+                            <input @input="onInputChange" ref="titleField" v-model="jobsStore.search.title" type="text"
+                                class="form-control" placeholder="Job title or keyword" aria-describedby="addon-search">
+
+                            <ul v-if="suggestions.length" class="searchingBar-suggestions">
+                                <li v-for="(suggestion, index) in suggestions" :key="index"
+                                    @click="selectSuggestion(suggestion)">{{ suggestion }}</li>
+                            </ul>
                         </div>
                     </div>
                     <div class="col-lg-5">
-                        <v-select v-model="form.location" :loading="loading" class="country-chooser"
+                        <v-select v-model="jobsStore.search.location" :loading="loading" class="country-chooser"
                             placeholder="select country" :options="allCountries" />
                     </div>
                     <div class="col-lg-2">
-                        <button @click="searchJobs" :disabled="form.isSearching" type="submit" class="btn  w-100"
+                        <button @click="searchJobs" :disabled="formIsSearcing" type="submit" class="btn  w-100"
                             :class="{ 'btn-dark': fromHome, 'btn-primary': !fromHome }">
-                            {{ form.isSearching ? 'Searching...' : 'Search job' }}
+                            {{ formIsSearcing ? 'Searching...' : 'Search job' }}
                         </button>
                     </div>
                 </div>
@@ -26,14 +31,15 @@
         <div v-if="!fromHome" class="mt-2 small">
             Popupar: UI Designer, UX Researcher, Andrioid, Admin
         </div>
+
     </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, reactive, computed } from 'vue';
+import { ref, onMounted, reactive, watchEffect } from 'vue';
 import { useJobsStore } from '@/stores/jobsStore';
 import api from '@/stores/Helpers/axios'
-import fxn from '@/stores/Helpers/useFunctions'
+import useFxn from '@/stores/Helpers/useFunctions'
 import { useRouter } from 'vue-router';
 
 const prop = defineProps({
@@ -47,14 +53,9 @@ const jobsStore = useJobsStore()
 const allCountries = ref([])
 const loading = ref(true)
 const titleField = ref<any>(null)
-
+const formIsSearcing = ref(false)
 const router = useRouter()
 
-const form = reactive({
-    title: '',
-    location: '',
-    isSearching: false
-})
 
 onMounted(async () => {
     titleField.value.focus()
@@ -67,21 +68,24 @@ onMounted(async () => {
     } else {
         console.error('', response.statusText);
     }
+
+    // for suggestions 
+    document.body.addEventListener('click', handleBodyClick);
 })
 
 
 async function searchJobs() {
 
-    if (!fxn.isOnline()) {
-        fxn.toastShort('You are offline!')
+    if (!useFxn.isOnline()) {
+        useFxn.toastShort('You are offline!')
         return
     }
 
-    if (form.title && form.location) {
-        form.isSearching = true
+    if (jobsStore.search.title && jobsStore.search.location) {
+        formIsSearcing.value = true
 
         try {
-            let resp = await api.searchByLocation(form.title, form.location)
+            let resp = await api.searchByLocation(jobsStore.search.title, jobsStore.search.location)
             if (resp.status == 200) {
                 jobsStore.allJobsChunked = resp.data.body
                 jobsStore.allJobsData = resp.data.body.data
@@ -97,25 +101,54 @@ async function searchJobs() {
             // 
         }
         finally {
-            form.isSearching = false
+            formIsSearcing.value = false
         }
     }
 }
 
 
+// suggestions on input
+const suggestions = ref<string[]>([]);
+const dropdownElement = ref<any>(null);
 
-// suggestions
-// function debounce<T extends (...args: any[]) => void>(fn: T, delay: number): (...args: Parameters<T>) => void {
-//     let timer: ReturnType<typeof setTimeout> | undefined;
-//     return (...args: Parameters<T>) => {
-//         if (timer) {
-//             clearTimeout(timer);
-//         }
-//         timer = setTimeout(() => {
-//             fn(...args);
-//         }, delay);
-//     };
-// }
+// listen to input
+const onInputChange = useFxn.debounce(populateSuggestions, 300);
+
+// populate suggestions based on input string
+function populateSuggestions() {
+    const inputText = jobsStore.search.title.toLowerCase();
+    if (inputText === '') {
+        suggestions.value = [];
+    } else {
+        suggestions.value = jobsStore.jobsKeyWords.filter((suggestion: string) =>
+            suggestion.toLowerCase().includes(inputText)
+        );
+    }
+}
+
+// set field when a suggestion is clicked
+function selectSuggestion(suggestion: string) {
+    jobsStore.search.title = suggestion;
+    suggestions.value = [];
+}
+
+// handle clicking of outside the input field
+function handleBodyClick(event: { target: any; }) {
+    if (dropdownElement.value) {
+        const isInsideDropdown = dropdownElement.value.contains(event.target);
+        if (!isInsideDropdown) {
+            suggestions.value = [];
+        }
+    }
+}
+
+watchEffect(() => {
+    if (suggestions.value.length > 0) {
+        document.body.addEventListener('click', handleBodyClick);
+    } else {
+        document.body.removeEventListener('click', handleBodyClick);
+    }
+});
 
 </script>
 
@@ -133,16 +166,15 @@ async function searchJobs() {
     border-width: 0 0 1px;
     font-size: 14px;
     border-radius: 0px;
-    border: none !important;
 }
 
-/* @media (max-width: 994px) {
+@media (min-width: 994px) {
 
-    .form-container,
-    .btn {
-        border-radius: 0px !important;
+    .input-group .form-control,
+    .input-group .input-group-text {
+        border: none !important;
     }
-} */
+}
 </style>
 
 <style>
@@ -154,11 +186,51 @@ async function searchJobs() {
     border-width: 0 0 1px;
     font-size: 14px;
     border-radius: 0px;
-    border: none !important;
+    /* border: none !important; */
 }
+
+@media (min-width: 994px) {
+
+    .country-chooser .vs__search::placeholder,
+    .country-chooser .vs__dropdown-toggle,
+    .country-chooser .vs__dropdown-menu {
+        border: none !important;
+    }
+
+
+    /* .form-container,
+.btn {
+    border-radius: 0px !important;
+} */
+}
+
 
 /* .country-chooser .vs__clear,
 .country-chooser .vs__open-indicator {
     fill: #394066;
 } */
+
+
+.searchingBar-suggestions {
+    list-style: none;
+    padding: 0;
+    /* margin: 0; */
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #f2eeee;
+    border-top: none;
+    border-radius: 0px 0px 5px 5px !important;
+    width: 100%;
+    margin-top: 45px;
+    z-index: 10000;
+}
+
+.searchingBar-suggestions li {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.searchingBar-suggestions li:hover {
+    background-color: #f0f0f0;
+}
 </style>

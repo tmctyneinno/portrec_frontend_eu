@@ -3,6 +3,8 @@ import Swal from 'sweetalert2'
 import validator from 'validator';
 import { useOnline } from '@vueuse/core';
 
+type DebounceFunction<T extends (...args: any[]) => any> = (...args: Parameters<T>) => void;
+
 export default {
     isEmail: (email: string) => {
         return validator.isEmail(email)
@@ -96,5 +98,17 @@ export default {
 
     capsFirstLetter: (string: string) => {
         return string.charAt(0).toUpperCase() + string.slice(1)
+    },
+
+    debounce: <T extends (...args: any[]) => any>(func: T, delay: number): DebounceFunction<T> => {
+        let timer: ReturnType<typeof setTimeout> | undefined;
+        return (...args: Parameters<T>) => {
+            if (timer) {
+                clearTimeout(timer);
+            }
+            timer = setTimeout(() => {
+                func(...args);
+            }, delay);
+        };
     }
 }

@@ -1,8 +1,5 @@
 <template>
-  <!-- header -->
-  <headerVue />
   <overlayLoading v-if="loading" />
-  <div class="space-from-header"></div>
 
   <div class="animate__animated animate__fadeIn">
 
@@ -193,17 +190,12 @@
   <modal2 v-if="modalOpen && currentModal == 2" />
   <modal3 v-if="modalOpen && currentModal == 3" />
   <modal4 v-if="modalOpen && currentModal == 4" />
-
-  <!-- footer -->
-  <footerVue />
 </template>
 
 <script setup lang="ts">
 import { ref, watchEffect } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { onBeforeRouteLeave } from 'vue-router';
-import headerVue from '@/components/header.vue'
-import footerVue from '@/components/footer.vue'
 import { useJobApplicationStore } from '@/stores/jobApplicationStore';
 import { useDateFormat } from '@vueuse/core';
 import { storeToRefs } from 'pinia';

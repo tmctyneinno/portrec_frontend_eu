@@ -29,7 +29,7 @@
     <div class="container" :class="{ 'small': route.path != '/find-jobs' }">
       <div class="row">
         <div class="col-lg-3">
-          <div class="card border-0 pt-5">
+          <div class="card border-0 pt-5 pb-3">
             <div class="row gy-3">
               <div class="col-12 col-md-6 col-lg-12">
                 <div class="accordion accordion-flush" id="type-of-employment">
@@ -62,12 +62,14 @@
                 <div class="accordion accordion-flush" id="categories">
                   <div class="accordion-item">
                     <h2 class="accordion-header">
-                      <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#flush-collapseTwo" aria-expanded="true" aria-controls="flush-collapseTwo">
+                      <button class="accordion-button fw-bold" :class="{ 'collapsed': windowWidth > 768 }" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="true"
+                        aria-controls="flush-collapseTwo">
                         Categories
                       </button>
                     </h2>
-                    <div id="flush-collapseTwo" class="accordion-collapse collapse show" data-bs-parent="#categories">
+                    <div id="flush-collapseTwo" class="accordion-collapse collapse" :class="{ 'show': windowWidth > 768 }"
+                      data-bs-parent="#categories">
                       <div class="accordion-body small">
                         <div class="list-group list-group-flush">
 
@@ -89,12 +91,14 @@
                 <div class="accordion accordion-flush" id="job-level">
                   <div class="accordion-item">
                     <h2 class="accordion-header">
-                      <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#flush-collapseThree" aria-expanded="true" aria-controls="flush-collapseThree">
+                      <button class="accordion-button fw-bold" :class="{ 'collapsed': windowWidth > 768 }" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="true"
+                        aria-controls="flush-collapseThree">
                         Job Level
                       </button>
                     </h2>
-                    <div id="flush-collapseThree" class="accordion-collapse collapse show" data-bs-parent="#job-level">
+                    <div id="flush-collapseThree" class="accordion-collapse collapse"
+                      :class="{ 'show': windowWidth > 768 }" data-bs-parent="#job-level">
                       <div class="accordion-body small">
                         <div class="list-group list-group-flush">
                           <label v-for="x in jobsStore.levels" :key="x" class="list-group-item border-0 text-capitalize">
@@ -114,12 +118,14 @@
                 <div class="accordion accordion-flush" id="salary-range">
                   <div class="accordion-item">
                     <h2 class="accordion-header">
-                      <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#flush-collapseFour" aria-expanded="true" aria-controls="flush-collapseFour">
+                      <button class="accordion-button fw-bold" :class="{ 'collapsed': windowWidth > 768 }" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="true"
+                        aria-controls="flush-collapseFour">
                         Salary Range
                       </button>
                     </h2>
-                    <div id="flush-collapseFour" class="accordion-collapse collapse show" data-bs-parent="#salary-range">
+                    <div id="flush-collapseFour" class="accordion-collapse collapse"
+                      :class="{ 'show': windowWidth > 768 }" data-bs-parent="#salary-range">
                       <div class="accordion-body small">
                         <div class="list-group list-group-flush">
                           <label class="list-group-item border-0">
@@ -263,9 +269,12 @@ import searchJobForm from '@/components/searchJobForm.vue';
 import { onMounted, reactive, ref, watch } from 'vue';
 import { useJobsStore } from '@/stores/jobsStore';
 import { useRoute } from 'vue-router';
+import { useWindowSize } from '@vueuse/core'
 
 const jobsStore = useJobsStore()
 const route = useRoute()
+
+const { width: windowWidth } = useWindowSize()
 
 // pagination
 const currentPage = ref(0);
@@ -292,7 +301,12 @@ onMounted(async () => {
   jobsStore.getJobFunctions()
   jobsStore.getJobTypes()
   jobsStore.getJobLevels()
+
+  if (windowWidth.value < 768) {
+    // collapseAllAccordions();
+  }
 })
+
 
 function checkBoxesAccordingToExistingQuery() {
   for (const key of ["cat_id", "type_id", "level_id"]) {

@@ -12,9 +12,11 @@
                 </span>
             </div>
             <div class="card-body small">
-                <span v-for="skill in userSkills" :key="skill.id" class="skills-tag">
-                    {{ editingStore.getSkillName(skill.skill_id) }}
-                </span>
+                <div v-if="userSkills.length">
+                    <span v-for="skill in userSkills" :key="skill.id" class="skills-tag">
+                        {{ editingStore.getSkillName(skill.skill_id) }}
+                    </span>
+                </div>
             </div>
         </div>
     </div>
@@ -32,9 +34,14 @@ const editingStore = useEditingProfileStore()
 const userSkills: any = computed(() => profileStore.data?.skills ?? []);
 
 onMounted(async () => {
-    let { data } = await api.skills()
-    if (data.status == 200)
-        editingStore.skillsArray = data.body
+    try {
+        let { data } = await api.skills()
+        if (data.status == 200)
+            editingStore.skillsArray = data.body
+    } catch (error) {
+        console.log(error);
+
+    }
 })
 
 </script>

@@ -25,7 +25,8 @@
 
                         <div class="col-12">
                             <label class="small">Add New Skill: </label>
-                            <v-select v-model="selectedSkill" :clearable="false" :options="skillsDropdown"></v-select>
+                            <v-select multiple v-model="selectedSkills" :clearable="false"
+                                :options="skillsDropdown"></v-select>
                         </div>
                         <div class="col-12">
                             <button :disabled="isSaving" @click="addSkill" type="button"
@@ -50,16 +51,25 @@ import useFxn from '@/stores/Helpers/useFunctions';
 const profileStore = useProfileStore()
 const editingStore = useEditingProfileStore()
 const route = useRoute()
+const userSkills = ref(profileStore.data?.skills ?? [])
 
-const userSkills: any = computed(() => profileStore.data?.skills ?? []);
-const selectedSkill = ref<any>('')
+// const userSkills: any = computed(() => profileStore.data?.skills ?? []);
+const selectedSkills = ref<any>('')
 const isSaving = ref<boolean>(false)
 
 const skillsDropdown = computed(() => {
     return editingStore.skillsArray.map((x: any) => ({ id: x.id, label: x.name }))
 })
 
-async function removeSkill(id: string | number) {
+function removeSkill(id: string | number) {
+    const skills = profileStore.data.skills
+    let filtered = skills.filter((x: { skill_id: string | number; }) => x.skill_id != id)
+    userSkills.value = filtered
+
+    APIremoveSkill(id)
+}
+
+async function APIremoveSkill(id: string | number) {
 
     try {
         await api.useSkillDelete(id)
@@ -80,12 +90,13 @@ function addSkill() {
 }
 
 async function saveSkill() {
+    const skillsIds = selectedSkills.value.map((x: { id: any; }) => x.id)
     try {
-        let { data } = await api.userSkillAdd({ skill_id: selectedSkill.value.id })
+        let { data } = await api.userSkillAdd({ skills: skillsIds })
         console.log(data);
         if (data.status === 201) {
             useFxn.toast('Updated successfully', 'success')
-            // btnX.value.click();
+            btnX.value.click();
             profileStore.getUserProfile()
         }
     } catch (error) {

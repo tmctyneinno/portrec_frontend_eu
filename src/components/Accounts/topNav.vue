@@ -3,10 +3,10 @@
     <div>
         <nav class="navbar fixed-top navbar-expand-sm navbar-light bg-white shadow-sm border-0">
             <div class="container">
-                <span class="navbar-brand fw-bold d-none d-md-block">{{ route.name ? route.name.split('_')[1] : '' }}</span>
+                <span class="navbar-brand fw-bold d-none d-md-block">{{ route.name?.split('_')[1] ?? '' }}</span>
                 <span class="d-md-none xsmall">
                     <img src="@/assets/images/site_logo.png" width="100" alt="site_logo">
-                    | {{ route.name ? route.name.split('_')[1] : '' }}
+                    <span class="mx-2 text-muted2">|</span> {{ route.name?.split('_')[1] ?? '' }}
                 </span>
                 <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">

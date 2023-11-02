@@ -1,5 +1,5 @@
 /* eslint-disable no-prototype-builtins */
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import { defineStore } from 'pinia'
 import { useStorage } from '@vueuse/core'
 import api from '@/stores/Helpers/axios'
@@ -22,6 +22,11 @@ export const useJobsStore = defineStore('jobsStore', () => {
   const currentQueryStr = ref<string>('');
 
   const isFromSearch = ref<boolean>(false)
+
+  const search = reactive({
+    title: '',
+    location: ''
+  })
 
 
   function convertQueryObjToURL(page: number) {
@@ -129,6 +134,58 @@ export const useJobsStore = defineStore('jobsStore', () => {
 
   }
 
+  const jobsKeyWords = ["Accountant",
+    "Administrative Assistant",
+    "Analyst",
+    "Business Development",
+    "Customer Service",
+    "Data Analyst",
+    "Designer",
+    "Developer",
+    "Engineer",
+    "Financial Analyst",
+    "Graphic Designer",
+    "Human Resources",
+    "IT Manager",
+    "Java Developer",
+    "Job Coach",
+    "Legal Assistant",
+    "Marketing Manager",
+    "Medical Assistant",
+    "Nurse",
+    "Operations Manager",
+    "Pharmacist",
+    "Physical Therapist",
+    "Product Manager",
+    "Project Manager",
+    "Quality Assurance",
+    "Receptionist",
+    "Researcher",
+    "Sales Representative",
+    "Software Engineer",
+    "Systems Analyst",
+    "Teacher",
+    "Technical Support",
+    "Truck Driver",
+    "UX Designer",
+    "Web Developer",
+    "Account Manager",
+    "Architect",
+    "Biologist",
+    "Chef",
+    "Content Writer",
+    "Dentist",
+    "Electrician",
+    "Event Planner",
+    "Financial Planner",
+    "Front End Developer",
+    "Interior Designer",
+    "Journalist",
+    "Mechanic",
+    "Network Engineer",
+    "Nutritionist"]
+
+
 
   return {
     loading,
@@ -141,6 +198,8 @@ export const useJobsStore = defineStore('jobsStore', () => {
     allJobsChunked,
     allJobsData,
     isFromSearch,
+    jobsKeyWords,
+    search,
     getAllJobs,
     getJobTypes,
     getJobLevels,

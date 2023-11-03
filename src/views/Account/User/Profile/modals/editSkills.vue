@@ -40,7 +40,7 @@
 </template>
 
 <script lang="ts" setup>
-import { watch, ref, computed } from 'vue';
+import { watch, ref, computed, watchEffect } from 'vue';
 import { useRoute } from 'vue-router'
 import { useProfileStore } from '@/stores/profileStore';
 import { useEditingProfileStore } from '../editingProfileStore';
@@ -53,23 +53,35 @@ const editingStore = useEditingProfileStore()
 const route = useRoute()
 const userSkills = ref(profileStore.data?.skills ?? [])
 
-// const userSkills: any = computed(() => profileStore.data?.skills ?? []);
-const selectedSkills = ref<any>('')
-const isSaving = ref<boolean>(false)
+watch(() => profileStore.data, () => {
+    userSkills.value = profileStore.data?.skills ?? []
 
-const skillsDropdown = computed(() => {
-    return editingStore.skillsArray.map((x: any) => ({ id: x.id, label: x.name }))
 })
 
-function removeSkill(id: string | number) {
+const selectedSkills = ref<any[]>([])
+const isSaving = ref<boolean>(false)
+
+const skillsDropdown = ref<any[]>([])
+
+
+watchEffect(() => {
+    const filteredArray = [];
+    let skillsArray = editingStore.skillsArray.map((x: any) => ({ id: x.id, label: x.name }))
+
+    for (const obj of skillsArray) {
+        if (!userSkills.value.find((x: { skill_id: any; }) => x.skill_id == obj.id)) {
+            filteredArray.push(obj);
+        }
+    }
+
+    skillsDropdown.value = filteredArray
+})
+
+
+async function removeSkill(id: string | number) {
     const skills = profileStore.data.skills
     let filtered = skills.filter((x: { skill_id: string | number; }) => x.skill_id != id)
     userSkills.value = filtered
-
-    APIremoveSkill(id)
-}
-
-async function APIremoveSkill(id: string | number) {
 
     try {
         await api.useSkillDelete(id)
@@ -78,6 +90,8 @@ async function APIremoveSkill(id: string | number) {
         // 
     }
 }
+
+
 
 
 function addSkill() {
@@ -96,7 +110,8 @@ async function saveSkill() {
         console.log(data);
         if (data.status === 201) {
             useFxn.toast('Updated successfully', 'success')
-            btnX.value.click();
+            // btnX.value.click();
+            selectedSkills.value = []
             profileStore.getUserProfile()
         }
     } catch (error) {

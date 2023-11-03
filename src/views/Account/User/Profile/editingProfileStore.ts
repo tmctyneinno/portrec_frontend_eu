@@ -5,7 +5,7 @@ export const useEditingProfileStore = defineStore('editingStore', () => {
 
     const educationToEdit = ref<any>({})
     const experienceToEdit = ref<any>({})
-    const skillsArray = ref([])
+    const skillsArray = ref<any[]>([])
     const aboutMe = reactive({
         text: '',
         isEdit: 1

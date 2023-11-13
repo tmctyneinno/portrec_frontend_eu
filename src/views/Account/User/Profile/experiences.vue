@@ -4,8 +4,8 @@
             <div class="card-header bg-transparent fw-bold border-0 pt-3">
                 Experiences
                 <span class="float-end" data-bs-toggle="modal" data-bs-target="#addExperienceModal">
-                    <span class="profile-edit-btn click-ripple">
-                        <i class="bi bi-plus-lg"></i>
+                    <span class="profile-edit-btn small">
+                        <i class="bi bi-plus-lg"></i> New
                     </span>
                 </span>
             </div>
@@ -16,15 +16,15 @@
                 </p>
 
                 <ul v-else class="list-group list-group-flush">
-                    <li v-for="(exp, index) in experienceArray()" :key="index" class="list-group-item">
+                    <li v-for="(exp, index) in experienceArray()" :key="index" class="list-group-item shadow-sm">
 
                         <div class="row g-3">
                             <div class="col-lg-12">
                                 <div class="fw-bold mb-2">{{ exp.job_title }}
                                     <span @click="editingStore.experienceToEdit = exp" class="float-end"
                                         data-bs-toggle="modal" data-bs-target="#editExperienceModal">
-                                        <span class="profile-edit-btn click-ripple">
-                                            <i class="bi bi-pencil-square"></i>
+                                        <span class="profile-edit-btn xsmall bg-white rounded-1">
+                                            <i class="bi bi-pencil-square"></i> Edit
                                         </span>
                                     </span>
 

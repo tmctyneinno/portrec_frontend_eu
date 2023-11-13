@@ -7,7 +7,11 @@
             <div class="modal-content">
                 <div class="modal-header border-0">
                     <h6 class="modal-title fw-bold">Edit Experience</h6>
-                    <button ref="btnX" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button :disabled="isLoading" @click="deleteExperience" type="button"
+                        class="btn bg-danger-subtle text-danger btn-sm rounded-0 m-0 ms-3 py-1 px-3">
+                        <i class="bi bi-x-lg"></i> Delete
+                    </button>
+                    <!-- <button ref="btnX" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
                 </div>
                 <div class="modal-body">
                     <div class="row g-3">
@@ -62,9 +66,12 @@
                     </div>
                 </div>
                 <div class="modal-footer border-0">
-                    <button :disabled="isLoading" @click="deleteExperience" type="button"
+                    <button ref="btnX" data-bs-dismiss="modal" class="btn btn-light rounded-0 ">
+                        Cancel
+                    </button>
+                    <!-- <button :disabled="isLoading" @click="deleteExperience" type="button"
                         class="btn btn-danger rounded-0">Delete
-                        Experience</button>
+                        Experience</button> -->
                     <button @click="updateClick" :disabled="isLoading" type="button" class="btn btn-primary  rounded-0">Save
                         Changes</button>
                 </div>

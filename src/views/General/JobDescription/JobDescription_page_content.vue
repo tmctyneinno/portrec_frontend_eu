@@ -193,7 +193,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue';
+import { onBeforeMount, ref, watchEffect } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { onBeforeRouteLeave } from 'vue-router';
 import { useJobApplicationStore } from '@/stores/jobApplicationStore';
@@ -202,6 +202,8 @@ import { storeToRefs } from 'pinia';
 import api from '@/stores/Helpers/axios'
 //@ts-ignore
 import numeral from 'numeral';
+
+import { useProfileStore } from '@/stores/profileStore';
 
 import modal1 from './jobApplication/modal1.vue';
 import modal2 from './jobApplication/modal2.vue';
@@ -214,11 +216,21 @@ const router = useRouter()
 const route = useRoute()
 const similarJobs = ref<any[]>([])
 
+const profileStore = useProfileStore()
+
 watchEffect(async () => {
   loading.value = true
   await job.currentJobQuery(route.params.id)
-  // console.log(currentJob);
   getSimilarJobs()
+
+
+})
+
+onBeforeMount(() => {
+  // redirect to account page if loggged in
+  if (profileStore.userType) {
+    router.replace({ path: `/${profileStore.userType}/job-description/${route.params.id}` })
+  }
 })
 
 async function getSimilarJobs() {

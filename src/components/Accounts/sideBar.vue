@@ -71,13 +71,13 @@ const router = useRouter()
 // load menu according to usertype in prop
 const menu = computed(() => {
     const userType = prop.userType;
-    const menuMap: any = {
+    const useMenu: any = {
         user: userMenu,
         recruiter: recruiterMenu,
         admin: adminMenu,
     };
 
-    return menuMap[userType];
+    return useMenu[userType];
 });
 
 function logout() {

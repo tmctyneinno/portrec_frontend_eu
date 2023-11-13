@@ -3,7 +3,7 @@
 <template>
     <div class="modal fade" id="editSkillsModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
         role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-sm" role="document">
             <div class="modal-content">
                 <div class="modal-header border-0">
                     <h6 class="modal-title fw-bold">Add/Edit Skills</h6>
@@ -40,7 +40,7 @@
 </template>
 
 <script lang="ts" setup>
-import { watch, ref, computed, watchEffect } from 'vue';
+import { watch, ref, watchEffect } from 'vue';
 import { useRoute } from 'vue-router'
 import { useProfileStore } from '@/stores/profileStore';
 import { useEditingProfileStore } from '../editingProfileStore';

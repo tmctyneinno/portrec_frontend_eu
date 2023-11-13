@@ -56,10 +56,7 @@ const props = defineProps({
     },
 })
 
-const totalPages = computed(() => {
-    return Math.ceil(props.totalRecords / props.perPage)
-    // return Math.floor(props.totalRecords / props.perPage) + props.totalRecords % props.perPage;
-})
+const totalPages = computed(() => Math.ceil(props.totalRecords / props.perPage))
 
 const pagesToShow = computed(() => {
     let startPage = Math.max(1, props.currentPage - 2);
@@ -75,34 +72,6 @@ const pagesToShow = computed(() => {
 const changePage = (page: number) => {
     emit('moveToNext', page)
 };
-
-
-// const moveToPage = (moveTo: number) => {
-//     switch (moveTo) {
-//         case 1:
-//             if ((props.currentPage !== totalPages.value)) {
-//                 changePage(props.currentPage + 1)
-//             }
-//             break;
-//         case -1:
-//             if (props.currentPage != 1)
-//                 changePage(props.currentPage - 1)
-//             break;
-//         case 5:
-//             if ((props.currentPage + 5) > totalPages.value)
-//                 changePage(totalPages.value)
-//             else changePage(props.currentPage + 5)
-//             break;
-//         case -5:
-//             if ((props.currentPage - 5) < 1)
-//                 changePage(1)
-//             else changePage(props.currentPage - 5)
-//             break;
-//         default:
-//             break;
-//     }
-// };
-
 
 const moveToPage = (moveTo: number) => {
     const delta = Math.sign(moveTo) * Math.min(Math.abs(moveTo), 5);

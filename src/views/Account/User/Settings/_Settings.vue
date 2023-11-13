@@ -43,7 +43,7 @@
 
                 <hr>
                 <div class="row g-3">
-                    <div class="col-lg-5">
+                    <div class="col-lg-6">
                         <h6 class="fw-bold">Personal Details</h6>
                     </div>
                     <div class="col-lg-5">
@@ -92,7 +92,7 @@
                     </div>
                 </div>
                 <hr>
-                <div class="row g-3">
+                <!-- <div class="row g-3">
                     <div class="col-lg-5">
                         <h6 class="fw-bold">Account Type</h6>
                         <span class="fw-light">
@@ -118,10 +118,10 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
-                <hr>
-                <div class="col-12">
+                <!-- <hr> -->
+                <div class="col-12 col-lg-11">
                     <div class="col-md-2 float-lg-end">
                         <button v-if="!details.isLoading" @click="saveProfile"
                             class="float-end btn btn-primary rounded-0 w-100" type="button">

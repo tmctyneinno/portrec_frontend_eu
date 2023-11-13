@@ -6,4 +6,3 @@ import FindJobs_page_content from '@/views/General/FindJobs_page_content.vue';
     <FindJobs_page_content />
 </template>
 
-<style lang="css" scoped></style>

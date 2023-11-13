@@ -6,8 +6,8 @@
             <div class="card-header bg-transparent fw-bold border-0 pt-3">
                 About me
                 <span @click="saveAboutMeToStore" class="float-end" data-bs-toggle="modal" data-bs-target="#editAboutModal">
-                    <span class="profile-edit-btn click-ripple">
-                        <i class="bi bi-pencil-square"></i>
+                    <span class="profile-edit-btn small">
+                        <i class="bi bi-pencil-square"></i> Edit
                     </span>
                 </span>
             </div>

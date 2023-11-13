@@ -7,7 +7,7 @@
     <div class="section-panel min-vh-100 pt-5 pb-0">
       <div class="container mb-5">
         <div class="row g-3 justify-content-center ">
-          <div class="col-12 text-center">
+          <div class="col-12 text-center text-lg-start">
             <div class="section-title">Contact</div>
             <small>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </small>
           </div>

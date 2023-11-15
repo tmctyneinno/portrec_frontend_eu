@@ -3,7 +3,7 @@
 <template>
     <div class="modal fade" id="editAboutModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
         role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-sm modal-dialog-scrollable " role="document">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable " role="document">
             <div class="modal-content">
                 <div class="modal-header border-0">
                     <h6 class="modal-title fw-bold">About Me</h6>

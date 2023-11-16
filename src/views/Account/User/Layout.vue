@@ -29,6 +29,7 @@ onMounted(async () => {
 .children-pages {
     padding-top: 70px;
     padding-bottom: 100px;
+    background-color: #f4f2ee;
 }
 
 @media (min-width: 767px) {

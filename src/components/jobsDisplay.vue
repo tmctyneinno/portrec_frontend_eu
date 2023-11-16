@@ -45,7 +45,7 @@ defineProps({
     /* border-color: #fff; */
     /* border-width: 2px; */
     border-color: transparent;
-    border-left: 1px solid var(--theme-color);
+    /* border-left: 1px solid var(--theme-color); */
     box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) !important;
 }
 

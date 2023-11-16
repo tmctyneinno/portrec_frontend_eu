@@ -2,11 +2,11 @@
 
 <template>
     <div class="col-12">
-        <div class="card rounded-0">
+        <div class="card border-0 shadow-sm">
             <div class="card-header bg-transparent fw-bold border-0 pt-3">
                 Social Links
                 <span class="float-end" data-bs-toggle="modal" data-bs-target="#editSocialLinksModal">
-                    <span class="profile-edit-btn small">
+                    <span class="profile-edit-btn small rounded-1">
                         <i class="bi bi-pencil-square"></i> Edit
                     </span>
                 </span>

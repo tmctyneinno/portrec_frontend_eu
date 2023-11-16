@@ -8,7 +8,7 @@
         <div class="row justify-content-center pt-5 g-3">
 
           <div class="col-md-12 col-sm-12 col-12 ">
-            <div class="card rounded-">
+            <div class="card border-0 shadow-sm">
               <div class="card-body">
                 <div class="row gy-3 align-items-center">
 
@@ -46,8 +46,8 @@
       </div>
     </div>
 
-    <div class="container">
-      <div class="row py-5 gy-3">
+    <div class="container bg-white px-lg-5">
+      <div class="row py-5 gy-3 ">
         <div class="col-lg-8">
 
           <div class="py-3">
@@ -160,7 +160,7 @@
     </div>
 
     <div class="section-panel min-vh-100 section-panel-light">
-      <div class="container">
+      <div class="container px-lg-5">
         <div class="col-12">
           <div class="row">
             <div class="col-8">

@@ -2,7 +2,7 @@
 
 <template>
     <div class="col-12">
-        <div class="card rounded-0">
+        <div class="card border-0 shadow-sm">
             <div class="card-header bg-transparent fw-bold border-0 pt-3">
                 Skills
                 <!-- <span class="float-end" data-bs-toggle="modal" data-bs-target="#editSkillsModal">
@@ -14,18 +14,20 @@
             <div class="card-body small">
                 <div class="row g-3">
                     <div class="col-12">
-                        <div class="card shadow-sm border-0  rounded-0">
-                            <div class="card-body small ">
+                        <div class="card border-0">
+                            <div class="card-body small p-0">
                                 <span v-for="skill in userSkills" :key="skill.id" class="skills-tag">
                                     {{ editingStore.getSkillName(skill.skill_id) }}
                                     <i @click="removeSkill(skill.skill_id)"
                                         class="bi bi-x-lg theme-color cursor-pointer ms-3"></i>
                                 </span>
+                                <span v-show="!userSkills.length" class="text-muted2">No skills added</span>
                             </div>
                         </div>
                     </div>
+                    <hr class="text-muted">
                     <div class="col-12">
-                        <label class="small">Add New Skill: </label>
+                        <label class="small">New Skills: </label>
                         <v-select placeholder="" multiple v-model="selectedSkills" :clearable="false"
                             :options="skillsDropdown"></v-select>
                     </div>

@@ -26,7 +26,7 @@
       </div>
     </div>
 
-    <div class="container" :class="{ 'small': route.path != '/find-jobs' }">
+    <div class="container bg-white py-3" :class="{ 'small': route.path != '/find-jobs' }">
       <div class="row">
         <div class="col-lg-3">
           <div class="card border-0 pt-5 pb-3">
@@ -188,7 +188,7 @@
               </div>
             </div>
             <div class="col-12">
-              <div class="card border-0 rounded-0 bg-light p-4">
+              <div class="card border-0 bg-light p-4">
                 <div v-if="jobsStore.loading" style="min-height: 400px;">
                   <!-- <componentLoading /> -->
                 </div>
@@ -362,6 +362,7 @@ function respondToCheckBox() {
   cursor: pointer;
 }
 
+
 /* .img-fluid {
   max-width: 100%;
   height: auto;
@@ -371,7 +372,7 @@ function respondToCheckBox() {
   /* border-color: #fff; */
   /* border-width: 2px; */
   border-color: transparent;
-  border-left: 1px solid var(--theme-color);
+  /* border-left: 1px solid var(--theme-color); */
   box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) !important;
 }
 

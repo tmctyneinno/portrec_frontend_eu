@@ -1,5 +1,5 @@
 // @ts-nocheck
-import LandingPage from '../views/General/LandingPage/_LandingPage.vue'
+import LandingPage from '../views/General/LandingPage/LandingPage.vue'
 import { useProfileStore } from '@/stores/profileStore';
 
 const initGuard = (to, from, next) => {

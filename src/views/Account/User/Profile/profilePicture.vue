@@ -2,7 +2,7 @@
 
 <template>
     <div class="col-12">
-        <div class="card rounded-0 position-relative">
+        <div class="card border-0 shadow-sm position-relative">
             <div class="cover-photo"></div>
             <img src="@/assets/images/dp_temp.png" alt="Profile Picture"
                 class="profile-picture mx-auto ms-5 d-block bg-light">
@@ -19,7 +19,7 @@
                         </div>
                     </div>
                     <div class="mt-5 mt-lg-0">
-                        <router-link to="/user/settings" class="btn btn-primary-outline btn-sm  rounded-0">
+                        <router-link to="/user/settings" class="btn btn-primary-outline btn-sm">
                             <i class="bi bi-pencil"></i> Edit profile
                         </router-link>
                     </div>
@@ -61,6 +61,8 @@ const location_country = computed(() => {
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
+    border-top-right-radius: inherit;
+    border-top-left-radius: inherit;
 }
 
 .profile-picture {

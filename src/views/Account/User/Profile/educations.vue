@@ -2,11 +2,11 @@
 
 <template>
     <div class="col-12">
-        <div class="card rounded-0">
+        <div class="card border-0 shadow-sm">
             <div class="card-header bg-transparent fw-bold border-0 pt-3">
                 Educations
                 <span class="float-end" data-bs-toggle="modal" data-bs-target="#addEducationModal">
-                    <span class="profile-edit-btn small">
+                    <span class="profile-edit-btn small rounded-1">
                         <i class="bi bi-plus-lg"></i> New
                     </span>
                 </span>
@@ -18,7 +18,8 @@
                 </p>
                 <!-- Some borders are removed -->
                 <ul v-else class="list-group list-group-flush">
-                    <li v-for="(edu, index ) in educationsArray()" :key="index" class="list-group-item shadow-sm">
+                    <li v-for="(edu, index ) in educationsArray()" :key="index"
+                        class="list-group-item border-1 rounded-1 mb-3">
                         <div class="row g-3">
                             <!-- <div class="col-lg-2">
                                 <img src="" alt="_img" class="">
@@ -27,8 +28,8 @@
                                 <div class="fw-bold mb-2">{{ edu.institution }}
                                     <span @click="editingStore.educationToEdit = edu" class="float-end"
                                         data-bs-toggle="modal" data-bs-target="#editEducationModal">
-                                        <span class="profile-edit-btn xsmall bg-white rounded-1">
-                                            <i class="bi bi-pencil-square"></i> Edit
+                                        <span class="profile-edit-btn bg-white rounded-1">
+                                            <i class="bi bi-pencil-square"></i>
                                         </span>
                                     </span>
 

@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2'
 //@ts-ignore
 import validator from 'validator';
-import { useOnline } from '@vueuse/core';
+import { useDateFormat, useOnline } from '@vueuse/core';
 
 type DebounceFunction<T extends (...args: any[]) => any> = (...args: Parameters<T>) => void;
 
@@ -110,5 +110,27 @@ export default {
                 func(...args);
             }, delay);
         };
+    },
+
+    greet: () => {
+        const currentTime = new Date().getHours();
+        if (currentTime < 12) {
+            return "Good morning";
+        } else if (currentTime < 18) {
+            return "Good afternoon";
+        } else {
+            return "Good evening";
+        }
+    },
+
+    dateDisplay: (date: Date, options?: string) => {
+        if (options) {
+            if (options == 'm,y') {
+                const dd = useDateFormat(date, 'MMM, YYYY')
+                return dd.value
+            }
+        }
+        const dd = useDateFormat(date, 'MMM D, YYYY')
+        return dd.value
     }
 }

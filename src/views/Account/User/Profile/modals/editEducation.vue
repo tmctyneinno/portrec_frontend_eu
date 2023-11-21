@@ -22,7 +22,7 @@
                         </div>
                         <div class="col-md-6">
                             <label class="small">From * </label>
-                            <VueDatePicker :format="dp_format" :teleport="true" hide-input-icon :clearable="false"
+                            <VueDatePicker :format="useFxn.dateDisplay" :teleport="true" hide-input-icon :clearable="false"
                                 :max-date="new Date()" :enable-time-picker="false" auto-apply
                                 v-model="education.start_date">
                             </VueDatePicker>
@@ -33,7 +33,7 @@
                         </div>
                         <div class="col-md-6" v-if="!isCurrentlyHere">
                             <label class="small">To * </label>
-                            <VueDatePicker :format="dp_format" :teleport="true" :clearable="false" hide-input-icon
+                            <VueDatePicker :format="useFxn.dateDisplay" :teleport="true" :clearable="false" hide-input-icon
                                 :max-date="new Date()" :min-date="education.start_date" :enable-time-picker="false"
                                 auto-apply v-model="education.end_date">
                             </VueDatePicker>
@@ -71,18 +71,11 @@ import { useProfileStore } from '@/stores/profileStore';
 import { useEditingProfileStore } from '../editingProfileStore'
 import api from '@/stores/Helpers/axios'
 import useFxn from '@/stores/Helpers/useFunctions';
-import { useDateFormat } from '@vueuse/core';
 
 const profileStore = useProfileStore()
 const editingStore = useEditingProfileStore()
 const isLoading = ref(false)
 
-
-
-const dp_format = (date: Date) => {
-    const dateMe = useDateFormat(date, 'MMMM D, YYYY')
-    return dateMe.value
-}
 
 const education = reactive<any>({
     institution: editingStore.educationToEdit.institution,

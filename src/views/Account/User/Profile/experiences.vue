@@ -38,8 +38,8 @@
                                     </span>
                                     <i class="bi bi-dot"></i>
                                     <span v-if="exp.start_date">
-                                        {{ new Date(exp.start_date).getFullYear() }} -
-                                        {{ exp.end_date ? new Date(exp.end_date).getFullYear() : 'present' }}
+                                        {{ useFxn.dateDisplay(new Date(exp.start_date), 'm,y') }} -
+                                        {{ exp.end_date ? useFxn.dateDisplay(new Date(exp.end_date), 'm,y') : 'present' }}
                                     </span>
                                     <div>
                                         {{ exp.company_location }}
@@ -61,10 +61,12 @@
 import { useProfileStore } from '@/stores/profileStore';
 import { useEditingProfileStore } from './editingProfileStore'
 import { useJobsStore } from '@/stores/jobsStore';
+import useFxn from '@/stores/Helpers/useFunctions'
 
 const profileStore = useProfileStore()
 const jobsStore = useJobsStore()
 const editingStore = useEditingProfileStore()
+
 
 const experienceArray = () => profileStore.data?.experience ?? [];
 

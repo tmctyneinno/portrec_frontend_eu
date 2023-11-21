@@ -25,15 +25,22 @@
                             </div>
                         </div>
                     </div>
-                    <hr class="text-muted">
-                    <div class="col-12">
-                        <label class="small">New Skills: </label>
-                        <v-select placeholder="" multiple v-model="selectedSkills" :clearable="false"
-                            :options="skillsDropdown"></v-select>
-                    </div>
-                    <div class="col-12">
-                        <button :disabled="isSaving" @click="addSkill" type="button"
-                            class="btn btn-primary float-lg-end px-5 rounded-0">Save</button>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <label class="small">New Skills: </label>
+                                    <v-select placeholder="" class="skills-select" multiple v-model="selectedSkills"
+                                        :clearable="false" :options="skillsDropdown"></v-select>
+                                </div>
+                                <div class="col-12">
+                                    <button v-if="!isSaving" @click="addSkill" type="button"
+                                        class="btn btn-primary  rounded-0 w-100">Add</button>
+                                    <button v-else disabled class="btn btn-primary  rounded-0 w-100">Adding..</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

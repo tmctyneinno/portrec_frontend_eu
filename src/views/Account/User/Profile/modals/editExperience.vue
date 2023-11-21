@@ -31,7 +31,8 @@
                         </div>
                         <div class="col-md-6">
                             <label class="small">Type * </label>
-                            <v-select v-model="experience.work_type_id" class="rounded-0" :clearable="false"
+                            <v-select v-model="experience.work_type_id"
+                                class="rounded-0 text-capitalize profile-edit-select" :clearable="false"
                                 :options="jobTypesArray"></v-select>
                             <!-- <small id="helpId" class="form-text text-muted">Help text</small> -->
                         </div>
@@ -39,13 +40,13 @@
                         <div class="col-12">
                             <label class="small">Description * </label>
                             <textarea v-model="experience.description" class="form-control rounded-0" name="" id=""
-                                rows="2"></textarea>
+                                rows="4"></textarea>
                             <!-- <small id="helpId" class="form-text text-muted">Help text</small> -->
                         </div>
 
                         <div class="col-md-6">
                             <label class="small">From * </label>
-                            <VueDatePicker :format="dp_format" :teleport="true" hide-input-icon :clearable="false"
+                            <VueDatePicker :format="useFxn.dateDisplay" :teleport="true" hide-input-icon :clearable="false"
                                 :max-date="new Date()" :enable-time-picker="false" auto-apply
                                 v-model="experience.start_date">
                             </VueDatePicker>
@@ -56,7 +57,7 @@
                         </div>
                         <div class="col-md-6" v-if="!isCurrentlyHere">
                             <label class="small">To * </label>
-                            <VueDatePicker :format="dp_format" :teleport="true" hide-input-icon :clearable="false"
+                            <VueDatePicker :format="useFxn.dateDisplay" :teleport="true" hide-input-icon :clearable="false"
                                 :max-date="new Date()" :min-date="experience.start_date" :enable-time-picker="false"
                                 auto-apply v-model="experience.end_date">
                             </VueDatePicker>
@@ -88,7 +89,6 @@ import { useEditingProfileStore } from '../editingProfileStore'
 import { useJobsStore } from '@/stores/jobsStore';
 import api from '@/stores/Helpers/axios'
 import useFxn from '@/stores/Helpers/useFunctions';
-import { useDateFormat } from '@vueuse/core';
 
 const profileStore = useProfileStore()
 const editingStore = useEditingProfileStore()
@@ -97,15 +97,10 @@ const isLoading = ref(false)
 
 const route = useRoute()
 
-
 const jobTypesArray = computed(() => {
     return jobsStore.types.map((x: any) => ({ id: x.id, label: x.name }))
 })
 
-const dp_format = (date: Date) => {
-    const dateMe = useDateFormat(date, 'MMMM D, YYYY')
-    return dateMe.value
-}
 
 const experience = reactive<any>({
     company_name: editingStore.experienceToEdit.company_name,
@@ -113,7 +108,7 @@ const experience = reactive<any>({
     start_date: new Date(editingStore.experienceToEdit.start_date),
     end_date: new Date(editingStore.experienceToEdit.end_date ?? new Date()),
     job_title: editingStore.experienceToEdit.job_title,
-    work_type_id: editingStore.experienceToEdit.work_type_id,
+    work_type_id: jobTypesArray.value.find((x: any) => x.id == editingStore.experienceToEdit.work_type_id),
     description: editingStore.experienceToEdit.description,
     job_function_id: editingStore.experienceToEdit.job_function_id,
 })
@@ -124,7 +119,7 @@ watch(() => editingStore.experienceToEdit, () => {
     experience.start_date = new Date(editingStore.experienceToEdit.start_date);
     experience.end_date = new Date(editingStore.experienceToEdit.end_date ?? new Date());
     experience.job_title = editingStore.experienceToEdit.job_title;
-    experience.work_type_id = editingStore.experienceToEdit.work_type_id;
+    experience.work_type_id = jobTypesArray.value.find((x: any) => x.id == editingStore.experienceToEdit.work_type_id);
     experience.description = editingStore.experienceToEdit.description;
     experience.job_function_id = editingStore.experienceToEdit.job_function_id;
 })

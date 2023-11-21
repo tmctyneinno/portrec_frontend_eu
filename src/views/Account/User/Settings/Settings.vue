@@ -63,21 +63,21 @@
                             </div> -->
                             <div class="col-md-6">
                                 <label> Date of Birth </label>
-                                <VueDatePicker input-class-name="dob-settings-input" hide-input-icon :clearable="false"
+                                <VueDatePicker :format="useFxn.dateDisplay" class="dob-settings-input"
+                                    input-class-name="dob-settings-input" hide-input-icon :clearable="false"
                                     :max-date="new Date()" :enable-time-picker="false" auto-apply v-model="details.dob">
                                 </VueDatePicker>
 
                             </div>
                             <div class="col-md-6">
                                 <label> Gender </label>
-                                <v-select v-model="details.gender" class="rounded-0 text-capitalize" :clearable="false"
+                                <v-select v-model="details.gender" class="text-capitalize gender-chooser" :clearable="false"
                                     :searchable="false" :options="['Male', 'Female']"></v-select>
                             </div>
                             <div class="col-6">
                                 <label> Country</label>
-                                <v-select :clearable="false" v-model="details.country" :loading="loading"
-                                    placeholder="select country" :options="allCountries" />
-                                <!-- <input v-model="details.country" class="form-control rounded-0" type="text"> -->
+                                <v-select class="country-chooser-settings" :clearable="false" v-model="details.country"
+                                    :loading="loading" placeholder="select country" :options="allCountries" />
                             </div>
                             <div class="col-6">
                                 <label> City</label>
@@ -150,14 +150,23 @@
                         </span>
                     </div>
                     <div class="col-lg-5 ">
-                        <h6 class="fw-bold">jakegyll@email.com <i class="bi bi-exclamation-circle text-danger"></i> </h6>
-                        <div class="fw-light small">
-                            Your email address is not verified.
-                        </div>
-                        <div class="col-12 mt-3">
-                            <label class="fw-bold">Update Email</label>
-                            <input class="form-control rounded-0" type="text" placeholder="Enter your new email">
-                            <button disabled class="btn btn-primary mt-3 rounded-0">Update Email</button>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <h6 class="fw-bold">{{ profileStore.data.email ?? '' }} <i
+                                        class="bi bi-exclamation-circle text-danger"></i> </h6>
+                                <div class="fw-light small">
+                                    Your email address is not verified.
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <label>Update Email</label>
+                                <input class="form-control rounded-0" type="text" placeholder="Enter your new email">
+                            </div>
+
+                            <div class="col-md-6">
+                                <button disabled class="btn btn-primary rounded-0 w-100">Update Email</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -174,17 +183,28 @@
                         <div class="row g-3">
                             <div class="col-12">
                                 <label> Old Password</label>
-                                <input class="form-control rounded-0" type="text" placeholder="Enter your old password">
-                                <span class="small text-muted">Minimum 8 characters</span>
+                                <input v-model="password.old" class="form-control rounded-0" type="password"
+                                    placeholder="Enter your old password">
+                                <span class="small text-muted2">Minimum 8 characters</span>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <label> New Password</label>
-                                <input class="form-control rounded-0" type="text" placeholder="Enter your new password">
-                                <span class="small text-muted">Minimum 8 characters</span>
+                                <input v-model="password.new" class="form-control rounded-0" type="password"
+                                    placeholder="new password">
+                                <span class="small text-muted2">Minimum 8 characters</span>
+                            </div>
+                            <div class="col-md-6">
+                                <label> Repeat new Password</label>
+                                <input v-model="password.repeat" class="form-control rounded-0" type="password"
+                                    placeholder="new password">
                             </div>
 
-                            <div class="col-md-12 mt-3">
-                                <button class="btn btn-primary rounded-0">Change Password</button>
+                            <div class="col-md-6 mt-3">
+                                <button @click="changePassword" v-if="!password.isLoading"
+                                    class="btn btn-primary rounded-0 w-100">Change Password</button>
+                                <button v-else class="btn btn-primary rounded-0 w-100" disabled>
+                                    <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                                </button>
                             </div>
 
                         </div>
@@ -320,7 +340,7 @@ const phoneField = {
     input: {
         showDialCode: true,
         placeholder: 'Enter phone',
-        styleClasses: 'phone-input-class'
+        styleClasses: 'phone-input-profile'
     }
 
 }
@@ -383,6 +403,69 @@ async function submitProfileForm() {
     }
 }
 
+
+
+// password \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+const password = reactive<any>({
+    old: '',
+    new: '',
+    repeat: '',
+    isLoading: false
+})
+
+function changePassword() {
+    if (!useFxn.isOnline()) {
+        useFxn.toastShort('You are offline')
+        return
+    }
+
+    for (const field of ['old', 'new', 'repeat']) {
+        if (!password[field]) {
+            useFxn.toastShort(`Please complete '${field} password' field`);
+            return;
+        }
+    }
+
+    if (password.new.length < 8) {
+        useFxn.toastShort(`Your new password must not be less that 8 characters`);
+        return;
+    }
+
+    if (password.new !== password.repeat) {
+        useFxn.toastShort(`Passwords do not match!`);
+        return;
+    }
+
+    submitPasswordForm()
+    password.isLoading = true
+}
+
+async function submitPasswordForm() {
+    const obj = { oldPassword: password.old, newPassword: password.new }
+    try {
+        let resp = await api.userPassword(obj)
+        console.log(resp);
+        if (resp.status == 201) {
+            useFxn.toast('Password changed succesfully', 'success')
+        }
+
+    } catch (error: any) {
+
+        if (error.response.status === 401) {
+            useFxn.toastShort('Your password is incorrect')
+        }
+        else {
+            useFxn.toast('Sorry, error occured, check your internet', 'error')
+        }
+    }
+    finally {
+        password.isLoading = false
+        password.old = password.new = password.repeat = ''
+    }
+
+}
+
 </script>
 
 <style lang="css" scoped>
@@ -414,28 +497,24 @@ async function submitProfileForm() {
 </style>
 
 <style>
-.dp__pointer {
-    border-radius: 0px !important;
-}
-
-/* .dob-settings-input {
-    border-radius: 0px !important;
+/* .vti__dropdown {
+    background-color: #fff !important;
 } */
 
-.dp__range_end,
-.dp__range_start,
-.dp__active_date {
-    background: var(--theme-color);
-    color: var(--dp-primary-text-color);
-}
-
-.vs__search,
-.vs__search:focus {
-    line-height: 28px !important;
+.dob-settings-input .dp__pointer {
     border-radius: 0px !important;
 }
 
-.vs--unsearchable .vs__dropdown-toggle {
+.country-chooser-settings .vs__search,
+.gender-chooser .vs__search {
+    line-height: 1.7rem !important;
+    border-radius: 0px !important;
+    border: 0px !important;
+}
+
+.country-chooser-settings .vs__dropdown-toggle,
+.gender-chooser .vs__dropdown-toggle {
+    background-color: #fff !important;
     border-radius: 0px;
 }
 </style>

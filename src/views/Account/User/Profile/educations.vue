@@ -37,9 +37,13 @@
                                 <div class="text-muted mb-2">
                                     {{ edu.qualification }}
                                     <div v-if="edu.start_date">
+                                        {{ useFxn.dateDisplay(new Date(edu.start_date), 'm,y') }} -
+                                        {{ edu.end_date ? useFxn.dateDisplay(new Date(edu.end_date), 'm,y') : 'present' }}
+                                    </div>
+                                    <!-- <div v-if="edu.start_date">
                                         {{ new Date(edu.start_date).getFullYear() }} -
                                         {{ edu.end_date ? new Date(edu.end_date).getFullYear() : 'present' }}
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div>
                                     {{ edu.description }}
@@ -56,6 +60,7 @@
 <script lang="ts" setup>
 import { useProfileStore } from '@/stores/profileStore';
 import { useEditingProfileStore } from './editingProfileStore'
+import useFxn from '@/stores/Helpers/useFunctions'
 
 const profileStore = useProfileStore()
 const editingStore = useEditingProfileStore()

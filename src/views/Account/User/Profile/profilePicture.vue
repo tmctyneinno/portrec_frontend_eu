@@ -10,8 +10,8 @@
                 <div class="d-flex float-lg-end ">
                     <div class="me-lg-5 mt-5 mt-lg-0 mb-3">
                         <div class="fs-5 fw-lighter text-capitalize">{{ profileStore.data?.name ?? '' }}</div>
-                        <div class="text-muted text-capitalize">{{ profileStore.data?.title ?? '' }}
-                            <span v-if="recentCompany">at {{ recentCompany }}</span>
+                        <div v-if="recentPosition" class="text-muted text-capitalize">
+                            {{ recentPosition }}
                         </div>
                         <div v-show="location_country" class="text-muted text-capitalize">
                             <i class="bi bi-geo-alt"></i>
@@ -36,14 +36,11 @@ import { computed } from 'vue';
 const profileStore = useProfileStore()
 
 
-const recentCompany = computed(() => {
-    const company = profileStore.data?.experience ?? [];
-    if (company.length) {
-        let recent = company.find((comp: any) => comp.end_date == null)
-        return recent?.company_name ?? ''
-    }
-    return ''
-})
+const recentPosition = computed(() => {
+    const company = profileStore.data?.experience || [];
+    const recent = company.find((comp: any) => comp.end_date == null);
+    return recent ? `${recent.job_title} at ${recent.company_name}` : '';
+});
 
 const location_country = computed(() => {
     const location = profileStore.data?.location ?? '';

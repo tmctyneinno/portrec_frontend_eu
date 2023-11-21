@@ -60,4 +60,8 @@ export default {
     useSkillDelete(id: any) {
         return $instance.delete(`/user/skill/${id}`)
     },
+
+    userPassword(data: any) {
+        return $instance.put(`/user/password`, JSON.stringify(data))
+    },
 }

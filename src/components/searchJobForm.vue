@@ -16,8 +16,9 @@
                         </div>
                     </div>
                     <div class="col-lg-5">
-                        <v-select v-model="jobsStore.search.location" :loading="loading" class="country-chooser"
-                            placeholder="select country" :options="allCountries" />
+                        <v-select v-model="jobsStore.search.location" :loading="loading"
+                            class="country-chooser-jobform find-jobs-select" placeholder="select country"
+                            :options="allCountries" />
                     </div>
                     <div class="col-lg-2">
                         <button @click="searchJobs" :disabled="formIsSearcing" type="submit" class="btn  w-100"
@@ -178,9 +179,9 @@ watchEffect(() => {
 </style>
 
 <style>
-.country-chooser .vs__search::placeholder,
-.country-chooser .vs__dropdown-toggle,
-.country-chooser .vs__dropdown-menu {
+.country-chooser-jobform .vs__search::placeholder,
+.country-chooser-jobform .vs__dropdown-toggle,
+.country-chooser-jobform .vs__dropdown-menu {
     background-color: #fff !important;
     outline: 0;
     border-width: 0 0 1px;
@@ -191,9 +192,9 @@ watchEffect(() => {
 
 @media (min-width: 994px) {
 
-    .country-chooser .vs__search::placeholder,
-    .country-chooser .vs__dropdown-toggle,
-    .country-chooser .vs__dropdown-menu {
+    .country-chooser-jobform .vs__search::placeholder,
+    .country-chooser-jobform .vs__dropdown-toggle,
+    .country-chooser-jobform .vs__dropdown-menu {
         border: none !important;
     }
 
@@ -205,8 +206,8 @@ watchEffect(() => {
 }
 
 
-/* .country-chooser .vs__clear,
-.country-chooser .vs__open-indicator {
+/* .country-chooser-jobform .vs__clear,
+.country-chooser-jobform .vs__open-indicator {
     fill: #394066;
 } */
 

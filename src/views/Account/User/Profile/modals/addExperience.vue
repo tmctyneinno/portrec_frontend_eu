@@ -23,7 +23,8 @@
                         </div>
                         <div class="col-md-6">
                             <label class="small">Type * </label>
-                            <v-select v-model="experience.work_type_id" class="rounded-0 text-capitalize" :clearable="false"
+                            <v-select v-model="experience.work_type_id"
+                                class="rounded-0 text-capitalize profile-edit-select" :clearable="false"
                                 :options="jobTypesArray"></v-select>
                         </div>
 
@@ -35,7 +36,7 @@
 
                         <div class="col-md-6">
                             <label class="small">From * </label>
-                            <VueDatePicker :format="dp_format" :teleport="true" hide-input-icon :clearable="false"
+                            <VueDatePicker :format="useFxn.dateDisplay" :teleport="true" hide-input-icon :clearable="false"
                                 :max-date="new Date()" :enable-time-picker="false" auto-apply
                                 v-model="experience.start_date">
                             </VueDatePicker>
@@ -46,7 +47,7 @@
                         </div>
                         <div class="col-md-6" v-if="!isCurrentlyHere">
                             <label class="small">To * </label>
-                            <VueDatePicker :format="dp_format" :teleport="true" hide-input-icon :clearable="false"
+                            <VueDatePicker :format="useFxn.dateDisplay" :teleport="true" hide-input-icon :clearable="false"
                                 :max-date="new Date()" :min-date="experience.start_date" :enable-time-picker="false"
                                 auto-apply v-model="experience.end_date">
                             </VueDatePicker>
@@ -75,7 +76,6 @@ import { useProfileStore } from '@/stores/profileStore';
 import api from '@/stores/Helpers/axios'
 import useFxn from '@/stores/Helpers/useFunctions';
 import { useEditingProfileStore } from '../editingProfileStore'
-import { useDateFormat } from '@vueuse/core';
 
 const jobsStore = useJobsStore()
 const profileStore = useProfileStore()
@@ -91,10 +91,6 @@ const jobTypesArray = computed(() => {
     return jobsStore.types.map((x: any) => ({ id: x.id, label: x.name }))
 })
 
-const dp_format = (date: Date) => {
-    const dateMe = useDateFormat(date, 'MMMM D, YYYY')
-    return dateMe.value
-}
 
 const experience = reactive<any>({
     company_name: '',

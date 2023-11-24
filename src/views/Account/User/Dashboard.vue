@@ -3,12 +3,12 @@
         <div class="col-12">
             <div class="row">
                 <div class="col-12">
-                    <div class="fw-bold text-capitalize">{{ useFxn.greet() }}, {{ profileStore.data.name ?? '' }}</div>
+                    <div class="fw-bold text-capitalize">{{ useFxn.greet() }}, {{ profileStore.data?.name ?? '' }}</div>
                     <span class="text-muted">Here is what’s happening with your job search applications from
-                        <span class="fw-bold">{{ dateRange ? dp_format(dateRange) : '' }}</span>.
+                        <span class="fw-bold">{{ dateRange ? date_display(dateRange) : '' }}</span>.
                     </span>
                     <span class="float-start float-lg-end" style="width: 180px;">
-                        <VueDatePicker class="fw-bold" disable-year-select :format="dp_format" range multi-calendars
+                        <VueDatePicker class="fw-bold" disable-year-select :format="date_display" range multi-calendars
                             :clearable="false" :max-date="new Date()" :enable-time-picker="false" auto-apply
                             v-model="dateRange">
                         </VueDatePicker>
@@ -116,7 +116,7 @@ onMounted(() => {
 
 const dateRange = ref();
 
-const dp_format = (date: Date[]) => {
+const date_display = (date: Date[]) => {
     const dateMe1 = useDateFormat(date[0], 'MMM D')
     const dateMe2 = useDateFormat(date[1], 'MMM D')
     return `${dateMe1.value} - ${dateMe2.value}`;

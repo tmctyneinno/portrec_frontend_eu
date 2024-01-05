@@ -7,9 +7,10 @@
                 <div class="col-md-9 col-lg-7">
                     <div class="hero-text text-center text-white ">
                         Find your dream employment
-                        <span v-show="animaIndex == 1" class="theme-color2 fw-bold">with</span>
-                        <span v-show="animaIndex == 2" class="text-primary fw-bold">us at</span>
-                        <span v-show="animaIndex == 3" class="theme-color-shine fw-bold">Protrec</span>
+                        <span v-if="animaIndex == 1" class="theme-color2 fw-bold">with</span>
+                        <span v-if="animaIndex == 2" class="text-primary fw-bold">us at</span>
+                        <span v-if="animaIndex == 3"
+                            class="theme-color-shine fw-bold animate__animated animate__slideInUp">Portrec</span>
                     </div>
 
                     <div class="small-text text-white text-center mt-4">

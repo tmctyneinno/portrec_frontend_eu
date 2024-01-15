@@ -151,7 +151,7 @@
                     <div class="col-lg-5 ">
                         <div class="row g-3">
                             <div class="col-12">
-                                <h6 class="fw-bold">{{ profileStore.data.email ?? '' }} <i
+                                <h6 class="fw-bold">{{ profileStore.data?.email ?? '' }} <i
                                         class="bi bi-exclamation-circle text-danger"></i> </h6>
                                 <div class="fw-light small">
                                     Your email address is not verified.
@@ -468,27 +468,6 @@ async function submitPasswordForm() {
 </script>
 
 <style lang="css" scoped>
-.nav-link {
-    border: none !important;
-    font-size: 14px;
-}
-
-.nav-link {
-    color: #7C8493;
-}
-
-.nav-tabs .nav-item.show .nav-link,
-.nav-tabs .nav-link.active {
-    font-weight: bolder;
-    border-bottom: 2px solid var(--theme-color) !important;
-}
-
-@media (max-width: 767px) {
-    .nav-link {
-        font-size: 13px;
-    }
-}
-
 .vue-tel-input {
     border-radius: 0px;
     line-height: 27px;

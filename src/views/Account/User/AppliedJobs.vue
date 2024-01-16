@@ -41,8 +41,8 @@
                         </div>
                         <div class=" col-md-4 col-lg-3 float-end">
                             <h5 class="fw-bold">
-                                <input class="float-end form-control" placeholder="search here..." v-model="searchTerm"
-                                    type="text">
+                                <input class="float-end form-control rounded-0" placeholder="search here..."
+                                    v-model="searchTerm" type="text">
                             </h5>
                         </div>
                     </div>

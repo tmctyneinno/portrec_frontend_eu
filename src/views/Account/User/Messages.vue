@@ -11,13 +11,13 @@
                     </div>
                     <div class="col-12">
                         <ul class="list-group list-group-flush">
-                            <li @click="activeInbox = i" v-for="i in 5" :key="i" class="list-group-item ps-0 cursor-pointer"
+                            <li @click="activeInbox = i" v-for="i in 5" :key="i" class="list-group-item cursor-pointer"
                                 :class="{ 'bg-light theme-color': activeInbox == i }">
                                 <div class="row justify-content-center align-items-center">
-                                    <div class="col-lg-2">
+                                    <div class="col-2 col-md-1">
                                         <div class="img-circle"></div>
                                     </div>
-                                    <div class="col-lg-9">
+                                    <div class="col-10 col-md-11">
                                         <div class="fw-bold text-capitalize">
                                             John Mayer- {{ i }}
                                             <span class="fw-light small float-end">
@@ -41,10 +41,10 @@
         <div class="col-lg-7 px-0 mx-0 bg-ligh pt-3">
             <div class="container">
                 <div class="row justify-content-center align-items-center">
-                    <div class="col-md-1">
+                    <div class="col-2 col-md-1">
                         <div class="img-circle"></div>
                     </div>
-                    <div class="col ">
+                    <div class="col-10 col-md-11">
                         <div class="fw-bold text-capitalize">
                             John Mayer- {{ activeInbox }}
                             <span class=" float-end">
@@ -75,7 +75,7 @@
             </div>
             <hr>
             <div class="mx-3">
-                <div class="main bg-light">
+                <div class="position-relative bg-light">
                     <div class="px-2 scroll">
                         <div class="d-flex align-items-center">
                             <div class="text-left pr-1"><img src="https://img.icons8.com/color/40/000000/guest-female.png"
@@ -114,13 +114,18 @@
                             </div>
                         </div>
                     </div>
-                    <nav class="navbar bg-white  d-flex justify-content-between"> <input type="text number" name="text"
-                            class="form-control form-control-chat w-100 rounded-0 form-control-lg"
-                            placeholder="Type a message...">
-                        <div class="icondiv d-flex justify-content-end align-content-center text-center ml-2">
-                            <i class="fa fa-paperclip icon1"></i> <i class="fa fa-arrow-circle-right icon2"></i>
+
+                    <div class="navbar d-flex  justify-content-between mt-3 bg-white">
+                        <div class="col">
+                            <EmojiPicker :text="text" picker-type="input" @update:text="onChangeText" :native="false" />
                         </div>
-                    </nav>
+                        <div class="col-md-3 col-lg-2">
+                            <button style="height: 40px !important;" class="btn btn-primary rounded-0 w-100" type="button"
+                                id="">
+                                Send <i class="bi bi-send"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -129,8 +134,16 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
+import EmojiPicker from 'vue3-emoji-picker'
 
 const activeInbox = ref<any>(1)
+
+
+const text = ref('')
+
+function onChangeText(new_text: string | undefined) {
+    text.value = new_text || ''
+}
 </script>
 
 <style lang="css" scoped>
@@ -176,14 +189,6 @@ const activeInbox = ref<any>(1)
     background-color: #651FFF
 } */
 
-.main {
-    /* background-color: #eee; */
-    /* width: 320px; */
-    position: relative;
-    /* border-radius: 8px; */
-    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
-    /* padding: 6px 0px 0px 0px */
-}
 
 .scroll {
     overflow-y: scroll;
@@ -203,7 +208,7 @@ const activeInbox = ref<any>(1)
 
 .msg {
     background-color: #fff;
-    font-size: 11px;
+    /* font-size: 11px; */
     padding: 5px;
     border-radius: 5px;
     font-weight: 500;
@@ -215,51 +220,11 @@ const activeInbox = ref<any>(1)
     font-weight: 500;
     color: #a09e9e
 }
+</style>
 
-.navbar {
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
-    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) */
-}
-
-/* .form-control-chat {
-    font-size: 12px;
-    font-weight: 400;
-    height: 30px;
-    border: none
-} */
-
-/* .form-control:focus {
-    box-shadow: none;
-    overflow: hidden;
-    border: none
-} */
-
-.form-control-chat:focus {
-    box-shadow: none !important
-}
-
-.icon1 {
-    color: #7C4DFF !important;
-    font-size: 18px !important;
-    cursor: pointer
-}
-
-.icon2 {
-    color: #512DA8 !important;
-    font-size: 18px !important;
-    position: relative;
-    left: 8px;
-    padding: 0px;
-    cursor: pointer
-}
-
-.icondiv {
-    border-radius: 50%;
-    width: 15px;
-    height: 15px;
-    padding: 2px;
-    position: relative;
-    bottom: 1px
+<style>
+.v3-input-emoji-picker .v3-input-picker-root .v3-emoji-picker-input {
+    border: 1px solid #dee2e6;
 }
 </style>
+

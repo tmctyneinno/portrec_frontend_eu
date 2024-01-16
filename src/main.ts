@@ -49,6 +49,9 @@ import VueWriter from "vue-writer";
 import InfiniteLoading from "v3-infinite-loading";
 import "v3-infinite-loading/lib/style.css";
 
+// https://www.npmjs.com/package/vue3-emoji-picker
+import 'vue3-emoji-picker/css'
+
 //https://vcalendar.io/getting-started/installation.html
 import { setupCalendar, Calendar, DatePicker } from 'v-calendar';
 import 'v-calendar/style.css';

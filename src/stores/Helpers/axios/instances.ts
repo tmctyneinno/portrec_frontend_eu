@@ -3,8 +3,8 @@ import { type ProgressFinisher, useProgress } from '@marcoschulte/vue3-progress'
 
 const progresses = [] as ProgressFinisher[];
 
-const hostURL = 'https://staging.tmcinstitute.com';
-// const hostURL = 'https://api.portrec.ng';
+// const hostURL = 'https://staging.tmcinstitute.com';
+const hostURL = 'https://api.portrec.ng';
 const apiURL = `${hostURL}/api/`;
 
 const headersNormal = {

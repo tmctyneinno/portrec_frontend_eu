@@ -3,7 +3,7 @@
 <template>
     <div class="modal fade" id="editAboutModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
         role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable " role="document">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg " role="document">
             <div class="modal-content">
                 <div class="modal-header border-0">
                     <h6 class="modal-title fw-bold">About Me</h6>
@@ -16,8 +16,8 @@
                 </div>
                 <div class="modal-footer border-0">
                     <button @click="clickSave" v-if="!isSaving" type="button"
-                        class="btn btn-primary w-100 rounded-0">Save</button>
-                    <button v-else class=" btn btn-primary rounded-0 w-100" type="button" disabled>
+                        class="btn btn-primary rounded-0">Save</button>
+                    <button v-else class=" btn btn-primary" type="button" disabled>
                         <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
                     </button>
                 </div>
@@ -87,5 +87,9 @@ watch(() => route.path, () => {
 <style lang="css" scoped>
 p {
     margin: 0px !important;
+}
+
+.btn {
+    width: 250px;
 }
 </style>

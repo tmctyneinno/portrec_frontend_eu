@@ -3,7 +3,7 @@
 <template>
     <div class="modal fade" id="editSocialLinksModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
         role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header border-0">
                     <h6 class="modal-title fw-bold">Social Links</h6>
@@ -11,32 +11,32 @@
                 </div>
                 <div class="modal-body">
                     <div class="row g-3">
-                        <div class="col-12">
-                            <label class="small">Instagram: </label>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label">Instagram: </label>
                             <input v-model="details.instagram" type="text" class="form-control rounded-0">
                         </div>
-                        <div class="col-12">
-                            <label class="small">Twitter: </label>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label">Twitter: </label>
                             <input v-model="details.twitter" type="text" class="form-control rounded-0">
                         </div>
-                        <div class="col-12">
-                            <label class="small">Facebook: </label>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label">Facebook: </label>
                             <input v-model="details.facebook" type="text" class="form-control rounded-0">
                         </div>
-                        <div class="col-12">
-                            <label class="small">LinkedIn: </label>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label">LinkedIn: </label>
                             <input v-model="details.linkedin" type="text" class="form-control rounded-0">
                         </div>
-                        <div class="col-12">
-                            <label class="small">Website: </label>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label">Website: </label>
                             <input v-model="details.website" type="text" class="form-control rounded-0">
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer border-0">
+                <div class="modal-footer border-0 pb-3">
                     <button @click="clickSave" v-if="!isSaving" type="button"
-                        class="btn btn-primary w-100 rounded-0">Save</button>
-                    <button v-else class="btn btn-primary rounded-0 w-100" disabled>
+                        class="btn btn-primary rounded-0">Save</button>
+                    <button v-else class="btn btn-primary rounded-0" disabled>
                         <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
                     </button>
                 </div>
@@ -115,4 +115,8 @@ watch(() => route.path, () => {
 </script>
 
 
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+.btn {
+    width: 250px;
+}
+</style>

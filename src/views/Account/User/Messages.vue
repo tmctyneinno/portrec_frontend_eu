@@ -1,6 +1,6 @@
 <template>
     <div class="row g-3">
-        <div class="col-lg-5 min-vh-100 line-right px-3">
+        <div class="col-lg-5  line-right px-3">
             <div class="row">
                 <div class="col-12">
                     <div class="input-group mb-4">
@@ -14,10 +14,10 @@
                             <li @click="activeInbox = i" v-for="i in 5" :key="i" class="list-group-item cursor-pointer"
                                 :class="{ 'bg-light theme-color': activeInbox == i }">
                                 <div class="row justify-content-center align-items-center">
-                                    <div class="col-2 col-md-1">
-                                        <div class="img-circle"></div>
+                                    <div class="col-2 pe-0">
+                                        <div class="img-circle float-end"></div>
                                     </div>
-                                    <div class="col-10 col-md-11">
+                                    <div class="col-10">
                                         <div class="fw-bold text-capitalize">
                                             John Mayer- {{ i }}
                                             <span class="fw-light small float-end">
@@ -44,7 +44,7 @@
                     <div class="col-2 col-md-1">
                         <div class="img-circle"></div>
                     </div>
-                    <div class="col-10 col-md-11">
+                    <div class="col-10 col-md-11 ps-1">
                         <div class="fw-bold text-capitalize">
                             John Mayer- {{ activeInbox }}
                             <span class=" float-end">

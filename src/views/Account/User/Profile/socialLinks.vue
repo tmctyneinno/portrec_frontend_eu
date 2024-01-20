@@ -7,7 +7,7 @@
                 Social Links
                 <span class="float-end" data-bs-toggle="modal" data-bs-target="#editSocialLinksModal">
                     <span class="profile-edit-btn small rounded-1">
-                        <i class="bi bi-pencil-square"></i> Edit
+                        Edit <i class="bi bi-pencil"></i>
                     </span>
                 </span>
             </div>

@@ -3,7 +3,7 @@
 <template>
     <div class="modal fade" id="editExperienceModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
         role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content">
                 <div class="modal-header border-0">
                     <h6 class="modal-title fw-bold">Edit Experience</h6>
@@ -16,21 +16,21 @@
                 <div class="modal-body">
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <label class="small">Company * </label>
+                            <label class="form-label">Company * </label>
                             <input v-model="experience.company_name" type="text" class="form-control rounded-0">
                         </div>
                         <div class="col-md-6">
-                            <label class="small">Location * </label>
+                            <label class="form-label">Location * </label>
                             <input v-model="experience.company_location" type="text" class="form-control rounded-0">
                             <!-- <small id="helpId" class="form-text text-muted">Help text</small> -->
                         </div>
                         <div class="col-md-6">
-                            <label class="small">Title * </label>
+                            <label class="form-label">Title * </label>
                             <input v-model="experience.job_title" type="text" class="form-control rounded-0">
                             <!-- <small id="helpId" class="form-text text-muted">Help text</small> -->
                         </div>
                         <div class="col-md-6">
-                            <label class="small">Type * </label>
+                            <label class="form-label">Type * </label>
                             <v-select v-model="experience.work_type_id"
                                 class="rounded-0 text-capitalize profile-edit-select" :clearable="false"
                                 :options="jobTypesArray"></v-select>
@@ -38,14 +38,14 @@
                         </div>
 
                         <div class="col-12">
-                            <label class="small">Description * </label>
+                            <label class="form-label">Description * </label>
                             <textarea v-model="experience.description" class="form-control rounded-0" name="" id=""
                                 rows="4"></textarea>
                             <!-- <small id="helpId" class="form-text text-muted">Help text</small> -->
                         </div>
 
                         <div class="col-md-6">
-                            <label class="small">From * </label>
+                            <label class="form-label">From * </label>
                             <VueDatePicker :format="useFxn.dateDisplay" :teleport="true" hide-input-icon :clearable="false"
                                 :max-date="new Date()" :enable-time-picker="false" auto-apply
                                 v-model="experience.start_date">
@@ -56,7 +56,7 @@
                             </label>
                         </div>
                         <div class="col-md-6" v-if="!isCurrentlyHere">
-                            <label class="small">To * </label>
+                            <label class="form-label">To * </label>
                             <VueDatePicker :format="useFxn.dateDisplay" :teleport="true" hide-input-icon :clearable="false"
                                 :max-date="new Date()" :min-date="experience.start_date" :enable-time-picker="false"
                                 auto-apply v-model="experience.end_date">
@@ -232,5 +232,9 @@ watch(() => route.path, () => {
 </script>
 
 
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+.btn-primary {
+    width: 250px;
+}
+</style>
 

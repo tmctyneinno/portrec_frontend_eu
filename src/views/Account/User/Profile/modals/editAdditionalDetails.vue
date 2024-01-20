@@ -3,7 +3,7 @@
 <template>
     <div class="modal fade" id="editAdditionalDetailsModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
         role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header border-0">
                     <h6 class="modal-title fw-bold">Details</h6>
@@ -11,25 +11,25 @@
                 </div>
                 <div class="modal-body">
                     <div class="row g-3">
-                        <div class="col-12">
-                            <label class="small">Email: </label>
+                        <div class="col-12 col-md-6">
+                            <label class=" form-label">Email: </label>
                             <input v-model="details.email" type="text" class="form-control rounded-0" readonly>
                         </div>
-                        <div class="col-12">
-                            <label class="small">Phone: </label>
+                        <div class="col-12 col-md-6">
+                            <label class=" form-label">Phone: </label>
                             <input v-maska data-maska="+9" data-maska-tokens="9:\d:multiple" v-model="details.phone"
                                 type="text" class="form-control rounded-0">
                         </div>
                         <div class="col-12">
-                            <label class="small">Languages (Seperate with commas): </label>
+                            <label class="form-label">Languages (Seperate with commas): </label>
                             <textarea v-model="details.languages" class="form-control rounded-0" rows="3"></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer border-0">
                     <button @click="clickSave" v-if="!isSaving" type="button"
-                        class="btn btn-primary w-100 rounded-0">Save</button>
-                    <button v-else class="btn btn-primary rounded-0 w-100" disabled>
+                        class="btn btn-primary rounded-0">Save</button>
+                    <button v-else class="btn btn-primary rounded-0" disabled>
                         <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
                     </button>
                 </div>
@@ -98,4 +98,8 @@ watch(() => route.path, () => {
 </script>
 
 
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+.btn {
+    width: 250px;
+}
+</style>

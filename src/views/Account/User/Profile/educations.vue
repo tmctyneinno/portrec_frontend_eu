@@ -7,7 +7,7 @@
                 Educations
                 <span class="float-end" data-bs-toggle="modal" data-bs-target="#addEducationModal">
                     <span class="profile-edit-btn small rounded-1">
-                        <i class="bi bi-plus-lg"></i> New
+                        New <i class="bi bi-plus-circle-dotted"></i>
                     </span>
                 </span>
             </div>

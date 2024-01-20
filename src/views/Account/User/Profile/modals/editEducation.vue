@@ -3,7 +3,7 @@
 <template>
     <div class="modal fade" id="editEducationModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
         role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content">
                 <div class="modal-header border-0">
                     <h6 class="modal-title fw-bold">Edit Education</h6>
@@ -16,12 +16,12 @@
                 <div class="modal-body">
                     <div class="row g-3">
                         <div class="col-12">
-                            <label class="small">Institution * </label>
+                            <label class="form-label">Institution * </label>
                             <textarea v-model="education.institution" class="form-control rounded-0" name="" id=""
                                 rows="2"></textarea>
                         </div>
                         <div class="col-md-6">
-                            <label class="small">From * </label>
+                            <label class="form-label">From * </label>
                             <VueDatePicker :format="useFxn.dateDisplay" :teleport="true" hide-input-icon :clearable="false"
                                 :max-date="new Date()" :enable-time-picker="false" auto-apply
                                 v-model="education.start_date">
@@ -32,18 +32,18 @@
                             </label>
                         </div>
                         <div class="col-md-6" v-if="!isCurrentlyHere">
-                            <label class="small">To * </label>
+                            <label class="form-label">To * </label>
                             <VueDatePicker :format="useFxn.dateDisplay" :teleport="true" :clearable="false" hide-input-icon
                                 :max-date="new Date()" :min-date="education.start_date" :enable-time-picker="false"
                                 auto-apply v-model="education.end_date">
                             </VueDatePicker>
                         </div>
                         <div class="col-12">
-                            <label class="small">Qualification * </label>
+                            <label class="form-label">Qualification * </label>
                             <input v-model="education.qualification" type="text" class="form-control rounded-0">
                         </div>
                         <div class="col-12">
-                            <label class="small">Description * </label>
+                            <label class="form-label">Description * </label>
                             <textarea v-model="education.description" class="form-control rounded-0" name="" id=""
                                 rows="2"></textarea>
                         </div>
@@ -193,7 +193,11 @@ watch(() => route.path, () => {
 </script>
 
 
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+.btn-primary {
+    width: 250px;
+}
+</style>
 
 <style>
 .dp__pointer {

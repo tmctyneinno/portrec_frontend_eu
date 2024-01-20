@@ -7,7 +7,7 @@
                 Additional Details
                 <span class="float-end " data-bs-toggle="modal" data-bs-target="#editAdditionalDetailsModal">
                     <span class="profile-edit-btn small rounded-1">
-                        <i class="bi bi-pencil-square"></i> Edit
+                        Edit <i class="bi bi-pencil"></i>
                     </span>
                 </span>
             </div>

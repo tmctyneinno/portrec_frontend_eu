@@ -137,7 +137,11 @@ function submitForm() {
 
 async function signinJobSeeker() {
     try {
-        let { data } = await api.userLogin(form)
+        const axObj = {
+            email: form.email,
+            password: form.password
+        }
+        let { data } = await api.userLogin(axObj)
 
         if (data.status === 200) {
             profile.token = data.body.token

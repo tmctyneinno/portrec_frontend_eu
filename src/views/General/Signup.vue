@@ -5,7 +5,7 @@
             <div
                 class="animate__animated animate__fadeInDown col-lg-8 d-flex justify-content-center align-items-center min-vh-100">
                 <div class="col-11 col-lg-12 row justify-content-center">
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <div class="col-12 ">
                             <div class="type-nav theme-color d-flex justify-content-aroun justify-content-evenly mb-1">
                                 <span @click="form.type = 'seeker'" class="fw-bolder cursor-pointer"
@@ -40,26 +40,52 @@
                         <form @submit.prevent="submitForm" class="row g-3">
                             <div class="col-12">
                                 <label class="fw-bold text-muted small">Full name:</label>
-                                <input v-model="form.fullName" type="text" class="form-control form-control-l  rounded-0"
+                                <input v-model="form.name" type="text" class="form-control form-control-l  rounded-0"
                                     placeholder="Enter your full name">
                             </div>
-                            <div class="col-12">
+                            <div class="col-12 col-md-6">
                                 <label class="fw-bold text-muted small">Email Address:</label>
                                 <input v-model="form.email" type="text" class="form-control form-control-l  rounded-0"
                                     placeholder="Enter email address">
                             </div>
-                            <div class="col-12">
+
+                            <div class="col-12 col-md-6">
+                                <label class="fw-bold text-muted small">Phone:</label>
+                                <vue-tel-input :inputOptions="phoneField.input" :dropdownOptions="phoneField.dropDown"
+                                    :autoFormat="true" v-model="form.phone"></vue-tel-input>
+                            </div>
+
+                            <div class="col-12 col-md-6">
                                 <div class="fw-bold text-muted small col-12">Password:
                                     <span v-if="form.password"
                                         @click="form.passwordDisplay = form.passwordDisplay == 'password' ? 'text' : 'password'"
                                         class="float-end cursor-pointer theme-color">
-                                        <span v-if="form.passwordDisplay == 'password'">show</span>
-                                        <span v-else>hide</span>
+                                        <span v-if="form.passwordDisplay == 'password'">
+                                            <i class="bi bi-eye-fill"></i></span>
+                                        <span v-else>
+                                            <i class="bi bi-eye-slash-fill"></i>
+                                        </span>
                                     </span>
                                 </div>
                                 <input v-model="form.password" :type="form.passwordDisplay"
                                     class="form-control form-control-l  rounded-0" placeholder="Enter password">
                             </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="fw-bold text-muted small col-12">Re-enter Password:
+                                    <span v-if="form.password2"
+                                        @click="form.password2Display = form.password2Display == 'password' ? 'text' : 'password'"
+                                        class="float-end cursor-pointer theme-color">
+                                        <span v-if="form.password2Display == 'password'"><i
+                                                class="bi bi-eye-fill"></i></span>
+                                        <span v-else><i class="bi bi-eye-slash-fill"></i></span>
+                                    </span>
+                                </div>
+                                <input v-model="form.password2" :type="form.password2Display"
+                                    class="form-control form-control-l  rounded-0" placeholder="Enter password">
+                            </div>
+
+
                             <div class="col-12 mt-3">
                                 <button v-if="!form.isLoading" type="submit" class="btn btn-lg btn-primary rounded-0 w-100">
                                     Continue <i class="bi bi-chevron-right"></i>
@@ -98,24 +124,51 @@ import { useRouter } from "vue-router";
 const online = useOnline()
 const router = useRouter()
 
-const form = reactive({
+const form = reactive<any>({
     type: 'seeker',
-    fullName: '',
+    name: '',
     email: '',
     password: '',
+    password2: '',
+    phone: '',
     passwordDisplay: 'password',
+    password2Display: 'password',
     isLoading: false
 })
 
-function submitForm() {
-    const { fullName, email, password } = form;
+const phoneField = {
+    dropDown: {
+        showDialCodeInSelection: false,
+        showFlags: true,
+        showSearchBox: true,
+        showDialCodeInList: true,
 
-    if (!fullName || !email || !password) {
-        useFxn.toastShort('Please complete fields');
+    },
+    input: {
+        showDialCode: true,
+        placeholder: 'Enter phone',
+        styleClasses: 'phone-input-signup',
+        // type: 'number'
+    }
+
+}
+
+function submitForm() {
+    const requiredFields = ['name', 'email', 'password', 'phone'];
+
+    for (const field of requiredFields) {
+        if (!form[field]) {
+            useFxn.toastShort(`Please complete ${field} field`);
+            return;
+        }
+    }
+
+    if (form.password !== form.password2) {
+        useFxn.toastShort('Passwords do not match');
         return;
     }
 
-    if (!useFxn.isEmail(email)) {
+    if (!useFxn.isEmail(form.email)) {
         useFxn.toastShort('Email format is invalid!');
         return;
     }
@@ -130,14 +183,25 @@ function submitForm() {
         registerJobSeeker();
     }
 }
+
 async function registerJobSeeker() {
     try {
-        let resp = await api.userRegister(form)
+
+        const sumitObj = {
+            fullName: form.name,
+            phone: parseInt(form.phone.replace(/ /g, "")),
+            email: form.email,
+            password: form.password
+        }
+
+        let resp = await api.userRegister(sumitObj)
         if (resp.status === 201) {
             useFxn.toast('Account created successfully! please login', 'success')
             router.push({ path: '/login' })
         }
     } catch (error: any) {
+        console.error(error);
+
         if (error.response.status === 409) {
             useFxn.toastShort('Email already taken')
         } else {
@@ -150,6 +214,10 @@ async function registerJobSeeker() {
 </script>
 
 <style  scoped>
+.vue-tel-input {
+    border-radius: 0px;
+}
+
 .wholePage {
     width: 100%;
     margin: 0 auto;

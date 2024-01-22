@@ -4,6 +4,19 @@ import validator from 'validator';
 import { useDateFormat, useOnline } from '@vueuse/core';
 
 type DebounceFunction<T extends (...args: any[]) => any> = (...args: Parameters<T>) => void;
+// interface PhoneFieldConfig {
+//     dropDown: {
+//         showDialCodeInSelection: boolean;
+//         showFlags: boolean;
+//         showSearchBox: boolean;
+//         showDialCodeInList: boolean;
+//     };
+//     input: {
+//         showDialCode: boolean;
+//         placeholder: string;
+//         styleClasses: string;
+//     };
+// }
 
 export default {
     isEmail: (email: string) => {
@@ -132,5 +145,5 @@ export default {
         }
         const dd = useDateFormat(date, 'MMM D, YYYY')
         return dd.value
-    }
+    },
 }

@@ -19,7 +19,7 @@
                         </div>
                     </div>
                     <div class="mt-5 mt-lg-0">
-                        <router-link to="/user/settings" class="btn btn-primary-outline btn-sm">
+                        <router-link to="/user/settings" class="btn btn-link theme-color text-decoration-none btn-sm">
                             <i class="bi bi-pencil"></i> Edit profile
                         </router-link>
                     </div>
@@ -73,8 +73,12 @@ const location_country = computed(() => {
 
 
 @media (max-width: 767px) {
-    .btn-primary-outline {
+    .btn-link {
         font-size: 9px;
     }
+}
+
+.btn-link {
+    background-color: #f8f8f8;
 }
 </style>

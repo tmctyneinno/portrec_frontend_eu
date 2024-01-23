@@ -19,7 +19,7 @@ export default {
     },
 
     jobCategories() {
-        return $instanceJobs.get(`job/categories`)
+        return $instanceJobs.get(`job/industries`)
     },
 
     jobTypes() {

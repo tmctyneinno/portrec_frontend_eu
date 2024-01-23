@@ -195,6 +195,8 @@ async function registerJobSeeker() {
         }
 
         let resp = await api.userRegister(sumitObj)
+        console.log(resp);
+
         if (resp.status === 201) {
             useFxn.toast('Account created successfully! please login', 'success')
             router.push({ path: '/login' })

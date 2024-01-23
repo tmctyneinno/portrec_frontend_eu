@@ -19,7 +19,7 @@
                                     </div>
                                     <div class="col-10">
                                         <div class="fw-bold text-capitalize">
-                                            John Mayer- {{ i }}
+                                            Recruiter name- {{ i }}
                                             <span class="fw-light small float-end">
                                                 {{ 12 + i }} mins ago
                                             </span>
@@ -38,16 +38,16 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-7 px-0 mx-0 bg-ligh pt-3">
+        <div class="col-lg-7 px-0 mx-0">
             <div class="container">
                 <div class="row justify-content-center align-items-center">
                     <div class="col-2 col-md-1">
                         <div class="img-circle"></div>
                     </div>
                     <div class="col-10 col-md-11 ps-1">
-                        <div class="fw-bold text-capitalize">
-                            John Mayer- {{ activeInbox }}
-                            <span class=" float-end">
+                        <div class="fw-bold text-capitalize xsmall">
+                            Recruiter name- {{ activeInbox }}
+                            <!-- <span class=" float-end">
                                 <div class="btn-group">
                                     <span class="cursor-pointer" id="triggerId" data-bs-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false">
@@ -65,15 +65,27 @@
                                 </div>
 
 
-                            </span>
+                            </span> -->
                         </div>
-                        <div class="fw-lighter text-truncate">
+                        <div class="fw-lighter text-truncate xsmall">
                             Recruiter at Nomad
                         </div>
                     </div>
                 </div>
             </div>
-            <hr>
+            <hr class="faint my-2">
+            <div class="row justify-content-center g-1 mb-3">
+                <div class="col-12 d-flex justify-content-center">
+                    <div class="img-circle-large"></div>
+                </div>
+                <div class="col-12">
+                    <div class="text-center fw-lighter">
+                        Recruiter name - {{ activeInbox }}
+                    </div>
+                    <div class="text-center small">Recruiter at Nomad</div>
+                </div>
+            </div>
+            <div class="text-center between-lines fw-lighter">Today</div>
             <div class="mx-3">
                 <div class="position-relative bg-light">
                     <div class="px-2 scroll">
@@ -150,6 +162,17 @@ function onChangeText(new_text: string | undefined) {
 .img-circle {
     width: 32px;
     height: 32px;
+    border-radius: 50%;
+    background-color: var(--theme-color-soft);
+    border: 1px solid #e8e5e5;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.img-circle-large {
+    width: 75px;
+    height: 75px;
     border-radius: 50%;
     background-color: var(--theme-color-soft);
     border: 1px solid #e8e5e5;

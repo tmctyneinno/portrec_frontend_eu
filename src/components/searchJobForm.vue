@@ -32,7 +32,6 @@
         <div v-if="!fromHome" class="mt-2 small">
             Popupar: UI Designer, UX Researcher, Andrioid, Admin
         </div>
-
     </div>
 </template>
 

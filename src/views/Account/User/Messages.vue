@@ -103,12 +103,12 @@
                                             {{ msg.sender_id == profileStore.data.id ? 'You' : currentRecruiter.name }}
                                         </span>
                                         <p class="msg">{{ msg.message }}
+                                            <span v-if="msg.sender_id == profileStore.data.id">
+                                                <i @click="deleteMessage(msg.id)"
+                                                    class="bi bi-x-circle-fill small cursor-pointer"></i>
+                                            </span>
                                         </p>
                                     </div>
-                                    <span v-if="msg.sender_id == profileStore.data.id">
-                                        <i @click="deleteMessage(msg.id)"
-                                            class="bi bi-trash3 xsmall text-danger cursor-pointer"></i>
-                                    </span>
                                 </div>
 
                                 <!-- <div class="text-center"><span class="between">Call started at 10:47am</span></div> -->
@@ -281,18 +281,18 @@ async function sendMessage() {
     }
 }
 
-async function sendDemoMessage() {
+// async function sendDemoMessage() {
 
-    const obj = new FormData();
-    obj.append('message', 'test message')
-    obj.append('recipient_id', '2')
+//     const obj = new FormData();
+//     obj.append('message', 'test message')
+//     obj.append('recipient_id', '2')
 
-    try {
-        await api.createMessage(obj)
-    } catch (error) {
-        console.log(error);
-    }
-}
+//     try {
+//         await api.createMessage(obj)
+//     } catch (error) {
+//         console.log(error);
+//     }
+// }
 
 
 </script>

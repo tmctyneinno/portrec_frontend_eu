@@ -217,11 +217,11 @@
                                   {{ job.job_type ? job.job_type.name : 'Full Time' }}
                                 </span>
                               </span>
-                              <span class="category-tag text-capitalize" :class="job?.category?.name ?? '' + '-tag'">
-                                {{ job.category ? job.category.name : 'category' }}
+                              <span class="category-tag text-capitalize" :class="job?.Category?.name ?? '' + '-tag'">
+                                {{ job.Category ? job.Category.name : '' }}
                               </span>
                               <span class="category-tag text-capitalize">
-                                {{ job.sub_category ? job.sub_category.name : 'category' }}
+                                {{ job.sub_category ? job.sub_category.name : '' }}
                               </span>
                             </div>
                             <div class="col-md-3 justify-content-end">

@@ -64,4 +64,8 @@ export default {
     userPassword(data: any) {
         return $instance.put(`/user/password`, JSON.stringify(data))
     },
+
+    userMessageSend(data: any) {
+        return $instance.put(`/messages`, JSON.stringify(data))
+    },
 }

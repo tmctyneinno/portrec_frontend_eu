@@ -186,7 +186,7 @@ const currentRecruiter = computed(() => {
 
 onMounted(() => {
     getAllConversations()
-    // sendDemoMessage()
+    // sendDemoMessage('4')
 })
 
 async function getAllConversations() {
@@ -281,18 +281,18 @@ async function sendMessage() {
     }
 }
 
-// async function sendDemoMessage() {
+async function sendDemoMessage(recipient_id: string) {
 
-//     const obj = new FormData();
-//     obj.append('message', 'test message')
-//     obj.append('recipient_id', '2')
+    const obj = new FormData();
+    obj.append('message', 'Hello')
+    obj.append('recipient_id', recipient_id)
 
-//     try {
-//         await api.createMessage(obj)
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
+    try {
+        await api.createMessage(obj)
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 
 </script>

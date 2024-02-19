@@ -1,4 +1,4 @@
-import { $instance, $instanceJobs } from '../instances'
+import { $instance, $instancePublic } from '../instances'
 
 export default {
 
@@ -11,31 +11,31 @@ export default {
     },
 
     jobDetails(id: any) {
-        return $instanceJobs.get(`job/${id}`)
+        return $instancePublic.get(`job/${id}`)
     },
 
     similarJobs(id: any) {
-        return $instanceJobs.get(`job/all/similar/${id}`)
+        return $instancePublic.get(`job/all/similar/${id}`)
     },
 
     jobCategories() {
-        return $instanceJobs.get(`job/industries`)
+        return $instancePublic.get(`job/industries`)
     },
 
     jobTypes() {
-        return $instanceJobs.get(`job/types`)
+        return $instancePublic.get(`job/types`)
     },
 
     jobLevels() {
-        return $instanceJobs.get(`job/levels`)
+        return $instancePublic.get(`job/levels`)
     },
 
     jobFunctions() {
-        return $instanceJobs.get(`job/functions`)
+        return $instancePublic.get(`job/functions`)
     },
 
     skills() {
-        return $instanceJobs.get(`skills`)
+        return $instancePublic.get(`skills`)
     },
 
     searchByLocation(title: string, location: string) {

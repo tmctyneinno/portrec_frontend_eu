@@ -7,34 +7,28 @@ const progresses = [] as ProgressFinisher[];
 const hostURL = 'https://api.portrec.ng';
 const apiURL = `${hostURL}/api/`;
 
-const headersNormal = {
-    Accept: 'application/json',
-    withCredentials: true,
-    // 'Content-Type': 'application/json;charset=UTF-8;text/json;multipart/form-data',
-    'Content-Type': 'application/json',
+const contentHeaders = (type: 'form' | 'json') => {
+    return {
+        Accept: 'application/json',
+        withCredentials: true,
+        'Content-Type': type == 'json' ? 'application/json' : 'multipart/form-data',
+    }
 }
-
-const headersForForm = {
-    Accept: 'application/json',
-    withCredentials: true,
-    'Content-Type': 'multipart/form-data',
-}
-
 
 
 // create instances #######################################################
 const $instance = axios.create({
     baseURL: apiURL,
-    headers: headersNormal
+    headers: contentHeaders('json')
 })
 
-const $instanceJobs = axios.create({
+const $instancePublic = axios.create({
     baseURL: apiURL,
-    headers: headersNormal,
+    headers: contentHeaders('json'),
 })
 const $instanceForm = axios.create({
     baseURL: apiURL,
-    headers: headersForForm,
+    headers: contentHeaders('form'),
 })
 
 
@@ -70,5 +64,5 @@ $instanceForm.interceptors.response.use(finishProgressAndReturnResponse, error =
 });
 
 export {
-    $instance, $instanceJobs, $instanceForm
+    $instance, $instancePublic, $instanceForm
 }

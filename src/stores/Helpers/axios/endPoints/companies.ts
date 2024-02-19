@@ -1,8 +1,8 @@
 import { $instance } from '../instances'
 
 export default {
-    companiesList(search = 'Alice') {
-        return $instance.get(`/company?search=${search}`)
+    companiesList(search = '', page: number) {
+        return $instance.get(`/company?page=${page}&search=${search}`)
     },
 
     companiesSort() {

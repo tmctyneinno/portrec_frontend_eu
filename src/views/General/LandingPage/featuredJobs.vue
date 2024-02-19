@@ -21,7 +21,6 @@
                         v-for="(data, index) in dataList" :key="index" :job="data" />
                 </div>
 
-
             </div>
         </div>
     </div>

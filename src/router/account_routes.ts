@@ -24,7 +24,7 @@ export default [
             { path: 'applied-jobs', name: 'user_Applied Jobs', component: () => import('../views/Account/User/AppliedJobs.vue') },
             { path: 'find-jobs', name: 'user_Find Jobs', component: () => import('../views/Account/User/FindJobs.vue') },
             { path: 'job-description/:id', name: 'user_Job Description', component: () => import('../views/Account/User/JobDescription.vue') },
-            { path: 'browse-companies', name: 'user_Browse Companies', component: () => import('../views/Account/User/Companies.vue') },
+            { path: 'browse-companies', name: 'user_Browse Companies', component: () => import('../views/Account/User/Companies/Companies.vue') },
             { path: 'profile', name: 'user_Profile', component: () => import('../views/Account/User/Profile/Profile.vue') },
             { path: 'help-center', name: 'user_Help Center', component: () => import('../views/Account/User/HelpCenter.vue') },
         ],

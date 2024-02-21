@@ -28,7 +28,7 @@ async function sendMessage() {
             message.text = ''
             message.isSending = false
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }
 }

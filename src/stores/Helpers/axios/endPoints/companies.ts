@@ -9,8 +9,8 @@ export default {
         return $instance.get(`/company?sort=latest`)
     },
 
-    companiesFilter(industry_id: string | number) {
-        return $instance.get(`/company?filter=${industry_id}`)
+    companiesFilter(filterString: string | number) {
+        return $instance.get(`/company?filter=${filterString}`)
     },
 
     companyDetails(company_id: string | number) {

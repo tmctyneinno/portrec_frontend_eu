@@ -29,11 +29,11 @@
 
         </ul>
 
-        <div class="bottom ps-3">
+        <div class="bottom">
             <div class="row justify-content-center g-2">
                 <div class="col-9">
-                    <div class="card text-center theme-color2">
-                        <div @click="logout" class="card-body p-1 cursor-pointer">
+                    <div class="card text-center theme-color2 border-0">
+                        <div @click="logout" class="card-body p-0 cursor-pointer">
                             <i class="bi bi-box-arrow-right"></i> Logout
                         </div>
                     </div>

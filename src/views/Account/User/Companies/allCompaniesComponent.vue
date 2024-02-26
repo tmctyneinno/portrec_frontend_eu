@@ -55,7 +55,8 @@
                                                     <label v-for="option in filterOptions.industry" :key="option.id"
                                                         class="list-group-item border-0 text-capitalize">
                                                         <input class="form-check-input me-1" type="checkbox"
-                                                            :value="option.id" v-model="checked.industry">
+                                                            :value="option.id" v-model="checked.industry"
+                                                            @click="setIndustryIdAndQuery(option.id)">
                                                         {{ option.name }}
                                                     </label>
 
@@ -84,7 +85,8 @@
                                                     <label v-for="option in filterOptions.company_size" :key="option"
                                                         class="list-group-item border-0 text-capitalize">
                                                         <input class="form-check-input me-1" type="checkbox"
-                                                            :value="option.id" v-model="checked.company_size">
+                                                            :value="option.id" v-model="checked.company_size"
+                                                            @click="setCompanySizeAndQuery(option.id)">
                                                         {{ option.name }}
                                                     </label>
 
@@ -98,39 +100,58 @@
                     </div>
                 </div>
                 <div class="col-lg-9 min-vh-100">
-                    <div v-if="companiesArray.length" class="row g-3 bg-light p-2 pt-0">
+                    <div class="row g-3">
                         <div class="col-12">
-                            <div class="fw-bold fs-4">All Companies</div>
-                            <div class="xsmall">
-                                Showing page <span class="fw-bold">{{ pagination.currentPage }}/ {{
-                                    pagination.totalPages
-                                }}</span>
-                                of <span class="fw-bold">{{ pagination.totalRecords }}</span> results
-                            </div>
-                        </div>
-                        <div class="col-md-6" v-for="coy in companiesArray" :key="coy.id">
-                            <div @click="getCompanyDetails(coy.id)"
-                                class=" coy-card cursor-pointer card h-100 hover-tiltY shadow-sm">
-                                <div class="card-header border-0 bg-transparent pt-3 ">
-                                    <img :src="coy.image" width="100" alt="">
-
-                                </div>
-                                <div class="card-body py-0 py-lg-2">
-                                    <div class="card-title fw-bold fs-6">{{ coy.name }}
+                            <div class="row justify-content-center align-items-center ">
+                                <div class="col">
+                                    <div class="fw-bold fs-4">{{ titleName }}
                                     </div>
-
-                                    <p class="mt-1 mt-lg-2 mb-0">{{ useFxn.truncateStr(coy.description, 100) }}</p>
+                                    <div class="xsmall">
+                                        Showing page <span class="fw-bold">{{ pagination.currentPage }}/ {{
+                                            pagination.totalPages
+                                        }}</span>
+                                        of <span class="fw-bold">{{ pagination.totalRecords }}</span> results
+                                    </div>
                                 </div>
-                                <div class="card-footer bg-transparent border-0 pb-2 pb-lg-4">
-                                    <span class="category-tag">
-                                        {{ industryName(coy.industry_id) }}
+                                <div class="col">
+                                    <span v-if="titleName != 'All Companies'" @click="showAllCompanies"
+                                        class="fw-bolder float-end theme-color small cursor-pointer">
+                                        Show all <i class="bi bi-chevron-right"></i>
                                     </span>
                                 </div>
                             </div>
+
+
+
                         </div>
-                    </div>
-                    <div v-else>
-                        <noDataShowVue />
+                        <div class="col-12">
+                            <div v-if="companiesArray.length" class="row g-3 bg-light p-2 pt-0">
+
+                                <div class="col-md-6" v-for="coy in companiesArray" :key="coy.id">
+                                    <div @click="getCompanyDetails(coy.id)"
+                                        class=" coy-card cursor-pointer card h-100 hover-tiltY shadow-sm">
+                                        <div class="card-header border-0 bg-transparent pt-3 ">
+                                            <img :src="coy.image" width="100" alt="">
+
+                                        </div>
+                                        <div class="card-body py-0 py-lg-2">
+                                            <div class="card-title fw-bold fs-6">{{ coy.name }}
+                                            </div>
+
+                                            <p class="mt-1 mt-lg-2 mb-0">{{ useFxn.truncateStr(coy.description, 100) }}</p>
+                                        </div>
+                                        <div class="card-footer bg-transparent border-0 pb-2 pb-lg-4">
+                                            <span class="category-tag">
+                                                {{ industryName(coy.industry_id) }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div v-else>
+                                <noDataShowVue />
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -164,6 +185,7 @@ const tempos = reactive({
     isSearching: false,
     pageIsLoading: true
 })
+const titleName = ref<string>('All Companies')
 
 const allCountries = ref([])
 
@@ -185,6 +207,11 @@ const filterOptions = reactive<any>({
     company_size: []
 })
 
+const checked = reactive<any>({
+    company_size: [],
+    industry: [],
+})
+
 const industryName = (id: string | number) => {
     const industry = filterOptions.industry.find((x: any) => x.id == id)
     return industry?.name ?? ''
@@ -197,12 +224,14 @@ onMounted(() => {
 })
 
 async function loadCountries() {
+
     const response = await fetch('https://restcountries.com/v3.1/all');
     if (response.ok) {
         const data = await response.json();
         let names = data.map((country: { name: any; }) => country.name.common)
         allCountries.value = names
         tempos.isLoadingCountries = false
+
     } else {
         console.error('', response.statusText);
     }
@@ -212,23 +241,35 @@ async function loadCountries() {
 async function getCompanies(page = 1) {
     try {
         const resp = await api.companiesList(form.search, page);
-
-        const data = resp.data.data;
-        filterOptions.industry = data.industry
-        filterOptions.company_size = data.company_size
-
-        pagination.currentPage = data.company.current_page
-        pagination.totalPages = data.company.last_page
-        pagination.perPage = data.company.per_page
-        pagination.totalRecords = data.company.total
-
-        companiesArray.value = data.company.data
-        tempos.pageIsLoading = false
+        distributeApiResponse(resp)
 
     } catch (error) {
         console.log(error);
-        tempos.pageIsLoading = false
+        // tempos.pageIsLoading = false
     }
+}
+
+function showAllCompanies() {
+    form.search = ''
+    checked.industry = []
+    checked.company_size = []
+    getCompanies()
+}
+
+function distributeApiResponse(resp: any) {
+    titleName.value = (form.search || checked.industry.length || checked.company_size.length) ? 'Search/Filter Results' : 'All Companies';
+
+    const data = resp.data.data;
+    filterOptions.industry = data.industry
+    filterOptions.company_size = data.company_size
+
+    pagination.currentPage = data.company.current_page
+    pagination.totalPages = data.company.last_page
+    pagination.perPage = data.company.per_page
+    pagination.totalRecords = data.company.total
+
+    companiesArray.value = data.company.data
+    tempos.pageIsLoading = false
 }
 
 function paginateToNext(page: any) {
@@ -237,14 +278,42 @@ function paginateToNext(page: any) {
 }
 
 
-function respondToCheckBox() {
-    // window.scrollTo(0, 0)
+async function setIndustryIdAndQuery(id: string) {
+    if (checked.industry[0] == id) {
+        checked.industry = []
+        getCompanies()
+    } else {
+        checked.industry = [id];
+        const str = `industry_${checked.industry[0]}`;
+        try {
+            const resp = await api.companiesFilter(str);
+            distributeApiResponse(resp)
+
+        } catch (error) {
+            // Handle error
+        }
+    }
 }
 
-const checked = reactive({
-    company_size: [],
-    industry: [],
-})
+
+async function setCompanySizeAndQuery(id: string) {
+    if (checked.company_size[0] == id) {
+        checked.company_size = []
+        getCompanies()
+    } else {
+        checked.company_size = [id];
+        const str = `company_size_${checked.company_size[0]}`;
+        try {
+            const resp = await api.companiesFilter(str);
+            distributeApiResponse(resp)
+
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
+}
+
 
 
 async function getCompanyDetails(id: string | number) {

@@ -2,7 +2,7 @@ import { $instance } from '../instances'
 
 export default {
     companiesList(search = '', page: number) {
-        return $instance.get(`/company?page=${page}&search=${search}`)
+        return $instance.get(`/companies/search?page=${page}&search=${search}`)
     },
 
     companiesSort() {

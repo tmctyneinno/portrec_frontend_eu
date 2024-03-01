@@ -10,7 +10,7 @@ export default {
     },
 
     companiesFilter(filterString: string | number) {
-        return $instance.get(`/company?filter=${filterString}`)
+        return $instance.get(`/companies/filter?${filterString}`)
     },
 
     companyDetails(company_id: string | number) {

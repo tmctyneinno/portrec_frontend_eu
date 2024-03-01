@@ -56,7 +56,7 @@
                                                         class="list-group-item border-0 text-capitalize">
                                                         <input class="form-check-input me-1" type="checkbox"
                                                             :value="option.id" v-model="checked.industry"
-                                                            @click="setIndustryIdAndQuery(option.id)">
+                                                            @click="setCheckboxAndFilter(option.id, 'industry')">
                                                         {{ option.name }}
                                                     </label>
 
@@ -86,7 +86,7 @@
                                                         class="list-group-item border-0 text-capitalize">
                                                         <input class="form-check-input me-1" type="checkbox"
                                                             :value="option.id" v-model="checked.company_size"
-                                                            @click="setCompanySizeAndQuery(option.id)">
+                                                            @click="setCheckboxAndFilter(option.id, 'company_size')">
                                                         {{ option.name }}
                                                     </label>
 
@@ -277,43 +277,28 @@ function paginateToNext(page: any) {
     getCompanies(page)
 }
 
-
-async function setIndustryIdAndQuery(id: string) {
-    if (checked.industry[0] == id) {
-        checked.industry = []
+async function setCheckboxAndFilter(id: string, name: string) {
+    if (checked[name][0] == id) {
+        checked[name] = []
         getCompanies()
     } else {
-        checked.industry = [id];
-        const str = `industry_${checked.industry[0]}`;
-        try {
-            const resp = await api.companiesFilter(str);
-            distributeApiResponse(resp)
-
-        } catch (error) {
-            // Handle error
-        }
+        checked[name] = [id]
+        filterCompaniesByParams()
     }
 }
 
+async function filterCompaniesByParams() {
+    const str = `filter=${checked.industry[0] ?? ''}&size=${checked.company_size[0] ?? ''}`;
 
-async function setCompanySizeAndQuery(id: string) {
-    if (checked.company_size[0] == id) {
-        checked.company_size = []
-        getCompanies()
-    } else {
-        checked.company_size = [id];
-        const str = `company_size_${checked.company_size[0]}`;
-        try {
-            const resp = await api.companiesFilter(str);
-            distributeApiResponse(resp)
+    try {
+        const resp = await api.companiesFilter(str);
+        distributeApiResponse(resp)
 
-        } catch (error) {
-            console.log(error);
+    } catch (error) {
+        console.log(error);
 
-        }
     }
 }
-
 
 
 async function getCompanyDetails(id: string | number) {
@@ -321,7 +306,7 @@ async function getCompanyDetails(id: string | number) {
         path: 'browse-companies',
         query: {
             company: id,
-            scvnfhyghdsdadf: new Date().getMilliseconds()
+            coy9df3fgTbcvnmYUd: new Date().getTime()
         }
     })
 }

@@ -1,5 +1,3 @@
-
-
 <template>
     <div>
         <!-- Nav tabs -->
@@ -70,8 +68,8 @@
                             </div>
                             <div class="col-md-6">
                                 <label> Gender </label>
-                                <v-select v-model="details.gender" class="text-capitalize gender-chooser" :clearable="false"
-                                    :searchable="false" :options="['Male', 'Female']"></v-select>
+                                <v-select v-model="details.gender" class="text-capitalize gender-chooser"
+                                    :clearable="false" :searchable="false" :options="['Male', 'Female']"></v-select>
                             </div>
                             <div class="col-6">
                                 <label> Country</label>
@@ -211,7 +209,7 @@
                 </div>
                 <hr>
 
-                <button class="float-end btn btn-link text-info text-decoration-none" type="button">
+                <button class="float-end btn btn-lin text-info text-decoration-none" type="button">
                     Close Account <i class="bi bi-exclamation-circle"></i>
                 </button>
             </div>
@@ -358,7 +356,6 @@ watch(() => profileStore.data, () => {
 
 
 function saveProfile() {
-
     if (!useFxn.isOnline()) {
         useFxn.toastShort('You are offline')
         return

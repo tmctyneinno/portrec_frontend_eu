@@ -1,5 +1,3 @@
-
-
 <template>
     <div class="col-12">
         <div class="card border-0 shadow-sm position-relative">
@@ -72,13 +70,13 @@ const location_country = computed(() => {
 }
 
 
+/* .btn-link {
+    background-color: #f8f8f8;
+} */
+
 @media (max-width: 767px) {
     .btn-link {
         font-size: 9px;
     }
-}
-
-.btn-link {
-    background-color: #f8f8f8;
 }
 </style>

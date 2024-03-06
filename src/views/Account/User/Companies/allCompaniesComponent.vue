@@ -41,9 +41,9 @@
                                 <div class="accordion accordion-flush" id="industry-accordion">
                                     <div class="accordion-item">
                                         <h2 class="accordion-header">
-                                            <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse"
-                                                data-bs-target="#flush-collapseOne" aria-expanded="true"
-                                                aria-controls="flush-collapseOne">
+                                            <button class="accordion-button fw-bold" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
+                                                aria-expanded="true" aria-controls="flush-collapseOne">
                                                 Industry
                                             </button>
                                         </h2>
@@ -71,9 +71,9 @@
                                 <div class="accordion accordion-flush" id="company-size-accordion">
                                     <div class="accordion-item">
                                         <h2 class="accordion-header">
-                                            <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse"
-                                                data-bs-target="#flush-collapseTwo" aria-expanded="true"
-                                                aria-controls="flush-collapseTwo">
+                                            <button class="accordion-button fw-bold" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo"
+                                                aria-expanded="true" aria-controls="flush-collapseTwo">
                                                 Company Size
                                             </button>
                                         </h2>
@@ -108,8 +108,8 @@
                                     </div>
                                     <div class="xsmall">
                                         Showing page <span class="fw-bold">{{ pagination.currentPage }}/ {{
-                                            pagination.totalPages
-                                        }}</span>
+        pagination.totalPages
+    }}</span>
                                         of <span class="fw-bold">{{ pagination.totalRecords }}</span> results
                                     </div>
                                 </div>
@@ -138,7 +138,8 @@
                                             <div class="card-title fw-bold fs-6">{{ coy.name }}
                                             </div>
 
-                                            <p class="mt-1 mt-lg-2 mb-0">{{ useFxn.truncateStr(coy.description, 100) }}</p>
+                                            <p class="mt-1 mt-lg-2 mb-0">{{ useFxn.truncateStr(coy.description, 100) }}
+                                            </p>
                                         </div>
                                         <div class="card-footer bg-transparent border-0 pb-2 pb-lg-4">
                                             <span class="category-tag">
@@ -241,11 +242,11 @@ async function loadCountries() {
 async function getCompanies(page = 1) {
     try {
         const resp = await api.companiesList(form.search, page);
-        distributeApiResponse(resp)
+        displayDataContents(resp)
 
     } catch (error) {
         console.log(error);
-        // tempos.pageIsLoading = false
+        tempos.pageIsLoading = false
     }
 }
 
@@ -256,7 +257,7 @@ function showAllCompanies() {
     getCompanies()
 }
 
-function distributeApiResponse(resp: any) {
+function displayDataContents(resp: any) {
     titleName.value = (form.search || checked.industry.length || checked.company_size.length) ? 'Search/Filter Results' : 'All Companies';
 
     const data = resp.data.data;
@@ -292,7 +293,7 @@ async function filterCompaniesByParams() {
 
     try {
         const resp = await api.companiesFilter(str);
-        distributeApiResponse(resp)
+        displayDataContents(resp)
 
     } catch (error) {
         console.log(error);

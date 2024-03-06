@@ -2,15 +2,21 @@ import { reactive, ref } from 'vue'
 import { defineStore } from 'pinia'
 import api from '@/stores/Helpers/axios'
 import { useStorage } from '@vueuse/core'
+import type { ApplyJobInterface } from '@/stores/interfaces'
+import { useProfileStore } from './profileStore'
 
 export const useJobApplicationStore = defineStore('jobApplicationStore', () => {
     const currentModal = ref(0)
     const modalOpen = ref(false)
     const currentJob: any = useStorage('protrec_$current_job', [], sessionStorage)
     const loading = ref<boolean>(false)
+    const myProfile = useProfileStore()
 
-    const applyData = reactive({
-
+    const applyData = reactive<ApplyJobInterface>({
+        fullname: '',
+        email: '',
+        phone: '',
+        resume: null
     })
 
     function switchModal(num: number) {
@@ -32,6 +38,7 @@ export const useJobApplicationStore = defineStore('jobApplicationStore', () => {
     }
 
     return {
+        myProfile,
         loading,
         currentModal,
         modalOpen,

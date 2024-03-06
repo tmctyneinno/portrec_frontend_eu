@@ -18,7 +18,7 @@ export const useProfileStore = defineStore('profileStore', () => {
 
     async function getUserProfile() {
         const resp = await api.userProfile()
-        // console.log(resp);
+        console.log(resp);
         if (resp.status === 201) {
             userProfile.value = JSON.stringify(resp.data.body)
             avatar.value = resp.data.body.profile_pic ? resp.data.body.profile_pic.image : 'https://via.placeholder.com/150'

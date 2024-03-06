@@ -1,29 +1,34 @@
 <template>
     <div class="modal fade show d-block" style="background-color: rgba(0, 0, 0, 0.502);" tabindex="-1"
         data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId">
-        <div class="modal-dialog modal-dialog-centered   " role="document">
-            <div class="modal-content px-1 px-lg-3">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollabl" role="document">
+            <div class="modal-content px-1 px-lg-2">
                 <div class="modal-header">
                     <modalHeaderVue />
                 </div>
-                <div class="modal-body">
-                    <h5 class="fw-bold">Submit your application</h5>
-                    <div class="small text-muted">
+                <div class="modal-body py-1">
+                    <progressBarVue />
+                    <div class="fw-bold text-muted fs-5">Submit your application</div>
+                    <div class="small text-muted lh-1">
                         The following is required and will only be shared with
-                        {{ applicationStore.currentJob.company ? applicationStore.currentJob.company.name : 'Company' }}
+                        {{ store.currentJob.company ?
+                            store.currentJob.company.name : `this Company` }}
                     </div>
-                    <div class="row gy-3 mt-1">
+                    <div class="row g-3 mt-1">
                         <div class="col-12">
                             <label class="fw-bold small">Full name</label>
-                            <input type="text" class="form-control rounded-0" placeholder="Enter your fullname">
+                            <input :disabled="disableFields" v-model="store.applyData.fullname" type="text"
+                                class="form-control rounded-0" placeholder="Enter your fullname">
                         </div>
                         <div class="col-12">
                             <label class="fw-bold small">Email address</label>
-                            <input type="text" class="form-control rounded-0" placeholder="Enter your email address">
+                            <input :disabled="disableFields" v-model="store.applyData.email" type="text"
+                                class="form-control rounded-0" placeholder="Enter your email address">
                         </div>
                         <div class="col-12">
                             <label class="fw-bold small">Phone number</label>
-                            <input type="text" class="form-control rounded-0" placeholder="Enter your phone number">
+                            <input :disabled="disableFields" v-model="store.applyData.phone" type="text"
+                                class="form-control rounded-0" placeholder="Enter your phone number">
                         </div>
                         <div class="col-12 small text-muted">
                             By sending the request you can confirm that you accept our
@@ -32,21 +37,33 @@
                         </div>
                     </div>
                     <div class="col-12 my-3">
-                        <button @click="switchModal(+1)" type="button" class="btn btn-primary w-100 rounded-0">Next</button>
+                        <button
+                            :disabled="!(store.applyData.fullname && store.applyData.email && store.applyData.phone)"
+                            @click="store.switchModal(+1)" type="button"
+                            class="btn btn-primary w-100 rounded-0">Next</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </template>
+
 <script lang="ts" setup>
+import { onMounted, ref } from 'vue'
 import { useJobApplicationStore } from '@/stores/jobApplicationStore';
 import modalHeaderVue from './modalHeader.vue';
-const applicationStore = useJobApplicationStore()
+import progressBarVue from './progressBar.vue'
 
-function switchModal(num: number) {
-    // validate form first!
-    applicationStore.switchModal(num)
-}
+const store = useJobApplicationStore()
+const disableFields = ref(false)
+onMounted(() => {
+    const profile = store.myProfile?.data;
+    if (profile) {
+        store.applyData.fullname = profile.name
+        store.applyData.email = profile.email
+        store.applyData.phone = profile.phone
+        disableFields.value = true
+    }
+})
 
 </script>

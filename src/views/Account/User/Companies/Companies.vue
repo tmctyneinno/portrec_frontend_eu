@@ -1,26 +1,22 @@
 <template>
-    <div v-if="commonStore.pageToShow == 'all'">
-        <allCompaniesComponent />
-    </div>
-
-    <div v-else>
-        <companyDetailsComponent />
+    <div>
+        <allCompaniesComponent v-if="pageToShow == 'all'" />
+        <companyDetailsComponent v-else />
     </div>
 </template>
 
 <script lang="ts" setup>
-import { watchEffect } from 'vue';
-import { useCommonStore } from './commonStore';
+import { watchEffect, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import companyDetailsComponent from './companyDetailsComponent.vue';
 import allCompaniesComponent from './allCompaniesComponent.vue';
 
-const commonStore = useCommonStore()
 const route = useRoute()
 
+const pageToShow = ref<'details' | 'all'>('all')
 watchEffect(() => {
     const companyId: any = route.query?.company ?? null
-    commonStore.pageToShow = companyId ? 'details' : 'all'
+    pageToShow.value = companyId ? 'details' : 'all'
 })
 
 </script>

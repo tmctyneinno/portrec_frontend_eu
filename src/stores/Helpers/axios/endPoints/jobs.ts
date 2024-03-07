@@ -41,5 +41,13 @@ export default {
     searchByLocation(title: string, location: string) {
         // return $instance.get(`/job/search?location=fIe790x166&title=JuPAEBt7nY`)
         return $instance.get(`/job/search?location=${location}&title=${title}`)
-    }
+    },
+
+    apply(form: FormData) {
+        return $instance.post(`job/apply`, form)
+    },
+
+    applyGuest(form: FormData) {
+        return $instance.post(`job/apply/guest`, form)
+    },
 }

@@ -125,8 +125,7 @@
 
                         </div>
                         <div class="col-12">
-                            <div v-if="companiesArray.length" class="row g-3 bg-light p-2 pt-0">
-
+                            <div v-if="companiesArray.length" class="row g-3 bg-light p-3">
                                 <div class="col-md-6" v-for="coy in companiesArray" :key="coy.id">
                                     <div @click="getCompanyDetails(coy.id)"
                                         class=" coy-card cursor-pointer card h-100 hover-tiltY shadow-sm">
@@ -339,11 +338,11 @@ async function getCompanyDetails(id: string | number) {
 
 .coy-card {
     border-color: transparent;
+    border: none !important;
 }
 
 .coy-card:hover {
-    background-color: var(--bs-light-bg-subtle);
-    border: 1px solid var(--bs-light);
+    background-color: #f8f6e69c;
 }
 </style>
 
@@ -380,29 +379,6 @@ async function getCompanyDetails(id: string | number) {
     fill: #394066;
 } */
 
-
-.searchingBar-suggestions {
-    list-style: none;
-    padding: 0;
-    /* margin: 0; */
-    position: absolute;
-    background-color: #fff;
-    border: 1px solid #f2eeee;
-    border-top: none;
-    border-radius: 0px 0px 5px 5px !important;
-    width: 100%;
-    margin-top: 45px;
-    z-index: 10000;
-}
-
-.searchingBar-suggestions li {
-    padding: 8px;
-    cursor: pointer;
-}
-
-.searchingBar-suggestions li:hover {
-    background-color: #f0f0f0;
-}
 
 
 

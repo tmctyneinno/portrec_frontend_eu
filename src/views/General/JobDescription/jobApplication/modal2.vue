@@ -7,11 +7,11 @@
                     <modalHeaderVue />
                 </div>
                 <div class="modal-body py-1">
-                    <progressBarVue />
                     <div class="fw-bold text-muted fs-5">Submit your resume</div>
-                    <div class="small text-muted lh-1">
+                    <div class="small text-muted lh-1 mb-2">
                         Be sure to include an updated resume
                     </div>
+                    <progressBarVue />
 
                     <div class="row g-3 my-1">
                         <!-- <div class="col-12">
@@ -48,7 +48,8 @@
                         </div>
                         <div v-if="store.applyData.resume" class="col-12 col-md-6">
                             <div class="alert small alert-success bg-transparent border-0" role="alert">
-                                {{ useFxn.truncateStr(resumeName, 18) }} <i class="bi bi-check-circle-fill"></i>
+                                {{ useFxn.truncateStr(store.applyData.resume_name, 18) }} <i
+                                    class="bi bi-check-circle-fill"></i>
                             </div>
 
                         </div>
@@ -81,7 +82,6 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
 import { useJobApplicationStore } from '@/stores/jobApplicationStore';
 //@ts-ignore
 import { useDropzone } from "vue3-dropzone";
@@ -91,14 +91,8 @@ import modalHeaderVue from './modalHeader.vue';
 import progressBarVue from './progressBar.vue'
 
 const store = useJobApplicationStore()
-const resumeName = ref<string>('')
 const { getRootProps, getInputProps } = useDropzone({
     onDrop: (acceptFiles: any[], rejectReasons: any) => {
-
-        if (!useFxn.isOnline()) {
-            useFxn.toastShort('You are offline')
-            return
-        }
 
         if (!useFxn.isExtension(acceptFiles[0].name, ['pdf', 'doc', 'docx'])) {
             useFxn.toast('Please upload a vaild document', 'warning');
@@ -106,7 +100,7 @@ const { getRootProps, getInputProps } = useDropzone({
         }
 
         store.applyData.resume = acceptFiles[0]
-        resumeName.value = acceptFiles[0].name
+        store.applyData.resume_name = acceptFiles[0].name
         console.log(rejectReasons);
     },
 });
@@ -131,16 +125,6 @@ const { getRootProps, getInputProps } = useDropzone({
     align-items: center;
     background-color: var(--bs-light);
     padding: 8px 10px;
-    cursor: pointer;
-}
-
-.file-aler {
-    /* border-radius: 10px; */
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 8px 10px;
-    margin-top: 5px;
     cursor: pointer;
 }
 </style>

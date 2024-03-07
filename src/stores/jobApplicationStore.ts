@@ -13,10 +13,15 @@ export const useJobApplicationStore = defineStore('jobApplicationStore', () => {
     const myProfile = useProfileStore()
 
     const applyData = reactive<ApplyJobInterface>({
+        isAuthUser: false,
         fullname: '',
         email: '',
         phone: '',
-        resume: null
+        resume: null,
+        resume_name: '',
+        portfolio_url: '',
+        cover_letter: '',
+        answers: []
     })
 
     function switchModal(num: number) {

@@ -27,7 +27,8 @@
                             <GoogleSignInButton @success="handleLoginSuccess" @error="handleLoginError">
                             </GoogleSignInButton>
                         </div> -->
-                        <div :disabled="!isReady" @click="() => loginWithGoogle()" class="card google-card rounded-0 p-2 ">
+                        <div :disabled="!isReady" @click="() => loginWithGoogle()"
+                            class="card google-card rounded-0 p-2 ">
                             <div class="fw-bolder text-center theme-color">
                                 <img src="@/assets/images/google_icon.png" width="20"> &nbsp;signin with Google
                             </div>
@@ -71,7 +72,8 @@
                                 </label>
                             </div>
                             <div class="col-12 mt-3">
-                                <button v-if="!form.isLoading" type="submit" class="btn btn-lg btn-primary rounded-0 w-100">
+                                <button v-if="!form.isLoading" type="submit"
+                                    class="btn btn-lg btn-primary rounded-0 w-100">
                                     Login
                                 </button>
                                 <button v-else class="btn btn-primary rounded-0 w-100" disabled>
@@ -195,7 +197,7 @@ const { isReady, login: loginWithGoogle } = useCodeClient({
 
 </script>
 
-<style  scoped>
+<style scoped>
 .wholePage {
     width: 100%;
     margin: 0 auto;

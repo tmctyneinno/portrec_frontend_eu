@@ -7,18 +7,18 @@
                     <modalHeaderVue />
                 </div>
                 <div class="modal-body py-1">
-                    <progressBarVue />
                     <div class="fw-bold text-muted fs-5">Quiz</div>
-                    <div class="small text-muted lh-1">
+                    <div class="small text-muted lh-1 mb-2">
                         The following is required to be invited for interview
                     </div>
-                    <!-- {{ store.currentJob.questions }} -->
-                    <div class="row gy-3 mt-1">
-                        <div class="col-12">
+                    <progressBarVue />
+                    <div class="row g-3 mt-1">
+                        <div class="col-12" v-for="qst in store.currentJob.questions" :key="qst.id">
                             <label class="fw-bold small">
-                                How many years of work experience do you have with Google Analytics?
+                                {{ qst.questions }}
                             </label>
-                            <input type="text" class="form-control rounded-0">
+                            <input v-model="qst.answer_text" :id="'question_' + qst.id" type="text"
+                                class="form-control rounded-0" placeholder="type answer here..">
                         </div>
 
 
@@ -34,11 +34,11 @@
                     <div class="my-3 col-12 ">
                         <div class="row">
                             <div class="col-6">
-                                <button @click="switchModal(-1)" type="button"
+                                <button @click="store.switchModal(-1)" type="button"
                                     class="btn btn-outline-dark rounded-0 w-100">Back</button>
                             </div>
                             <div class="col-6">
-                                <button @click="switchModal(+1)" type="button"
+                                <button :disabled="hasNotFullyAnswered" @click="store.switchModal(+1)" type="button"
                                     class="btn btn-primary rounded-0 w-100">Next</button>
                             </div>
                         </div>
@@ -53,13 +53,15 @@
 <script lang="ts" setup>
 import { useJobApplicationStore } from '@/stores/jobApplicationStore';
 import modalHeaderVue from './modalHeader.vue';
-
 import progressBarVue from './progressBar.vue'
+import { computed } from 'vue'
 
 const store = useJobApplicationStore()
 
-function switchModal(num: number) {
-    // validate form first!
-    store.switchModal(num)
-}
+const hasNotFullyAnswered = computed(() => {
+    const quiz = store.currentJob.questions
+    // eslint-disable-next-line no-prototype-builtins
+    return quiz.some((obj: any) => !obj.hasOwnProperty('answer_text') || obj.answer_text === "");
+})
+
 </script>

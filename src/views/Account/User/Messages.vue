@@ -23,10 +23,12 @@
                                     </div>
                                     <div class="col-10">
                                         <div>
-                                            <span class="fw-bold text-capitalize">{{ convo.recruiter?.name ?? '' }}</span>
-                                            <span class="badge rounded-pill bg-secondary ms-2"
-                                                :class="{ 'bg-primary': !convo.is_user_read }">{{ convo.messages_count
+                                            <span class="fw-bold text-capitalize">{{ convo.recruiter?.name ?? ''
                                                 }}</span>
+                                            <span class="badge rounded-pill bg-secondary ms-2 xsmall"
+                                                :class="{ 'bg-primary': !convo.is_user_read }">
+                                                {{ convo.messages_count }}
+                                            </span>
 
                                             <span class="fw-light xsmall float-end">
                                                 {{ useFxn.timeAgo(convo.created_at) }}
@@ -126,8 +128,8 @@
                                         type="button">
                                         Send <i class="bi bi-send"></i>
                                     </button>
-                                    <button v-else style="height: 40px !important;" class="btn btn-primary rounded-0 w-100"
-                                        type="button" disabled>
+                                    <button v-else style="height: 40px !important;"
+                                        class="btn btn-primary rounded-0 w-100" type="button" disabled>
                                         <span class="spinner-border spinner-border-sm" role="status"
                                             aria-hidden="true"></span>
                                     </button>
@@ -186,7 +188,6 @@ const currentRecruiter = computed(() => {
 
 onMounted(() => {
     getAllConversations()
-    // sendDemoMessage('4')
 })
 
 async function getAllConversations() {
@@ -280,20 +281,6 @@ async function sendMessage() {
         }
     }
 }
-
-async function sendDemoMessage(recipient_id: string) {
-
-    const obj = new FormData();
-    obj.append('message', 'Hello')
-    obj.append('recipient_id', recipient_id)
-
-    try {
-        await api.createMessage(obj)
-    } catch (error) {
-        console.log(error);
-    }
-}
-
 
 </script>
 
@@ -398,4 +385,3 @@ async function sendDemoMessage(recipient_id: string) {
     border: 1px solid #dee2e6;
 }
 </style>
-

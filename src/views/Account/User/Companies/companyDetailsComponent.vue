@@ -52,11 +52,11 @@
                 <div class="col-md-4">
                     <div class="row g-3">
                         <div class="col-12">
-                            <div class="card shadow-sm overflow-y-scroll" style="height: 400px;">
+                            <div class="card shadow-sm ">
                                 <div class="card-header fw-bold border-0">
                                     <i class="bi bi-briefcase"></i> Jobs
                                 </div>
-                                <div class="card-body">
+                                <div class="card-body overflow-y-scroll" style="max-height: 400px;">
                                     <ul v-if="companyData.jobs.length" class="list-group list-group-flush">
                                         <li v-for="job in companyData.jobs.slice(0, 3)" :key="job"
                                             class="list-group-item px-0">
@@ -69,11 +69,11 @@
                                                 Apply for this job
                                             </router-link>
                                         </li>
-
                                     </ul>
                                     <div v-else>...</div>
 
                                 </div>
+                                <div class="card-footer border-0 bg-transparent"></div>
                             </div>
                         </div>
                         <div class="col-12">

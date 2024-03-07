@@ -13,7 +13,7 @@
                 <div class="row gy-3 align-items-center">
 
                   <div class="col-md-1 text-lg-center">
-                    <img :src="currentJob.company?.image ?? ''" class="img-fluid" width="55" alt="_img">
+                    <img :src="currentJob?.company?.image ?? ''" class="img-fluid" width="55" alt="_img">
                   </div>
 
                   <div class="col-md-7">
@@ -176,8 +176,8 @@
         </div>
         <div class="col-12 mt-4">
           <div v-if="similarJobs.length" class="row g-4">
-            <jobsDisplayVue :job="i" @click="router.push({ 'path': `/job-description/${i.id}` })" v-for="i in similarJobs"
-              :key="i" />
+            <jobsDisplayVue :job="i" @click="router.push({ 'path': `/job-description/${i.id}` })"
+              v-for="i in similarJobs" :key="i" />
           </div>
           <noDataShow v-else text="No similar jobs" />
         </div>

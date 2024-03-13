@@ -6,8 +6,8 @@ import type { ApplyJobInterface } from '@/stores/interfaces'
 import { useProfileStore } from './profileStore'
 
 export const useJobApplicationStore = defineStore('jobApplicationStore', () => {
-    const currentModal = ref(0)
-    const modalOpen = ref(false)
+    const currentModal = ref<number>(0)
+    const modalOpen = ref<boolean>(false)
     const currentJob: any = useStorage('protrec_$current_job', [], sessionStorage)
     const loading = ref<boolean>(false)
     const myProfile = useProfileStore()
@@ -17,14 +17,23 @@ export const useJobApplicationStore = defineStore('jobApplicationStore', () => {
         fullname: '',
         email: '',
         phone: '',
-        resume: null,
+        resume: '',
         resume_name: '',
         portfolio_url: '',
         cover_letter: '',
         answers: []
     })
 
-    function switchModal(num: number) {
+    function resetForm(): void {
+        Object.keys(applyData).forEach((x: string) => {
+            // @ts-ignore
+            if (x != 'isAuthUser' && x != 'answers') applyData[x] = ''
+        })
+        applyData.answers = [];
+        applyData.isAuthUser = false;
+    }
+
+    function switchModal(num: number): void {
         currentModal.value = (0 > num) ? currentModal.value - 1 : currentModal.value + 1;
     }
 
@@ -51,5 +60,6 @@ export const useJobApplicationStore = defineStore('jobApplicationStore', () => {
         currentJob,
         switchModal,
         currentJobQuery,
+        resetForm
     }
 })

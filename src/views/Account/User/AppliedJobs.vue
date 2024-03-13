@@ -26,8 +26,6 @@
                         {{ tab.name }} ({{ tab.count }})
                     </button>
                 </li>
-
-
             </ul>
 
             <!-- Tab panes -->
@@ -67,8 +65,8 @@
                     <template #item-action="item">
                         <button class="btn btn-link border-0 text-decoration-none text-black">
                             <div class="btn-group">
-                                <span class="cursor-pointer" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
+                                <span class="cursor-pointer" id="triggerId" data-bs-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
                                     <i class="bi bi-three-dots-vertical"></i>
                                 </span>
 

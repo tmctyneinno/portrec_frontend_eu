@@ -43,11 +43,11 @@ export default {
         return $instance.get(`/job/search?location=${location}&title=${title}`)
     },
 
-    apply(form: FormData) {
+    applyJob(form: FormData) {
         return $instance.post(`job/apply`, form)
     },
 
-    applyGuest(form: FormData) {
+    applyJobGuest(form: FormData) {
         return $instance.post(`job/apply/guest`, form)
     },
 }

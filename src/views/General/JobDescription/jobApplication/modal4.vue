@@ -75,6 +75,11 @@ async function applyForJob() {
         newForm.append(`answers[${index}][answer]`, item.answer_text)
     });
 
+    // // Display the key/value pairs
+    // for (var pair of newForm.entries()) {
+    //     console.log(pair[0] + ', ' + pair[1]);
+    // }
+
     isApplying.value = true
     try {
         const resp = store.applyData.isAuthUser ? await api.applyJob(newForm) : await api.applyJobGuest(newForm)

@@ -1,4 +1,4 @@
-import { $instance, $instancePublic } from '../instances'
+import { $instance, $instancePublic, $instanceForm } from '../instances'
 
 export default {
 
@@ -44,10 +44,10 @@ export default {
     },
 
     applyJob(form: FormData) {
-        return $instance.post(`job/apply`, form)
+        return $instanceForm.post(`job/apply`, form)
     },
 
     applyJobGuest(form: FormData) {
-        return $instance.post(`job/apply/guest`, form)
+        return $instanceForm.post(`job/apply/guest`, form)
     },
 }

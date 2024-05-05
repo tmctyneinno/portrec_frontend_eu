@@ -2,8 +2,7 @@
     <div class="wholePage">
         <div class="row justify-content-center g-0">
             <div class="side-image col-lg-4 d-none d-lg-block bg-danger min-vh-100"></div>
-            <div
-                class="animate__animated animate__fadeInDown col-lg-8 d-flex justify-content-center align-items-center min-vh-100">
+            <div class=" col-lg-8 d-flex justify-content-center align-items-center min-vh-100">
                 <div class="col-11 col-lg-12 row justify-content-center">
                     <div class="col-md-8">
                         <div class="col-12 ">
@@ -30,7 +29,7 @@
                             </div>
                         </div>
 
-                        <div class="col-12 my-3">
+                        <div class="col-12 my-2">
                             <div class="between-lines text-muted">
                                 Or sign up with email
                             </div>
@@ -60,11 +59,8 @@
                                     <span v-if="form.password"
                                         @click="form.passwordDisplay = form.passwordDisplay == 'password' ? 'text' : 'password'"
                                         class="float-end cursor-pointer theme-color">
-                                        <span v-if="form.passwordDisplay == 'password'">
-                                            <i class="bi bi-eye-fill"></i></span>
-                                        <span v-else>
-                                            <i class="bi bi-eye-slash-fill"></i>
-                                        </span>
+                                        <span v-if="form.passwordDisplay == 'password'"> show</span>
+                                        <span v-else> hide </span>
                                     </span>
                                 </div>
                                 <input v-model="form.password" :type="form.passwordDisplay"
@@ -76,9 +72,8 @@
                                     <span v-if="form.password2"
                                         @click="form.password2Display = form.password2Display == 'password' ? 'text' : 'password'"
                                         class="float-end cursor-pointer theme-color">
-                                        <span v-if="form.password2Display == 'password'"><i
-                                                class="bi bi-eye-fill"></i></span>
-                                        <span v-else><i class="bi bi-eye-slash-fill"></i></span>
+                                        <span v-if="form.password2Display == 'password'">show</span>
+                                        <span v-else>hide</span>
                                     </span>
                                 </div>
                                 <input v-model="form.password2" :type="form.password2Display"
@@ -87,7 +82,8 @@
 
 
                             <div class="col-12 mt-3">
-                                <button v-if="!form.isLoading" type="submit" class="btn btn-lg btn-primary rounded-0 w-100">
+                                <button v-if="!form.isLoading" type="submit"
+                                    class="btn btn-lg btn-primary rounded-0 w-100">
                                     Continue <i class="bi bi-chevron-right"></i>
                                 </button>
                                 <button v-else class="btn btn-primary rounded-0 w-100" disabled>
@@ -215,7 +211,7 @@ async function registerJobSeeker() {
 }
 </script>
 
-<style  scoped>
+<style scoped>
 .vue-tel-input {
     border-radius: 0px;
 }
@@ -229,10 +225,11 @@ async function registerJobSeeker() {
 
 .google-card {
     cursor: pointer;
+    background-color: #eeeeee49;
 }
 
 .google-card:hover {
-    background-color: #eeeeee49;
+    background-color: #eeeeee71;
 }
 
 .type-nav span {

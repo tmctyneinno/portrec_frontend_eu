@@ -1,36 +1,6 @@
 <template>
     <overlayLoadingVue v-if="tempos.pageIsLoading" />
     <div class="animate__animated animate__fadeIn mb-5">
-        <div class="section-panel section-panel-light py-5 px-3 px-md-5">
-            <form @submit.prevent="" class="bg-white p-3 px-4 form-container shadow-sm">
-                <div class="col-12">
-                    <div class="row g-3">
-                        <div class="col-lg-5">
-                            <div class="input-group position-relative searchingBar">
-                                <span class="input-group-text" id="addon-search"><i class="bi bi-search"></i> </span>
-                                <input ref="formSearchField" v-model="form.search" type="text" class="form-control"
-                                    placeholder="company title or keyword" aria-describedby="addon-search">
-                            </div>
-                        </div>
-                        <div class="col-lg-5">
-                            <v-select v-model="form.location" :loading="tempos.isLoadingCountries"
-                                class="country-chooser-jobform find-jobs-select" placeholder="select country"
-                                :options="allCountries" />
-                        </div>
-                        <div class="col-lg-2">
-                            <button @click="getCompanies()" :disabled="tempos.isSearching" type="submit"
-                                class="btn btn-search btn-primary  w-100">
-                                {{ tempos.isSearching ? 'Searching...' : 'Search' }}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-            <div class="mt-2 small">
-                Popular : Twitter, Microsoft, Apple, Facebook
-            </div>
-        </div>
-
 
         <div class="container py-3">
             <div class="row pt-5">
@@ -104,7 +74,7 @@
                         <div class="col-12">
                             <div class="row justify-content-center align-items-center ">
                                 <div class="col">
-                                    <div class="fw-bold fs-4">{{ titleName }}
+                                    <div class="fw-bold fs-4">{{ titleShowing }}
                                     </div>
                                     <div class="xsmall">
                                         Showing page <span class="fw-bold">{{ pagination.currentPage }}/ {{
@@ -114,7 +84,7 @@
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <span v-if="titleName != 'All Companies'" @click="showAllCompanies"
+                                    <span v-if="titleShowing != 'All Companies'" @click="showAllCompanies"
                                         class="fw-bolder float-end theme-color small cursor-pointer">
                                         Show all <i class="bi bi-chevron-right"></i>
                                     </span>
@@ -166,32 +136,23 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive, onMounted } from 'vue';
+import { ref, reactive, onMounted, watch } from 'vue';
 import api from '@/stores/Helpers/axios'
 import useFxn from '@/stores/Helpers/useFunctions';
 import overlayLoadingVue from '@/components/overlayLoading.vue';
 import { useRouter } from 'vue-router';
 import noDataShowVue from '@/components/noDataShow.vue';
-
-// search
-const form = reactive({
-    location: '',
-    search: '',
-})
-const formSearchField = ref<any>(null)
+import { useCommonStore } from './commonStore'
 
 const tempos = reactive({
-    isLoadingCountries: true,
-    isSearching: false,
     pageIsLoading: true
 })
-const titleName = ref<string>('All Companies')
-
-const allCountries = ref([])
+const titleShowing = ref<string>('All Companies')
 
 const router = useRouter()
 
 const companiesArray = ref<any[]>([])
+const commonStore = useCommonStore();
 
 // pagination
 const pagination = reactive({
@@ -219,29 +180,20 @@ const industryName = (id: string | number) => {
 
 onMounted(() => {
     getCompanies(1)
-    formSearchField.value.focus()
-    loadCountries()
 })
 
-async function loadCountries() {
+watch(() => commonStore.searchIsClicked, () => {
+    getCompanies()
+})
 
-    const response = await fetch('https://restcountries.com/v3.1/all');
-    if (response.ok) {
-        const data = await response.json();
-        let names = data.map((country: { name: any; }) => country.name.common)
-        allCountries.value = names
-        tempos.isLoadingCountries = false
 
-    } else {
-        console.error('', response.statusText);
-    }
-}
 
 
 async function getCompanies(page = 1) {
     try {
-        const resp = await api.companiesList(form.search, page);
+        const resp = await api.companiesList(commonStore.searchString, page);
         displayDataContents(resp)
+        commonStore.isSearching = false
 
     } catch (error) {
         console.log(error);
@@ -250,14 +202,14 @@ async function getCompanies(page = 1) {
 }
 
 function showAllCompanies() {
-    form.search = ''
+    commonStore.searchString = ''
     checked.industry = []
     checked.company_size = []
     getCompanies()
 }
 
 function displayDataContents(resp: any) {
-    titleName.value = (form.search || checked.industry.length || checked.company_size.length) ? 'Search/Filter Results' : 'All Companies';
+    titleShowing.value = (commonStore.searchString || checked.industry.length || checked.company_size.length) ? 'Search/Filter Results' : 'All Companies';
 
     const data = resp.data.data;
     filterOptions.industry = data.industry
@@ -342,7 +294,8 @@ async function getCompanyDetails(id: string | number) {
 }
 
 .coy-card:hover {
-    background-color: #f8f6e69c;
+    /* background-color: #eeeeeebd; */
+    border: 1px solid var(--theme-color) !important;
 }
 </style>
 

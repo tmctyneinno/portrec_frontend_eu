@@ -1,5 +1,6 @@
 <template>
     <div>
+        <searchCompanyComponent />
         <allCompaniesComponent v-if="pageToShow == 'all'" />
         <companyDetailsComponent v-else />
     </div>
@@ -10,6 +11,7 @@ import { watchEffect, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import companyDetailsComponent from './companyDetailsComponent.vue';
 import allCompaniesComponent from './allCompaniesComponent.vue';
+import searchCompanyComponent from './searchCompanyComponent.vue'
 
 const route = useRoute()
 

@@ -22,7 +22,7 @@ export const useProfileStore = defineStore('profileStore', () => {
         if (resp.status === 201) {
             userProfile.value = JSON.stringify(resp.data.body)
             avatar.value = resp.data.body.profile_pic ? resp.data.body.profile_pic.image : 'https://via.placeholder.com/150'
-            console.log('profile', JSON.parse(userProfile.value));
+            // console.log('profile', JSON.parse(userProfile.value));
         }
     }
 

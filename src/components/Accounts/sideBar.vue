@@ -41,10 +41,12 @@
                 <div class="col-9">
                     <div v-if="profileStore.data" class="row gx-5 justify-content-center align-items-cente xsmall">
                         <div class="col-lg-2">
-                            <div class="img-circle" :style="{ 'background-image': `url(${profileStore.avatar})` }"></div>
+                            <div class="img-circle" :style="{ 'background-image': `url(${profileStore.avatar})` }">
+                            </div>
                         </div>
                         <div class="col-lg-8">
-                            <div class="fw-bold text-capitalize">{{ profileStore.data ? profileStore.data.name : '' }}</div>
+                            <div class="fw-bold text-capitalize">{{ profileStore.data ? profileStore.data.name : '' }}
+                            </div>
                             <div class="fw-lighter">
                                 {{ profileStore.data ? profileStore.data.email : '' }}
                             </div>
@@ -58,7 +60,7 @@
     </div>
 </template>
 
-<script  lang="ts" setup>
+<script lang="ts" setup>
 import { computed } from 'vue';
 import { userMenu, recruiterMenu, adminMenu } from '@/stores/sideBarMenus'
 import { useProfileStore } from '@/stores/profileStore';
@@ -70,19 +72,19 @@ const router = useRouter()
 
 // load menu according to usertype in prop
 const menu = computed(() => {
-    const userType = prop.userType;
-    const useMenu: any = {
+    const menuObject: any = {
         user: userMenu,
         recruiter: recruiterMenu,
         admin: adminMenu,
     };
 
-    return useMenu[userType];
+    return menuObject[prop.userType];
 });
 
 function logout() {
     profileStore.logout()
     router.replace({ path: '/login' })
+    window.location.reload()
 }
 
 

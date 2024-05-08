@@ -3,9 +3,7 @@
     <div v-if="companyData" class="row g-3">
         <div class="col-lg-8">
             <div class="card">
-                <h5 class="card-header border-0 bg-transparent">
-                    Company details
-                </h5>
+                <h5 class="card-header border-0 bg-transparent py-3"> Company details </h5>
                 <div class="card-body">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item border-0">
@@ -97,12 +95,11 @@
                                 <div class="card-body">
                                     <div class="row g-3">
                                         <div v-if="companyData.recruiter" class="col-12 text-center">
-                                            <div class="text-center fw-bold"> <br> {{ companyData.recruiter.name
-                                                }}
+                                            <i style="font-size: 4rem;" class="bi bi-person-circle text-muted lh-1"></i>
+                                            <div class="text-center fw-bold"> <br>
+                                                {{ companyData.recruiter.name }}
                                             </div>
                                             <div>Recruiter</div>
-
-
                                         </div>
                                         <div class="col-12">
                                             <input v-model="message.text" placeholder="type message here.." type="text"

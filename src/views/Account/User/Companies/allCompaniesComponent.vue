@@ -73,7 +73,7 @@
                     <div class="row g-3">
                         <div class="col-12">
                             <div class="row justify-content-center align-items-center ">
-                                <div class="col">
+                                <div class="col-lg-6">
                                     <div class="fw-bold fs-4">{{ titleShowing }}
                                     </div>
                                     <div class="xsmall">

@@ -49,6 +49,11 @@ const adminMenu = [{
     icon: 'bi bi-buildings'
 },
 {
+    title: 'All Applicants',
+    routeName: 'admin-All_Applicants',
+    icon: 'bi bi-people'
+},
+{
     title: 'Job Listing',
     routeName: 'admin-Job_Listing',
     icon: 'bi bi-journal-text'

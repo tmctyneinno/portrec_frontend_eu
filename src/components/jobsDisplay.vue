@@ -1,5 +1,5 @@
 <template>
-    <div class="col-lg-6">
+    <div :class="size == 'half' ? 'col-lg-6' : ''">
         <div class="card card-latest p-3 py-lg-4 hover-tiltY cursor-pointer">
             <div class="row">
                 <div class="col-3 row align-content-center ">
@@ -37,6 +37,9 @@ defineProps({
     job: {
         type: Object,
         required: true,
+    },
+    size: {
+        default: 'half'
     }
 })
 </script>
@@ -44,7 +47,7 @@ defineProps({
 .card-latest {
     /* border-color: #fff; */
     /* border-width: 2px; */
-    border-color: transparent;
+    /* border-color: transparent; */
     /* border-left: 1px solid var(--theme-color); */
     box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) !important;
 }

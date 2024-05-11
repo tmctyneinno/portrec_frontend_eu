@@ -2,10 +2,12 @@
     <div>
         <nav class="navbar fixed-top navbar-expand-sm navbar-light bg-white shadow-sm border-0">
             <div class="container">
-                <span class="navbar-brand fw-bold d-none d-md-block">{{ route.meta.name }}</span>
+                <span v-if="route.meta.auth === 'user'" class="navbar-brand fw-bold d-none d-md-block">{{
+                    route.meta.name }}</span>
+                <span v-else>Company (<strong>Nomad</strong>)</span>
                 <span class="d-md-none xsmall">
                     <img src="@/assets/images/site_logo.png" width="100" alt="site_logo">
-                    <span class="mx-2 text-muted2">|</span> {{ route.meta.name }}
+                    <!-- <span class="mx-2 text-muted2">|</span> {{ route.meta.name }} -->
                 </span>
                 <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
@@ -13,8 +15,14 @@
                 </button>
 
                 <div class="d-none d-md-block ">
-                    <router-link to="/" class="btn btn-outline-secondary rounded-0 me-5 btn-sm">Back to
-                        homepage</router-link>
+                    <router-link v-if="route.meta.auth === 'user'" to="/"
+                        class="btn btn-outline-secondary rounded-0 me-5 btn-sm">
+                        Back to homepage
+                    </router-link>
+
+                    <router-link v-else to="/" class="btn btn-primary rounded-0 me-5 btn-sm">
+                        <i class="bi bi-plus-lg"></i> Post a Job
+                    </router-link>
 
                     <span class="position-relative me-3 cursor-pointer bell dropdown-toggle" data-bs-toggle="dropdown"
                         aria-expanded="false">

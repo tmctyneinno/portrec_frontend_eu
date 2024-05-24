@@ -11,7 +11,7 @@
                     </div>
                     <div class="col-12">
                         <div v-if="!convos.data.length">
-                            <NoDataShow text="No messages" />
+                            <NoDataShow text="No messages" icon="bi-chat-square-text" />
                         </div>
                         <ul v-else class="list-group list-group-flush">
                             <li @click="showMessages(convo.id)" v-for="(convo, index) in  convos.data " :key="index"

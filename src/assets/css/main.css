@@ -55,6 +55,10 @@ input::placeholder, textarea::placeholder {
   background-color: var(--theme-color) !important;
 }
 
+.bg-theme {
+  background-color: var(--theme-color) !important;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
@@ -419,4 +423,12 @@ input[type="radio"]:checked+label:before {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.easy-checkbox input[type=checkbox]:checked+label:before {
+  background: var(--theme-color) !important;
+}
+
+.easy-checkbox input[type=checkbox].allSelected+label:before, .easy-checkbox input[type=checkbox].partSelected+label:before {
+  background: var(--theme-color) !important;
 }

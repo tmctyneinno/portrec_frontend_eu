@@ -87,10 +87,10 @@
 
                     <div class="tab-content" style="min-height: 300px;">
                         <!-- TAB1 -->
-                        <div class="tab-pane active p-3 py-4" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
+                        <div class="tab-pane active py-4" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
                             <div class="row g-2">
                                 <div class="col-lg-8">
-                                    <div class="card h-100">
+                                    <div class="card h-100 p-0">
                                         <div id="chart">
                                             <apexchart type="bar" :options="chartOptions_1"
                                                 :series="chartOptions_1.series">

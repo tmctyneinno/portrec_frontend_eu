@@ -4,7 +4,7 @@
             <div class="container">
                 <span v-if="route.meta.auth === 'user'" class="navbar-brand fw-bold d-none d-md-block">{{
                     route.meta.name }}</span>
-                <span v-else>Company (<strong>Nomad</strong>)</span>
+                <span class="d-none d-md-block" v-else>Company (<strong>Nomad</strong>)</span>
                 <span class="d-md-none xsmall">
                     <img src="@/assets/images/site_logo.png" width="100" alt="site_logo">
                     <!-- <span class="mx-2 text-muted2">|</span> {{ route.meta.name }} -->

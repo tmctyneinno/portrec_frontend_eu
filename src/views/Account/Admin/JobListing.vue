@@ -9,7 +9,7 @@
                                 {{ dateRange ? date_display(dateRange) : '' }}</small>
                         </div>
 
-                        <span class="float-start float-lg-end" style="width: 180px;">
+                        <span class="float-start float-lg-end">
                             <VueDatePicker class="fw-bold" disable-year-select :format="date_display" range
                                 multi-calendars :clearable="false" :max-date="new Date()" :enable-time-picker="false"
                                 auto-apply v-model="dateRange">

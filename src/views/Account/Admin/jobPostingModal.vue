@@ -128,7 +128,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <button class="btn btn-sm btn-primary-outline">
+                                        <button class="btn btn-sm btn-primary-outline rounded-0">
                                             <i class="bi bi-plus-lg"></i> Add Skills
                                         </button>
                                     </div>
@@ -221,7 +221,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-8">
-                                        <button class="btn btn-sm btn-primary-outline">
+                                        <button class="btn btn-sm btn-primary-outline rounded-0">
                                             <i class="bi bi-plus-lg"></i> Add Benefits
                                         </button>
                                         <div class="row g-3 mt-3">
@@ -247,18 +247,19 @@
 
                     </div>
                     <div class="modal-footer border-">
-                        <button ref="closeModal" type="button" class="btn btn-light" data-bs-dismiss="modal"
+                        <button ref="closeModal" type="button" class="btn btn-light rounded-0" data-bs-dismiss="modal"
                             aria-label="Close">Cancel</button>
                         <button v-if="[2, 3].includes(adminCommonStore.jobPosting.stage)" @click="goToPrevious"
-                            type="button" class="btn btn-secondary">
+                            type="button" class="btn btn-secondary rounded-0">
                             <i class=" bi bi-chevron-left"></i> Back
                         </button>
                         <button v-if="[1, 2].includes(adminCommonStore.jobPosting.stage)" @click="goToNext"
-                            type="button" class="btn btn-primary">
+                            type="button" class="btn btn-primary rounded-0">
                             Next <i class=" bi bi-chevron-right"></i>
                         </button>
 
-                        <button v-if="adminCommonStore.jobPosting.stage == 3" type="button" class="btn btn-primary">
+                        <button v-if="adminCommonStore.jobPosting.stage == 3" type="button"
+                            class="btn btn-primary rounded-0">
                             Post Job
                         </button>
 

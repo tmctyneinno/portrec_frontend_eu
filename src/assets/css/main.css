@@ -404,13 +404,14 @@ input[type="radio"]:checked+label:before {
 }
 
 .nav-link, .nav-link:hover {
-  color: #7C8493;
+  color: #7C8493 !important;
 }
 
 .nav-tabs .nav-item.show .nav-link,
 .nav-tabs .nav-link.active {
   font-weight: bolder;
   border-bottom: 2px solid var(--theme-color) !important;
+  color: var(--theme-color) !important;
 }
 
 @media (max-width: 767px) {
@@ -431,4 +432,17 @@ input[type="radio"]:checked+label:before {
 
 .easy-checkbox input[type=checkbox].allSelected+label:before, .easy-checkbox input[type=checkbox].partSelected+label:before {
   background: var(--theme-color) !important;
+}
+
+.vc-light.vc-attr, .vc-light .vc-attr {
+  --vc-content-color: var(--theme-color) !important;
+  --vc-highlight-outline-bg: var(--vc-white) !important;
+  --vc-highlight-outline-border: var(--theme-color) !important;
+  --vc-highlight-outline-content-color: var(--theme-color) !important;
+  --vc-highlight-light-bg: var(--vc-accent-200) !important;
+  --vc-highlight-light-content-color: var(--theme-color) !important;
+  --vc-highlight-solid-bg: var(--theme-color) !important;
+  --vc-highlight-solid-content-color: var(--vc-white) !important;
+  --vc-dot-bg: var(--theme-color) !important;
+  --vc-bar-bg: var(--theme-color) !important;
 }

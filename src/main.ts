@@ -63,6 +63,9 @@ import GoogleSignInPlugin from "vue3-google-signin"
 import VueTelInput from 'vue-tel-input';
 import 'vue-tel-input/vue-tel-input.css';
 
+// https://tomosterlund.github.io/qalendar/guide.html
+import 'qalendar/dist/style.css'
+
 import piniaPersist from 'pinia-plugin-persist'
 
 import jobsDisplayVue from '@/components/jobsDisplay.vue';

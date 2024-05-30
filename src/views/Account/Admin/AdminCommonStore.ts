@@ -10,6 +10,11 @@ export const useAdminCommonStore = defineStore('adminCommonStore', () => {
         currentIdShowing: ''
     })
 
+    const jobPosting = reactive({
+        modal: false,
+        stage: 1
+    })
 
-    return { applicants }
+
+    return { applicants, jobPosting }
 })

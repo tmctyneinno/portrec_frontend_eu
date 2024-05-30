@@ -20,9 +20,9 @@
                         Back to homepage
                     </router-link>
 
-                    <router-link v-else to="/" class="btn btn-primary rounded-0 me-5 btn-sm">
+                    <button @click="openJobPostingModal" v-else to="/" class="btn btn-primary rounded-0 me-5 btn-sm">
                         <i class="bi bi-plus-lg"></i> Post a Job
-                    </router-link>
+                    </button>
 
                     <span class="position-relative me-3 cursor-pointer bell dropdown-toggle" data-bs-toggle="dropdown"
                         aria-expanded="false">
@@ -53,16 +53,24 @@
 import { useRoute } from 'vue-router'
 import sideBarMobile from './sideBarMobile.vue';
 import { computed } from 'vue';
+import { useAdminCommonStore } from '@/views/Account/Admin/AdminCommonStore';
 
+const adminCommonStore = useAdminCommonStore()
 const route: any = useRoute()
 
 defineProps(['userType'])
 
 
-const pageTitle = computed(() => {
-    const routeArray = route?.name.split('-') ?? [];
-    return routeArray.length ? routeArray[1].split('_') : ''
-})
+// const pageTitle = computed(() => {
+//     const routeArray = route?.name.split('-') ?? [];
+//     return routeArray.length ? routeArray[1].split('_') : ''
+// })
+
+function openJobPostingModal() {
+    adminCommonStore.jobPosting.modal = !adminCommonStore.jobPosting.modal
+    console.log(adminCommonStore.jobPosting.modal);
+
+}
 </script>
 
 <style scoped>

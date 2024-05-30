@@ -138,5 +138,11 @@ export default {
     timeAgo: (date: Date) => {
         const timeAgo = useTimeAgo(date);
         return timeAgo.value;
+    },
+
+    addDaysToDate: (data: Date, num: number) => {
+        const movedDate = new Date(data);
+        movedDate.setDate(movedDate.getDate() + num);
+        return movedDate;
     }
 }

@@ -5,7 +5,8 @@
             <div class="modal-content">
                 <div class="modal-header border-0">
                     <h6 class="modal-title fw-bold">Add Experience</h6>
-                    <button ref="btnX" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button ref="btnX" type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row g-3">
@@ -23,9 +24,9 @@
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Type * </label>
-                            <v-select v-model="experience.work_type_id"
-                                class="rounded-0 text-capitalize profile-edit-select" :clearable="false"
-                                :options="jobTypesArray"></v-select>
+                            <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
+                                v-model="experience.work_type_id" class="rounded-0 text-capitalize profile-edit-select"
+                                :clearable="false" :options="jobTypesArray"></v-select>
                         </div>
 
                         <div class="col-12">
@@ -36,8 +37,8 @@
 
                         <div class="col-md-6">
                             <label class="form-label">From * </label>
-                            <VueDatePicker :format="useFxn.dateDisplay" :teleport="true" hide-input-icon :clearable="false"
-                                :max-date="new Date()" :enable-time-picker="false" auto-apply
+                            <VueDatePicker :format="useFxn.dateDisplay" :teleport="true" hide-input-icon
+                                :clearable="false" :max-date="new Date()" :enable-time-picker="false" auto-apply
                                 v-model="experience.start_date">
                             </VueDatePicker>
                             <label class="cursor-pointer small">
@@ -47,9 +48,9 @@
                         </div>
                         <div class="col-md-6" v-if="!isCurrentlyHere">
                             <label class="form-label">To * </label>
-                            <VueDatePicker :format="useFxn.dateDisplay" :teleport="true" hide-input-icon :clearable="false"
-                                :max-date="new Date()" :min-date="experience.start_date" :enable-time-picker="false"
-                                auto-apply v-model="experience.end_date">
+                            <VueDatePicker :format="useFxn.dateDisplay" :teleport="true" hide-input-icon
+                                :clearable="false" :max-date="new Date()" :min-date="experience.start_date"
+                                :enable-time-picker="false" auto-apply v-model="experience.end_date">
                             </VueDatePicker>
                         </div>
 
@@ -149,7 +150,7 @@ async function save(obj: any) {
             experience.company_location = experience.company_name =
                 experience.description = experience.job_title
                 = experience.work_type_id = ''
-            profileStore.getUserProfile()
+            profileStore.getProfile()
         }
     } catch (error) {
         // 

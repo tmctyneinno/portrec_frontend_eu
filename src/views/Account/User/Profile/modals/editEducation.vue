@@ -1,5 +1,3 @@
-
-
 <template>
     <div class="modal fade" id="editEducationModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
         role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
@@ -22,8 +20,8 @@
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">From * </label>
-                            <VueDatePicker :format="useFxn.dateDisplay" :teleport="true" hide-input-icon :clearable="false"
-                                :max-date="new Date()" :enable-time-picker="false" auto-apply
+                            <VueDatePicker :format="useFxn.dateDisplay" :teleport="true" hide-input-icon
+                                :clearable="false" :max-date="new Date()" :enable-time-picker="false" auto-apply
                                 v-model="education.start_date">
                             </VueDatePicker>
                             <label class="cursor-pointer small">
@@ -33,9 +31,9 @@
                         </div>
                         <div class="col-md-6" v-if="!isCurrentlyHere">
                             <label class="form-label">To * </label>
-                            <VueDatePicker :format="useFxn.dateDisplay" :teleport="true" :clearable="false" hide-input-icon
-                                :max-date="new Date()" :min-date="education.start_date" :enable-time-picker="false"
-                                auto-apply v-model="education.end_date">
+                            <VueDatePicker :format="useFxn.dateDisplay" :teleport="true" :clearable="false"
+                                hide-input-icon :max-date="new Date()" :min-date="education.start_date"
+                                :enable-time-picker="false" auto-apply v-model="education.end_date">
                             </VueDatePicker>
                         </div>
                         <div class="col-12">
@@ -56,7 +54,8 @@
                     <!-- <button :disabled="isLoading" @click="deleteEducation" type="button"
                         class="btn btn-danger rounded-0">Delete
                         Education</button> -->
-                    <button @click="updateClick" :disabled="isLoading" type="button" class="btn btn-primary  rounded-0">Save
+                    <button @click="updateClick" :disabled="isLoading" type="button"
+                        class="btn btn-primary  rounded-0">Save
                         Changes</button>
                 </div>
             </div>
@@ -122,7 +121,7 @@ async function userDeleteEducation() {
     try {
         await api.userEducationDelete(editingStore.educationToEdit.id);
         useFxn.toast('Education Deleted', 'success');
-        profileStore.getUserProfile();
+        profileStore.getProfile();
         btnX.value.click();
 
 
@@ -174,7 +173,7 @@ async function save() {
         if (resp.status) {
             useFxn.toast('Updated successfully', 'success')
             btnX.value.click();
-            profileStore.getUserProfile()
+            profileStore.getProfile()
         }
     } catch (error) {
         console.log(error);

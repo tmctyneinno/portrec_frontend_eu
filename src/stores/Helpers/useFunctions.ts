@@ -2,6 +2,7 @@ import Swal from 'sweetalert2'
 //@ts-ignore
 import validator from 'validator';
 import { useDateFormat, useOnline, useTimeAgo } from '@vueuse/core';
+import { createPopper, type VirtualElement } from '@popperjs/core'
 
 type DebounceFunction<T extends (...args: any[]) => any> = (...args: Parameters<T>) => void;
 
@@ -29,8 +30,7 @@ export default {
         }
     },
 
-    toast: (text: string, icon: any) => {
-        // @ts-expect-error
+    toast: (text: string, icon: 'warning' | 'success' | 'error' | 'info') => {
         Swal.fire({
             toast: true,
             icon: `${icon}`,
@@ -144,5 +144,46 @@ export default {
         const movedDate = new Date(data);
         movedDate.setDate(movedDate.getDate() + num);
         return movedDate;
+    },
+
+    vueSelectPositionCalc: (dropdownList: HTMLElement, component: { $refs: { toggle: Element | VirtualElement; }; $el: { classList: { toggle: (arg0: string, arg1: boolean) => void; }; }; }, { width }: any) => {
+        dropdownList.style.width = width
+
+        const calculatePlacement = () => {
+            const rect = component.$refs.toggle.getBoundingClientRect()
+            const viewportHeight = window.innerHeight
+
+            const spaceAbove = rect.top
+            const spaceBelow = viewportHeight - rect.bottom
+
+            return spaceBelow < spaceAbove ? 'top' : 'bottom'
+        }
+
+        const placement = calculatePlacement()
+
+        const popper = createPopper(component.$refs.toggle, dropdownList, {
+            placement: placement,
+            modifiers: [
+                {
+                    name: 'offset',
+                    options: {
+                        offset: [0, -1],
+                    },
+                },
+                {
+                    name: 'toggleClass',
+                    enabled: true,
+                    phase: 'write',
+                    fn({ state }) {
+                        component.$el.classList.toggle(
+                            'drop-up',
+                            state.placement === 'top'
+                        )
+                    },
+                },
+            ],
+        })
+
+        return () => popper.destroy()
     }
 }

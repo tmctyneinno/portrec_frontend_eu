@@ -1,21 +1,21 @@
 <template>
-    <List v-if="adminCommonStore.applicants.showing == 'list'" />
+    <List v-if="recruiterCommonStore.applicants.showing == 'list'" />
     <Details v-else />
 </template>
 
 <script lang="ts" setup>
 import List from './ApplicantsList.vue'
 import Details from './ApplicantsDetails.vue'
-import { useAdminCommonStore } from './AdminCommonStore';
+import { useRecruiterCommonStore } from './RecruiterCommonStore';
 import { useProfileStore } from '@/stores/profileStore';
 import { onMounted, } from 'vue';
 
 
-const adminCommonStore = useAdminCommonStore()
+const recruiterCommonStore = useRecruiterCommonStore()
 
 const profileStore = useProfileStore()
 onMounted(() => {
-    adminCommonStore.applicants.showing = 'list'
+    recruiterCommonStore.applicants.showing = 'list'
     console.log(profileStore.data);
 })
 

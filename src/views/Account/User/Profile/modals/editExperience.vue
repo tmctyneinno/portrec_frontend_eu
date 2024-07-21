@@ -1,5 +1,3 @@
-
-
 <template>
     <div class="modal fade" id="editExperienceModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
         role="dialog" aria-hidden="true">
@@ -46,8 +44,8 @@
 
                         <div class="col-md-6">
                             <label class="form-label">From * </label>
-                            <VueDatePicker :format="useFxn.dateDisplay" :teleport="true" hide-input-icon :clearable="false"
-                                :max-date="new Date()" :enable-time-picker="false" auto-apply
+                            <VueDatePicker :format="useFxn.dateDisplay" :teleport="true" hide-input-icon
+                                :clearable="false" :max-date="new Date()" :enable-time-picker="false" auto-apply
                                 v-model="experience.start_date">
                             </VueDatePicker>
                             <label class="cursor-pointer small">
@@ -57,9 +55,9 @@
                         </div>
                         <div class="col-md-6" v-if="!isCurrentlyHere">
                             <label class="form-label">To * </label>
-                            <VueDatePicker :format="useFxn.dateDisplay" :teleport="true" hide-input-icon :clearable="false"
-                                :max-date="new Date()" :min-date="experience.start_date" :enable-time-picker="false"
-                                auto-apply v-model="experience.end_date">
+                            <VueDatePicker :format="useFxn.dateDisplay" :teleport="true" hide-input-icon
+                                :clearable="false" :max-date="new Date()" :min-date="experience.start_date"
+                                :enable-time-picker="false" auto-apply v-model="experience.end_date">
                             </VueDatePicker>
                         </div>
 
@@ -73,7 +71,8 @@
                     <!-- <button :disabled="isLoading" @click="deleteExperience" type="button"
                         class="btn btn-danger rounded-0">Delete
                         Experience</button> -->
-                    <button @click="updateClick" :disabled="isLoading" type="button" class="btn btn-primary  rounded-0">Save
+                    <button @click="updateClick" :disabled="isLoading" type="button"
+                        class="btn btn-primary  rounded-0">Save
                         Changes</button>
                 </div>
             </div>
@@ -150,7 +149,7 @@ async function userDeleteExperience() {
     try {
         await api.userExperienceDelete(editingStore.experienceToEdit.id);
         useFxn.toast('Experience Deleted', 'success');
-        profileStore.getUserProfile();
+        profileStore.getProfile();
         btnX.value.click();
     } catch (error) {
         // 
@@ -207,7 +206,7 @@ async function save() {
         if (resp.status) {
             useFxn.toast('Updated successfully', 'success')
             btnX.value.click();
-            profileStore.getUserProfile()
+            profileStore.getProfile()
         }
     } catch (error) {
         console.log(error);
@@ -237,4 +236,3 @@ watch(() => route.path, () => {
     width: 250px;
 }
 </style>
-

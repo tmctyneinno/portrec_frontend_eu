@@ -12,6 +12,9 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@fullcalendar/core": "^6.1.14",
+    "@fullcalendar/daygrid": "^6.1.14",
+    "@fullcalendar/vue3": "^6.1.14",
     "@marcoschulte/vue3-progress": "^0.0.7",
     "@popperjs/core": "^2.11.8",
     "@vuepic/vue-datepicker": "^6.0.3",

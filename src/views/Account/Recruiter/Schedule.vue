@@ -72,11 +72,11 @@ import { useProfileStore } from '@/stores/profileStore';
 import { useDateFormat } from '@vueuse/core';
 import { onMounted, ref } from 'vue';
 import useFxn from '@/stores/Helpers/useFunctions'
-// import { useAdminCommonStore } from './AdminCommonStore';
+// import { useRecruiterCommonStore } from './RecruiterCommonStore';
 // @ts-ignore
 import { Qalendar } from "qalendar";
 
-// const adminCommonStore = useAdminCommonStore()
+// const recruiterCommonStore = useRecruiterCommonStore()
 
 const dateFormat = (date: Date) => {
     const formatted = useDateFormat(new Date(date), 'YYYY-MM-DD mm:ss')

@@ -12,7 +12,7 @@
                         <ul class="nav justify-content-center nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item mx-lg-5" role="presentation">
                                 <button class="nav-link text-start"
-                                    :class="{ 'active': adminCommonStore.jobPosting.stage == 1 }" id="tab1-tab"
+                                    :class="{ 'active': recruiterCommonStore.jobPosting.stage == 1 }" id="tab1-tab"
                                     type="button" role="tab" aria-selected="true">
                                     <div class="theme-color"> <i class="bi bi-1-circle-fill text-muted2"></i> Step1
                                     </div>
@@ -21,14 +21,14 @@
                             </li>
                             <li class="nav-item mx-lg-5" role="presentation">
                                 <button class="nav-link text-start"
-                                    :class="{ 'active': adminCommonStore.jobPosting.stage == 2 }" id="tab2-tab"
+                                    :class="{ 'active': recruiterCommonStore.jobPosting.stage == 2 }" id="tab2-tab"
                                     type="button" role="tab" aria-selected="false">
                                     <div class="theme-color"><i class="bi bi-2-circle-fill text-muted2"></i> Step2</div>
                                     <strong>Job Description</strong>
                                 </button>
                             </li>
                             <li class="nav-item mx-lg-5" role="presentation">
-                                <button :class="{ 'active': adminCommonStore.jobPosting.stage == 3 }"
+                                <button :class="{ 'active': recruiterCommonStore.jobPosting.stage == 3 }"
                                     class="nav-link text-start" id="tab3-tab" type="button" role="tab"
                                     aria-selected="false">
                                     <div class="theme-color"> <i class="bi bi-3-circle-fill text-muted2"></i> Step3
@@ -47,7 +47,7 @@
 
                         <!-- Tab panes -->
                         <div class="tab-content py-3">
-                            <div v-if="adminCommonStore.jobPosting.stage == 1">
+                            <div v-if="recruiterCommonStore.jobPosting.stage == 1">
                                 <div>
                                     <strong>Basic Information</strong>
                                     <div class="text-muted small">
@@ -136,7 +136,7 @@
                                 </div>
 
                             </div>
-                            <div v-if="adminCommonStore.jobPosting.stage == 2">
+                            <div v-if="recruiterCommonStore.jobPosting.stage == 2">
                                 <div>
                                     <strong>Details</strong>
                                     <div class="text-muted small">
@@ -204,7 +204,7 @@
 
 
                             </div>
-                            <div v-if="adminCommonStore.jobPosting.stage == 3">
+                            <div v-if="recruiterCommonStore.jobPosting.stage == 3">
                                 <div>
                                     <strong>Basic Information</strong>
                                     <div class="text-muted small">
@@ -249,16 +249,16 @@
                     <div class="modal-footer border-">
                         <button ref="closeModal" type="button" class="btn btn-light rounded-0" data-bs-dismiss="modal"
                             aria-label="Close">Cancel</button>
-                        <button v-if="[2, 3].includes(adminCommonStore.jobPosting.stage)" @click="goToPrevious"
+                        <button v-if="[2, 3].includes(recruiterCommonStore.jobPosting.stage)" @click="goToPrevious"
                             type="button" class="btn btn-secondary rounded-0">
                             <i class=" bi bi-chevron-left"></i> Back
                         </button>
-                        <button v-if="[1, 2].includes(adminCommonStore.jobPosting.stage)" @click="goToNext"
+                        <button v-if="[1, 2].includes(recruiterCommonStore.jobPosting.stage)" @click="goToNext"
                             type="button" class="btn btn-primary rounded-0">
                             Next <i class=" bi bi-chevron-right"></i>
                         </button>
 
-                        <button v-if="adminCommonStore.jobPosting.stage == 3" type="button"
+                        <button v-if="recruiterCommonStore.jobPosting.stage == 3" type="button"
                             class="btn btn-primary rounded-0">
                             Post Job
                         </button>
@@ -274,17 +274,17 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import { useAdminCommonStore } from './AdminCommonStore'
+import { useRecruiterCommonStore } from './RecruiterCommonStore'
 
 const route = useRoute()
-const adminCommonStore = useAdminCommonStore()
+const recruiterCommonStore = useRecruiterCommonStore()
 
 // modal
 const openModal = ref<any>(null)
 const closeModal = ref<any>(null)
-watch(() => adminCommonStore.jobPosting.modal, () => {
+watch(() => recruiterCommonStore.jobPosting.modal, () => {
     openModal.value.click()
-    adminCommonStore.jobPosting.stage = 1
+    recruiterCommonStore.jobPosting.stage = 1
 });
 watch(() => route, () => {
     closeModal.value.click()
@@ -293,11 +293,11 @@ watch(() => route, () => {
 // form and validation
 
 function goToNext() {
-    adminCommonStore.jobPosting.stage += 1
+    recruiterCommonStore.jobPosting.stage += 1
 }
 
 function goToPrevious() {
-    adminCommonStore.jobPosting.stage -= 1
+    recruiterCommonStore.jobPosting.stage -= 1
 }
 
 </script>

@@ -1,5 +1,3 @@
-
-
 <template>
     <div class="col-12">
         <div class="card border-0 shadow-sm">
@@ -32,7 +30,8 @@
                                 <label>New Skill:</label>
                                 <div class="col-12 col-lg-8">
                                     <!-- <label class="small">New Skills: </label> -->
-                                    <v-select placeholder="" class="skills-select" multiple v-model="selectedSkills"
+                                    <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
+                                        placeholder="" class="skills-select" multiple v-model="selectedSkills"
                                         :clearable="false" :options="skillsDropdown"></v-select>
                                 </div>
                                 <div class="col-12 col-lg-4">
@@ -114,7 +113,7 @@ async function saveSkill() {
             useFxn.toast('Updated successfully', 'success')
             // btnX.value.click();
             selectedSkills.value = []
-            profileStore.getUserProfile()
+            profileStore.getProfile()
         }
     } catch (error) {
         // 
@@ -132,7 +131,7 @@ async function removeSkill(id: string | number) {
 
     try {
         await api.useSkillDelete(id)
-        profileStore.getUserProfile()
+        profileStore.getProfile()
     } catch (error) {
         // 
     }

@@ -73,7 +73,7 @@
                             <div class="col-12 mt-3">
                                 <button v-if="!form.isLoading" type="submit"
                                     class="btn btn-lg btn-primary rounded-0 w-100">
-                                    Login
+                                    {{ form.type == 'seeker' ? 'Login' : 'Login as Recruiter' }}
                                 </button>
                                 <button v-else class="btn btn-primary rounded-0 w-100" disabled>
                                     <span class="spinner-border spinner-border" aria-hidden="true"></span>
@@ -125,32 +125,30 @@ function submitForm() {
         useFxn.toastShort('Email format is invalid!')
         return;
     }
-    if (!online.value) {
-        useFxn.toastShort('No internet, You are offline!')
-        return;
-    }
+    // if (!online.value) {
+    //     useFxn.toastShort('No internet, You are offline!')
+    //     return;
+    // }
 
-    if (form.type == 'seeker') {
-        form.isLoading = true
-        signinJobSeeker()
-    }
+    form.isLoading = true
+    signin()
 }
 
-async function signinJobSeeker() {
+async function signin() {
     form.isError = false;
     try {
         const axObj = {
             email: form.email,
             password: form.password
         }
-        let { data } = await api.userLogin(axObj)
+        const { data } = form.type == 'seeker' ? await api.userLogin(axObj) : await api.recruiterLogin(axObj)
 
         if (data.status === 200) {
+
             profile.token = data.body.token
-            profile.userType = 'user'
-            router.push({
-                path: '/user/dashboard'
-            })
+            profile.userType = form.type == 'seeker' ? 'user' : 'recruiter';
+
+            router.push({ path: `/${profile.userType}/dashboard` })
         }
     } catch (error: any) {
         if (error.response.status === 401) {

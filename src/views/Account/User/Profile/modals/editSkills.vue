@@ -1,5 +1,3 @@
-
-
 <template>
     <div class="modal fade" id="editSkillsModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
         role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
@@ -7,7 +5,8 @@
             <div class="modal-content">
                 <div class="modal-header border-0">
                     <h6 class="modal-title fw-bold">Add/Edit Skills</h6>
-                    <button ref="btnX" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button ref="btnX" type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body pt-0 ">
                     <div class="row g-3">
@@ -25,8 +24,8 @@
 
                         <div class="col-12">
                             <label class="small">Add New Skill: </label>
-                            <v-select multiple v-model="selectedSkills" :clearable="false"
-                                :options="skillsDropdown"></v-select>
+                            <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc" multiple
+                                v-model="selectedSkills" :clearable="false" :options="skillsDropdown"></v-select>
                         </div>
                         <div class="col-12">
                             <button :disabled="isSaving" @click="addSkill" type="button"
@@ -85,7 +84,7 @@ async function removeSkill(id: string | number) {
 
     try {
         await api.useSkillDelete(id)
-        profileStore.getUserProfile()
+        profileStore.getProfile()
     } catch (error) {
         // 
     }
@@ -112,7 +111,7 @@ async function saveSkill() {
             useFxn.toast('Updated successfully', 'success')
             // btnX.value.click();
             selectedSkills.value = []
-            profileStore.getUserProfile()
+            profileStore.getProfile()
         }
     } catch (error) {
         // 

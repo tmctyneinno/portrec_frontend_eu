@@ -66,6 +66,8 @@ import 'vue-tel-input/vue-tel-input.css';
 // https://tomosterlund.github.io/qalendar/guide.html
 import 'qalendar/dist/style.css'
 
+// https://www.npmjs.com/package/@fullcalendar/vue3 #####################
+
 import piniaPersist from 'pinia-plugin-persist'
 
 import jobsDisplayVue from '@/components/jobsDisplay.vue';

@@ -62,7 +62,7 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue';
-import { userMenu, recruiterMenu, adminMenu } from '@/stores/sideBarMenus'
+import { userMenu, recruiterMenu } from '@/stores/sideBarMenus'
 import { useProfileStore } from '@/stores/profileStore';
 import { useRouter } from 'vue-router';
 
@@ -75,7 +75,6 @@ const menu = computed(() => {
     const menuObject: any = {
         user: userMenu,
         recruiter: recruiterMenu,
-        admin: adminMenu,
     };
 
     return menuObject[prop.userType];

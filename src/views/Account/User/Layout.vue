@@ -20,12 +20,12 @@ import { onMounted } from 'vue';
 const profileStore = useProfileStore()
 
 onMounted(async () => {
-    await profileStore.getUserProfile()
+    await profileStore.getProfile()
 })
 
 </script>
 
-<style  scoped>
+<style scoped>
 .children-pages {
     padding-top: 70px;
     padding-bottom: 100px;

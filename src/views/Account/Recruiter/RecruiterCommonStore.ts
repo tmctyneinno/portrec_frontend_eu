@@ -1,7 +1,7 @@
 import { reactive, ref } from 'vue'
 import { defineStore } from 'pinia'
 
-export const useAdminCommonStore = defineStore('adminCommonStore', () => {
+export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () => {
     const applicants = reactive<{
         showing: 'list' | 'details',
         currentIdShowing: string

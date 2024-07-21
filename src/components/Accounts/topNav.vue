@@ -53,9 +53,9 @@
 import { useRoute } from 'vue-router'
 import sideBarMobile from './sideBarMobile.vue';
 import { computed } from 'vue';
-import { useAdminCommonStore } from '@/views/Account/Admin/AdminCommonStore';
+import { useRecruiterCommonStore } from '@/views/Account/Recruiter/RecruiterCommonStore';
 
-const adminCommonStore = useAdminCommonStore()
+const recruiterCommonStore = useRecruiterCommonStore()
 const route: any = useRoute()
 
 defineProps(['userType'])
@@ -67,8 +67,8 @@ defineProps(['userType'])
 // })
 
 function openJobPostingModal() {
-    adminCommonStore.jobPosting.modal = !adminCommonStore.jobPosting.modal
-    console.log(adminCommonStore.jobPosting.modal);
+    recruiterCommonStore.jobPosting.modal = !recruiterCommonStore.jobPosting.modal
+    console.log(recruiterCommonStore.jobPosting.modal);
 
 }
 </script>

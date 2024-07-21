@@ -73,7 +73,8 @@
                             </div>
                             <div class="col-6">
                                 <label> Country</label>
-                                <v-select class="country-chooser-settings" :clearable="false" v-model="details.country"
+                                <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
+                                    class="country-chooser-settings" :clearable="false" v-model="details.country"
                                     :loading="loading" placeholder="select country" :options="allCountries" />
                             </div>
                             <div class="col-6">
@@ -389,7 +390,7 @@ async function submitProfileForm() {
         let { data } = await api.userUpdateProfile(obj)
         if (data.status === 201) {
             useFxn.toast('Updated successfully', 'success')
-            profileStore.getUserProfile()
+            profileStore.getProfile()
         }
     } catch (error) {
         useFxn.toast('Could not save data, Check your internet', 'error')

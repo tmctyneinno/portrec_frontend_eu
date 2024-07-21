@@ -13,7 +13,8 @@
                             </div>
                         </div>
                         <div class="col-lg-5">
-                            <v-select v-model="form.location" :loading="isLoadingCountries"
+                            <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
+                                v-model="form.location" :loading="isLoadingCountries"
                                 class="country-chooser-jobform find-jobs-select" placeholder="select country"
                                 :options="allCountries" />
                         </div>
@@ -40,6 +41,7 @@
 import { ref, reactive, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useCommonStore } from './commonStore'
+import useFxn from '@/stores/Helpers/useFunctions';
 
 // search
 const form = reactive({

@@ -4,12 +4,17 @@
             <div class="row g-3">
                 <div class="col-12">
                     <div class="d-lg-flex justify-content-between">
-                        <div class="fw-bold text-capitalize fs-5">Total Applicants : 19</div>
-
-                        <div class="float-start float-lg-end">
-                            <input class="float-end form-control" placeholder="search here..." v-model="searchTerm"
-                                type="text">
+                        <div class="fw-bold text-capitalize fs-5">Job Listing <br>
+                            <small class="text-muted">Showing Job statistic from
+                                {{ dateRange ? date_display(dateRange) : '' }}</small>
                         </div>
+
+                        <span class="float-start float-lg-end">
+                            <VueDatePicker class="fw-bold" disable-year-select :format="date_display" range
+                                multi-calendars :clearable="false" :max-date="new Date()" :enable-time-picker="false"
+                                auto-apply v-model="dateRange">
+                            </VueDatePicker>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -41,9 +46,8 @@
                 </template>
 
                 <template #item-action="item">
-                    <button @click="goToApplicantsDetails(item.id)"
-                        class="btn btn-link action-btn text-decoration-none btn-sm p-1 px-2 ">
-                        See Applicant
+                    <button class="btn btn-link action-btn text-decoration-none btn-sm p-1 px-2 ">
+                        ...
                     </button>
                 </template>
 
@@ -60,14 +64,29 @@ import { useProfileStore } from '@/stores/profileStore';
 import { useDateFormat } from '@vueuse/core';
 import { onMounted, ref } from 'vue';
 import useFxn from '@/stores/Helpers/useFunctions'
-import { useAdminCommonStore } from './AdminCommonStore';
+import { useRecruiterCommonStore } from './RecruiterCommonStore';
 
-const adminCommonStore = useAdminCommonStore()
+const recruiterCommonStore = useRecruiterCommonStore()
 
 const profileStore = useProfileStore()
 onMounted(() => {
     console.log(profileStore.data);
+    setDateRange()
 })
+
+const dateRange = ref();
+
+const date_display = (date: Date[]) => {
+    const dateMe1 = useDateFormat(date[0], 'MMM D')
+    const dateMe2 = useDateFormat(date[1], 'MMM D')
+    return `${dateMe1.value} - ${dateMe2.value}`;
+}
+
+function setDateRange() {
+    const endDate = new Date();
+    const startDate = new Date(new Date().setDate(endDate.getDate() - 7));
+    dateRange.value = [startDate, endDate];
+}
 
 
 
@@ -76,49 +95,55 @@ onMounted(() => {
 const searchTerm = ref("");
 const itemsSelected = ref([]);
 const tableHeader = ref([
-    { text: "Full Name", value: "name", sortable: true, },
+    { text: "Roles", value: "name", sortable: true, },
+    { text: "Status", value: "status", sortable: true },
+    { text: "Date Posted", value: "stage", sortable: true },
+    { text: "Due Date", value: "date_applied", sortable: true },
+    { text: "Job Type", value: "role", sortable: true },
+    { text: "Applicants", value: "role", sortable: true },
     { text: "Score", value: "score", sortable: true },
-    { text: "Hiring Stage", value: "stage", sortable: true },
-    { text: "Applied Date", value: "date_applied", sortable: true },
-    { text: "Job Role", value: "role", sortable: true },
     { text: "", value: "action" },
 ]);
 
 const appliedHistory = ref([{
     id: 1,
-    name: 'Jake Gyll',
+    name: 'Social Media Assistant',
     score: 0.5,
+    status: 'open',
     stage: 'Inreview',
     date_applied: '2023-12-12',
-    role: 'Designer'
+    role: 'Designer',
 },
 {
     id: 2,
-    name: 'Guy Hawkins',
+    name: 'Social Media Assistant',
     score: 1.23,
+    status: 'open',
     stage: 'Inreview',
     date_applied: '2023-12-12',
     role: 'JavaScript Dev'
 },
 {
     id: 3,
-    name: 'Cyndy Lillibridge',
+    name: 'Social Media Assistant',
     score: 4.5,
+    status: 'open',
     stage: 'Shortlisted',
     date_applied: '2023-12-12',
     role: 'Golang Dev'
 },
 {
     id: 4,
-    name: 'Cyndy Lillibridge',
+    name: 'Social Media Assistant',
     score: 4.5,
+    status: 'open',
     stage: 'Shortlisted',
     date_applied: '2023-12-12',
     role: 'Golang Dev'
 },
 {
     id: 5,
-    name: 'Cyndy Lillibridge',
+    name: 'Social Media Assistant',
     score: 4.5,
     stage: 'Shortlisted',
     date_applied: '2023-12-12',
@@ -126,7 +151,7 @@ const appliedHistory = ref([{
 },
 {
     id: 6,
-    name: 'Cyndy Lillibridge',
+    name: 'Social Media Assistant',
     score: 4.5,
     stage: 'Shortlisted',
     date_applied: '2023-12-12',
@@ -134,38 +159,7 @@ const appliedHistory = ref([{
 },
 
 
-{
-    id: 7,
-    name: 'Jake Gyll',
-    score: 0.5,
-    stage: 'Inreview',
-    date_applied: '2023-12-12',
-    role: 'Designer'
-},
-{
-    id: 8,
-    name: 'Guy Hawkins',
-    score: 3.75,
-    stage: 'Inreview',
-    date_applied: '2023-12-12',
-    role: 'JavaScript Dev'
-},
-{
-    id: 9,
-    name: 'Cyndy Lillibridge',
-    score: 4.5,
-    stage: 'Shortlisted',
-    date_applied: '2023-12-12',
-    role: 'Golang Dev'
-},
-{
-    id: 10,
-    name: 'Cyndy Lillibridge',
-    score: 4.5,
-    stage: 'Shortlisted',
-    date_applied: '2023-12-12',
-    role: 'Golang Dev'
-},
+
 ])
 
 
@@ -187,8 +181,8 @@ const classAccordingToStage = (stage: string) => {
 }
 
 function goToApplicantsDetails(id: string) {
-    adminCommonStore.applicants.currentIdShowing = id;
-    adminCommonStore.applicants.showing = 'details'
+    recruiterCommonStore.applicants.currentIdShowing = id;
+    recruiterCommonStore.applicants.showing = 'details'
 }
 
 </script>

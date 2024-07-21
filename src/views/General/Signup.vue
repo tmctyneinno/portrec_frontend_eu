@@ -4,7 +4,7 @@
             <div class="side-image col-lg-4 d-none d-lg-block bg-danger min-vh-100"></div>
             <div class=" col-lg-8 d-flex justify-content-center align-items-center min-vh-100">
                 <div class="col-11 col-lg-12 row justify-content-center">
-                    <div class="col-md-8">
+                    <div class="col-md-8 pt-3">
                         <div class="col-12 ">
                             <div class="type-nav theme-color d-flex justify-content-aroun justify-content-evenly mb-1">
                                 <span @click="form.type = 'seeker'" class="fw-bolder cursor-pointer"
@@ -18,7 +18,9 @@
                             </div>
                         </div>
                         <div class="col-12 ">
-                            <div class="fs-4 fw-lighter text-center mb-2">Get more oportunities</div>
+                            <div v-if="form.type == 'seeker'" class="fs-4 fw-lighter text-center mb-2">
+                                Get more oportunities</div>
+                            <div v-else class="fs-4 fw-lighter text-center mb-2">Post Jobs, Recruit Professionals</div>
                         </div>
 
                         <div class="col-12 mb-2">
@@ -44,7 +46,7 @@
                             </div>
                             <div class="col-12 col-md-6">
                                 <label class="fw-bold text-muted small">Email Address:</label>
-                                <input v-model="form.email" type="text" class="form-control form-control-l  rounded-0"
+                                <input v-model="form.email" type="email" class="form-control form-control-l  rounded-0"
                                     placeholder="Enter email address">
                             </div>
 
@@ -84,7 +86,8 @@
                             <div class="col-12 mt-3">
                                 <button v-if="!form.isLoading" type="submit"
                                     class="btn btn-lg btn-primary rounded-0 w-100">
-                                    Continue <i class="bi bi-chevron-right"></i>
+                                    {{ form.type !== 'seeker' ? 'Start Recruiting' : 'Create Account' }} <i
+                                        class="bi bi-chevron-right"></i>
                                 </button>
                                 <button v-else class="btn btn-primary rounded-0 w-100" disabled>
                                     <span class="spinner-border spinner-border" aria-hidden="true"></span>
@@ -154,33 +157,32 @@ function submitForm() {
 
     for (const field of requiredFields) {
         if (!form[field]) {
-            useFxn.toastShort(`Please complete ${field} field`);
+            useFxn.toast(`Please complete ${field} field`, 'warning');
             return;
         }
     }
 
     if (form.password !== form.password2) {
-        useFxn.toastShort('Passwords do not match');
+        useFxn.toast('Passwords do not match', 'warning');
         return;
     }
 
     if (!useFxn.isEmail(form.email)) {
-        useFxn.toastShort('Email format is invalid!');
+        useFxn.toast('Email format is invalid!', 'warning');
         return;
     }
 
-    if (!online.value) {
-        useFxn.toastShort('No internet, You are offline!');
-        return;
-    }
+    // if (!online.value) {
+    //     useFxn.toastShort('No internet, You are offline!');
+    //     return;
+    // }
 
-    if (form.type === 'seeker') {
-        form.isLoading = true;
-        registerJobSeeker();
-    }
+    form.isLoading = true;
+    register()
+
 }
 
-async function registerJobSeeker() {
+async function register() {
     try {
 
         const sumitObj = {
@@ -190,21 +192,21 @@ async function registerJobSeeker() {
             password: form.password
         }
 
-        let resp = await api.userRegister(sumitObj)
-        console.log(resp);
+        const resp = form.type == 'seeker' ? await api.userRegister(sumitObj) : await api.recruiterRegister(sumitObj)
 
-        if (resp.status === 201) {
+        if (resp.status === 203) {
+            useFxn.toast(`${resp.data}`, 'error')
+            return;
+        }
+
+        else {
             useFxn.toast('Account created successfully! please login', 'success')
             router.push({ path: '/login' })
         }
     } catch (error: any) {
         console.error(error);
+        useFxn.toast('Sorry, error occured, check your internet', 'error')
 
-        if (error.response.status === 409) {
-            useFxn.toastShort('Email already taken')
-        } else {
-            useFxn.toast('Sorry, error occured, check your internet', 'error')
-        }
     } finally {
         form.isLoading = false
     }

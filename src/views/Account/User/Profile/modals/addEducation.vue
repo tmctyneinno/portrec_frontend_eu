@@ -1,5 +1,3 @@
-
-
 <template>
     <div class="modal fade" id="addEducationModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
         role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
@@ -7,7 +5,8 @@
             <div class="modal-content">
                 <div class="modal-header border-0">
                     <h6 class="modal-title fw-bold">Add Education</h6>
-                    <button ref="btnX" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button ref="btnX" type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row g-3">
@@ -18,8 +17,8 @@
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">From * </label>
-                            <VueDatePicker :format="useFxn.dateDisplay" :teleport="true" hide-input-icon :clearable="false"
-                                :max-date="new Date()" :enable-time-picker="false" auto-apply
+                            <VueDatePicker :format="useFxn.dateDisplay" :teleport="true" hide-input-icon
+                                :clearable="false" :max-date="new Date()" :enable-time-picker="false" auto-apply
                                 v-model="education.start_date">
                             </VueDatePicker>
                             <label class="cursor-pointer small">
@@ -29,9 +28,9 @@
                         </div>
                         <div class="col-md-6" v-if="!isCurrentlyHere">
                             <label class="form-label">To * </label>
-                            <VueDatePicker :format="useFxn.dateDisplay" :teleport="true" hide-input-icon :clearable="false"
-                                :max-date="new Date()" :min-date="education.start_date" :enable-time-picker="false"
-                                auto-apply v-model="education.end_date">
+                            <VueDatePicker :format="useFxn.dateDisplay" :teleport="true" hide-input-icon
+                                :clearable="false" :max-date="new Date()" :min-date="education.start_date"
+                                :enable-time-picker="false" auto-apply v-model="education.end_date">
                             </VueDatePicker>
                         </div>
                         <div class="col-12">
@@ -120,7 +119,7 @@ async function save() {
         if (data.status === 200) {
             useFxn.toast('Updated successfully', 'success')
             btnX.value.click();
-            profileStore.getUserProfile()
+            profileStore.getProfile()
             education.institution = education.description = education.qualification = ''
         }
     } catch (error) {

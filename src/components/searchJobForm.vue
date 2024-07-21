@@ -16,7 +16,8 @@
                         </div>
                     </div>
                     <div class="col-lg-5">
-                        <v-select v-model="jobsStore.search.location" :loading="loading"
+                        <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
+                            v-model="jobsStore.search.location" :loading="loading"
                             class="country-chooser-jobform find-jobs-select" placeholder="select country"
                             :options="allCountries" />
                     </div>
@@ -36,7 +37,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, reactive, watchEffect } from 'vue';
+import { ref, onMounted, watchEffect } from 'vue';
 import { useJobsStore } from '@/stores/jobsStore';
 import api from '@/stores/Helpers/axios'
 import useFxn from '@/stores/Helpers/useFunctions'

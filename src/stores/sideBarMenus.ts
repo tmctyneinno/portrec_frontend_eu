@@ -33,46 +33,42 @@ const userMenu = [
     },
 ]
 
-const adminMenu = [{
+const recruiterMenu = [{
     title: 'Dashboard',
-    routeName: 'admin-Dashboard',
+    routeName: 'recruiter-Dashboard',
     icon: 'bi bi-house'
 },
 {
     title: 'Messages',
-    routeName: 'admin-Messages',
+    routeName: 'recruiter-Messages',
     icon: 'bi bi-chat-square-text'
 },
 {
     title: 'Company Profile',
-    routeName: 'admin-Company_Profile',
+    routeName: 'recruiter-Company_Profile',
     icon: 'bi bi-buildings'
 },
 {
     title: 'All Applicants',
-    routeName: 'admin-All_Applicants',
+    routeName: 'recruiter-All_Applicants',
     icon: 'bi bi-people'
 },
 {
     title: 'Job Listing',
-    routeName: 'admin-Job_Listing',
+    routeName: 'recruiter-Job_Listing',
     icon: 'bi bi-journal-text'
 },
 
 {
     title: 'My Schedule',
-    routeName: 'admin-Schedule',
+    routeName: 'recruiter-Schedule',
     icon: 'bi bi-calendar-event'
 },
 
 ]
 
-const recruiterMenu = [{
-
-}]
 
 export {
     userMenu,
-    recruiterMenu,
-    adminMenu
+    recruiterMenu
 }

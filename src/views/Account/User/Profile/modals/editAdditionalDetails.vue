@@ -1,13 +1,12 @@
-
-
 <template>
-    <div class="modal fade" id="editAdditionalDetailsModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
-        role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal fade" id="editAdditionalDetailsModal" tabindex="-1" data-bs-backdrop="static"
+        data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header border-0">
                     <h6 class="modal-title fw-bold">Details</h6>
-                    <button ref="btnX" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button ref="btnX" type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row g-3">
@@ -79,7 +78,7 @@ async function save() {
         if (data.status === 201) {
             useFxn.toast('Updated successfully', 'success')
             btnX.value.click();
-            profileStore.getUserProfile()
+            profileStore.getProfile()
         }
     } catch (error) {
         // 

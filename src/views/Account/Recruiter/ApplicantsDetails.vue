@@ -170,12 +170,12 @@ import { useProfileStore } from '@/stores/profileStore';
 import { useDateFormat } from '@vueuse/core';
 import { onMounted, ref } from 'vue';
 import useFxn from '@/stores/Helpers/useFunctions'
-import { useAdminCommonStore } from './AdminCommonStore';
+import { useRecruiterCommonStore } from './RecruiterCommonStore';
 import ApplicantsDetailsComponentProfile from './ApplicantsDetailsComponentProfile.vue';
 import ApplicantsDetailsComponentResume from './ApplicantsDetailsComponentResume.vue';
 import ApplicantsDetailsComponentProcess from './ApplicantsDetailsComponentProcess.vue';
 
-const adminCommonStore = useAdminCommonStore()
+const recruiterCommonStore = useRecruiterCommonStore()
 
 const profileStore = useProfileStore()
 onMounted(() => {
@@ -188,8 +188,8 @@ onMounted(() => {
 
 
 function navigateBack() {
-    adminCommonStore.applicants.currentIdShowing = '';
-    adminCommonStore.applicants.showing = 'list'
+    recruiterCommonStore.applicants.currentIdShowing = '';
+    recruiterCommonStore.applicants.showing = 'list'
 }
 
 </script>

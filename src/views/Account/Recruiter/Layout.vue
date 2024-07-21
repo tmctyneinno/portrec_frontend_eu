@@ -1,7 +1,7 @@
 <template>
     <div>
-        <side-bar userType="admin" />
-        <top-nav userType="admin" />
+        <side-bar userType="recruiter" />
+        <top-nav userType="recruiter" />
 
         <div class="children-pages">
             <div class="container p-3">
@@ -23,7 +23,7 @@ import jobPosttingModal from './jobPostingModal.vue'
 const profileStore = useProfileStore()
 
 onMounted(async () => {
-    await profileStore.getUserProfile()
+    await profileStore.getProfile()
 })
 
 </script>

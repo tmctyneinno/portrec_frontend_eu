@@ -16,13 +16,18 @@ export const useProfileStore = defineStore('profileStore', () => {
         profile.value = null;
     }
 
-    async function getProfile() {
-        const resp = await api.userProfile()
-        console.log(resp);
-        if (resp.status === 201) {
-            profile.value = JSON.stringify(resp.data.body)
-            avatar.value = resp.data.body.profile_pic ? resp.data.body.profile_pic.image : 'https://via.placeholder.com/150'
-            // console.log('profile', JSON.parse(profile.value));
+    async function getProfile(type = 'user') {
+        try {
+            const resp = type == 'user' ? await api.userProfile() : await api.recruiterProfile();
+            console.log(resp);
+            if (resp.status === 201) {
+                profile.value = JSON.stringify(resp.data.body)
+                avatar.value = resp.data.body.profile_pic ? resp.data.body.profile_pic.image : 'https://via.placeholder.com/150'
+                // console.log('profile', JSON.parse(profile.value));
+            }
+        } catch (error) {
+            console.log(error);
+
         }
     }
 

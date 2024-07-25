@@ -1,11 +1,10 @@
-
-
 <template>
     <div class="col-12">
         <div class="card border-0 shadow-sm">
             <div class="card-header bg-transparent fw-bold border-0 pt-3">
                 About me
-                <span @click="saveAboutMeToStore" class="float-end" data-bs-toggle="modal" data-bs-target="#editAboutModal">
+                <span @click="saveAboutMeToStore" class="float-end" data-bs-toggle="modal"
+                    data-bs-target="#editAboutModal">
                     <span class="profile-edit-btn small rounded-1">
                         Edit <i class="bi bi-pencil"></i>
                     </span>
@@ -35,4 +34,5 @@ function saveAboutMeToStore() {
     editingStore.aboutMe.isEdit = editingStore.aboutMe.isEdit == 1 ? 2 : 1
     editingStore.aboutMe.text = profileStore.data.about_me
 }
+
 </script>

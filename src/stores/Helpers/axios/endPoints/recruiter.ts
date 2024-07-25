@@ -10,7 +10,7 @@ export default {
     },
 
     recruiterProfile() {
-        return $instance.get(`/recruiter/profile`)
+        return $instance.get(`recruiter/profile`)
     },
 
     recruiterUpdateProfile(data: any) {

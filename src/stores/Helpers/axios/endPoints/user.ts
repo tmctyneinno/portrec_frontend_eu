@@ -14,7 +14,7 @@ export default {
     },
 
     userUpdateProfile(data: any) {
-        return $instance.put(`user/profile`, JSON.stringify(data))
+        return $instance.post(`user/profile/update`, JSON.stringify(data))
     },
 
     userProfilePicture(form: FormData, id?: any) {

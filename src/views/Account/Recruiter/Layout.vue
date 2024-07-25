@@ -23,7 +23,7 @@ import jobPosttingModal from './jobPostingModal.vue'
 const profileStore = useProfileStore()
 
 onMounted(async () => {
-    await profileStore.getProfile()
+    await profileStore.getProfile('recruiter')
 })
 
 </script>

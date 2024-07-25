@@ -6,7 +6,7 @@
 
         <div class="modal  fade" id="jobPostingModalEdit" tabindex="-1" data-bs-backdrop="static"
             data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
                 <div class="modal-content">
                     <div class="modal-header p-3  border-0">
                         <ul class="nav justify-content-center nav-tabs" id="myTab" role="tablist">

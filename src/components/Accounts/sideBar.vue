@@ -64,13 +64,13 @@
 import { computed } from 'vue';
 import { userMenu, recruiterMenu } from '@/stores/sideBarMenus'
 import { useProfileStore } from '@/stores/profileStore';
-import { useRouter } from 'vue-router';
+// import { useRouter } from 'vue-router';
 
 const profileStore = useProfileStore()
 const prop = defineProps(['userType'])
-const router = useRouter()
+// const router = useRouter()
 
-// load menu according to usertype in prop
+// ############# load menu according to usertype in prop ##################
 const menu = computed(() => {
     const menuObject: any = {
         user: userMenu,
@@ -82,7 +82,7 @@ const menu = computed(() => {
 
 function logout() {
     profileStore.logout()
-    router.replace({ path: '/login' })
+    // router.replace({ path: '/login' })
     window.location.reload()
 }
 

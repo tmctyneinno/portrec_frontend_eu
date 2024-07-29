@@ -49,10 +49,10 @@ const isSaving = ref(false)
 
 function clickSave() {
 
-    if (!useFxn.isOnline()) {
-        useFxn.toastShort('You are offline')
-        return
-    }
+    // if (!useFxn.isOnline()) {
+    //     useFxn.toastShort('You are offline')
+    //     return
+    // }
 
     isSaving.value = true
     save()

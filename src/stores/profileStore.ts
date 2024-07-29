@@ -6,14 +6,17 @@ import api from '@/stores/Helpers/axios'
 export const useProfileStore = defineStore('profileStore', () => {
     const token: any = useStorage('protrec_$authTkn', '', localStorage)
     const userType: any = useStorage('protrec_$accType', '', localStorage)
-    const profile: any = useStorage('protrec_$user_profile', null, sessionStorage)
-    // const data = ref<any>(null)
+    const userData: any = useStorage('protrec_$user_profile', null, sessionStorage)
     const avatar = ref<string>('')
 
     function logout() {
         token.value = '';
         userType.value = '';
-        profile.value = null;
+        userData.value = null;
+        console.log(token);
+        console.log(userType.value);
+        console.log(userData.value);
+
     }
 
     async function getProfile(type = 'user') {
@@ -21,7 +24,7 @@ export const useProfileStore = defineStore('profileStore', () => {
             const resp = type == 'user' ? await api.userProfile() : await api.recruiterProfile();
             console.log(resp);
             if (resp.status === 201) {
-                profile.value = JSON.stringify(resp.data.body)
+                userData.value = JSON.stringify(resp.data.body)
                 avatar.value = resp.data.body.profile_pic ? resp.data.body.profile_pic.image : 'https://via.placeholder.com/150'
                 // console.log('profile', JSON.parse(profile.value));
             }
@@ -31,7 +34,8 @@ export const useProfileStore = defineStore('profileStore', () => {
         }
     }
 
-    const data = computed(() => JSON.parse(profile.value))
+    const data = computed(() => JSON.parse(userData.value))
+    const profile = computed(() => data.value?.profile)
 
     return {
         token,
@@ -39,6 +43,7 @@ export const useProfileStore = defineStore('profileStore', () => {
         data,
         avatar,
         logout,
-        getProfile
+        getProfile,
+        profile
     }
 })

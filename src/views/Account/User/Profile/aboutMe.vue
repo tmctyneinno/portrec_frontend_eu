@@ -11,8 +11,8 @@
                 </span>
             </div>
             <div class="card-body small">
-                <p v-if="profileStore.data && profileStore.data.about_me">
-                    <span v-html="profileStore.data.about_me"></span>
+                <p v-if="profileStore.data && profile.about_me">
+                    <span v-html="profile.about_me"></span>
                 </p>
                 <p v-else class="text-muted2">
                     Pls add information about yourself
@@ -25,6 +25,7 @@
 <script lang="ts" setup>
 import { useProfileStore } from '@/stores/profileStore';
 import { useEditingProfileStore } from './editingProfileStore';
+import { computed } from 'vue';
 
 
 const profileStore = useProfileStore()
@@ -32,7 +33,11 @@ const editingStore = useEditingProfileStore()
 
 function saveAboutMeToStore() {
     editingStore.aboutMe.isEdit = editingStore.aboutMe.isEdit == 1 ? 2 : 1
-    editingStore.aboutMe.text = profileStore.data.about_me
+    editingStore.aboutMe.text = profile.value.about_me
 }
+
+const profile = computed(() => {
+    return profileStore.data?.profile
+})
 
 </script>

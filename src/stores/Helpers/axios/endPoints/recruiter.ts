@@ -14,7 +14,7 @@ export default {
     },
 
     recruiterUpdateProfile(data: any) {
-        return $instance.put(`recruiter/profile`, JSON.stringify(data))
+        return $instance.post(`recruiter/profile/update`, JSON.stringify(data))
     },
 
     recruiterProfilePicture(form: FormData, id?: any) {
@@ -23,7 +23,7 @@ export default {
     },
 
     recruiterPassword(data: any) {
-        return $instance.put(`/recruiter/password`, JSON.stringify(data))
+        return $instance.post(`/recruiter/password`, JSON.stringify(data))
     },
 
     recruiterMessageSend(data: any) {

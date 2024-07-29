@@ -18,7 +18,8 @@
                             </div>
                         </div>
                         <div class="col-12 ">
-                            <div class="fs-4 fw-lighter text-center mb-2">Welcom back, Dude</div>
+                            <div class="fs-4 fw-lighter text-center mb-2">Welcom back,
+                                {{ form.type == 'seeker' ? 'Dude' : 'Admin' }}</div>
 
                         </div>
 

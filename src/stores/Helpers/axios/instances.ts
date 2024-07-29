@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { type ProgressFinisher, useProgress } from '@marcoschulte/vue3-progress';
+import useFxn from "@/stores/Helpers/useFunctions";
 
 const progresses = [] as ProgressFinisher[];
 
@@ -31,6 +32,7 @@ const $instanceForm = axios.create({
 })
 
 
+
 // create interceptor for renewing token ##########################################3
 const setAuthorizationAndAddProgress = (config: any) => {
     const token = localStorage.getItem('protrec_$authTkn');
@@ -40,15 +42,20 @@ const setAuthorizationAndAddProgress = (config: any) => {
 
     progresses.push(useProgress().start());
 
+    // if (!useFxn.isOnline()) {
+    //     useFxn.toast('You are offline', 'error')
+    //     return
+    // }
+
     return config;
 };
 
 const finishProgressAndReturnResponse = (resp: any) => {
     progresses.pop()?.finish();
+
     return resp;
 }
 
-// Set interceptors
 $instance.interceptors.request.use(setAuthorizationAndAddProgress);
 $instanceForm.interceptors.request.use(setAuthorizationAndAddProgress);
 

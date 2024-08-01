@@ -5,11 +5,12 @@
                 <div class="col-12">
                     <div class="d-lg-flex justify-content-between">
                         <div class="fw-bold text-capitalize fs-5">Job Listing <br>
-                            <small class="text-muted">Showing Job statistic from
+                            <small class="text-muted">Showing Job with deadline from
                                 {{ dateRange ? date_display(dateRange) : '' }}</small>
                         </div>
 
                         <span class="float-start float-lg-end">
+                            <label class="small">Filter by deadline</label>
                             <VueDatePicker class="fw-bold" disable-year-select :format="date_display" range
                                 multi-calendars :clearable="false" :max-date="new Date()" :enable-time-picker="false"
                                 auto-apply v-model="dateRange">
@@ -21,8 +22,8 @@
         </div>
 
         <div class="col-12">
-            <EasyDataTable v-model:items-selected="itemsSelected" alternating :headers="tableHeader"
-                :items="appliedHistory" :search-value="searchTerm" buttons-pagination>
+            <EasyDataTable alternating :headers="tableHeader" :items="appliedHistory" :search-value="searchTerm"
+                buttons-pagination>
 
                 <template #header="header">
                     <span class="fw-bold text-muted">{{ header.text }}</span>
@@ -47,7 +48,7 @@
 
                 <template #item-action="item">
                     <button class="btn btn-link action-btn text-decoration-none btn-sm p-1 px-2 ">
-                        ...
+                        {{ item.id }}...
                     </button>
                 </template>
 
@@ -65,6 +66,7 @@ import { useDateFormat } from '@vueuse/core';
 import { onMounted, ref } from 'vue';
 import useFxn from '@/stores/Helpers/useFunctions'
 import { useRecruiterCommonStore } from './RecruiterCommonStore';
+import api from '@/stores/Helpers/axios';
 
 const recruiterCommonStore = useRecruiterCommonStore()
 
@@ -72,7 +74,15 @@ const profileStore = useProfileStore()
 onMounted(() => {
     console.log(profileStore.data);
     setDateRange()
+    getJobsList()
 })
+
+
+async function getJobsList() {
+    const resp = await api.recruiterJobsList()
+    console.log(resp, 'jobs recruuterrrrr');
+
+}
 
 const dateRange = ref();
 
@@ -93,19 +103,19 @@ function setDateRange() {
 
 // table
 const searchTerm = ref("");
-const itemsSelected = ref([]);
+// const itemsSelected = ref([]);
 const tableHeader = ref([
     { text: "Roles", value: "name", sortable: true, },
     { text: "Status", value: "status", sortable: true },
     { text: "Date Posted", value: "stage", sortable: true },
-    { text: "Due Date", value: "date_applied", sortable: true },
+    { text: "Due Date", value: "deadline", sortable: true },
     { text: "Job Type", value: "role", sortable: true },
     { text: "Applicants", value: "role", sortable: true },
-    { text: "Score", value: "score", sortable: true },
+    // { text: "Score", value: "score", sortable: true },
     { text: "", value: "action" },
 ]);
-
-const appliedHistory = ref([{
+const appliedHistory = ref([])
+const appliedHistory_ = ref([{
     id: 1,
     name: 'Social Media Assistant',
     score: 0.5,

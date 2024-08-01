@@ -29,4 +29,9 @@ export default {
     recruiterMessageSend(data: any) {
         return $instance.put(`/messages`, JSON.stringify(data))
     },
+
+
+    recruiterJobsList() {
+        return $instance.get(`recruiter/jobs/list`)
+    },
 }

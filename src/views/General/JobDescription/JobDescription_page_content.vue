@@ -57,7 +57,7 @@
             </div>
           </div>
 
-          <div v-for="(qualification, i) in  JSON.parse(currentJob.other_qualifications ?? '[]')" :key="i" class="py-3">
+          <div v-for="(qualification, i) in JSON.parse(currentJob.other_qualifications ?? '[]')" :key="i" class="py-3">
             <h4 class="fw-bold">{{ qualification.title }}</h4>
             <ul class="list-group list-group-flush">
               <li v-for="(description, d) in qualification.descriptions" :key="d" class="list-group-item border-0 px-0">
@@ -221,15 +221,14 @@ const profileStore = useProfileStore()
 watchEffect(async () => {
   loading.value = true
   await job.currentJobQuery(route.params.id)
+  if (!currentJob.value.title) router.back()
   getSimilarJobs()
-
-
 })
 
 onBeforeMount(() => {
   // redirect to account page if loggged in
-  if (profileStore.userType) {
-    router.replace({ path: `/${profileStore.userType}/job-description/${route.params.id}` })
+  if (profileStore.userType == 'user') {
+    router.replace({ path: `/user/job-description/${route.params.id}` })
   }
 })
 

@@ -1,4 +1,3 @@
-
 <template>
     <div class="section-panel min-vh-100">
         <div class="container">
@@ -109,5 +108,3 @@ const dataList: any = [
     background-color: var(--theme-color2-soft);
 }
 </style>
-
-

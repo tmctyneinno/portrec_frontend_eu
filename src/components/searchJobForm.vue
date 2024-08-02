@@ -77,12 +77,12 @@ onMounted(async () => {
 
 async function searchJobs() {
 
-    if (!useFxn.isOnline()) {
-        useFxn.toastShort('You are offline!')
-        return
-    }
+    // if (!useFxn.isOnline()) {
+    //     useFxn.toastShort('You are offline!')
+    //     return
+    // }
 
-    if (jobsStore.search.title && jobsStore.search.location) {
+    if (jobsStore.search.title) {
         formIsSearcing.value = true
 
         try {

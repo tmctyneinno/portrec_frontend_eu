@@ -393,6 +393,11 @@ input[type="radio"]:checked+label:before {
   /* background-color: #fff !important; */
 }
 
+.vs__dropdown-menu {
+  z-index: 9999 !important;
+  text-transform: capitalize;
+}
+
 
 
 

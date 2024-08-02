@@ -78,8 +78,8 @@
                                     </div>
                                     <div class="xsmall">
                                         Showing page <span class="fw-bold">{{ pagination.currentPage }}/ {{
-        pagination.totalPages
-    }}</span>
+                                            pagination.totalPages
+                                            }}</span>
                                         of <span class="fw-bold">{{ pagination.totalRecords }}</span> results
                                     </div>
                                 </div>
@@ -119,7 +119,7 @@
                                 </div>
                             </div>
                             <div v-else>
-                                <noDataShowVue />
+                                <noDataShowVue text="" />
                             </div>
                         </div>
                     </div>

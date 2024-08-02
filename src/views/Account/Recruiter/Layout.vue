@@ -18,12 +18,17 @@ import sideBar from '@/components/Accounts/sideBar.vue'
 import topNav from '@/components/Accounts/topNav.vue'
 import { useProfileStore } from '@/stores/profileStore';
 import { onMounted } from 'vue';
-import jobPosttingModal from './jobPostingModal.vue'
+import jobPosttingModal from './JobPosting/jobPostingModal.vue'
+import { useRecruiterCommonStore } from './RecruiterCommonStore';
 
 const profileStore = useProfileStore()
+const recruiterStore = useRecruiterCommonStore()
 
 onMounted(async () => {
     await profileStore.getProfile('recruiter')
+    await recruiterStore.loadJobPostingDropdowns()
+    console.log(recruiterStore.jobPostingDropdowns);
+
 })
 
 </script>

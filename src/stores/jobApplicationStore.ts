@@ -42,7 +42,7 @@ export const useJobApplicationStore = defineStore('jobApplicationStore', () => {
             // currentJob.value = [];
             const resp = await api.jobDetails(id)
             if (resp.status == 200)
-                currentJob.value = resp.data.body
+                currentJob.value = resp?.data?.body ?? []
         } catch (error) {
             console.log(error);
         }

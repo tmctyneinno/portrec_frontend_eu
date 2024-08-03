@@ -475,7 +475,7 @@
 
                         <button @click="submitJobPosting" v-if="jobPosting.stage == 3" type="button"
                             class="btn btn-primary rounded-0">
-                            Post Job
+                            {{ jobPosting.editingId ? 'Update Job' : 'Post Job' }}
                         </button>
 
 
@@ -591,8 +591,8 @@ const stepIsComplete = computed(() => {
 
 
 function submitJobPosting() {
-    const obj = { ...form.value }
-    const validWhoWeAre = obj.temp_niceToHave.filter((x: any) => x.descriptions.trim() !== '')
+    const obj: any = { ...form.value }
+    const validWhoWeAre = obj.temp_WhoYouAre.filter((x: any) => x.descriptions.trim() !== '')
     const validResposibilities = obj.temp_responsibilities.filter((x: any) => x.descriptions.trim() !== '')
     const validNiceToHave = obj.temp_niceToHave.filter((x: any) => x.descriptions.trim() !== '')
     const other_qualifications: any = [];
@@ -600,21 +600,21 @@ function submitJobPosting() {
     if (validResposibilities.length) {
         other_qualifications.push({
             title: 'Responsibilities',
-            descriptions: [validResposibilities.map((x: { descriptions: any; }) => x.descriptions).toString()]
+            descriptions: validResposibilities.map((x: { descriptions: any; }) => x.descriptions)
         })
     }
 
     if (validNiceToHave.length) {
         other_qualifications.push({
-            title: 'Nice-To-Haves',
-            descriptions: [validNiceToHave.map((x: { descriptions: any; }) => x.descriptions).toString()]
+            title: 'Nice_To_Haves',
+            descriptions: validNiceToHave.map((x: { descriptions: any; }) => x.descriptions)
         })
     }
 
     if (validWhoWeAre.length) {
         other_qualifications.push({
-            title: 'Who We Are',
-            descriptions: [validWhoWeAre.map((x: { descriptions: any; }) => x.descriptions).toString()]
+            title: 'Who_We_Are',
+            descriptions: validWhoWeAre.map((x: { descriptions: any; }) => x.descriptions)
         })
     }
 
@@ -625,8 +625,11 @@ function submitJobPosting() {
     obj.deadline = new Date(obj.deadline)
     obj.responsibilities = 'resonsibilities'
     obj.total_applied = '0'
-    console.log(obj);
-    saveFormToApi(obj)
+
+    if (jobPosting.value.editingId)
+        updateFormToApi(obj)
+    else
+        saveFormToApi(obj)
 }
 
 async function saveFormToApi(obj: any) {
@@ -635,6 +638,26 @@ async function saveFormToApi(obj: any) {
         const resp = await api.recruiterJobPosting(obj)
         if (resp.status == 201) {
             useFxn.toast('Job posted', 'success')
+            jobPosting.value.jobListUpdated = !jobPosting.value.jobListUpdated
+        }
+    } catch (error) {
+        console.log(error);
+        useFxn.toast('Sorry, Something Went Wrong', 'error')
+    }
+    finally {
+        jobPosting.value.modal = !jobPosting.value.modal
+        form.value.isSaving = false;
+    }
+
+}
+
+async function updateFormToApi(obj: any) {
+    form.value.isSaving = true;
+    try {
+        const resp = await api.recruiterJobPostingUpdate(jobPosting.value.editingId, obj)
+        if (resp.status == 201) {
+            useFxn.toast('Job updated', 'success')
+            jobPosting.value.jobListUpdated = !jobPosting.value.jobListUpdated
         }
     } catch (error) {
         console.log(error);

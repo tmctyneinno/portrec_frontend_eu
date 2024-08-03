@@ -12,8 +12,8 @@
                         <span class="float-start float-lg-end">
                             <label class="small">Filter by deadline</label>
                             <VueDatePicker class="fw-bold" disable-year-select :format="date_display" range
-                                multi-calendars :clearable="false" :max-date="new Date()" :enable-time-picker="false"
-                                auto-apply v-model="dateRange">
+                                multi-calendars :clearable="false" :enable-time-picker="false" auto-apply
+                                v-model="dateRange">
                             </VueDatePicker>
                         </span>
                     </div>
@@ -41,7 +41,7 @@
 
 
                 <template #item-action="item">
-                    <button @click="editJob(item.id)"
+                    <button @click="editJob(item)"
                         class="btn btn-sm btn-primary-outline  text-decoration-none btn-sm p-1 px-2 me-3 ">
                         <i class="bi bi-pencil"></i>
                     </button>
@@ -64,11 +64,11 @@ import { useProfileStore } from '@/stores/profileStore';
 import { useDateFormat } from '@vueuse/core';
 import { onMounted, ref, watch } from 'vue';
 import useFxn from '@/stores/Helpers/useFunctions'
-// import { useRecruiterCommonStore } from './RecruiterCommonStore';
+import { useRecruiterCommonStore } from './RecruiterCommonStore';
 import api from '@/stores/Helpers/axios';
 import type { ServerOptions } from 'vue3-easy-data-table';
 
-// const recruiterCommonStore = useRecruiterCommonStore()
+const recruiterCommonStore = useRecruiterCommonStore()
 
 const profileStore = useProfileStore()
 onMounted(() => {
@@ -128,6 +128,10 @@ async function getJobsList() {
 
 }
 
+watch(() => recruiterCommonStore.jobPosting.jobListUpdated, () => {
+    getJobsList()
+})
+
 watch(serverOptions, (value: any) => { getJobsList(); }, { deep: true });
 watch(dateRange, (value: any) => { getJobsList(); }, { deep: true });
 
@@ -148,8 +152,8 @@ const tableHeader = ref([
 ]);
 
 
-function editJob(id: any) {
-    // 
+function editJob(job: any) {
+    recruiterCommonStore.editJobOpening(job)
 }
 
 function deleteJob(id: any) {

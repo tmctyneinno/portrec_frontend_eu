@@ -67,9 +67,8 @@ defineProps(['userType'])
 // })
 
 function openJobPostingModal() {
+    recruiterCommonStore.resetJobPostingForm()
     recruiterCommonStore.jobPosting.modal = !recruiterCommonStore.jobPosting.modal
-    console.log(recruiterCommonStore.jobPosting.modal);
-
 }
 </script>
 

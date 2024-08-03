@@ -10,3 +10,29 @@ export interface ApplyJobInterface {
     answers: any[]
 }
 
+export interface JobOpening {
+    job_level_id: string | number,
+    job_function_id: string | number,
+    industry_id: string | number,
+    job_type_id: string | number,
+    title: string,
+    required_skills: [],
+    min_salary: string | number,
+    max_salary: string | number,
+    deadline: Date,
+    location: string,
+
+    description: string,
+    qualifications: null,
+    experience: string,
+    other_qualifications: string,
+    responsibilities: string,
+    capacity: string,
+    benefits: any[],
+
+    temp_responsibilities: any[],
+    temp_WhoYouAre: any[],
+    temp_niceToHave: any[],
+    isSaving: Boolean
+}
+

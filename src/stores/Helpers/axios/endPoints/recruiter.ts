@@ -39,6 +39,10 @@ export default {
         return $instance.post(`recruiter/job/post`, JSON.stringify(job))
     },
 
+    recruiterJobPostingUpdate(id: any, job: any) {
+        return $instance.post(`recruiter/job/update/${id}`, JSON.stringify(job))
+    },
+
     recruiterJobDelete(id: any) {
         return $instance.delete(`recruiter/job/delete/${id}`,)
     }

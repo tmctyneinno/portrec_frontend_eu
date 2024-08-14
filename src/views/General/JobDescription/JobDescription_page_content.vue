@@ -58,7 +58,7 @@
           </div>
 
           <div v-for="(qualification, i) in JSON.parse(currentJob.other_qualifications ?? '[]')" :key="i" class="py-3">
-            <h4 class="fw-bold">{{ qualification.title }}</h4>
+            <h4 class="fw-bold">{{ qualification.title.replaceAll('_', ' ') }}</h4>
             <ul class="list-group list-group-flush">
               <li v-for="(description, d) in qualification.descriptions" :key="d" class="list-group-item border-0 px-0">
                 <i class="bi bi-check-circle text-danger"></i>

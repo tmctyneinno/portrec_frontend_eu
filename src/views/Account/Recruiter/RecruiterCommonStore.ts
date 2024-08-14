@@ -20,13 +20,28 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
         jobListUpdated: false
     })
 
-    const jobPostingDropdowns = reactive<any>({
+    const jobPostingDropdowns = reactive<{
+        jobFunctions: any[],
+        jobIndustries: any[],
+        jobTypes: any[],
+        jobLevels: any[],
+        skills: any[],
+    }>({
         jobFunctions: [],
         jobIndustries: [],
         jobTypes: [],
         jobLevels: [],
         skills: [],
     })
+
+
+    const companyProfile = reactive({
+        profileEditModal: false,
+        socialLinksEditModal: false,
+        industryEditModal: false,
+        data: null,
+    })
+
 
 
     async function loadJobPostingDropdowns() {
@@ -156,6 +171,8 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
         editJobOpening,
         resetJobPostingForm,
         jobPostingDropdowns,
-        jobPostingFields
+        jobPostingFields,
+
+        companyProfile
     }
 })

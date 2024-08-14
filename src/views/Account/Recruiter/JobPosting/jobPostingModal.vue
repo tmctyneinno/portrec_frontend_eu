@@ -442,7 +442,7 @@
                                                             </span>
                                                         </div>
                                                         <div class="fw-bold">{{ x.title }}</div>
-                                                        {{ x.descriptions }}
+                                                        {{ x.description }}
                                                     </div>
                                                 </div>
                                             </div>
@@ -548,7 +548,7 @@ function pushBenefits() {
         // @ts-ignore
         form.value.benefits.push({
             title: benefitsForm.title,
-            descriptions: benefitsForm.description
+            description: benefitsForm.description
         })
 
     benefitsForm.description = benefitsForm.title = ''

@@ -7,34 +7,34 @@
             <h1 class="large-coy-name"> Nomad </h1>
             <router-link to="#" class="theme-color">https://nomad.com</router-link>
             <div class="row g-3 mt-2">
-                <div class="col-6 col-lg-3 d-flex align-items-center">
+                <div class="col-6 col-lg-4 d-flex align-items-center">
                     <i class="bi bi-fire info-icon me-2"></i>
                     <div>
                         <div clas="text-muted">Founded</div>
                         <div class="fw-bold lh-1">July 31, 2011</div>
                     </div>
                 </div>
-                <div class="col-6 col-lg-3 d-flex align-items-center">
+                <div class="col-6 col-lg-4 d-flex align-items-center">
                     <i class="bi bi-people info-icon me-2"></i>
                     <div>
                         <div clas="text-muted ">Employees</div>
                         <div class="fw-bold lh-1">4000+</div>
                     </div>
                 </div>
-                <div class="col-6 col-lg-3 d-flex align-items-center">
+                <div class="col-6 col-lg-4 d-flex align-items-center">
                     <i class="bi bi-geo-alt info-icon me-2"></i>
                     <div>
                         <div clas="text-muted ">Location</div>
                         <div class="fw-bold lh-1">20 countries</div>
                     </div>
                 </div>
-                <div class="col-6 col-lg-3 d-flex align-items-center">
+                <!-- <div class="col-6 col-lg-3 d-flex align-items-center">
                     <i class="bi bi-buildings info-icon me-2"></i>
                     <div>
                         <div clas="text-muted">Industry</div>
                         <div class="fw-bold lh-1">Social & Non-Profit</div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -44,8 +44,23 @@
             <div class="card border-0 mb-3">
                 <div class="card-body">
                     <h5 class="card-title bg-transparent border-0 fw-bold">
+                        Industry
+                        <span @click="openEditModal('industry')"
+                            class="float-end floated-btn d-flex-center cursor-pointer">
+                            <i class="bi bi-pencil-square"></i>
+                        </span>
+                    </h5>
+                    <div class="card-text">
+                        Social & Non-Profit
+                    </div>
+                </div>
+            </div>
+            <div class="card border-0 mb-3">
+                <div class="card-body">
+                    <h5 class="card-title bg-transparent border-0 fw-bold">
                         Company Profile
-                        <span class="float-end floated-btn d-flex-center">
+                        <span @click="openEditModal('profile')"
+                            class="float-end floated-btn d-flex-center cursor-pointer">
                             <i class="bi bi-pencil-square"></i>
                         </span>
                     </h5>
@@ -65,12 +80,11 @@
                 <div class="card-body">
                     <h5 class="card-title bg-transparent border-0 fw-bold">
                         Contact
-                        <span class="float-end floated-btn d-flex-center">
+                        <span @click="openEditModal('links')"
+                            class="float-end floated-btn d-flex-center cursor-pointer">
                             <i class="bi bi-pencil-square"></i>
                         </span>
-                        <span class="float-end floated-btn d-flex-center me-2">
-                            <i class="bi bi-plus-lg"></i>
-                        </span>
+
                     </h5>
                     <div class="card-text mt-3">
                         <div class="row g-3">
@@ -103,7 +117,7 @@
                 </div>
             </div>
             <hr>
-            <div class="card card border-0">
+            <div class="card card border-0 d-none">
                 <h5 class="card-title bg-transparent border-0 fw-bold">
                     Open Positions
                     <router-link to="#" class="float-end theme-color small">
@@ -163,9 +177,35 @@
             </div>
         </div>
     </div>
+
+
+    <!-- modals -->
+    <profileEditModal />
+    <SocialLinkEditModal />
+    <IndustryEditModal />
 </template>
 <script lang="ts" setup>
 import jobsDisplay from '@/components/jobsDisplay.vue';
+import { useRecruiterCommonStore } from '../RecruiterCommonStore';
+import { storeToRefs } from 'pinia';
+
+import profileEditModal from './modals/profileEditModal.vue';
+import SocialLinkEditModal from './modals/socialLinkEditModal.vue';
+import IndustryEditModal from './modals/industryEditModal.vue';
+
+const recruiterCommonStore = useRecruiterCommonStore()
+const { companyProfile: store } = storeToRefs(recruiterCommonStore)
+
+function openEditModal(editType: 'profile' | 'industry' | 'links') {
+    if (editType == 'profile')
+        store.value.profileEditModal = !store.value.profileEditModal
+    else if (editType == 'industry')
+        store.value.industryEditModal = !store.value.industryEditModal
+    else
+        store.value.socialLinksEditModal = !store.value.socialLinksEditModal
+}
+
+
 const job = {
     title: 'Frontend Engineer',
     company: {

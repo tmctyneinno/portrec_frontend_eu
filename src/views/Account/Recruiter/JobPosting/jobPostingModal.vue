@@ -297,27 +297,21 @@
                                         <div v-for="(item, index) in form.temp_responsibilities" :key="index"
                                             class="row g-3 mb-2 ">
 
-                                            <!-- <div class="row g-3"> -->
-                                            <div class="col-md-11">
-                                                <textarea v-model="item.descriptions" class="form-control rounded-0"
-                                                    rows="2" placeholder="enter responsibility"></textarea>
+                                            <div class="col-12">
+                                                <div class="input-group">
+                                                    <textarea v-model="item.descriptions" class="form-control rounded-0"
+                                                        rows="2" placeholder="enter responsibility"></textarea>
+                                                    <span @click="form.temp_responsibilities.splice(index, 1)"
+                                                        v-if="form.temp_responsibilities.length > 1"
+                                                        class="input-group-text cursor-pointer"><i
+                                                            class="bi bi-x-lg"></i></span>
+                                                </div>
                                             </div>
-                                            <div class="col-md-1">
-                                                <button @click="form.temp_responsibilities.splice(index, 1)"
-                                                    v-if="form.temp_responsibilities.length > 1"
-                                                    class="float-en btn btn-sm m-0 p-0 btn-link text-danger border-0">
-                                                    <i class="bi bi-x"></i>
-                                                </button>
-                                            </div>
-
-
-                                            <!-- </div> -->
                                         </div>
                                         <button @click="addNewRecord('temp_responsibilities')"
-                                            style="font-size: 11px;border-style: dotted;"
-                                            class="btn btn-ligh border-0 fw-bold theme-color w-100 ">
-                                            click here add to new line
-                                            <i class="bi bi-plus-circle-dotted"></i>
+                                            class="float-end btn btn-ligh btn-sm border-0 fw-bold theme-color ">
+                                            New field
+                                            <i class="bi bi-plus-lg"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -333,27 +327,23 @@
                                         <div v-for="(item, index) in form.temp_WhoYouAre" :key="index"
                                             class="row g-3 mb-2 ">
 
-                                            <!-- <div class="row g-3"> -->
-                                            <div class="col-md-11">
-                                                <textarea v-model="item.descriptions" class="form-control rounded-0"
-                                                    rows="2" placeholder="enter here..."></textarea>
-                                            </div>
-                                            <div class="col-md-1">
-                                                <button @click="form.temp_WhoYouAre.splice(index, 1)"
-                                                    v-if="form.temp_WhoYouAre.length > 1"
-                                                    class="float-en btn btn-sm m-0 p-0 btn-link text-danger border-0">
-                                                    <i class="bi bi-x"></i>
-                                                </button>
+
+                                            <div class="col-12">
+                                                <div class="input-group">
+                                                    <textarea v-model="item.descriptions" class="form-control rounded-0"
+                                                        rows="2" placeholder="enter here.."></textarea>
+                                                    <span @click="form.temp_WhoYouAre.splice(index, 1)"
+                                                        v-if="form.temp_WhoYouAre.length > 1"
+                                                        class="input-group-text cursor-pointer"><i
+                                                            class="bi bi-x-lg"></i></span>
+                                                </div>
                                             </div>
 
-
-                                            <!-- </div> -->
                                         </div>
                                         <button @click="addNewRecord('temp_WhoYouAre')"
-                                            style="font-size: 11px;border-style: dotted;"
-                                            class="btn btn-ligh border-0 fw-bold theme-color w-100 ">
-                                            click here add to new line
-                                            <i class="bi bi-plus-circle-dotted"></i>
+                                            class="btn btn-ligh btn-sm border-0 fw-bold theme-color float-end ">
+                                            New field
+                                            <i class="bi bi-plus-lg"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -370,27 +360,54 @@
                                         <div v-for="(item, index) in form.temp_niceToHave" :key="index"
                                             class="row g-3 mb-2 ">
 
-                                            <!-- <div class="row g-3"> -->
-                                            <div class="col-md-11">
-                                                <textarea v-model="item.descriptions" class="form-control rounded-0"
-                                                    rows="2" placeholder="enter here..."></textarea>
-                                            </div>
-                                            <div class="col-md-1">
-                                                <button @click="form.temp_niceToHave.splice(index, 1)"
-                                                    v-if="form.temp_niceToHave.length > 1"
-                                                    class="float-en btn btn-sm m-0 p-0 btn-link text-danger border-0">
-                                                    <i class="bi bi-x"></i>
-                                                </button>
+
+                                            <div class="col-12">
+                                                <div class="input-group">
+                                                    <textarea v-model="item.descriptions" class="form-control rounded-0"
+                                                        rows="2" placeholder="enter here.."></textarea>
+                                                    <span @click="form.temp_niceToHave.splice(index, 1)"
+                                                        v-if="form.temp_niceToHave.length > 1"
+                                                        class="input-group-text cursor-pointer"><i
+                                                            class="bi bi-x-lg"></i></span>
+                                                </div>
                                             </div>
 
-
-                                            <!-- </div> -->
                                         </div>
                                         <button @click="addNewRecord('temp_niceToHave')"
-                                            style="font-size: 11px;border-style: dotted;"
-                                            class="btn btn-ligh border-0 fw-bold theme-color w-100 ">
-                                            click here add to new line
-                                            <i class="bi bi-plus-circle-dotted"></i>
+                                            class="btn btn-ligh btn-sm border-0 fw-bold theme-color float-end ">
+                                            New field
+                                            <i class="bi bi-plus-lg"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row g-3">
+                                    <div class="col-md-5">
+                                        <strong>Questions</strong>
+                                        <div class="text-muted small">
+                                            Outline questions that will be asked when people want to apply for this Job.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div v-for="(item, index) in form.temp_questions" :key="index"
+                                            class="row g-3 mb-2 ">
+
+                                            <div class="col-12">
+                                                <div class="input-group">
+                                                    <textarea v-model="item.questions" class="form-control rounded-0"
+                                                        rows="2" placeholder="enter question.."></textarea>
+                                                    <span @click="form.temp_questions.splice(index, 1)"
+                                                        v-if="form.temp_questions.length > 1"
+                                                        class="input-group-text cursor-pointer"><i
+                                                            class="bi bi-x-lg"></i></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <button @click="addNewRecord('temp_questions')"
+                                            class="btn btn-ligh btn-sm border-0 fw-bold theme-color float-end ">
+                                            New field
+                                            <i class="bi bi-plus-lg"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -527,10 +544,15 @@ const skillsDropdown = computed(() => {
 
 // step2 #####################################
 function addNewRecord(prop: string) {
-    //@ts-ignore
-    form.value[prop].push({
-        descriptions: '',
-    })
+    if (prop !== 'temp_questions') {
+        //@ts-ignore
+        form.value[prop].push({
+            descriptions: '',
+        })
+    }
+    else {
+        form.value.temp_questions.push({ questions: '' })
+    }
 }
 
 
@@ -595,6 +617,7 @@ function submitJobPosting() {
     const validWhoWeAre = obj.temp_WhoYouAre.filter((x: any) => x.descriptions.trim() !== '')
     const validResposibilities = obj.temp_responsibilities.filter((x: any) => x.descriptions.trim() !== '')
     const validNiceToHave = obj.temp_niceToHave.filter((x: any) => x.descriptions.trim() !== '')
+    const validQuestions = obj.temp_questions.filter((x: any) => x.questions.trim() !== '')
     const other_qualifications: any = [];
 
     if (validResposibilities.length) {
@@ -618,18 +641,18 @@ function submitJobPosting() {
         })
     }
 
+
     obj.other_qualifications = JSON.stringify(other_qualifications)
     obj.benefits = JSON.stringify(obj.benefits)
     obj.required_skills = JSON.stringify(obj.required_skills)
     obj.company_id = profileStore.profile.company_id
     obj.deadline = new Date(obj.deadline)
     obj.responsibilities = 'resonsibilities'
-    obj.total_applied = '0'
+    obj.questions = validQuestions.length ? JSON.stringify(validQuestions) : null;
 
-    if (jobPosting.value.editingId)
-        updateFormToApi(obj)
-    else
-        saveFormToApi(obj)
+
+    if (jobPosting.value.editingId) updateFormToApi(obj)
+    else saveFormToApi(obj)
 }
 
 async function saveFormToApi(obj: any) {

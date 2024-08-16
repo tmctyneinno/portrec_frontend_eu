@@ -451,3 +451,23 @@ input[type="radio"]:checked+label:before {
   --vc-dot-bg: var(--theme-color) !important;
   --vc-bar-bg: var(--theme-color) !important;
 }
+
+/* easytable loader */
+.lds-ring div {
+  border-color: var(--theme-color) transparent transparent transparent !important;
+}
+
+
+.vue3-easy-data-table__body td {
+  border: none !important;
+}
+
+.vue3-easy-data-table__main.fixed-header th {
+  text-transform: uppercase;
+  padding-block: 10px !important;
+}
+
+.vue3-easy-data-table__footer {
+  border: none !important;
+  padding-block: 30px !important;
+}

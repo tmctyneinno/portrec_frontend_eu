@@ -29,10 +29,13 @@ export interface JobOpening {
     responsibilities: string,
     capacity: string,
     benefits: any[],
+    questions: string | null,
 
+    status?: string,
     temp_responsibilities: any[],
     temp_WhoYouAre: any[],
     temp_niceToHave: any[],
+    temp_questions: any[],
     isSaving: Boolean
 }
 

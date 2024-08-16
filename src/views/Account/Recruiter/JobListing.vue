@@ -2,32 +2,34 @@
     <div class="row g-3 m-0 pb-5">
         <div class="col-12">
             <div class="row g-3">
-                <div class="col-12">
-                    <div class="d-lg-flex justify-content-between">
-                        <div class="fw-bold text-capitalize fs-5">Job Listing <br>
-                            <small class="text-muted">Showing Job with deadline from
-                                {{ dateRange ? date_display(dateRange) : '' }}</small>
+                <div class="col-lg-8">
+                    <div>
+                        <div class="fw-bold text-capitalize fs-5">Job Listing</div>
+                        <div class="text-muted small">Showing jobs with deadline from
+                            <span class="fw-bolder">{{ dateRange ? date_display(dateRange) : '' }}</span>
                         </div>
-
-                        <span class="float-start float-lg-end">
-                            <label class="small">Filter by deadline</label>
-                            <VueDatePicker class="fw-bold" disable-year-select :format="date_display" range
-                                multi-calendars :clearable="false" :enable-time-picker="false" auto-apply
-                                v-model="dateRange">
-                            </VueDatePicker>
-                        </span>
                     </div>
+                </div>
+                <div class="col-lg-4">
+                    <label class="small">Filter by deadline</label>
+                    <!-- disable-year-select -->
+                    <VueDatePicker class="fw-bold" :format="date_display" range multi-calendars :clearable="false"
+                        :enable-time-picker="false" auto-apply v-model="dateRange">
+                    </VueDatePicker>
+                </div>
+
+                <div class="col-md-4" v-if="items.length">
+                    <input v-model="searchTerm" type="text" class="form-control rounded-0" placeholder="search title..">
                 </div>
             </div>
         </div>
 
         <div class="col-12">
-            <EasyDataTable :loading="itemsLoading" alternating :headers="tableHeader" :items="items"
-                :search-value="searchTerm" buttons-pagination v-model:server-options="serverOptions"
-                :server-items-length="total">
+            <EasyDataTable show-index :loading="itemsLoading" alternating :headers="tableHeader" :items="items"
+                buttons-pagination v-model:server-options="serverOptions" :server-items-length="total">
 
                 <template #header="header">
-                    <span class="fw-bold text-muted">{{ header.text }}</span>
+                    <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
                 </template>
 
                 <template #item-created_at="item">
@@ -42,11 +44,11 @@
 
                 <template #item-action="item">
                     <button @click="editJob(item)"
-                        class="btn btn-sm btn-primary-outline  text-decoration-none btn-sm p-1 px-2 me-3 ">
+                        class="btn btn-sm btn-primary-outline border-0 rounded-5  text-decoration-none btn-sm p-1 px-2 me-3 ">
                         <i class="bi bi-pencil"></i>
                     </button>
                     <button @click="deleteJob(item.id)"
-                        class="btn btn-sm btn-outline-danger  text-decoration-none btn-sm p-1 px-2 ">
+                        class="btn btn-sm btn-outline-danger border-0 rounded-5  text-decoration-none btn-sm p-1 px-2 ">
                         <i class="bi bi-trash3"></i>
                     </button>
                 </template>
@@ -81,14 +83,14 @@ onMounted(() => {
 const dateRange = ref();
 
 const date_display = (date: Date[]) => {
-    const dateMe1 = useDateFormat(date[0], 'MMM D')
-    const dateMe2 = useDateFormat(date[1], 'MMM D')
+    const dateMe1 = useDateFormat(date[0], 'MMM D, YYYY')
+    const dateMe2 = useDateFormat(date[1], 'MMM D, YYYY')
     return `${dateMe1.value} - ${dateMe2.value}`;
 }
 
 function setDateRange() {
     const endDate = new Date();
-    const startDate = new Date(new Date().setDate(endDate.getDate() - 7));
+    const startDate = new Date(new Date().setDate(endDate.getDate() - 14));
     dateRange.value = [startDate, endDate];
 }
 
@@ -100,7 +102,7 @@ function setDateRange() {
 
 // table
 
-
+const searchTerm = ref("");
 const total = ref(0)
 const items = ref([])
 const itemsLoading = ref(true)
@@ -112,19 +114,25 @@ const serverOptions = ref<ServerOptions | any>({
 });
 
 async function getJobsList() {
-    const obj = {
-        page: serverOptions.value.page,
-        rowsPerPage: serverOptions.value.rowsPerPage,
-        search: searchTerm.value,
-        start_date: dateRange.value[0],
-        end_date: dateRange.value[1],
+    itemsLoading.value = true
+
+    try {
+        const obj = {
+            page: serverOptions.value.page,
+            rowsPerPage: serverOptions.value.rowsPerPage,
+            search: searchTerm.value,
+            start_date: dateRange.value[0],
+            end_date: dateRange.value[1],
+        }
+        const resp: any = await api.recruiterJobsList(obj)
+        const data = resp.data.body
+        total.value = resp.total
+        items.value = data.data
+        itemsLoading.value = false
+        // console.log(resp, 'jobs recruuterrrrr');
+    } catch (error) {
+        // 
     }
-    const resp: any = await api.recruiterJobsList(obj)
-    const data = resp.data.body
-    total.value = resp.total
-    items.value = data.data
-    itemsLoading.value = false
-    console.log(resp, 'jobs recruuterrrrr');
 
 }
 
@@ -132,13 +140,16 @@ watch(() => recruiterCommonStore.jobPosting.jobListUpdated, () => {
     getJobsList()
 })
 
-watch(serverOptions, (value: any) => { getJobsList(); }, { deep: true });
-watch(dateRange, (value: any) => { getJobsList(); }, { deep: true });
+watch(serverOptions, () => { getJobsList(); }, { deep: true });
+watch(dateRange, () => { serverOptions.value.page = 1; getJobsList(); }, { deep: true });
+
+const searchOnInput = useFxn.debounce(getJobsList, 300);
+watch(searchTerm, () => { serverOptions.value.page = 1; searchOnInput(); }, { deep: true });
 
 
 
 
-const searchTerm = ref("");
+
 // const itemsSelected = ref([]);
 const tableHeader = ref([
     { text: "Title", value: "title", sortable: true, },

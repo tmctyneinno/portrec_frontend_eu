@@ -12,7 +12,13 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
         currentIdShowing: ''
     })
 
-    const jobPosting = reactive({
+    const jobPosting = reactive<{
+        modal: boolean,
+        stage: number,
+        editingId: any,
+        hasLoadedDropdowns: boolean,
+        jobListUpdated: boolean
+    }>({
         modal: false,
         stage: 1,
         editingId: null,
@@ -35,7 +41,12 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
     })
 
 
-    const companyProfile = reactive({
+    const companyProfile = reactive<{
+        profileEditModal: boolean,
+        socialLinksEditModal: boolean,
+        industryEditModal: boolean,
+        data: any,
+    }>({
         profileEditModal: false,
         socialLinksEditModal: false,
         industryEditModal: false,
@@ -64,8 +75,6 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
     }
 
 
-
-
     const jobPostingFieldsEmptyState: JobOpening = {
         job_level_id: '',
         job_function_id: '',
@@ -83,15 +92,17 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
         experience: '',
         other_qualifications: '',
         responsibilities: '',
+        questions: null,
 
         capacity: '',
-        // status: '',
+        status: '',
 
         benefits: [],
 
         temp_responsibilities: [{ descriptions: '' }],
         temp_WhoYouAre: [{ descriptions: '' }],
         temp_niceToHave: [{ descriptions: '' }],
+        temp_questions: [{ questions: '' }],
         isSaving: false
     }
 
@@ -101,8 +112,7 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
 
 
     async function editJobOpening(job: any) {
-        console.log(job);
-
+        // console.log(job, 'editig');
 
         if (!jobPosting.hasLoadedDropdowns) await loadJobPostingDropdowns()
 
@@ -136,8 +146,10 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
         jobPostingFields.job_type_id = parseInt(job.job_type_id);
         jobPostingFields.title = job.title;
         jobPostingFields.required_skills = JSONrequired_skills;
-        jobPostingFields.min_salary = job.min_salary.replace(/,/g, '');
-        jobPostingFields.max_salary = job.max_salary.replace(/,/g, '');
+        if (job.min_salary)
+            jobPostingFields.min_salary = job.min_salary.replace(/,/g, '');
+        if (job.max_salary)
+            jobPostingFields.max_salary = job.max_salary.replace(/,/g, '');
         jobPostingFields.deadline = new Date(job.deadline);
         jobPostingFields.location = job.location;
 
@@ -153,6 +165,7 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
         jobPostingFields.temp_responsibilities = temp_responsibilities
         jobPostingFields.temp_WhoYouAre = temp_WhoYouAre;
         jobPostingFields.temp_niceToHave = temp_niceToHave;
+        jobPostingFields.temp_questions = job.questions;
 
         jobPosting.modal = !jobPosting.modal
 

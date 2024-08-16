@@ -145,10 +145,8 @@ async function signin() {
         const { data } = form.type == 'seeker' ? await api.userLogin(axObj) : await api.recruiterLogin(axObj)
 
         if (data.status === 200) {
-
             profile.token = data.body.token
             profile.userType = form.type == 'seeker' ? 'user' : 'recruiter';
-
             router.push({ path: `/${profile.userType}/dashboard` })
         }
     } catch (error: any) {

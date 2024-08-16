@@ -2,8 +2,11 @@ import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 import { useStorage } from '@vueuse/core'
 import api from '@/stores/Helpers/axios'
+// @ts-ignore
+import Cookies from 'js-cookie';
 
 export const useProfileStore = defineStore('profileStore', () => {
+    // const token: any = useStorage('protrec_$authTkn', '', localStorage)
     const token: any = useStorage('protrec_$authTkn', '', localStorage)
     const userType: any = useStorage('protrec_$accType', '', localStorage)
     const userData: any = useStorage('protrec_$user_profile', null, sessionStorage)
@@ -18,6 +21,11 @@ export const useProfileStore = defineStore('profileStore', () => {
         console.log(userData.value);
 
     }
+
+    // const login = (tokenStr: string) => {
+    //     Cookies.set('protrecData', tokenStr, { expires: 7 });
+    //     token.value = tokenStr;
+    // }
 
     async function getProfile(type = 'user') {
         try {

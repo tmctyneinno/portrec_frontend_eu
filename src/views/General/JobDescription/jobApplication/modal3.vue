@@ -37,11 +37,15 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useJobApplicationStore } from '@/stores/jobApplicationStore';
 import modal_template from './modal_template.vue';
 
 const store = useJobApplicationStore()
+
+onMounted(() => {
+    // if (!store.currentJob.questions.length) store.switchModal(+1)
+})
 
 const hasNotFullyAnswered = computed(() => {
     const quiz = store.currentJob.questions

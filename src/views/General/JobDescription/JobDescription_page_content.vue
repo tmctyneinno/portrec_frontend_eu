@@ -186,10 +186,10 @@
   </div>
 
   <!-- modals -->
-  <modal1 v-if="modalOpen && currentModal == 1" />
-  <modal2 v-if="modalOpen && currentModal == 2" />
-  <modal3 v-if="modalOpen && currentModal == 3" />
-  <modal4 v-if="modalOpen && currentModal == 4" />
+  <jobApplicationModal1 v-if="modalOpen && currentModal == 1" />
+  <jobApplicationModal2 v-if="modalOpen && currentModal == 2" />
+  <jobApplicationModal3 v-if="modalOpen && currentModal == 3" />
+  <jobApplicationModal4 v-if="modalOpen && currentModal == 4" />
 </template>
 
 <script setup lang="ts">
@@ -205,10 +205,10 @@ import numeral from 'numeral';
 
 import { useProfileStore } from '@/stores/profileStore';
 
-import modal1 from './jobApplication/modal1.vue';
-import modal2 from './jobApplication/modal2.vue';
-import modal3 from './jobApplication/modal3.vue';
-import modal4 from './jobApplication/modal4.vue';
+import jobApplicationModal1 from './jobApplication/modal1.vue';
+import jobApplicationModal2 from './jobApplication/modal2.vue';
+import jobApplicationModal3 from './jobApplication/modal3.vue';
+import jobApplicationModal4 from './jobApplication/modal4.vue';
 
 const job = useJobApplicationStore()
 const { currentJob, loading, modalOpen, currentModal } = storeToRefs(job)

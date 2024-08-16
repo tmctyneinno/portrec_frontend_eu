@@ -25,7 +25,7 @@
         <template #buttons>
             <div class="row">
                 <div class="col-2">
-                    <button @click="store.switchModal(-1)" type="button" class="btn btn-secondary rounded-0 w-100">
+                    <button @click="switchOrSkipModal" type="button" class="btn btn-secondary rounded-0 w-100">
                         <i class="bi bi-chevron-left"></i>
                     </button>
                 </div>
@@ -75,10 +75,11 @@ async function applyForJob() {
         newForm.append(`answers[${index}][answer]`, item.answer_text)
     });
 
-    // // Display the key/value pairs
+    // Display the key/value pairs
     // for (var pair of newForm.entries()) {
     //     console.log(pair[0] + ', ' + pair[1]);
     // }
+
 
     isApplying.value = true
     try {
@@ -94,6 +95,12 @@ async function applyForJob() {
         isApplying.value = false
         console.log(error);
     }
+}
+
+
+function switchOrSkipModal() {
+    if (!store.currentJob.questions.length) store.switchModal(-2)
+    else store.switchModal(-1)
 }
 
 </script>

@@ -34,7 +34,8 @@ export const useJobApplicationStore = defineStore('jobApplicationStore', () => {
     }
 
     function switchModal(num: number): void {
-        currentModal.value = (0 > num) ? currentModal.value - 1 : currentModal.value + 1;
+        currentModal.value += num
+        // currentModal.value = (0 > num) ? currentModal.value - 1 : currentModal.value + 1;
     }
 
     async function currentJobQuery(id: any) {

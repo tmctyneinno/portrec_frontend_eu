@@ -57,7 +57,7 @@
                         class="btn btn-outline-dark rounded-0 w-100">Back</button>
                 </div>
                 <div class="col-6">
-                    <button :disabled="!store.applyData.resume" @click="store.switchModal(+1)" type="button"
+                    <button :disabled="!store.applyData.resume" @click="switchOrSkipModal" type="button"
                         class="btn btn-primary rounded-0 w-100">Next</button>
                 </div>
             </div>
@@ -89,6 +89,11 @@ const { getRootProps, getInputProps } = useDropzone({
         console.log(rejectReasons);
     },
 });
+
+function switchOrSkipModal() {
+    if (!store.currentJob.questions.length) store.switchModal(+2)
+    else store.switchModal(+1)
+}
 
 </script>
 

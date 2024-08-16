@@ -4,8 +4,8 @@ import { useProfileStore } from '@/stores/profileStore';
 
 const initGuard = (to, from, next) => {
     const profileStore = useProfileStore();
-    if (profileStore.userType) {
-        next({ path: `/${profileStore.userType}/dashboard` });
+    if (profileStore.isLoggedIn) {
+        next({ path: `/${profileStore.getUserType}/dashboard` });
     }
     else {
         next()

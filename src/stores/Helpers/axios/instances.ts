@@ -1,6 +1,8 @@
 import axios from 'axios'
 import { type ProgressFinisher, useProgress } from '@marcoschulte/vue3-progress';
-import useFxn from "@/stores/Helpers/useFunctions";
+// import useFxn from "@/stores/Helpers/useFunctions";
+// @ts-ignore
+import Cookies from 'js-cookie';
 
 const progresses = [] as ProgressFinisher[];
 
@@ -35,7 +37,7 @@ const $instanceForm = axios.create({
 
 // create interceptor for renewing token ##########################################3
 const setAuthorizationAndAddProgress = (config: any) => {
-    const token = localStorage.getItem('protrec_$authTkn');
+    const token = Cookies.get('PortrecTkn');
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
     }

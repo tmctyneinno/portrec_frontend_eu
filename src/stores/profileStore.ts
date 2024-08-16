@@ -6,26 +6,34 @@ import api from '@/stores/Helpers/axios'
 import Cookies from 'js-cookie';
 
 export const useProfileStore = defineStore('profileStore', () => {
-    // const token: any = useStorage('protrec_$authTkn', '', localStorage)
-    const token: any = useStorage('protrec_$authTkn', '', localStorage)
-    const userType: any = useStorage('protrec_$accType', '', localStorage)
+    const token: any = ref('')
+    const userType: any = ref('')
     const userData: any = useStorage('protrec_$user_profile', null, sessionStorage)
     const avatar = ref<string>('')
 
+    const isLoggedIn = computed(() => token.value || Cookies.get('PortrecTkn'));
+    const getUserType = computed(() => userType.value || Cookies.get('PortrecUserType'))
+
+
+    const login = (tokenStr: string, loginType = 'user') => {
+        Cookies.set('PortrecTkn', tokenStr, { expires: 7 });
+        token.value = tokenStr;
+
+        Cookies.set('PortrecUserType', loginType, { expires: 7 });
+        userType.value = loginType;
+    }
+
+
     function logout() {
+        Cookies.remove('PortrecTkn');
+        Cookies.remove('PortrecUserType');
         token.value = '';
         userType.value = '';
         userData.value = null;
-        console.log(token);
-        console.log(userType.value);
-        console.log(userData.value);
-
+        window.location.reload()
     }
 
-    // const login = (tokenStr: string) => {
-    //     Cookies.set('protrecData', tokenStr, { expires: 7 });
-    //     token.value = tokenStr;
-    // }
+
 
     async function getProfile(type = 'user') {
         try {
@@ -50,8 +58,11 @@ export const useProfileStore = defineStore('profileStore', () => {
         userType,
         data,
         avatar,
+        login,
         logout,
         getProfile,
-        profile
+        profile,
+        isLoggedIn,
+        getUserType
     }
 })

@@ -2,12 +2,13 @@
 import { useProfileStore } from '@/stores/profileStore';
 
 const accountGuard = (to, from, next) => {
+
     const profileStore = useProfileStore();
     if (!profileStore.isLoggedIn) {
         next({ path: `/login` });
     }
     else {
-        if (profileStore.userType !== to.meta.auth) {
+        if (profileStore.getUserType !== to.meta.auth) {
             next({ path: `/${profileStore.getUserType}` });
         }
         else {

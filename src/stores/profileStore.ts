@@ -55,7 +55,6 @@ export const useProfileStore = defineStore('profileStore', () => {
 
     return {
         token,
-        userType,
         data,
         avatar,
         login,

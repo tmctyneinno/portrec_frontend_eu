@@ -34,7 +34,9 @@
                       <span class="line-right pe-4 me-3">
                         <i class="bi bi-share"></i>
                       </span>
-                      <button @click="openApplyModal" class="btn btn-primary rounded- px-3">Apply now</button>
+                      <button v-if="hasAppliedForThisJob" class="btn btn-primary rounded- px-3"
+                        disabled>Applied</button>
+                      <button v-else @click="openApplyModal" class="btn btn-primary rounded- px-3">Apply now</button>
                     </div>
                   </div>
                 </div>
@@ -193,7 +195,7 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, ref, watchEffect } from 'vue';
+import { computed, onBeforeMount, ref, watchEffect } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { onBeforeRouteLeave } from 'vue-router';
 import { useJobApplicationStore } from '@/stores/jobApplicationStore';
@@ -225,9 +227,19 @@ watchEffect(async () => {
   getSimilarJobs()
 })
 
+
+const hasAppliedForThisJob = ref(false)
+
+watchEffect(() => {
+  if (profileStore.isLoggedIn && currentJob.value?.title) {
+    hasAppliedForThisJob.value = currentJob.value.applications.includes(profileStore.profile.user_id) ? true : false
+  }
+})
+
+
 onBeforeMount(() => {
   // redirect to account page if loggged in
-  if (profileStore.userType == 'user') {
+  if (profileStore.getUserType == 'user') {
     router.replace({ path: `/user/job-description/${route.params.id}` })
   }
 })

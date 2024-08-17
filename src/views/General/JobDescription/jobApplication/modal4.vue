@@ -75,7 +75,7 @@ async function applyForJob() {
         newForm.append(`answers[${index}][answer]`, item.answer_text)
     });
 
-    // Display the key/value pairs
+    // Console FORM
     // for (var pair of newForm.entries()) {
     //     console.log(pair[0] + ', ' + pair[1]);
     // }
@@ -89,6 +89,8 @@ async function applyForJob() {
         useFxn.toast('Application sent!', 'success')
         store.modalOpen = false
         store.resetForm()
+        store.currentJobQuery(store.currentJob.id)
+
 
     } catch (error) {
         useFxn.toast('Sorry, Something went wrong', 'error')

@@ -45,5 +45,13 @@ export default {
 
     recruiterJobDelete(id: any) {
         return $instance.delete(`recruiter/job/delete/${id}`,)
+    },
+
+    recruiterJobApplicationsList(data: any) {
+        return $instance.post(`recruiter/job/applications`, JSON.stringify(data))
+    },
+
+    recruiterJobsSelect() {
+        return $instance.get(`recruiter/jobs/select`)
     }
 }

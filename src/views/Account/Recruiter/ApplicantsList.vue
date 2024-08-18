@@ -2,25 +2,31 @@
     <div class="row g-3 m-0 pb-5">
         <div class="col-12">
             <div class="row g-3">
-                <div class="col-12">
-                    <div class="d-lg-flex justify-content-between">
-                        <div class="fw-bold text-capitalize fs-5">Total Applicants : 19</div>
-
-                        <div class="float-start float-lg-end">
-                            <input class="float-end form-control" placeholder="search here..." v-model="searchTerm"
-                                type="text">
-                        </div>
+                <div class="col-8">
+                    <div>
+                        <span class="fw-bold text-capitalize fs-5">Total Applicants</span> <span
+                            class="badge rounded-pill text-bg-secondary">{{ items.length }}</span>
                     </div>
+                    <div class="small text-muted">Showing applications for your company, you can also filter by Jobs
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-label">Filter by Job</div>
+
+                    <v-select :loading="jobsLoading" append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
+                        :teleport="true" v-model="selectedJob" class="text-capitalize job-chooser" :clearable="true"
+                        :options="jobOpeningsList" :reduce="(x: any) => x.id" label="label"></v-select>
                 </div>
             </div>
         </div>
 
         <div class="col-12">
-            <EasyDataTable v-model:items-selected="itemsSelected" alternating :headers="tableHeader"
-                :items="appliedHistory" :search-value="searchTerm" buttons-pagination>
+            <!-- v-model:items-selected="itemsSelected" -->
+            <EasyDataTable :loading="itemsLoading" show-index alternating :headers="tableHeader" :items="items"
+                buttons-pagination v-model:server-options="serverOptions" :server-items-length="total">
 
                 <template #header="header">
-                    <span class="fw-bold text-muted">{{ header.text }}</span>
+                    <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
                 </template>
 
                 <template #item-score="item">
@@ -30,20 +36,20 @@
 
                 </template>
 
-                <template #item-date_applied="item">
-                    {{ useFxn.dateDisplay(item.date_applied) }}
+                <template #item-created_at="item">
+                    {{ useFxn.dateDisplay(item.created_at) }}
                 </template>
 
-                <template #item-stage="item">
-                    <span :class="classAccordingToStage(item.stage) + '-tag'" class="category-tag">
-                        {{ item.stage }}
+                <template #item-status="item">
+                    <span :class="classAccordingToStage(item.status) + '-tag'" class="category-tag">
+                        {{ item.status }}
                     </span>
                 </template>
 
                 <template #item-action="item">
                     <button @click="goToApplicantsDetails(item.id)"
-                        class="btn btn-link action-btn text-decoration-none btn-sm p-1 px-2 ">
-                        See Applicant
+                        class="btn btn-sm btn-primary-outline  border-0 rounded-5  text-decoration-none btn-sm p-1 px-2 ">
+                        <i class="bi bi-eye"></i>
                     </button>
                 </template>
 
@@ -57,122 +63,100 @@
 
 <script lang="ts" setup>
 import { useProfileStore } from '@/stores/profileStore';
-import { useDateFormat } from '@vueuse/core';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import useFxn from '@/stores/Helpers/useFunctions'
 import { useRecruiterCommonStore } from './RecruiterCommonStore';
+import type { ServerOptions } from 'vue3-easy-data-table';
+import api from '@/stores/Helpers/axios';
 
 const recruiterCommonStore = useRecruiterCommonStore()
 
 const profileStore = useProfileStore()
-onMounted(() => {
+onMounted(async () => {
     console.log(profileStore.data);
+    await getJobsForSelect()
+    getApplicationsList()
 })
 
+
+const jobOpeningsList = ref([])
+const selectedJob = ref(null)
+const jobsLoading = ref(true)
+async function getJobsForSelect() {
+    try {
+        const { data } = await api.recruiterJobsSelect()
+        jobOpeningsList.value = data
+        jobsLoading.value = false
+    }
+    catch {
+        // 
+    }
+}
 
 
 
 // table
+
 const searchTerm = ref("");
-const itemsSelected = ref([]);
+const total = ref(0)
+const items = ref([])
+const itemsLoading = ref(true)
+const serverOptions = ref<ServerOptions | any>({
+    page: 1,
+    rowsPerPage: 15,
+    // sortType: 'desc',
+    // sortBy: ''
+});
+
+
+// table
+// const itemsSelected = ref([]);
 const tableHeader = ref([
-    { text: "Full Name", value: "name", sortable: true, },
-    { text: "Score", value: "score", sortable: true },
-    { text: "Hiring Stage", value: "stage", sortable: true },
-    { text: "Applied Date", value: "date_applied", sortable: true },
-    { text: "Job Role", value: "role", sortable: true },
+    { text: "Full Name", value: "user.name", sortable: true, },
+    // { text: "Score", value: "score", sortable: true },
+    { text: "Hiring Stage", value: "status", sortable: true },
+    { text: "Applied Date", value: "created_at", sortable: true },
+    { text: "Job Role", value: "job.title", sortable: true },
     { text: "", value: "action" },
 ]);
 
-const appliedHistory = ref([{
-    id: 1,
-    name: 'Jake Gyll',
-    score: 0.5,
-    stage: 'Inreview',
-    date_applied: '2023-12-12',
-    role: 'Designer'
-},
-{
-    id: 2,
-    name: 'Guy Hawkins',
-    score: 1.23,
-    stage: 'Inreview',
-    date_applied: '2023-12-12',
-    role: 'JavaScript Dev'
-},
-{
-    id: 3,
-    name: 'Cyndy Lillibridge',
-    score: 4.5,
-    stage: 'Shortlisted',
-    date_applied: '2023-12-12',
-    role: 'Golang Dev'
-},
-{
-    id: 4,
-    name: 'Cyndy Lillibridge',
-    score: 4.5,
-    stage: 'Shortlisted',
-    date_applied: '2023-12-12',
-    role: 'Golang Dev'
-},
-{
-    id: 5,
-    name: 'Cyndy Lillibridge',
-    score: 4.5,
-    stage: 'Shortlisted',
-    date_applied: '2023-12-12',
-    role: 'Golang Dev'
-},
-{
-    id: 6,
-    name: 'Cyndy Lillibridge',
-    score: 4.5,
-    stage: 'Shortlisted',
-    date_applied: '2023-12-12',
-    role: 'Golang Dev'
-},
 
 
-{
-    id: 7,
-    name: 'Jake Gyll',
-    score: 0.5,
-    stage: 'Inreview',
-    date_applied: '2023-12-12',
-    role: 'Designer'
-},
-{
-    id: 8,
-    name: 'Guy Hawkins',
-    score: 3.75,
-    stage: 'Inreview',
-    date_applied: '2023-12-12',
-    role: 'JavaScript Dev'
-},
-{
-    id: 9,
-    name: 'Cyndy Lillibridge',
-    score: 4.5,
-    stage: 'Shortlisted',
-    date_applied: '2023-12-12',
-    role: 'Golang Dev'
-},
-{
-    id: 10,
-    name: 'Cyndy Lillibridge',
-    score: 4.5,
-    stage: 'Shortlisted',
-    date_applied: '2023-12-12',
-    role: 'Golang Dev'
-},
-])
+async function getApplicationsList() {
+    itemsLoading.value = true
+
+    try {
+        const obj = {
+            page: serverOptions.value.page,
+            rowsPerPage: serverOptions.value.rowsPerPage,
+            search: searchTerm.value,
+            job_opening_id: selectedJob.value,
+        }
+        const resp: any = await api.recruiterJobApplicationsList(obj)
+        const data = resp.data.body
+        total.value = resp.total
+        items.value = data.data
+        itemsLoading.value = false
+        // console.log(resp, 'applications');
+    } catch (error) {
+        console.log(error);
+
+    }
+}
+
+
+watch(() => recruiterCommonStore.jobPosting.jobListUpdated, () => {
+    getApplicationsList()
+})
+
+watch(serverOptions, () => { getApplicationsList(); }, { deep: true });
+watch(() => selectedJob.value, () => { getApplicationsList(); }, { deep: true });
 
 
 const classAccordingToStage = (stage: string) => {
     let classname = ''
     switch (stage) {
-        case 'Inreview':
+        case 'In-Review':
             classname = 'yellow'
             break;
         case 'Shortlisted':
@@ -194,16 +178,16 @@ function goToApplicantsDetails(id: string) {
 </script>
 
 <style lang="css" scoped>
-.purple-tag {
-    background: transparent;
-    border: 1px solid #873A70 !important;
-    color: #873A70 !important;
+.yellow-tag {
+    background: #f4deed;
+    border: none !important;
+    color: #6b0d4f !important;
 }
 
 .yellow-tag {
-    background: transparent;
-    border: 1px solid #6cdc56 !important;
-    color: #6cdc56 !important;
+    background: #d1d10938;
+    border: none !important;
+    color: #616106 !important;
 }
 
 .action-btn {

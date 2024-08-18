@@ -39,7 +39,7 @@ export default {
         return $instance.post(`recruiter/job/post`, JSON.stringify(job))
     },
 
-    recruiterJobPostingUpdate(id: any, job: any) {
+    recruiterJobPostingUpdate(id: string | number, job: Object) {
         return $instance.post(`recruiter/job/update/${id}`, JSON.stringify(job))
     },
 
@@ -47,8 +47,11 @@ export default {
         return $instance.delete(`recruiter/job/delete/${id}`,)
     },
 
-    recruiterJobApplicationsList(data: any) {
+    recruiterJobApplicationsList(data: Object) {
         return $instance.post(`recruiter/job/applications`, JSON.stringify(data))
+    },
+    recruiterJobApplicationDetails(applicationId: string | number) {
+        return $instance.get(`recruiter/job/application/${applicationId}`)
     },
 
     recruiterJobsSelect() {

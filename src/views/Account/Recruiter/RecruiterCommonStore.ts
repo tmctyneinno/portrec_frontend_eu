@@ -1,4 +1,4 @@
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import { defineStore } from 'pinia'
 import api from '@/stores/Helpers/axios'
 import type { JobOpening } from '@/stores/interfaces'
@@ -6,10 +6,14 @@ import type { JobOpening } from '@/stores/interfaces'
 export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () => {
     const applicants = reactive<{
         showing: 'list' | 'details',
-        currentIdShowing: string
+        currentIdShowing: string,
+        details: any,
+        detailsLoading: boolean
     }>({
         showing: 'list',
-        currentIdShowing: ''
+        currentIdShowing: '',
+        details: null,
+        detailsLoading: false
     })
 
     const jobPosting = reactive<{
@@ -53,8 +57,6 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
         data: null,
     })
 
-
-
     async function loadJobPostingDropdowns() {
         try {
             const functions = await api.jobFunctions()
@@ -74,6 +76,19 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
         }
     }
 
+    async function loadApplicantDetails() {
+        try {
+            applicants.detailsLoading = true
+            const { data } = await api.recruiterJobApplicationDetails(applicants.currentIdShowing)
+            applicants.details = data
+            applicants.detailsLoading = false;
+            console.log(applicants.details, 'data 000000');
+
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
 
     const jobPostingFieldsEmptyState: JobOpening = {
         job_level_id: '',
@@ -177,12 +192,16 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
     }
 
 
+
+
+
     return {
         applicants,
         jobPosting,
         loadJobPostingDropdowns,
         editJobOpening,
         resetJobPostingForm,
+        loadApplicantDetails,
         jobPostingDropdowns,
         jobPostingFields,
 

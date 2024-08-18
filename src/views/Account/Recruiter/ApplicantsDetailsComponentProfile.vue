@@ -1,4 +1,29 @@
 <script lang="ts" setup>
+import { storeToRefs } from 'pinia';
+import { useRecruiterCommonStore } from './RecruiterCommonStore';
+import useFxn from '@/stores/Helpers/useFunctions';
+import { computed } from 'vue';
+
+const recruiterCommonStore = useRecruiterCommonStore()
+const { applicants } = storeToRefs(recruiterCommonStore);
+
+
+const languages = computed(() => {
+    const data = applicants.value.details?.profile?.languages;
+    if (!data) return '-';
+
+    const formattedLanguages = data
+        .replace(/\s/g, '') // Remove spaces
+        .split(',') // Split into an array
+        .map((string: any) => string.charAt(0).toUpperCase() + string.slice(1)) // Capitalize first letters
+        .join(','); // Join back into a comma-separated string
+
+    return formattedLanguages;
+});
+
+const skills = computed(() => {
+    return applicants.value.details?.user?.skills ?? []
+})
 
 </script>
 
@@ -7,27 +32,28 @@
     <div class="row mt-1 g-3">
         <div class="col-md-6">
             <div class="text-muted">Full Name</div>
-            <div>Jerome Bell</div>
+            <div>{{ applicants.details?.user?.name }}</div>
         </div>
 
         <div class="col-md-6">
             <div class="text-muted">Gender</div>
-            <div>Male</div>
+            <div>{{ applicants.details?.user?.gender ?? '-' }}</div>
         </div>
 
         <div class="col-md-6">
             <div class="text-muted">Date of Birth</div>
-            <div>March 23, 1995 (26 y.o) </div>
+            <div>
+                {{ useFxn.dateDisplay(applicants.details?.user?.profile?.dob) }} </div>
         </div>
 
         <div class="col-md-6">
-            <div class="text-muted">Language</div>
-            <div>English, French, Bahasa</div>
+            <div class="text-muted">Languages</div>
+            <div>{{ languages }}</div>
         </div>
 
         <div class="col-md-6">
             <div class="text-muted">Address</div>
-            <div>4517 Washington Ave. Manchester, Kentucky 39495</div>
+            <div>{{ applicants.details?.user?.profile?.address ?? '-' }}</div>
         </div>
     </div>
 
@@ -39,15 +65,9 @@
     <div class="row mt-1 g-3">
         <div class="col-12">
             <div class="text-muted">About Me</div>
-            <p>
-                I’m a product designer + filmmaker currently working remotely at Twitter from beautiful Manchester,
-                United Kingdom. I’m passionate about designing digital products that have a positive impact on the
-                world.
-            </p>
-            <p>
-                For 10 years, I’ve specialised in interface, experience & interaction design as well as working in user
-                research and product strategy for product agencies, big tech companies & start-ups.
-            </p>
+            <div v-if="applicants.details?.user?.profile?.about_me"
+                v-html="applicants.details?.user?.profile?.about_me"></div>
+            <div v-else>-</div>
         </div>
 
         <div class="col-md-6">
@@ -57,7 +77,7 @@
 
         <div class="col-md-6">
             <div class="text-muted">Experience in Years</div>
-            <div>4 Years</div>
+            <div>{{ applicants.details?.user?.profile?.years_experience ?? '-' }}</div>
         </div>
 
         <div class="col-md-6">
@@ -67,9 +87,22 @@
 
         <div class="col-md-6">
             <div class="text-muted">Skill set</div>
-            <div>Project Manganemant, Copywriting, English</div>
+            <span v-for="skill in skills" :key="skill.id" class="skills-tag">
+                {{ skill.name }}
+            </span>
+            <!-- <span v-show="!userSkills.length" class="text-muted2">No skills added</span> -->
         </div>
     </div>
 </template>
 
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+.skills-tag {
+    background-color: var(--bs-light);
+    color: var(--theme-color);
+    padding: 5px 8px;
+    display: inline-block;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+}
+</style>

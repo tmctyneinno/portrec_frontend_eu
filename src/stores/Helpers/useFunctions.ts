@@ -125,6 +125,7 @@ export default {
     },
 
     dateDisplay: (date: Date, options?: string) => {
+        if (!date) return '-'
         if (options) {
             if (options == 'm,y') {
                 const dd = useDateFormat(date, 'MMM, YYYY')

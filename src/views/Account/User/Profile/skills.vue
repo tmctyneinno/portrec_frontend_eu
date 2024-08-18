@@ -77,7 +77,7 @@ onMounted(async () => {
 })
 
 
-// adding and removing new skills \\\\\\\\\\\\\\\\\\\\\\\\\\
+// adding and removing new skills 
 
 const selectedSkills = ref<any[]>([])
 const isSaving = ref<boolean>(false)

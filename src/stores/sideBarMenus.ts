@@ -49,15 +49,16 @@ const recruiterMenu = [{
     icon: 'bi bi-buildings'
 },
 {
-    title: 'All Applicants',
-    routeName: 'recruiter-All_Applicants',
-    icon: 'bi bi-people'
-},
-{
     title: 'Job Listing',
     routeName: 'recruiter-Job_Listing',
     icon: 'bi bi-journal-text'
 },
+{
+    title: 'Applications',
+    routeName: 'recruiter-All_Applicants',
+    icon: 'bi bi-people'
+},
+
 
 {
     title: 'My Schedule',

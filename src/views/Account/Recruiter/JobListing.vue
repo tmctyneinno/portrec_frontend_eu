@@ -55,9 +55,6 @@
 
             </EasyDataTable>
         </div>
-
-
-
     </div>
 </template>
 

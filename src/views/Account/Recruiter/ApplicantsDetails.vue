@@ -1,4 +1,5 @@
 <template>
+    <OverlayLoading v-if="applicants.detailsLoading" />
     <div class="row g-3 m-0 pb-5">
         <div class="col-12">
             <div class="row g-3">
@@ -21,11 +22,12 @@
                     <div class="d-lg-flex ">
                         <i style="font-size: 3rem;" class="bi bi-person-circle text-muted me-3"></i>
                         <div>
-                            <div class="fs-3 fw-lighter">Jerome Bell</div>
-                            <div>Product Designer</div>
-                            <div class="fw-bold">
+                            <div class="fs-3 fw-lighter">{{ applicants.details?.user?.name }}</div>
+                            <!-- <div>Product Designer</div> -->
+                            <div>{{ applicants.details?.user?.email }}</div>
+                            <!-- <div class="fw-bold">
                                 <i class="bi bi-star-fill text-warning"></i> 4.0
-                            </div>
+                            </div> -->
                         </div>
                     </div>
 
@@ -33,11 +35,16 @@
                     <!-- applied jobs -->
                     <div class="card mt-3 rounded-0 border-0 bg-light p-2">
                         <div class="card-header bg-transparent">
-                            Applied Jobs <span class="float-end small">2 days ago</span>
+                            Applied Job
+                            <span class="float-end xsmall">
+                                {{ useFxn.timeAgo(applicants.details?.applied_date) }}
+                            </span>
                         </div>
                         <div class="card-body">
-                            <div class="fw-bold"> Product Development </div>
-                            <div class="text-muted">Marketing - Full Time</div>
+                            <div class="fw-bold"> {{ applicants.details?.job?.title }} </div>
+                            <div class="text-muted text-capitalize">{{ applicants.details?.job?.industry.name }}
+                                - {{ applicants.details?.job?.job_type?.name }}
+                            </div>
                         </div>
                     </div>
 
@@ -45,9 +52,9 @@
                     <div class="card mt-3 rounded-0 border-0 bg-light p-2">
                         <div class="card-body">
                             <div>
-                                <span class="xsmall">Stage</span>
+                                <span class="xsmall">Status</span>
                                 <span class="float-end xsmall">
-                                    <i class="bi bi-circle-fill theme-color"></i> interview
+                                    <i class="bi bi-circle-fill theme-color"></i> {{ applicants.details?.status }}
                                 </span>
                             </div>
                             <div class="progress rounded-0">
@@ -84,35 +91,35 @@
                             <i class="bi bi-envelope me-3"></i>
                             <div>
                                 <div class="text-muted">Email</div>
-                                <div>jeromeBell45@email.com</div>
+                                <div>{{ applicants.details?.user?.email }}</div>
                             </div>
                         </div>
                         <div class="my-2 d-flex">
                             <i class="bi bi-phone me-3"></i>
                             <div>
                                 <div class="text-muted">Phone</div>
-                                <div>+44 1245 572 135</div>
+                                <div>{{ applicants.details?.user?.phone }}</div>
                             </div>
                         </div>
                         <div class="my-2 d-flex">
                             <i class="bi bi-instagram me-3"></i>
                             <div>
                                 <div class="text-muted">Instagram</div>
-                                <div class="theme-color">instagram.com/jeromebell</div>
+                                <div class="theme-color">{{ applicants.details?.user?.profile?.instagram ?? '-' }}</div>
                             </div>
                         </div>
                         <div class="my-2 d-flex">
                             <i class="bi bi-twitter-x me-3"></i>
                             <div>
                                 <div class="text-muted">Twitter</div>
-                                <div class="theme-color">twitter.com/jeromebell</div>
+                                <div class="theme-color">{{ applicants.details?.user?.profile?.twitter ?? '-' }}</div>
                             </div>
                         </div>
                         <div class="my-2 d-flex">
                             <i class="bi bi-globe me-3"></i>
                             <div>
                                 <div class="text-muted">Website</div>
-                                <div class="theme-color">www.jeromebell.com</div>
+                                <div class="theme-color">{{ applicants.details?.user?.profile?.website ?? '-' }}</div>
                             </div>
                         </div>
                     </div>
@@ -167,15 +174,17 @@
 
 <script lang="ts" setup>
 import { useProfileStore } from '@/stores/profileStore';
-import { useDateFormat } from '@vueuse/core';
 import { onMounted, ref } from 'vue';
 import useFxn from '@/stores/Helpers/useFunctions'
 import { useRecruiterCommonStore } from './RecruiterCommonStore';
 import ApplicantsDetailsComponentProfile from './ApplicantsDetailsComponentProfile.vue';
 import ApplicantsDetailsComponentResume from './ApplicantsDetailsComponentResume.vue';
 import ApplicantsDetailsComponentProcess from './ApplicantsDetailsComponentProcess.vue';
+import { storeToRefs } from 'pinia';
+import OverlayLoading from '@/components/overlayLoading.vue';
 
 const recruiterCommonStore = useRecruiterCommonStore()
+const { applicants } = storeToRefs(recruiterCommonStore)
 
 const profileStore = useProfileStore()
 onMounted(() => {
@@ -183,13 +192,9 @@ onMounted(() => {
 })
 
 
-
-
-
-
 function navigateBack() {
-    recruiterCommonStore.applicants.currentIdShowing = '';
-    recruiterCommonStore.applicants.showing = 'list'
+    applicants.value.currentIdShowing = '';
+    applicants.value.showing = 'list'
 }
 
 </script>

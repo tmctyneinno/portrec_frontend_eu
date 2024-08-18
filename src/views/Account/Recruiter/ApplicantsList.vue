@@ -173,6 +173,7 @@ const classAccordingToStage = (stage: string) => {
 function goToApplicantsDetails(id: string) {
     recruiterCommonStore.applicants.currentIdShowing = id;
     recruiterCommonStore.applicants.showing = 'details'
+    recruiterCommonStore.loadApplicantDetails()
 }
 
 </script>

@@ -6,7 +6,7 @@
                 <span @click="saveAboutMeToStore" class="float-end" data-bs-toggle="modal"
                     data-bs-target="#editAboutModal">
                     <span class="profile-edit-btn small rounded-1">
-                        Edit <i class="bi bi-pencil"></i>
+                        <i class="bi bi-pencil-fill"></i>
                     </span>
                 </span>
             </div>

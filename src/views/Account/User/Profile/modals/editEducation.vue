@@ -36,11 +36,13 @@
                                 :enable-time-picker="false" auto-apply v-model="education.end_date">
                             </VueDatePicker>
                         </div>
-                        <div class="col-12">
+                        <div class="col-lg-6">
                             <label class="form-label">Qualification * </label>
-                            <input v-model="education.qualification" type="text" class="form-control rounded-0">
+                            <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
+                                v-model="education.qualification" class="rounded-0 text-capitalize profile-edit-select"
+                                :clearable="false" :options="jobsStore.qualifications" label="name"></v-select>
                         </div>
-                        <div class="col-12">
+                        <div class="col-lg-6">
                             <label class="form-label">Description * </label>
                             <textarea v-model="education.description" class="form-control rounded-0" name="" id=""
                                 rows="2"></textarea>
@@ -48,15 +50,18 @@
                     </div>
                 </div>
                 <div class="modal-footer border-0">
-                    <button ref="btnX" data-bs-dismiss="modal" class="btn btn-light rounded-0 ">
+                    <button v-show="!isLoading" ref="btnX" data-bs-dismiss="modal" class="btn btn-light rounded-0 ">
                         Cancel
                     </button>
                     <!-- <button :disabled="isLoading" @click="deleteEducation" type="button"
                         class="btn btn-danger rounded-0">Delete
                         Education</button> -->
-                    <button @click="updateClick" :disabled="isLoading" type="button"
-                        class="btn btn-primary  rounded-0">Save
+                    <button @click="updateClick" v-if="!isLoading" type="button" class="btn btn-primary  rounded-0">Save
                         Changes</button>
+                    <button v-else class="btn btn-primary rounded-0" type="button" disabled>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    </button>
+
                 </div>
             </div>
         </div>
@@ -70,15 +75,17 @@ import { useProfileStore } from '@/stores/profileStore';
 import { useEditingProfileStore } from '../editingProfileStore'
 import api from '@/stores/Helpers/axios'
 import useFxn from '@/stores/Helpers/useFunctions';
+import { useJobsStore } from '@/stores/jobsStore';
 
 const profileStore = useProfileStore()
 const editingStore = useEditingProfileStore()
 const isLoading = ref(false)
+const jobsStore = useJobsStore()
 
 
 const education = reactive<any>({
     institution: editingStore.educationToEdit.institution,
-    qualification: editingStore.educationToEdit.qualification,
+    qualification: jobsStore.qualifications.find((x: { id: any; }) => x.id == editingStore.educationToEdit.qualification_id),
     start_date: new Date(editingStore.educationToEdit.start_date),
     end_date: new Date(editingStore.educationToEdit.end_date ?? new Date()),
     // end_date: editingStore.educationToEdit.end_date ? new Date(editingStore.educationToEdit.end_date) : new Date(),
@@ -87,7 +94,7 @@ const education = reactive<any>({
 
 watch(() => editingStore.educationToEdit, () => {
     education.institution = editingStore.educationToEdit.institution;
-    education.qualification = editingStore.educationToEdit.qualification;
+    education.qualification = jobsStore.qualifications.find((x: { id: any; }) => x.id == editingStore.educationToEdit.qualification_id);
     education.start_date = new Date(editingStore.educationToEdit.start_date);
     education.end_date = new Date(editingStore.educationToEdit.end_date ?? new Date());
     // education.end_date = editingStore.educationToEdit.end_date ? new Date(editingStore.educationToEdit.end_date) : new Date();
@@ -104,10 +111,10 @@ watch(() => editingStore.educationToEdit.end_date, () => {
 const route = useRoute()
 
 function deleteEducation() {
-    if (!useFxn.isOnline()) {
-        useFxn.toastShort('You are offline')
-        return
-    }
+    // if (!useFxn.isOnline()) {
+    //     useFxn.toastShort('You are offline')
+    //     return
+    // }
     useFxn.confirmDelete('Remove this History?', 'Yes, Remove')
         .then((result) => {
             if (result.isConfirmed) {
@@ -123,6 +130,7 @@ async function userDeleteEducation() {
         useFxn.toast('Education Deleted', 'success');
         profileStore.getProfile();
         btnX.value.click();
+        isLoading.value = false
 
 
     } catch (error) {
@@ -135,10 +143,10 @@ async function userDeleteEducation() {
 
 
 function updateClick() {
-    if (!useFxn.isOnline()) {
-        useFxn.toastShort('You are offline')
-        return
-    }
+    // if (!useFxn.isOnline()) {
+    //     useFxn.toastShort('You are offline')
+    //     return
+    // }
 
     const requiredFields = ['start_date', 'qualification', 'institution'];
 
@@ -174,6 +182,7 @@ async function save() {
             useFxn.toast('Updated successfully', 'success')
             btnX.value.click();
             profileStore.getProfile()
+            isLoading.value = false
         }
     } catch (error) {
         console.log(error);

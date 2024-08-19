@@ -65,15 +65,17 @@
                     </div>
                 </div>
                 <div class="modal-footer border-0">
-                    <button ref="btnX" data-bs-dismiss="modal" class="btn btn-light rounded-0 ">
+                    <button v-show="!isLoading" ref="btnX" data-bs-dismiss="modal" class="btn btn-light rounded-0 ">
                         Cancel
                     </button>
                     <!-- <button :disabled="isLoading" @click="deleteExperience" type="button"
                         class="btn btn-danger rounded-0">Delete
                         Experience</button> -->
-                    <button @click="updateClick" :disabled="isLoading" type="button"
-                        class="btn btn-primary  rounded-0">Save
+                    <button @click="updateClick" v-if="!isLoading" type="button" class="btn btn-primary  rounded-0">Save
                         Changes</button>
+                    <button v-else class="btn btn-primary rounded-0" type="button" disabled>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -132,10 +134,10 @@ watch(() => editingStore.experienceToEdit.end_date, () => {
 
 
 function deleteExperience() {
-    if (!useFxn.isOnline()) {
-        useFxn.toastShort('You are offline')
-        return
-    }
+    // if (!useFxn.isOnline()) {
+    //     useFxn.toastShort('You are offline')
+    //     return
+    // }
     useFxn.confirmDelete('Remove this Experience?', 'Yes, Remove')
         .then((result) => {
             if (result.isConfirmed) {
@@ -151,11 +153,9 @@ async function userDeleteExperience() {
         useFxn.toast('Experience Deleted', 'success');
         profileStore.getProfile();
         btnX.value.click();
+        isLoading.value = false
     } catch (error) {
         // 
-    }
-    finally {
-        isLoading.value = false
     }
 }
 
@@ -163,10 +163,10 @@ async function userDeleteExperience() {
 
 function updateClick() {
 
-    if (!useFxn.isOnline()) {
-        useFxn.toastShort('You are offline')
-        return
-    }
+    // if (!useFxn.isOnline()) {
+    //     useFxn.toastShort('You are offline')
+    //     return
+    // }
 
     const requiredFields = ['start_date', 'company_location', 'job_title', 'work_type_id', 'company_name'];
 
@@ -206,21 +206,16 @@ async function save() {
         if (resp.status) {
             useFxn.toast('Updated successfully', 'success')
             btnX.value.click();
+            isLoading.value = false
             profileStore.getProfile()
         }
     } catch (error) {
         console.log(error);
-
-    }
-    finally {
+        useFxn.toast('Something went Wrong', 'error')
         isLoading.value = false
+
     }
 }
-
-
-
-
-
 
 
 const btnX = ref<any>(null)

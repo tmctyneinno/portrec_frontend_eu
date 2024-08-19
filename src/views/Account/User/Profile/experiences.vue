@@ -5,7 +5,7 @@
                 Experiences
                 <span class="float-end" data-bs-toggle="modal" data-bs-target="#addExperienceModal">
                     <span class="profile-edit-btn small rounded-1">
-                        New <i class="bi bi-plus-circle-dotted"></i>
+                        <i class="bi bi-plus-lg"></i>
                     </span>
                 </span>
             </div>
@@ -17,15 +17,15 @@
 
                 <ul v-else class="list-group list-group-flush">
                     <li v-for="(exp, index) in experienceArray()" :key="index"
-                        class="list-group-item border-1 rounded-1 mb-3">
+                        class="list-group-item border-1 rounded-1 mb-3 p-lg-3">
 
                         <div class="row g-3">
                             <div class="col-lg-12">
                                 <div class="fw-bold mb-2">{{ exp.job_title }}
                                     <span @click="editingStore.experienceToEdit = exp" class="float-end"
                                         data-bs-toggle="modal" data-bs-target="#editExperienceModal">
-                                        <span class="profile-edit-btn bg-white rounded-1">
-                                            <i class="bi bi-pencil-square"></i>
+                                        <span class="profile-edit-btn  rounded-1">
+                                            <i class="bi bi-pencil-fill"></i>
                                         </span>
                                     </span>
 
@@ -39,7 +39,8 @@
                                     <i class="bi bi-dot"></i>
                                     <span v-if="exp.start_date">
                                         {{ useFxn.dateDisplay(new Date(exp.start_date), 'm,y') }} -
-                                        {{ exp.end_date ? useFxn.dateDisplay(new Date(exp.end_date), 'm,y') : 'present' }}
+                                        {{ exp.end_date ? useFxn.dateDisplay(new Date(exp.end_date), 'm,y') : 'present'
+                                        }}
                                     </span>
                                     <div>
                                         {{ exp.company_location }}

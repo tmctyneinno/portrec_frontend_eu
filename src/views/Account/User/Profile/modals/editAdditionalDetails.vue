@@ -51,23 +51,23 @@ const profileStore = useProfileStore()
 const details = reactive({
     email: profileStore.data?.email ?? '',
     phone: profileStore.data?.phone ?? '',
-    languages: profileStore.data?.languages ?? ''
+    languages: profileStore.profile?.languages ?? ''
 })
 
 watch(() => profileStore.data, () => {
     details.email = profileStore.data?.email ?? '';
     details.phone = profileStore.data?.phone ?? '';
-    details.languages = profileStore.data?.languages ?? '';
+    details.languages = profileStore.profile?.languages ?? '';
 })
 
 
 const isSaving = ref(false)
 
 function clickSave() {
-    if (!useFxn.isOnline()) {
-        useFxn.toastShort('You are offline')
-        return
-    }
+    // if (!useFxn.isOnline()) {
+    //     useFxn.toastShort('You are offline')
+    //     return
+    // }
     isSaving.value = true
     save()
 }
@@ -78,13 +78,13 @@ async function save() {
         if (data.status === 201) {
             useFxn.toast('Updated successfully', 'success')
             btnX.value.click();
+            isSaving.value = false
             profileStore.getProfile()
         }
     } catch (error) {
-        // 
-    }
-    finally {
         isSaving.value = false
+        console.log(error);
+
     }
 }
 

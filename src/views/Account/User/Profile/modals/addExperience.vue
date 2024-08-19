@@ -108,10 +108,10 @@ const isSaving = ref(false)
 
 function clickSave() {
 
-    if (!useFxn.isOnline()) {
-        useFxn.toastShort('You are offline')
-        return
-    }
+    // if (!useFxn.isOnline()) {
+    //     useFxn.toastShort('You are offline')
+    //     return
+    // }
 
 
     const requiredFields = ['start_date', 'company_location', 'job_title', 'work_type_id', 'company_name'];

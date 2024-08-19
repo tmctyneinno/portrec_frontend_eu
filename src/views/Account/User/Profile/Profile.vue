@@ -55,12 +55,12 @@ import editSkills from './modals/editSkills.vue'
     border: 1px solid #ccc !important;
     color: var(--theme-color);
     cursor: pointer;
-    background-color: #fff;
+    background-color: #faf7f7;
     padding: 2px 7px;
     /* width: 100px; */
 }
 
 .profile-edit-btn:hover {
-    background-color: rgb(250, 247, 247);
+    background-color: #e0dddd;
 }
 </style>

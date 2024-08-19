@@ -1,5 +1,3 @@
-
-
 <template>
     <div class="col-12">
         <div class="card border-0 shadow-sm">
@@ -7,7 +5,7 @@
                 Additional Details
                 <span class="float-end " data-bs-toggle="modal" data-bs-target="#editAdditionalDetailsModal">
                     <span class="profile-edit-btn small rounded-1">
-                        Edit <i class="bi bi-pencil"></i>
+                        <i class="bi bi-pencil-fill"></i>
                     </span>
                 </span>
             </div>
@@ -61,7 +59,7 @@ import { computed } from 'vue';
 const profileStore = useProfileStore()
 
 const languages = computed(() => {
-    const data = profileStore.data?.languages;
+    const data = profileStore.profile?.languages;
     if (!data) return '';
 
     const formattedLanguages = data
@@ -75,4 +73,3 @@ const languages = computed(() => {
 
 
 </script>
-

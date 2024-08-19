@@ -33,11 +33,14 @@
                                 :enable-time-picker="false" auto-apply v-model="education.end_date">
                             </VueDatePicker>
                         </div>
-                        <div class="col-12">
+                        <div class="col-lg-6">
                             <label class="form-label">Qualification * </label>
-                            <input v-model="education.qualification" type="text" class="form-control rounded-0">
+                            <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
+                                v-model="education.qualification" class="rounded-0 text-capitalize profile-edit-select"
+                                :clearable="false" :options="jobsStore.qualifications" label="name"></v-select>
                         </div>
-                        <div class="col-12">
+
+                        <div class="col-lg-6">
                             <label class="form-label">Description * </label>
                             <textarea v-model="education.description" class="form-control rounded-0" name="" id=""
                                 rows="2"></textarea>
@@ -50,7 +53,6 @@
                     <button v-else class="btn btn-primary rounded-0 " disabled>
                         <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
                     </button>
-
                 </div>
             </div>
         </div>
@@ -58,18 +60,29 @@
 </template>
 
 <script lang="ts" setup>
-import { watch, ref, reactive } from 'vue';
+import { watch, ref, reactive, onMounted, computed } from 'vue';
 import { useRoute } from 'vue-router'
 import { useProfileStore } from '@/stores/profileStore';
 import api from '@/stores/Helpers/axios'
 import useFxn from '@/stores/Helpers/useFunctions';
 import { useEditingProfileStore } from '../editingProfileStore'
+import { useJobsStore } from '@/stores/jobsStore';
 
 const route = useRoute()
 const profileStore = useProfileStore()
 const editingStore = useEditingProfileStore()
 
+const jobsStore = useJobsStore()
+
 const isCurrentlyHere = ref(false)
+
+onMounted(() => {
+    jobsStore.getJobQualifications()
+})
+
+// const qualificationsArray = computed(() => {
+//     return jobsStore.qualifications.map((x: any) => ({ id: x.id, label: x.name }))
+// })
 
 const education = reactive<any>({
     institution: '',
@@ -84,10 +97,10 @@ const isSaving = ref(false)
 
 function clickSave() {
 
-    if (!useFxn.isOnline()) {
-        useFxn.toastShort('You are offline')
-        return
-    }
+    // if (!useFxn.isOnline()) {
+    //     useFxn.toastShort('You are offline')
+    //     return
+    // }
 
 
     const requiredFields = ['start_date', 'qualification', 'institution'];
@@ -108,7 +121,7 @@ async function save() {
     let thisEndDate = isCurrentlyHere.value ? null : education.end_date;
     let obj = {
         institution: education.institution,
-        qualification: education.qualification,
+        qualification_id: education.qualification.id,
         start_date: editingStore.dateSubmitFormat(education.start_date),
         end_date: editingStore.dateSubmitFormat(thisEndDate),
         description: education.description

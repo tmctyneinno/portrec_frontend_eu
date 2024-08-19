@@ -55,19 +55,19 @@ const profileStore = useProfileStore()
 const route = useRoute()
 
 const details = reactive({
-    facebook: profileStore.data ? profileStore.data.facebook : '',
-    instagram: profileStore.data ? profileStore.data.instagram : '',
-    twitter: profileStore.data ? profileStore.data.twitter : '',
-    linkedin: profileStore.data ? profileStore.data.linkedin : '',
-    website: profileStore.data ? profileStore.data.website : '',
+    facebook: profileStore.profile ? profileStore.profile?.facebook : '',
+    instagram: profileStore.profile ? profileStore.profile?.instagram : '',
+    twitter: profileStore.profile ? profileStore.profile?.twitter : '',
+    linkedin: profileStore.profile ? profileStore.profile?.linkedin : '',
+    website: profileStore.profile ? profileStore.profile?.website : '',
 })
 
-watch(() => profileStore.data, () => {
-    details.facebook = profileStore.data ? profileStore.data.facebook : '';
-    details.instagram = profileStore.data ? profileStore.data.instagram : '';
-    details.twitter = profileStore.data ? profileStore.data.twitter : '';
-    details.linkedin = profileStore.data ? profileStore.data.linkedin : '';
-    details.website = profileStore.data ? profileStore.data.website : '';
+watch(() => profileStore.profile, () => {
+    details.facebook = profileStore.profile ? profileStore.profile?.facebook : '';
+    details.instagram = profileStore.profile ? profileStore.profile?.instagram : '';
+    details.twitter = profileStore.profile ? profileStore.profile?.twitter : '';
+    details.linkedin = profileStore.profile ? profileStore.profile?.linkedin : '';
+    details.website = profileStore.profile ? profileStore.profile?.website : '';
 
 })
 
@@ -76,10 +76,10 @@ watch(() => profileStore.data, () => {
 const isSaving = ref(false)
 
 function clickSave() {
-    if (!useFxn.isOnline()) {
-        useFxn.toastShort('You are offline')
-        return
-    }
+    // if (!useFxn.isOnline()) {
+    //     useFxn.toastShort('You are offline')
+    //     return
+    // }
     isSaving.value = true
     save()
 }
@@ -91,12 +91,11 @@ async function save() {
             useFxn.toast('Updated successfully', 'success')
             btnX.value.click();
             profileStore.getProfile()
+            isSaving.value = false
         }
     } catch (error) {
-        // 
-    }
-    finally {
         isSaving.value = false
+        useFxn.toast('Something went wrong', 'error')
     }
 }
 

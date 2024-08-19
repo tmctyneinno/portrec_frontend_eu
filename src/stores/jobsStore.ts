@@ -11,6 +11,7 @@ export const useJobsStore = defineStore('jobsStore', () => {
   // const types = ref<any[]>([]);
 
   const categories: any = useStorage('protrec_$cate', [], sessionStorage)
+  const qualifications: any = useStorage('protrec_$qualificatns', [], sessionStorage)
   const types: any = useStorage('protrec_$jobTypes', [], sessionStorage)
   const levels: any = useStorage('protrec_$jobLevels', [], sessionStorage)
   const functions: any = useStorage('protrec_$jobfunctions', [], sessionStorage)
@@ -80,6 +81,17 @@ export const useJobsStore = defineStore('jobsStore', () => {
       if (resp.status == 200)
         types.value = resp.data.body
       // console.log('jobtypes', resp.data.body);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function getJobQualifications() {
+    try {
+      const resp: any = await api.jobQualifications()
+      if (resp.status == 200)
+        qualifications.value = resp.data.body
+      console.log('qualifications', resp.data.body);
     } catch (error) {
       console.log(error);
     }
@@ -191,6 +203,7 @@ export const useJobsStore = defineStore('jobsStore', () => {
     loading,
     categories,
     functions,
+    qualifications,
     types,
     levels,
     latest,
@@ -206,5 +219,6 @@ export const useJobsStore = defineStore('jobsStore', () => {
     getJobFunctions,
     getJobCategories,
     getLatestJobs,
+    getJobQualifications,
   }
 })

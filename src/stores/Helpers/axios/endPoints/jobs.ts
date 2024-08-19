@@ -26,6 +26,10 @@ export default {
         return $instancePublic.get(`job/types`)
     },
 
+    jobQualifications() {
+        return $instancePublic.get(`job/qualifications`)
+    },
+
     jobLevels() {
         return $instancePublic.get(`job/levels`)
     },

@@ -1,5 +1,3 @@
-
-
 <template>
     <div class="col-12">
         <div class="card border-0 shadow-sm">
@@ -7,7 +5,7 @@
                 Educations
                 <span class="float-end" data-bs-toggle="modal" data-bs-target="#addEducationModal">
                     <span class="profile-edit-btn small rounded-1">
-                        New <i class="bi bi-plus-circle-dotted"></i>
+                        <i class="bi bi-plus-lg"></i>
                     </span>
                 </span>
             </div>
@@ -19,7 +17,7 @@
                 <!-- Some borders are removed -->
                 <ul v-else class="list-group list-group-flush">
                     <li v-for="(edu, index ) in educationsArray()" :key="index"
-                        class="list-group-item border-1 rounded-1 mb-3">
+                        class="list-group-item border-1 rounded-1 mb-3 p-lg-3">
                         <div class="row g-3">
                             <!-- <div class="col-lg-2">
                                 <img src="" alt="_img" class="">
@@ -28,17 +26,18 @@
                                 <div class="fw-bold mb-2">{{ edu.institution }}
                                     <span @click="editingStore.educationToEdit = edu" class="float-end"
                                         data-bs-toggle="modal" data-bs-target="#editEducationModal">
-                                        <span class="profile-edit-btn bg-white rounded-1">
-                                            <i class="bi bi-pencil-square"></i>
+                                        <span class="profile-edit-btn rounded-1">
+                                            <i class="bi bi-pencil-fill"></i>
                                         </span>
                                     </span>
 
                                 </div>
                                 <div class="text-muted mb-2">
-                                    {{ edu.qualification }}
+                                    {{ qualificationName(edu.qualification_id) }}
                                     <div v-if="edu.start_date">
                                         {{ useFxn.dateDisplay(new Date(edu.start_date), 'm,y') }} -
-                                        {{ edu.end_date ? useFxn.dateDisplay(new Date(edu.end_date), 'm,y') : 'present' }}
+                                        {{ edu.end_date ? useFxn.dateDisplay(new Date(edu.end_date), 'm,y') : 'present'
+                                        }}
                                     </div>
                                     <!-- <div v-if="edu.start_date">
                                         {{ new Date(edu.start_date).getFullYear() }} -
@@ -61,11 +60,15 @@
 import { useProfileStore } from '@/stores/profileStore';
 import { useEditingProfileStore } from './editingProfileStore'
 import useFxn from '@/stores/Helpers/useFunctions'
+import { useJobsStore } from '@/stores/jobsStore';
 
 const profileStore = useProfileStore()
 const editingStore = useEditingProfileStore()
+const jobsStore = useJobsStore()
 
 const educationsArray = () => profileStore.data?.education ?? [];
+
+const qualificationName = (id: any) => jobsStore.qualifications.find((x: { id: any; }) => x.id == id)?.name ?? '';
 
 </script>
 

@@ -1,5 +1,3 @@
-
-
 <template>
     <div class="col-12">
         <div class="card border-0 shadow-sm">
@@ -7,7 +5,7 @@
                 Social Links
                 <span class="float-end" data-bs-toggle="modal" data-bs-target="#editSocialLinksModal">
                     <span class="profile-edit-btn small rounded-1">
-                        Edit <i class="bi bi-pencil"></i>
+                        <i class="bi bi-pencil-fill"></i>
                     </span>
                 </span>
             </div>
@@ -92,19 +90,18 @@ import { useProfileStore } from '@/stores/profileStore';
 
 const profileStore = useProfileStore()
 
-
 const userHas = (str: string) => {
     let bool: boolean = false
-    if (profileStore.data)
-        bool = profileStore.data[str] ? true : false
+    if (profileStore.profile)
+        bool = profileStore.profile[str] ? true : false
     return bool
 
 }
 
 const socialLinkUrl = (str: string) => {
     let url: string = ''
-    if (profileStore.data)
-        url = profileStore.data[str] ?? '__';
+    if (profileStore.profile)
+        url = profileStore.profile[str] ?? '__';
     return url
 
 }

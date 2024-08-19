@@ -18,7 +18,7 @@
                     </div>
                     <div class="mt-5 mt-lg-0">
                         <router-link to="/user/settings" class="btn btn-link theme-color text-decoration-none btn-sm">
-                            <i class="bi bi-pencil"></i> Edit profile
+                            <i class="bi bi-gear-wide"></i> Settings
                         </router-link>
                     </div>
                 </div>

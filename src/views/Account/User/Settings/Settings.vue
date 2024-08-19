@@ -68,7 +68,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label> Gender </label>
-                                <v-select v-model="details.gender" class="text-capitalize gender-chooser"
+                                <v-select v-model="details.gender_id" class="text-capitalize gender-chooser"
                                     :clearable="false" :searchable="false" :options="['Male', 'Female']"></v-select>
                             </div>
                             <div class="col-6">
@@ -82,9 +82,9 @@
                                 <input v-model="details.location" class="form-control rounded-0" type="text">
                             </div>
                             <div class="col-12">
-                                <label> Title </label>
-                                <input v-model="details.title" class="form-control rounded-0" type="text"
-                                    placeholder="e.g: Software Enginner">
+                                <label> Proffessional Headline </label>
+                                <input v-model="details.professional_headline" class="form-control rounded-0"
+                                    type="text" placeholder="e.g: Software Enginner">
                             </div>
                         </div>
                     </div>
@@ -317,15 +317,29 @@ onMounted(async () => {
 
 const userData = {
     name: profileStore.data?.name ?? '',
-    gender: profileStore.data?.gender ?? '',
-    phone: profileStore.data?.phone ?? '',
-    country: profileStore.data?.country ?? '',
-    location: profileStore.data?.location ?? '',
-    title: profileStore.data?.title ?? '',
-    dob: profileStore.data ? new Date(profileStore.data.dob) : null,
+    gender_id: profileStore.profile?.gender_id ?? '',
+    phone: profileStore.profile?.phone ?? '',
+    country: profileStore.profile?.country ?? '',
+    location: profileStore.profile?.location ?? '',
+    professional_headline: profileStore.profile?.professional_headline ?? '',
+    dob: profileStore.profile ? new Date(profileStore.profile.dob) : null,
     isLoading: false,
     user_type: 'user'
 }
+
+const details = reactive<any>(userData)
+
+watch(() => profileStore.data, () => {
+    details.name = profileStore.data?.name ?? '';
+    details.gender_id = profileStore.profile?.gender_id ?? '';
+    details.phone = profileStore.profile?.phone ?? '';
+    details.location = profileStore.profile?.location ?? '';
+    details.country = profileStore.profile?.country ?? '';
+    details.proffesional_headline = profileStore.profile?.proffesional_headline ?? '';
+    details.dob = profileStore.profile ? new Date(profileStore.profile.dob) : null;
+})
+
+
 
 const phoneField = {
     dropDown: {
@@ -343,17 +357,7 @@ const phoneField = {
 
 }
 
-const details = reactive<any>(userData)
 
-watch(() => profileStore.data, () => {
-    details.name = profileStore.data?.name ?? '';
-    details.gender = profileStore.data?.gender ?? '';
-    details.phone = profileStore.data?.phone ?? '';
-    details.location = profileStore.data?.location ?? '';
-    details.country = profileStore.data?.country ?? '';
-    details.title = profileStore.data?.title ?? '';
-    details.dob = profileStore.data ? new Date(profileStore.data.dob) : null;
-})
 
 
 function saveProfile() {
@@ -362,7 +366,7 @@ function saveProfile() {
         return
     }
 
-    // const requiredFields = ['name', 'phone', 'dob', 'gender', 'location', 'country'];
+    // const requiredFields = ['name', 'phone', 'dob', 'gender_id', 'location', 'country'];
     const requiredFields = ['name', 'phone'];
 
     for (const field of requiredFields) {
@@ -377,10 +381,10 @@ function saveProfile() {
 async function submitProfileForm() {
     let obj = {
         name: details.name,
-        gender: details.gender,
+        gender_id: details.gender_id,
         phone: details.phone,
         dob: details.dob,
-        title: details.title,
+        professional_headline: details.professional_headline,
         location: details.location,
         country: details.country,
     }

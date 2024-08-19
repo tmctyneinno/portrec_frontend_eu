@@ -9,7 +9,7 @@ const { applicants } = storeToRefs(recruiterCommonStore);
 
 
 const languages = computed(() => {
-    const data = applicants.value.details?.profile?.languages;
+    const data = applicants.value.details?.user?.profile?.languages;
     if (!data) return '-';
 
     const formattedLanguages = data
@@ -37,7 +37,7 @@ const skills = computed(() => {
 
         <div class="col-md-6">
             <div class="text-muted">Gender</div>
-            <div>{{ applicants.details?.user?.gender ?? '-' }}</div>
+            <div>{{ applicants.details?.user?.profile?.gender_id ?? '-' }}</div>
         </div>
 
         <div class="col-md-6">
@@ -51,10 +51,10 @@ const skills = computed(() => {
             <div>{{ languages }}</div>
         </div>
 
-        <div class="col-md-6">
+        <!-- <div class="col-md-6">
             <div class="text-muted">Address</div>
             <div>{{ applicants.details?.user?.profile?.address ?? '-' }}</div>
-        </div>
+        </div> -->
     </div>
 
     <hr>

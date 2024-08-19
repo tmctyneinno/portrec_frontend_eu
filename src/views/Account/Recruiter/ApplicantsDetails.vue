@@ -24,7 +24,8 @@
                         <div>
                             <div class="fs-3 fw-lighter">{{ applicants.details?.user?.name }}</div>
                             <!-- <div>Product Designer</div> -->
-                            <div>{{ applicants.details?.user?.email }}</div>
+                            <div>{{ applicants.details?.user?.profile?.professional_headline }}</div>
+                            <div class="text-muted">{{ applicants.details?.user?.email }}</div>
                             <!-- <div class="fw-bold">
                                 <i class="bi bi-star-fill text-warning"></i> 4.0
                             </div> -->
@@ -32,10 +33,9 @@
                     </div>
 
 
-                    <!-- applied jobs -->
                     <div class="card mt-3 rounded-0 border-0 bg-light p-2">
                         <div class="card-header bg-transparent">
-                            Applied Job
+                            Applied
                             <span class="float-end xsmall">
                                 {{ useFxn.timeAgo(applicants.details?.applied_date) }}
                             </span>
@@ -43,7 +43,7 @@
                         <div class="card-body">
                             <div class="fw-bold"> {{ applicants.details?.job?.title }} </div>
                             <div class="text-muted text-capitalize">{{ applicants.details?.job?.industry.name }}
-                                - {{ applicants.details?.job?.job_type?.name }}
+                                ({{ applicants.details?.job?.job_type?.name }})
                             </div>
                         </div>
                     </div>

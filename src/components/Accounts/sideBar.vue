@@ -45,9 +45,10 @@
                             </div>
                         </div>
                         <div class="col-lg-8">
-                            <div class="fw-bold text-capitalize">{{ profileStore.data ? profileStore.data.name : '' }}
+                            <div class="fw-bold text-capitalize xsmall">{{ profileStore.data ? profileStore.data.name :
+                                '' }}
                             </div>
-                            <div class="fw-lighter">
+                            <div class="fw-lighter xsmall">
                                 {{ profileStore.data ? profileStore.data.email : '' }}
                             </div>
                         </div>
@@ -141,7 +142,7 @@ function logout() {
     left: 0;
     z-index: 1030;
     width: 249px;
-    padding: 10px;
+    padding-bottom: 10px;
     background-color: #F8F8FD;
 }
 

@@ -35,8 +35,9 @@
                                 <div class="text-muted mb-2">
                                     {{ qualificationName(edu.qualification_id) }}
                                     <div v-if="edu.start_date">
-                                        {{ useFxn.dateDisplay(new Date(edu.start_date), 'm,y') }} -
-                                        {{ edu.end_date ? useFxn.dateDisplay(new Date(edu.end_date), 'm,y') : 'present'
+                                        {{ useFxn.dateDisplay(new Date(edu.start_date), 'MMM,YYYY') }} -
+                                        {{ edu.end_date ? useFxn.dateDisplay(new Date(edu.end_date), 'MMM, YYYY') :
+                                            'present'
                                         }}
                                     </div>
                                     <!-- <div v-if="edu.start_date">

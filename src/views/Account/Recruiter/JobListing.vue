@@ -156,7 +156,7 @@ const tableHeader = ref([
     { text: "Job Type", value: "job_type.name", sortable: true },
     { text: "Applicants", value: "total_applied", sortable: true },
     // { text: "Score", value: "score", sortable: true },
-    { text: "", value: "action" },
+    { text: "Edit/Delete", value: "action" },
 ]);
 
 

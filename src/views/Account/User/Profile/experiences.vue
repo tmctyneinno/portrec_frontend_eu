@@ -38,8 +38,9 @@
                                     </span>
                                     <i class="bi bi-dot"></i>
                                     <span v-if="exp.start_date">
-                                        {{ useFxn.dateDisplay(new Date(exp.start_date), 'm,y') }} -
-                                        {{ exp.end_date ? useFxn.dateDisplay(new Date(exp.end_date), 'm,y') : 'present'
+                                        {{ useFxn.dateDisplay(new Date(exp.start_date), 'MMM, YYYY') }} -
+                                        {{ exp.end_date ? useFxn.dateDisplay(new Date(exp.end_date), 'MMMM, YYYY') :
+                                            'present'
                                         }}
                                     </span>
                                     <div>

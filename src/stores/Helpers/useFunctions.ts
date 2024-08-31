@@ -124,15 +124,10 @@ export default {
         }
     },
 
-    dateDisplay: (date: Date, options?: string) => {
+    dateDisplay: (date: Date, format = 'MMM D, YYYY') => {
+
         if (!date) return '-'
-        if (options) {
-            if (options == 'm,y') {
-                const dd = useDateFormat(date, 'MMM, YYYY')
-                return dd.value
-            }
-        }
-        const dd = useDateFormat(date, 'MMM D, YYYY')
+        const dd = useDateFormat(date, format)
         return dd.value
     },
 
@@ -186,5 +181,10 @@ export default {
         })
 
         return () => popper.destroy()
-    }
+    },
+
+
+    arrayPropSum(array: any[], prop: string) {
+        return array.reduce((total: number, array: any) => total + parseFloat(array[prop]), 0)
+    },
 }

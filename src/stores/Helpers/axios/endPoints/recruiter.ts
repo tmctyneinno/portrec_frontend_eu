@@ -56,5 +56,20 @@ export default {
 
     recruiterJobsSelect() {
         return $instance.get(`recruiter/jobs/select`)
-    }
+    },
+
+
+
+    recruiterCompanyInformation() {
+        return $instance.get(`recruiter/company/info`)
+    },
+
+    // recruiterCreateCompany(data: Object) {
+    //     return $instance.post(`recruiter/company/create`, JSON.stringify(data))
+    // },
+
+
+    recruiterCompanyResources() {
+        return $instance.get(`recruiter/company/resources`)
+    },
 }

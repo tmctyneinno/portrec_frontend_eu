@@ -50,11 +50,15 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
         socialLinksEditModal: boolean,
         industryEditModal: boolean,
         data: any,
+        isLoading: boolean,
+        companyFound: boolean
     }>({
         profileEditModal: false,
         socialLinksEditModal: false,
         industryEditModal: false,
         data: null,
+        isLoading: false,
+        companyFound: false
     })
 
     async function loadJobPostingDropdowns() {
@@ -75,6 +79,29 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
 
         }
     }
+
+
+
+    async function getCompanyInformation() {
+        try {
+            companyProfile.isLoading = true
+            const resp = await api.recruiterCompanyInformation()
+            if (resp.status == 204) {
+                companyProfile.companyFound = false
+            } else {
+                companyProfile.data = resp.data
+                companyProfile.companyFound = true
+            }
+            companyProfile.isLoading = false
+
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
+
+
+
 
     async function loadApplicantDetails() {
         try {
@@ -205,6 +232,7 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
         jobPostingDropdowns,
         jobPostingFields,
 
-        companyProfile
+        companyProfile,
+        getCompanyInformation
     }
 })

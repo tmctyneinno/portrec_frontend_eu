@@ -68,6 +68,9 @@ import 'qalendar/dist/style.css'
 
 // https://www.npmjs.com/package/@fullcalendar/vue3 #####################
 
+// https://www.npmjs.com/package/country-state-city
+// npm i country-state-city
+
 import piniaPersist from 'pinia-plugin-persist'
 
 import jobsDisplayVue from '@/components/jobsDisplay.vue';

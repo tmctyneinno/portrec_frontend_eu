@@ -51,7 +51,7 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
         topInfoEditModal: boolean,
         techStackEditModal: boolean,
         data: any,
-        resources: { employees: any[], industry: any[] },
+        resources: { employees: any[], industry: any[], countries: any[] },
         isLoading: boolean,
         companyFound: boolean,
     }>({
@@ -61,7 +61,7 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
         topInfoEditModal: false,
         techStackEditModal: false,
         data: null,
-        resources: { employees: [], industry: [] },
+        resources: { employees: [], industry: [], countries: [] },
         isLoading: false,
         companyFound: false,
     })
@@ -248,6 +248,6 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
 
         companyProfile,
         getCompanyInformation,
-        getCompanyResources
+        getCompanyResources,
     }
 })

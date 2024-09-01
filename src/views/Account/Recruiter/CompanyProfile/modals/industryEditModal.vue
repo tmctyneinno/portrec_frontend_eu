@@ -83,10 +83,6 @@ function updateFields() {
     }
 }
 
-watchEffect(() => {
-    updateFields()
-})
-
 
 watch(() => company.value.industryEditModal, () => {
     modalOpen.value.click()

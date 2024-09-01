@@ -20,12 +20,14 @@
                                 {{ job.job_type?.name ?? 'Full Time' }}
                             </span>
                         </span>
-                        <span class="category-tag text-capitalize" :class="job.category?.name ?? '' + '-tag'">
-                            {{ job.category?.name ?? '' }}
+                        <span class="category-tag text-capitalize" :class="job.industry?.name ?? '' + '-tag'">
+                            <!-- {{ job.category?.name ?? '' }} -->
+                            {{ job.industry?.name ?? '' }}
+                            <!-- {{ job }} -->
                         </span>
-                        <span class="category-tag text-capitalize">
+                        <!-- <span class="category-tag text-capitalize">
                             {{ job.sub_category?.name ?? '' }}
-                        </span>
+                        </span> -->
                     </div>
                 </div>
             </div>

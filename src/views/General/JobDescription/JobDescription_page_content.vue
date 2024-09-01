@@ -116,13 +116,14 @@
           <hr>
 
           <div class="py-2  border-0">
-            <h4 class="fw-bold">Categories</h4>
-            <span class=" text-capitalize" :class="currentJob.category?.name ?? '' + '-tag'">
-              {{ currentJob.category?.name ?? '' }}
+            <h4 class="fw-bold">Category</h4>
+            <span class=" text-capitalize" :class="currentJob.industry?.name ?? '' + '-tag'">
+              {{ currentJob.industry?.name ?? '' }}
             </span>
-            <span class="category-tag text-capitalize">
+            <!-- <span class="category-tag text-capitalize">
               {{ currentJob.sub_category?.name ?? '' }}
-            </span>
+              {{ currentJob.sub_category?.name ?? '' }}
+            </span> -->
           </div>
 
           <hr>

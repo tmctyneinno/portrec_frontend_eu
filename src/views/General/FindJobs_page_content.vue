@@ -46,8 +46,8 @@
                         <div class="list-group list-group-flush">
 
                           <label v-for="x in jobsStore.types" :key="x" class="list-group-item border-0 text-capitalize">
-                            <input @change="respondToCheckBox" class="form-check-input me-1" type="checkbox" :value="x.id"
-                              v-model="checked.type_id">
+                            <input @change="respondToCheckBox" class="form-check-input me-1" type="checkbox"
+                              :value="x.id" v-model="checked.type_id">
                             {{ x.name }} ({{ x.total_jobs }})
                           </label>
 
@@ -68,15 +68,15 @@
                         Categories
                       </button>
                     </h2>
-                    <div id="flush-collapseTwo" class="accordion-collapse collapse" :class="{ 'show': windowWidth > 768 }"
-                      data-bs-parent="#categories">
+                    <div id="flush-collapseTwo" class="accordion-collapse collapse"
+                      :class="{ 'show': windowWidth > 768 }" data-bs-parent="#categories">
                       <div class="accordion-body small">
                         <div class="list-group list-group-flush">
 
                           <label v-for="x in jobsStore.categories" :key="x"
                             class="list-group-item border-0 text-capitalize">
-                            <input @change="respondToCheckBox" class="form-check-input me-1" type="checkbox" :value="x.id"
-                              v-model="checked.cat_id">
+                            <input @change="respondToCheckBox" class="form-check-input me-1" type="checkbox"
+                              :value="x.id" v-model="checked.cat_id">
                             {{ x.name }} ({{ x.total_jobs }})
                           </label>
 
@@ -101,9 +101,10 @@
                       :class="{ 'show': windowWidth > 768 }" data-bs-parent="#job-level">
                       <div class="accordion-body small">
                         <div class="list-group list-group-flush">
-                          <label v-for="x in jobsStore.levels" :key="x" class="list-group-item border-0 text-capitalize">
-                            <input @change="respondToCheckBox" class="form-check-input me-1" type="checkbox" :value="x.id"
-                              v-model="checked.level_id">
+                          <label v-for="x in jobsStore.levels" :key="x"
+                            class="list-group-item border-0 text-capitalize">
+                            <input @change="respondToCheckBox" class="form-check-input me-1" type="checkbox"
+                              :value="x.id" v-model="checked.level_id">
                             {{ x.name }} ({{ x.total_jobs }})
                           </label>
 
@@ -217,12 +218,12 @@
                                   {{ job.job_type ? job.job_type.name : 'Full Time' }}
                                 </span>
                               </span>
-                              <span class="category-tag text-capitalize" :class="job?.Category?.name ?? '' + '-tag'">
-                                {{ job.Category ? job.Category.name : '' }}
+                              <span class="category-tag text-capitalize" :class="job?.industry?.name ?? '' + '-tag'">
+                                {{ job.industry ? job.industry.name : '' }}
                               </span>
-                              <span class="category-tag text-capitalize">
+                              <!-- <span class="category-tag text-capitalize">
                                 {{ job.sub_category ? job.sub_category.name : '' }}
-                              </span>
+                              </span> -->
                             </div>
                             <div class="col-md-3 justify-content-end">
                               <div class="text-cente">

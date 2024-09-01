@@ -20,28 +20,38 @@
                     <img src="" alt="coy_logo">
                 </div>
                 <div class="col-md-10">
-                    <h1 class="large-coy-name"> {{ company.data.name }} </h1>
-                    <router-link to="#" class="theme-color">{{ company.data.website ?? '-' }}</router-link>
+                    <h1 class="large-coy-name"> {{ company.data.name }} <span @click="openEditModal('top-info')"
+                            class="float-end floated-btn d-flex-center">
+                            <i class="bi bi-pencil-fill"></i>
+                        </span> </h1>
+
+                    <router-link to="#" class="theme-color">{{ company.data.website ?? '' }}</router-link>
                     <div class="row g-3 mt-2">
                         <div class="col-6 col-lg-4 d-flex align-items-center">
                             <div><i class="bi bi-fire info-icon me-2"></i></div>
                             <div>
                                 <div clas="text-muted">Founded</div>
-                                <div class="fw-bold lh-1">{{ useFxn.dateDisplay(company.data.date_founded) }}</div>
+                                <div v-if="company.data.date_founded" class="fw-bold lh-1">{{
+                                    useFxn.dateDisplay(company.data.date_founded) }}</div>
+                                <div v-else class="text-muted2 xsmall">Not added..</div>
                             </div>
                         </div>
                         <div class="col-6 col-lg-4 d-flex align-items-center">
                             <div> <i class="bi bi-people info-icon me-2"></i> </div>
                             <div>
                                 <div clas="text-muted ">Employees</div>
-                                <div class="fw-bold lh-1">{{ company.data.sizes?.name ?? '-' }}</div>
+                                <div v-if="company.data.sizes?.name" class="fw-bold lh-1">
+                                    {{ company.data.sizes?.name }}
+                                </div>
+                                <div v-else class="text-muted2 xsmall">Not added..</div>
                             </div>
                         </div>
                         <div class="col-6 col-lg-4 d-flex align-items-center">
                             <div> <i class="bi bi-geo-alt info-icon me-2"></i> </div>
                             <div>
                                 <div clas="text-muted ">Location</div>
-                                <div class="fw-bold lh-1">{{ company.data.address ?? '-' }}</div>
+                                <div v-if="company.data.address" class="fw-bold lh-1">{{ company.data.address }}</div>
+                                <div v-else class="text-muted2 xsmall">Not added..</div>
                             </div>
                         </div>
 
@@ -57,11 +67,12 @@
                                 Industry
                                 <span @click="openEditModal('industry')"
                                     class="float-end floated-btn d-flex-center cursor-pointer">
-                                    <i class="bi bi-pencil-square"></i>
+                                    <i class="bi bi-pencil-fill"></i>
                                 </span>
                             </h5>
                             <div class="card-text text-capitalize">
-                                {{ company.data.industries?.name ?? '-' }}
+                                <span v-if="company.data.industries?.name">{{ company.data.industries?.name }}</span>
+                                <span v-else class="text-muted2 small">Add company Industry..</span>
                             </div>
                         </div>
                     </div>
@@ -71,11 +82,12 @@
                                 Company Profile
                                 <span @click="openEditModal('profile')"
                                     class="float-end floated-btn d-flex-center cursor-pointer">
-                                    <i class="bi bi-pencil-square"></i>
+                                    <i class="bi bi-pencil-fill"></i>
                                 </span>
                             </h5>
                             <div class="card-text">
-                                {{ company.data.description ?? '-' }}
+                                <span v-if="company.data.description">{{ company.data.description }}</span>
+                                <span v-else class="text-muted2 small">Add company description..</span>
                             </div>
                         </div>
                     </div>
@@ -85,40 +97,40 @@
                                 Contact
                                 <span @click="openEditModal('links')"
                                     class="float-end floated-btn d-flex-center cursor-pointer">
-                                    <i class="bi bi-pencil-square"></i>
+                                    <i class="bi bi-pencil-fill"></i>
                                 </span>
 
                             </h5>
                             <div class="card-text mt-3">
                                 <div class="row g-3">
                                     <div class=" col-md-6">
-                                        <div class="link-pane d-flex-center">
+                                        <div class="link-pane ">
                                             <i class="bi bi-twitter-x me-1"></i>
-                                            {{ company.data.twitter ?? '-' }}
+                                            {{ company.data.twitter ?? '...' }}
                                         </div>
                                     </div>
                                     <div class=" col-md-6">
-                                        <div class="link-pane d-flex-center">
+                                        <div class="link-pane ">
                                             <i class="bi bi-facebook me-1"></i>
-                                            {{ company.data.facebook ?? '-' }}
+                                            {{ company.data.facebook ?? '...' }}
                                         </div>
                                     </div>
                                     <div class=" col-md-6">
-                                        <div class="link-pane d-flex-center">
+                                        <div class="link-pane ">
                                             <i class="bi bi-linkedin me-1"></i>
-                                            {{ company.data.linkedin ?? '-' }}
+                                            {{ company.data.linkedin ?? '...' }}
                                         </div>
                                     </div>
                                     <div class=" col-md-6">
-                                        <div class="link-pane d-flex-center">
+                                        <div class="link-pane ">
                                             <i class="bi bi-envelope me-1"></i>
-                                            {{ company.data.email ?? '-' }}
+                                            {{ company.data.email ?? '...' }}
                                         </div>
                                     </div>
                                     <div class=" col-md-6">
-                                        <div class="link-pane d-flex-center">
+                                        <div class="link-pane ">
                                             <i class="bi bi-instagram me-1"></i>
-                                            {{ company.data.instagram ?? '-' }}
+                                            {{ company.data.instagram ?? '...' }}
                                         </div>
                                     </div>
                                 </div>
@@ -149,12 +161,14 @@
                                 <div class="card-body">
                                     <h5 class="card-title bg-transparent border-0 fw-bold">
                                         Tech Stack
-                                        <span class="float-end floated-btn d-flex-center">
-                                            <i class="bi bi-pencil-square"></i>
+                                        <span @click="openEditModal('tech-stack')"
+                                            class="float-end floated-btn d-flex-center">
+                                            <i class="bi bi-pencil-fill"></i>
                                         </span>
                                     </h5>
-                                    <div class="card-text mt-4 text-capitalize">
-                                        {{ company.data.tech_stack ?? '-' }}
+                                    <div class="card-text mt-4">
+                                        <span v-if="company.data.tech_stack">{{ company.data.tech_stack }}</span>
+                                        <span v-else class="text-muted2 small">Add Company tech stack..</span>
                                     </div>
                                 </div>
                             </div>
@@ -171,6 +185,7 @@
                                         <div>{{ useFxn.arrayPropSum(company.data.jobs, 'total_applied') }} Applications.
                                         </div>
                                     </div>
+                                    <span v-else class="text-muted2 small">No Jobs Openings</span>
                                 </div>
                             </div>
                         </div>
@@ -184,6 +199,8 @@
             <profileEditModal />
             <SocialLinkEditModal />
             <IndustryEditModal />
+            <TechStackEditModal />
+            <TopInfoEditModal />
         </div>
     </div>
 
@@ -200,17 +217,23 @@ import useFxn from '@/stores/Helpers/useFunctions';
 import profileEditModal from './modals/profileEditModal.vue';
 import SocialLinkEditModal from './modals/socialLinkEditModal.vue';
 import IndustryEditModal from './modals/industryEditModal.vue';
+import TechStackEditModal from './modals/techStackEditModal.vue';
+import TopInfoEditModal from './modals/topInfoEditModal.vue';
 
 const recruiterCommonStore = useRecruiterCommonStore()
 const { companyProfile: company } = storeToRefs(recruiterCommonStore)
 
-function openEditModal(editType: 'profile' | 'industry' | 'links') {
+function openEditModal(editType: 'profile' | 'industry' | 'links' | 'tech-stack' | 'top-info') {
     if (editType == 'profile')
         company.value.profileEditModal = !company.value.profileEditModal
     else if (editType == 'industry')
         company.value.industryEditModal = !company.value.industryEditModal
-    else
+    else if (editType == 'tech-stack')
+        company.value.techStackEditModal = !company.value.techStackEditModal
+    else if (editType == 'links')
         company.value.socialLinksEditModal = !company.value.socialLinksEditModal
+    else
+        company.value.topInfoEditModal = !company.value.topInfoEditModal
 }
 
 
@@ -221,8 +244,10 @@ const job = {
     }
 }
 
-onMounted(() => {
-    recruiterCommonStore.getCompanyInformation()
+onMounted(async () => {
+    company.value.isLoading = true
+    await recruiterCommonStore.getCompanyInformation()
+    recruiterCommonStore.getCompanyResources()
 })
 
 </script>
@@ -256,11 +281,20 @@ onMounted(() => {
     border: 1px solid #ccc;
     font-size: 12px;
     cursor: pointer;
+    color: var(--theme-color);
+    border-radius: 2px;
+}
+
+.floated-btn:hover {
+    background-color: #cccccc53;
 }
 
 .link-pane {
+    padding: 7px;
+    display: flex;
+    justify-content: center;
     cursor: pointer;
-    border: 1px solid var(--theme-color);
-    color: var(--theme-color);
+    border: 1px solid var(--bs-secondary-bg-subtle);
+    /* color: var(--theme-color); */
 }
 </style>

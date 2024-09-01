@@ -441,10 +441,9 @@
                                                     class="form-control rounded-0" rows="2"></textarea>
                                             </div>
                                             <div>
-                                                <button @click="pushBenefits"
-                                                    class="btn btn-primary-outline rounded-0 float-end">
+                                                <primaryButton :btnClass="'float-end'" @click="pushBenefits">
                                                     <i class="bi bi-plus-lg"></i> Add Benefit
-                                                </button>
+                                                </primaryButton>
                                             </div>
                                         </div>
                                         <div class="row g-3 mt-3">
@@ -472,10 +471,7 @@
 
                     </div>
                     <div class="modal-footer border-" v-if="form.isSaving">
-                        <button class="btn btn-primary rounded-0" type="button" disabled>
-                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                            Saving
-                        </button>
+                        <primaryButtonLoading />
                     </div>
                     <div class="modal-footer border-" v-else>
                         <button ref="closeModal" type="button" class="btn btn-light rounded-0" data-bs-dismiss="modal"
@@ -484,17 +480,16 @@
                             class="btn btn-secondary rounded-0">
                             <i class=" bi bi-chevron-left"></i> Back
                         </button>
-                        <button :disabled="stepIsComplete > 0" v-if="[1, 2].includes(jobPosting.stage)"
-                            @click="goToNext" type="button" class="btn btn-primary rounded-0">
+
+                        <primaryButton :disabled="stepIsComplete > 0" v-if="[1, 2].includes(jobPosting.stage)"
+                            @click="goToNext">
                             Next <i class=" bi bi-chevron-right"></i>
-                        </button>
+                        </primaryButton>
 
 
-                        <button @click="submitJobPosting" v-if="jobPosting.stage == 3" type="button"
-                            class="btn btn-primary rounded-0">
+                        <primaryButton @click="submitJobPosting" v-if="jobPosting.stage == 3">
                             {{ jobPosting.editingId ? 'Update Job' : 'Post Job' }}
-                        </button>
-
+                        </primaryButton>
 
                     </div>
                 </div>

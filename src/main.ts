@@ -76,6 +76,9 @@ import noDataShow from '@/components/noDataShow.vue';
 import componentLoading from '@/components/componentLoading.vue';
 import customPagination from '@/components/customPagination.vue';
 
+import primaryButton from '@/components/buttons/primaryButton.vue';
+import primaryButtonLoading from '@/components/buttons/primaryButtonLoading.vue';
+
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
@@ -101,6 +104,8 @@ app.component('jobsDisplayVue', jobsDisplayVue)
 app.component('overlayLoading', overlayLoading)
 app.component('noDataShow', noDataShow)
 app.component('componentLoading', componentLoading)
+app.component('primaryButton', primaryButton)
+app.component('primaryButtonLoading', primaryButtonLoading)
 
 app.use(GoogleSignInPlugin, {
     clientId: 'CLIENT ID OBTAINED FROM GOOGLE API CONSOLE',

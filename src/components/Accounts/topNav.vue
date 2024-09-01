@@ -20,9 +20,9 @@
                         Back to homepage
                     </router-link>
 
-                    <button @click="openJobPostingModal" v-else to="/" class="btn btn-primary rounded-0 me-5 btn-sm">
+                    <primaryButton @click="openJobPostingModal" v-else :btnClass="'me-5 btn-sm'">
                         <i class="bi bi-plus-lg"></i> Post a Job
-                    </button>
+                    </primaryButton>
 
                     <span class="position-relative me-3 cursor-pointer bell dropdown-toggle" data-bs-toggle="dropdown"
                         aria-expanded="false">

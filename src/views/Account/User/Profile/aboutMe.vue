@@ -11,7 +11,7 @@
                 </span>
             </div>
             <div class="card-body small">
-                <p v-if="profileStore.data && profile.about_me">
+                <p v-if="profileStore.data && profile?.about_me">
                     <span v-html="profile.about_me"></span>
                 </p>
                 <p v-else class="text-muted2">

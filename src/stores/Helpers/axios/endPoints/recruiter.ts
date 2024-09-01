@@ -64,9 +64,9 @@ export default {
         return $instance.get(`recruiter/company/info`)
     },
 
-    // recruiterCreateCompany(data: Object) {
-    //     return $instance.post(`recruiter/company/create`, JSON.stringify(data))
-    // },
+    recruiterUpdateCompany(data: Object) {
+        return $instance.post(`recruiter/company/update`, JSON.stringify(data))
+    },
 
 
     recruiterCompanyResources() {

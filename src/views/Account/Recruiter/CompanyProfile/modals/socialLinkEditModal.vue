@@ -11,32 +11,41 @@
                 <div class="modal-header border-0">
                     <h5 class="modal-title">
                         Social links
+                        <div class="xsmall text-muted2">Company's social media handles</div>
                     </h5>
                     <button ref="modalClose" type="button" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row g-3">
-                        <div class="col-12">
+                        <div class="col-md-6">
                             <div class="form-label">Twitter</div>
-                            <input class="form-control rounded-0" type="text">
+                            <input v-model="form.twitter" class="form-control rounded-0" type="text" placeholder="@..">
                         </div>
-                        <div class="col-12">
+                        <div class="col-md-6">
                             <div class="form-label">Facebook</div>
-                            <input class="form-control rounded-0" type="text">
+                            <input v-model="form.facebook" class="form-control rounded-0" type="text" placeholder="@..">
                         </div>
-                        <div class="col-12">
+                        <div class="col-md-6">
+                            <div class="form-label">Instagram</div>
+                            <input v-model="form.instagram" class="form-control rounded-0" type="text"
+                                placeholder="@..">
+                        </div>
+                        <div class="col-md-6">
                             <div class="form-label">Linkedin</div>
-                            <input class="form-control rounded-0" type="text">
+                            <input v-model="form.linkedin" class="form-control rounded-0" type="text" placeholder="@..">
                         </div>
                         <div class="col-12">
-                            <div class="form-label">Email</div>
-                            <input class="form-control rounded-0" type="text">
+                            <div class="form-label">Company Email</div>
+                            <input v-model="form.email" class="form-control rounded-0" type="text">
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer border-0">
-                    <button type="button" class="btn btn-primary rounded-0 w-100">Save</button>
+                    <primaryButton :btnClass="'w-100'" v-if="!isSaving" @click="save">
+                        Update
+                    </primaryButton>
+                    <primaryButtonLoading :btnClass="'w-100'" v-else />
                 </div>
             </div>
         </div>
@@ -45,17 +54,62 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch } from 'vue';
+import { reactive, ref, watch, watchEffect } from 'vue';
 import { useRecruiterCommonStore } from '../../RecruiterCommonStore';
 import { useRoute } from 'vue-router';
+import useFxn from '@/stores/Helpers/useFunctions';
+import { storeToRefs } from 'pinia';
+import api from '@/stores/Helpers/axios'
 
 const recruiterCommonStore = useRecruiterCommonStore()
+const { companyProfile: company } = storeToRefs(recruiterCommonStore)
+
 const modalOpen = ref<any>(null)
 const modalClose = ref<any>(null)
 const route = useRoute()
 
-watch(() => recruiterCommonStore.companyProfile.socialLinksEditModal, () => {
+const form = reactive({
+    instagram: null,
+    twitter: null,
+    email: null,
+    linkedin: null,
+    facebook: null
+})
+const isSaving = ref(false)
+
+async function save() {
+    try {
+        isSaving.value = true
+        await api.recruiterUpdateCompany(form)
+        recruiterCommonStore.getCompanyInformation()
+        useFxn.toast('Social links Updated', 'success')
+        modalClose.value.click()
+        isSaving.value = false
+    } catch (error) {
+        useFxn.toast('Sorry Something went wrong', 'error')
+        modalClose.value.click()
+        isSaving.value = false
+        // console.log(error);
+
+    }
+}
+
+
+function updateFields() {
+    form.instagram = company.value.data.instagram
+    form.twitter = company.value.data.twitter
+    form.email = company.value.data.email
+    form.facebook = company.value.data.facebook
+    form.linkedin = company.value.data.linkedin
+}
+
+watchEffect(() => {
+    updateFields()
+})
+
+watch(() => company.value.socialLinksEditModal, () => {
     modalOpen.value.click()
+    updateFields()
 })
 
 watch(() => route.fullPath, () => {

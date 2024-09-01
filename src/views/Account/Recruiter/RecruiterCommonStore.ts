@@ -44,21 +44,26 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
         skills: [],
     })
 
-
     const companyProfile = reactive<{
         profileEditModal: boolean,
         socialLinksEditModal: boolean,
         industryEditModal: boolean,
+        topInfoEditModal: boolean,
+        techStackEditModal: boolean,
         data: any,
+        resources: { employees: any[], industry: any[] },
         isLoading: boolean,
-        companyFound: boolean
+        companyFound: boolean,
     }>({
         profileEditModal: false,
         socialLinksEditModal: false,
         industryEditModal: false,
+        topInfoEditModal: false,
+        techStackEditModal: false,
         data: null,
+        resources: { employees: [], industry: [] },
         isLoading: false,
-        companyFound: false
+        companyFound: false,
     })
 
     async function loadJobPostingDropdowns() {
@@ -75,16 +80,14 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
             jobPostingDropdowns.skills = skills.data.body
             jobPosting.hasLoadedDropdowns = true
         } catch (error) {
-            console.log(error);
+            // console.log(error);
 
         }
     }
 
 
-
     async function getCompanyInformation() {
         try {
-            companyProfile.isLoading = true
             const resp = await api.recruiterCompanyInformation()
             if (resp.status == 204) {
                 companyProfile.companyFound = false
@@ -94,6 +97,17 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
             }
             companyProfile.isLoading = false
 
+        } catch (error) {
+            // console.log(error);
+
+        }
+    }
+
+    async function getCompanyResources() {
+        try {
+            const { data } = await api.recruiterCompanyResources()
+            companyProfile.resources.employees = data.company_size
+            companyProfile.resources.industry = data.industry
         } catch (error) {
             console.log(error);
 
@@ -112,7 +126,7 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
             console.log(applicants.details, 'data 000000');
 
         } catch (error) {
-            console.log(error);
+            // console.log(error);
 
         }
     }
@@ -233,6 +247,7 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
         jobPostingFields,
 
         companyProfile,
-        getCompanyInformation
+        getCompanyInformation,
+        getCompanyResources
     }
 })

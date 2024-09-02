@@ -76,7 +76,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, reactive, ref, watch, watchEffect } from 'vue';
+import { reactive, ref, watch, } from 'vue';
 import { useRecruiterCommonStore } from '../../RecruiterCommonStore';
 import { useRoute } from 'vue-router';
 import useFxn from '@/stores/Helpers/useFunctions';

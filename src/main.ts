@@ -80,6 +80,7 @@ import componentLoading from '@/components/componentLoading.vue';
 import customPagination from '@/components/customPagination.vue';
 
 import primaryButton from '@/components/buttons/primaryButton.vue';
+import primaryButtonOutline from '@/components/buttons/primaryButtonOutline.vue';
 import primaryButtonLoading from '@/components/buttons/primaryButtonLoading.vue';
 
 import { createApp } from 'vue'
@@ -108,6 +109,7 @@ app.component('overlayLoading', overlayLoading)
 app.component('noDataShow', noDataShow)
 app.component('componentLoading', componentLoading)
 app.component('primaryButton', primaryButton)
+app.component('primaryButtonOutline', primaryButtonOutline)
 app.component('primaryButtonLoading', primaryButtonLoading)
 
 app.use(GoogleSignInPlugin, {

@@ -72,4 +72,8 @@ export default {
     recruiterCompanyResources() {
         return $instance.get(`recruiter/company/resources`)
     },
+
+    recruiterUpdateJobApplicationStatus(data: any) {
+        return $instance.post(`recruiter/job/application/status`, JSON.stringify(data))
+    }
 }

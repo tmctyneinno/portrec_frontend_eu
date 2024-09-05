@@ -16,8 +16,13 @@
         </div>
         <div v-else>
             <div class="row g-1">
-                <div class="col-md-2 d-flex align-items-center">
-                    <img src="" alt="coy_logo">
+                <div class="col-md-2">
+                    <div class="dropzone" v-bind="getRootProps()">
+                        <div class="text-center small">
+                            <i class="bi bi-pencil"></i>
+                        </div>
+                        <input v-bind="getInputProps()" />
+                    </div>
                 </div>
                 <div class="col-md-10">
                     <h1 class="large-coy-name"> {{ company.data.name }} <span @click="openEditModal('top-info')"
@@ -181,8 +186,12 @@
                                     </h5>
                                     <div v-if="company.data.jobs && company.data.jobs.length"
                                         class="card-text mt-4 text-capitalize">
-                                        <div>{{ company.data.jobs.length }} Jobs.</div>
-                                        <div>{{ useFxn.arrayPropSum(company.data.jobs, 'total_applied') }} Applications.
+                                        <div>{{ company.data.jobs.length }}
+                                            {{ company.data.jobs.length == 1 ? 'job' : 'jobs' }}.</div>
+                                        <div>
+                                            {{ useFxn.arrayPropSum(company.data.jobs, 'total_applied') }}
+                                            {{ useFxn.arrayPropSum(company.data.jobs, 'total_applied') == 1 ?
+                                                `Application` : `Applications` }}.
                                         </div>
                                     </div>
                                     <span v-else class="text-muted2 small">No Jobs Openings</span>
@@ -206,12 +215,14 @@
 
 </template>
 <script lang="ts" setup>
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import jobsDisplay from '@/components/jobsDisplay.vue';
 import { useRecruiterCommonStore } from '../RecruiterCommonStore';
 import { storeToRefs } from 'pinia';
 import ComponentLoading from '@/components/componentLoading.vue';
 import useFxn from '@/stores/Helpers/useFunctions';
+//@ts-ignore
+import { useDropzone } from "vue3-dropzone";
 
 // modals
 import profileEditModal from './modals/profileEditModal.vue';
@@ -249,6 +260,40 @@ onMounted(async () => {
     await recruiterCommonStore.getCompanyInformation()
     recruiterCommonStore.getCompanyResources()
 })
+
+
+
+
+
+
+// image
+const acceptedFormats = ['png', 'jpg', 'jpeg', 'svg']
+const img = ref<any>(null)
+const imgSaving = ref(false)
+
+const { getRootProps, getInputProps } = useDropzone({
+    noDrag: true,
+    multiple: false,
+    // maxSize: 2,
+    onDrop: (acceptFiles: any[], rejectReasons: any) => {
+
+        // if (!useFxn.isOnline()) {
+        //     useFxn.toastShort('You are offline')
+        //     return
+        // }
+
+        if (!useFxn.isExtension(acceptFiles[0].name, acceptedFormats)) {
+            useFxn.toast('Please upload an image', 'warning');
+            return;
+        }
+
+        // let formData = new FormData();
+        // img.value = acceptFiles[0]
+        // formData.append("img", img.value);
+        // submitImage(formData)
+        console.log(rejectReasons);
+    },
+});
 
 </script>
 
@@ -296,5 +341,24 @@ onMounted(async () => {
     cursor: pointer;
     border: 1px solid var(--bs-secondary-bg-subtle);
     /* color: var(--theme-color); */
+}
+
+.dropzone {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    background-color: var(--theme-color-soft);
+    border: 1px solid #e8e5e5;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dropzone:hover {
+    border-color: var(--theme-color)
 }
 </style>

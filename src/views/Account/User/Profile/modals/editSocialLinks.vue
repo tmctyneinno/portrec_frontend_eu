@@ -55,19 +55,19 @@ const profileStore = useProfileStore()
 const route = useRoute()
 
 const details = reactive({
-    facebook: profileStore.profile ? profileStore.profile?.facebook : '',
-    instagram: profileStore.profile ? profileStore.profile?.instagram : '',
-    twitter: profileStore.profile ? profileStore.profile?.twitter : '',
-    linkedin: profileStore.profile ? profileStore.profile?.linkedin : '',
-    website: profileStore.profile ? profileStore.profile?.website : '',
+    facebook: profileStore.profile ? profileStore.profile?.facebook : null,
+    instagram: profileStore.profile ? profileStore.profile?.instagram : null,
+    twitter: profileStore.profile ? profileStore.profile?.twitter : null,
+    linkedin: profileStore.profile ? profileStore.profile?.linkedin : null,
+    website: profileStore.profile ? profileStore.profile?.website : null,
 })
 
 watch(() => profileStore.profile, () => {
-    details.facebook = profileStore.profile ? profileStore.profile?.facebook : '';
-    details.instagram = profileStore.profile ? profileStore.profile?.instagram : '';
-    details.twitter = profileStore.profile ? profileStore.profile?.twitter : '';
-    details.linkedin = profileStore.profile ? profileStore.profile?.linkedin : '';
-    details.website = profileStore.profile ? profileStore.profile?.website : '';
+    details.facebook = profileStore.profile ? profileStore.profile?.facebook : null;
+    details.instagram = profileStore.profile ? profileStore.profile?.instagram : null;
+    details.twitter = profileStore.profile ? profileStore.profile?.twitter : null;
+    details.linkedin = profileStore.profile ? profileStore.profile?.linkedin : null;
+    details.website = profileStore.profile ? profileStore.profile?.website : null;
 
 })
 

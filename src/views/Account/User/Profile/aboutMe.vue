@@ -32,8 +32,8 @@ const profileStore = useProfileStore()
 const editingStore = useEditingProfileStore()
 
 function saveAboutMeToStore() {
-    editingStore.aboutMe.isEdit = editingStore.aboutMe.isEdit == 1 ? 2 : 1
-    editingStore.aboutMe.text = profile.value.about_me
+    editingStore.aboutMe.isEdit = editingStore?.aboutMe?.isEdit == 1 ? 2 : 1
+    editingStore.aboutMe.text = profile.value?.about_me
 }
 
 const profile = computed(() => {

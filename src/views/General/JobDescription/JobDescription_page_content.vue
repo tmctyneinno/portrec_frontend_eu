@@ -75,7 +75,8 @@
             <h4 class="fw-bold">About this job</h4>
             <div class="card p-3 border-0 bg-light">
               <div class="fw-bold small">
-                {{ currentJob.total_applied }} applied of {{ currentJob.capacity }} capacity
+                <!-- {{ currentJob.total_applied }} applied of {{ currentJob.capacity }} capacity -->
+                {{ currentJob.total_applied }} applied
               </div>
               <div class="progress mt-2 mb-0 rounded-0" role="progressbar" :aria-valuenow="currentJob.total_applied"
                 aria-valuemin="0" :aria-valuemax="currentJob.capacity" style="height: 5px">

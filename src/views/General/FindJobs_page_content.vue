@@ -237,7 +237,8 @@
                                     :style="`width: ${(job.total_applied / job.capacity) * 100}%`">
                                   </div>
                                 </div>
-                                <small>{{ job.total_applied }} applied of {{ job.capacity }} capacity</small>
+                                <!-- <small>{{ job.total_applied }} applied of {{ job.capacity }} capacity</small> -->
+                                <small>{{ job.total_applied }} applied.</small>
                               </div>
                             </div>
                           </div>

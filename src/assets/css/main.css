@@ -464,7 +464,9 @@ input[type="radio"]:checked+label:before {
 
 .vue3-easy-data-table__main.fixed-header th {
   text-transform: uppercase;
-  padding-block: 10px !important;
+  padding-block: 15px !important;
+  background-color: #F8F8FD !important;
+  color: red !important;
 }
 
 .vue3-easy-data-table__footer {

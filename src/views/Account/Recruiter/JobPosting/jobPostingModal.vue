@@ -441,9 +441,9 @@
                                                     class="form-control rounded-0" rows="2"></textarea>
                                             </div>
                                             <div>
-                                                <primaryButton :btnClass="'float-end'" @click="pushBenefits">
-                                                    <i class="bi bi-plus-lg"></i> Add Benefit
-                                                </primaryButton>
+                                                <button class="float-end btn btn-success" @click="pushBenefits">
+                                                    <i class="bi bi-arrow-down"></i> Add Benefit
+                                                </button>
                                             </div>
                                         </div>
                                         <div class="row g-3 mt-3">

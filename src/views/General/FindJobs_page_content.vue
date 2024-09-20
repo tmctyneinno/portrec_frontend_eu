@@ -76,7 +76,7 @@
                           <label v-for="x in jobsStore.categories" :key="x"
                             class="list-group-item border-0 text-capitalize">
                             <input @change="respondToCheckBox" class="form-check-input me-1" type="checkbox"
-                              :value="x.id" v-model="checked.cat_id">
+                              :value="x.id" v-model="checked.industry_id">
                             {{ x.name }} ({{ x.total_jobs }})
                           </label>
 
@@ -129,24 +129,15 @@
                       :class="{ 'show': windowWidth > 768 }" data-bs-parent="#salary-range">
                       <div class="accordion-body small">
                         <div class="list-group list-group-flush">
-                          <label class="list-group-item border-0">
-                            <input class="form-check-input me-1" type="checkbox" value="">
-                            $700 - $1000 (4)
+                          <label v-for="x in salaryRanges" :key="x.id" class="list-group-item border-0 text-capitalize">
+                            <input @change="respondToCheckBox" class="form-check-input me-1" type="checkbox"
+                              :value="x.id" v-model="checked.salary_range">
+                            ${{ x.min }} - ${{ x.max }}
                           </label>
-                          <label class="list-group-item border-0">
-                            <input class="form-check-input me-1" type="checkbox" value="">
-                            $100 - $1500 (6)
-                          </label>
-                          <label class="list-group-item border-0">
-                            <input class="form-check-input me-1" type="checkbox" value="">
-                            $1500 - $2000 (10)
-                          </label>
-                          <label class="list-group-item border-0">
-                            <input class="form-check-input me-1" type="checkbox" value="" checked>
-                            $3000 or above (4)
-                          </label>
+
                         </div>
                       </div>
+
                     </div>
                   </div>
                 </div>
@@ -285,9 +276,10 @@ const perPage = ref(0);
 const totalRecords = ref(0);
 
 const checked: any = reactive({
-  cat_id: [],
+  industry_id: [],
   type_id: [],
   level_id: [],
+  salary_range: []
 })
 
 onMounted(async () => {
@@ -311,7 +303,7 @@ onMounted(async () => {
 
 
 function checkBoxesAccordingToExistingQuery() {
-  for (const key of ["cat_id", "type_id", "level_id"]) {
+  for (const key of ["industry_id", "type_id", "level_id"]) {
     if (jobsStore.queryObj[key]) {
       jobsStore.queryObj[key].forEach((e: any) => {
         checked[key].push(e);
@@ -321,11 +313,9 @@ function checkBoxesAccordingToExistingQuery() {
 }
 
 async function getJobs(page = 1) {
-
-
   const queryObj: any = {};
 
-  for (const key of ["cat_id", "type_id", "level_id"]) {
+  for (const key of ["industry_id", "type_id", "level_id"]) {
     if (checked[key].length) {
       queryObj[key] = checked[key];
     }
@@ -355,6 +345,14 @@ function respondToCheckBox() {
   // window.scrollTo(0, 0)
   getJobs()
 }
+
+
+const salaryRanges = ref([
+  { min: 0, max: 700, id: 1 },
+  { min: 700, max: 1000, id: 2 },
+  { min: 1000, max: 2000, id: 3 },
+  { min: 2000, max: 'above', id: 4 },
+])
 
 
 </script>

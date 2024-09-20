@@ -1,4 +1,3 @@
-
 <template>
     <div v-show="jobsStore.categories.length" class="section-panel min-vh-100">
         <div class="container">
@@ -17,7 +16,7 @@
             </div>
             <div class="col-12 mt-4">
                 <div class="row g-4">
-                    <div v-for="(cat, index) in  jobsStore.categories" :key="index" class="col-md-4 col-lg-3">
+                    <div v-for="(cat, index) in jobsStore.categories" :key="index" class="col-md-4 col-lg-3">
                         <div @click="gotoFindJobs(cat.id)" class="card explore-card shadow-sm p-3 py-lg-4 hover-tiltY">
                             <div class="card-icon theme-color"><i class="bi" :class="cateIcon(cat.name)"></i> </div>
                             <h3 class="card-title fw-light my-2 text-capitalize">{{ cat.name }}</h3>
@@ -60,9 +59,9 @@ const cateIcon = (name: string) => {
 }
 
 function gotoFindJobs(id: any) {
-    let cat_id = [];
-    cat_id.push(id)
-    jobsStore.queryObj.cat_id = cat_id;
+    let industry_id = [];
+    industry_id.push(id)
+    jobsStore.queryObj.industry_id = industry_id;
     router.push({ path: '/find-jobs' })
 }
 

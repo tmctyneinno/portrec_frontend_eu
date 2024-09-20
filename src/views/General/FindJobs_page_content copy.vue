@@ -46,8 +46,8 @@
                         <div class="list-group list-group-flush">
 
                           <label v-for="x in jobsStore.types" :key="x" class="list-group-item border-0 text-capitalize">
-                            <input @click="respondToCheckBox('type_id', x.id)" class="form-check-input me-1"
-                              type="checkbox" :value="x.id" v-model="checked.type_id">
+                            <input @change="respondToCheckBox" class="form-check-input me-1" type="checkbox"
+                              :value="x.id" v-model="checked.type_id">
                             {{ x.name }} ({{ x.total_jobs }})
                           </label>
 
@@ -72,10 +72,11 @@
                       :class="{ 'show': windowWidth > 768 }" data-bs-parent="#categories">
                       <div class="accordion-body small">
                         <div class="list-group list-group-flush">
+
                           <label v-for="x in jobsStore.categories" :key="x"
                             class="list-group-item border-0 text-capitalize">
-                            <input @click="respondToCheckBox('industry_id', x.id)" class="form-check-input me-1"
-                              type="checkbox" :value="x.id" v-model="checked.industry_id">
+                            <input @change="respondToCheckBox" class="form-check-input me-1" type="checkbox"
+                              :value="x.id" v-model="checked.industry_id">
                             {{ x.name }} ({{ x.total_jobs }})
                           </label>
 
@@ -102,8 +103,8 @@
                         <div class="list-group list-group-flush">
                           <label v-for="x in jobsStore.levels" :key="x"
                             class="list-group-item border-0 text-capitalize">
-                            <input @click="respondToCheckBox('level_id', x.id)" class="form-check-input me-1"
-                              type="checkbox" :value="x.id" v-model="checked.level_id">
+                            <input @change="respondToCheckBox" class="form-check-input me-1" type="checkbox"
+                              :value="x.id" v-model="checked.level_id">
                             {{ x.name }} ({{ x.total_jobs }})
                           </label>
 
@@ -129,8 +130,8 @@
                       <div class="accordion-body small">
                         <div class="list-group list-group-flush">
                           <label v-for="x in salaryRanges" :key="x.id" class="list-group-item border-0 text-capitalize">
-                            <input @click="respondToCheckBox('salary_range', x.id)" class="form-check-input me-1"
-                              type="checkbox" :value="x.id" v-model="checked.salary_range">
+                            <input @change="respondToCheckBox" class="form-check-input me-1" type="checkbox"
+                              :value="x.id" v-model="checked.salary_range">
                             ${{ x.min }} - ${{ x.max }}
                           </label>
 
@@ -320,9 +321,6 @@ async function getJobs(page = 1) {
     }
   }
 
-  console.log(queryObj);
-
-
   jobsStore.queryObj = queryObj;
 
   await jobsStore.getAllJobs(page)
@@ -343,10 +341,8 @@ function paginateToNext(page: any) {
   getJobs(page)
 }
 
-function respondToCheckBox(prop: string, value: any) {
+function respondToCheckBox() {
   // window.scrollTo(0, 0)
-  checked[prop] = checked[prop].includes(value) ? [] : [value]; //only one item in each array
-
   getJobs()
 }
 

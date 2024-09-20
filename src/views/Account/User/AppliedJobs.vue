@@ -50,8 +50,8 @@
                         </div>
                     </div>
                 </div>
-                <EasyDataTable show-index alternating :headers="tableHeader" :items="appliedHistory"
-                    :search-value="searchTerm" buttons-pagination>
+                <EasyDataTable :loading="isLoadingApplications" show-index alternating :headers="tableHeader"
+                    :items="appliedHistory" :search-value="searchTerm" buttons-pagination>
 
                     <template #header="header">
                         <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
@@ -107,6 +107,7 @@ onMounted(() => {
 
 
 const dateRange = ref<any>([]);
+const isLoadingApplications = ref<boolean>(false);
 
 const date_display = (date: Date[]) => {
     const dateMe1 = useDateFormat(date[0], 'MMM D, YYYY')
@@ -132,6 +133,7 @@ const applications = reactive({
 
 
 async function getApplicationsList() {
+    isLoadingApplications.value = true;
     try {
         const obj = {
             start_date: dateRange.value[0],
@@ -144,6 +146,8 @@ async function getApplicationsList() {
         applications.OFFERED = data.OFFERED;
         applications.INTERVIEWING = data.INTERVIEWING;
         applications.UNSUITABLE = data.UNSUITABLE;
+
+        isLoadingApplications.value = false
 
     } catch (error) {
 

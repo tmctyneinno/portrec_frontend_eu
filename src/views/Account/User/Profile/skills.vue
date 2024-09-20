@@ -12,8 +12,8 @@
             <div class="card-body small">
                 <div class="row g-3">
                     <div class="col-12 col-lg-6">
-                        <div class="card border-0">
-                            <div class="card-body small p-0">
+                        <div class="card border-0 bg-light-subtle h-100">
+                            <div class="card-body small">
                                 <span v-for="skill in userSkills" :key="skill.id" class="skills-tag">
                                     {{ editingStore.getSkillName(skill.skill_id) }}
                                     <i @click="removeSkill(skill.skill_id)"
@@ -27,7 +27,7 @@
                         <!-- <div class="card border-0"> -->
                         <!-- <div class="card-body"> -->
                         <div class="row g-3">
-                            <label>Select Skill:</label>
+                            <label>Add Skills:</label>
                             <div class="col-12 col-lg-12">
                                 <!-- <label class="small">New Skills: </label> -->
                                 <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
@@ -35,9 +35,10 @@
                                     :clearable="false" :options="skillsDropdown"></v-select>
                             </div>
                             <div class="col-12 col-lg-12">
-                                <button v-if="!isSaving" @click="addSkill" type="button"
-                                    class="btn btn-primary  rounded-0 w-100">Add</button>
-                                <button v-else disabled class="btn btn-primary  rounded-0 w-100">Adding..</button>
+                                <primaryButton :btnClass="'w-100'" v-if="!isSaving" @click="addSkill">
+                                    Add Skills
+                                </primaryButton>
+                                <primaryButtonLoading :btnClass="'w-100'" v-else />
                             </div>
                             <!-- </div> -->
                             <!-- </div> -->

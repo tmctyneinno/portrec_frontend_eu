@@ -74,6 +74,6 @@ export default {
     },
 
     recruiterUpdateJobApplicationStatus(data: any) {
-        return $instance.post(`recruiter/job/application/status`, JSON.stringify(data))
+        return $instance.post(`recruiter/job/application/status/update`, JSON.stringify(data))
     }
 }

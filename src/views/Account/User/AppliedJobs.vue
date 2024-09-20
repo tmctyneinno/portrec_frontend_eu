@@ -20,10 +20,15 @@
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" id="myTab" role="tablist">
 
-                <li v-for="(tab, index) in tabs.menu" :key="index" class="nav-item" role="presentation">
-                    <button @click="tabs.toShow = tab.id" class="nav-link" :class="{ 'active': tabs.toShow == tab.id }"
-                        data-bs-toggle="tab" type="button" role="tab" aria-controls="one" aria-selected="true">
-                        {{ tab.name }} ({{ tab.count }})
+                <li v-for="(tab, index) in tabs.menu" :key="index" class="nav-item " role="presentation">
+                    <button @click="tabs.showing = tab.id" class="nav-link"
+                        :class="{ 'active': tabs.showing == tab.id }" data-bs-toggle="tab" type="button" role="tab"
+                        aria-controls="one" aria-selected="true">
+                        {{ tab.name }}
+                        <span class="badge rounded-pill text-bg-light">
+                            {{ getApplicationsCount(tab.id) }}
+                        </span>
+
                     </button>
                 </li>
             </ul>
@@ -49,11 +54,11 @@
                     :search-value="searchTerm" buttons-pagination>
 
                     <template #header="header">
-                        <span class="fw-bold text-muted">{{ header.text }}</span>
+                        <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
                     </template>
 
-                    <template #item-date_applied="item">
-                        {{ useFxn.dateDisplay(item.date_applied) }}
+                    <template #item-created_at="item">
+                        {{ useFxn.dateDisplay(item.created_at) }}
                     </template>
 
                     <template #item-status="item">
@@ -87,15 +92,21 @@
 <script lang="ts" setup>
 import { useProfileStore } from '@/stores/profileStore';
 import { useDateFormat } from '@vueuse/core';
-import { onMounted, ref, reactive } from 'vue';
+import { onMounted, ref, reactive, watch, computed } from 'vue';
 import useFxn from '@/stores/Helpers/useFunctions'
+import api from '@/stores/Helpers/axios'
+
+type StatusInterface = 'ALL' | 'IN_REVIEW' | 'SHORTLISTED' | 'OFFERED' | 'UNSUITABLE' | 'INTERVIEWING'
 
 const profileStore = useProfileStore()
+
 onMounted(() => {
     setDateRange()
+    getApplicationsList()
 })
 
-const dateRange = ref<any>('');
+
+const dateRange = ref<any>([]);
 
 const date_display = (date: Date[]) => {
     const dateMe1 = useDateFormat(date[0], 'MMM D, YYYY')
@@ -109,87 +120,91 @@ function setDateRange() {
     dateRange.value = [startDate, endDate];
 }
 
-const tabs = reactive({
-    toShow: 1,
+
+const applications = reactive({
+    "ALL": [],
+    "IN_REVIEW": [],
+    "SHORTLISTED": [],
+    "OFFERED": [],
+    "INTERVIEWING": [],
+    "UNSUITABLE": []
+})
+
+
+async function getApplicationsList() {
+    try {
+        const obj = {
+            start_date: dateRange.value[0],
+            end_date: dateRange.value[1]
+        }
+        const { data } = await api.userApplicationList(obj)
+        applications.ALL = data.ALL;
+        applications.IN_REVIEW = data.IN_REVIEW;
+        applications.SHORTLISTED = data.SHORTLISTED;
+        applications.OFFERED = data.OFFERED;
+        applications.INTERVIEWING = data.INTERVIEWING;
+        applications.UNSUITABLE = data.UNSUITABLE;
+
+    } catch (error) {
+
+    }
+}
+
+
+watch(() => dateRange.value, () => {
+    getApplicationsList()
+})
+
+const tabs = reactive<{ showing: StatusInterface, menu: { id: StatusInterface, name: string }[] }>({
+    showing: 'ALL',
     menu: [
         {
-            id: 1,
+            id: 'ALL',
             name: 'All',
-            count: 45,
         },
         {
-            id: 2,
+            id: 'IN_REVIEW',
             name: 'In Review',
-            count: 34
         },
         {
-            id: 3,
+            id: 'INTERVIEWING',
             name: 'Interviewing',
-            count: 18
         },
         {
-            id: 4,
-            name: 'Assessment',
-            count: 5
+            id: 'UNSUITABLE',
+            name: 'Unsuitable',
         },
         {
-            id: 5,
-            name: 'Offered',
-            count: 2
+            id: 'OFFERED',
+            name: 'Offered'
         },
         {
-            id: 6,
-            name: 'Hired',
-            count: 1
+            id: 'SHORTLISTED',
+            name: 'Shortlisted',
         },
     ]
 })
 
 
+
+const getApplicationsCount = (str: StatusInterface) => {
+    return applications[str].length
+}
+
+
 // table
 const searchTerm = ref("");
 const tableHeader = ref([
-    { text: "Company Name", value: "name", sortable: true, },
-    { text: "Roles", value: "roles", sortable: true },
-    { text: "Date Applied", value: "date_applied", sortable: true },
+    { text: "Company Name", value: "company.name", sortable: true, },
+    { text: "Position", value: "job.title", sortable: true },
+    { text: "Date Applied", value: "created_at", sortable: true },
     { text: "Status", value: "status", sortable: true },
-    { text: "", value: "action" },
+    // { text: "", value: "action" },
 ]);
 
-const appliedHistory = ref([{
-    name: 'Nomad',
-    roles: 'Social Media Assistant',
-    date_applied: '2023-12-12',
-    status: 'In-Review'
-},
-{
-    name: 'Audacity',
-    roles: 'Social Media Assistant',
-    date_applied: '2023-12-12',
-    status: 'Hired'
-},
-{
-    name: 'Audacity',
-    roles: 'Social Media Assistant',
-    date_applied: '2023-12-12',
-    status: 'Hired'
-},
-{
-    name: 'Parker',
-    roles: 'Social Media Assistant',
-    date_applied: '2023-12-09',
-    status: 'Offered'
-}
-])
-
-
-
-
-
-
-
-
-
+const appliedHistory = computed(() => {
+    return applications[tabs.showing]
+})
 
 </script>
 

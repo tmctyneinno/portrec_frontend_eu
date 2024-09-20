@@ -68,4 +68,8 @@ export default {
     userMessageSend(data: any) {
         return $instance.put(`/messages`, JSON.stringify(data))
     },
+
+    userApplicationList(obj: any) {
+        return $instanceForm.post(`job/user/applications`, obj)
+    },
 }

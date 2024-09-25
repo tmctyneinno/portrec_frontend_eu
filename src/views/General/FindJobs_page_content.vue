@@ -4,7 +4,7 @@
   <overlayLoading v-if="jobsStore.loading" />
   <!-- <div class="space-from-header"></div> -->
 
-  <div class="animate__animated animate__fadeIn mb-5">
+  <div v-else class="animate__animated animate__fadeIn mb-5">
 
     <div class="section-panel section-panel-light py-5">
       <div class="container mb-5">
@@ -46,7 +46,7 @@
                         <div class="list-group list-group-flush">
 
                           <label v-for="x in jobsStore.types" :key="x" class="list-group-item border-0 text-capitalize">
-                            <input @click="respondToCheckBox('type_id', x.id)" class="form-check-input me-1"
+                            <input @change="respondToCheckBox('type_id', x.id)" class="form-check-input me-1"
                               type="checkbox" :value="x.id" v-model="checked.type_id">
                             {{ x.name }} ({{ x.total_jobs }})
                           </label>
@@ -74,7 +74,7 @@
                         <div class="list-group list-group-flush">
                           <label v-for="x in jobsStore.categories" :key="x"
                             class="list-group-item border-0 text-capitalize">
-                            <input @click="respondToCheckBox('industry_id', x.id)" class="form-check-input me-1"
+                            <input @change="respondToCheckBox('industry_id', x.id)" class="form-check-input me-1"
                               type="checkbox" :value="x.id" v-model="checked.industry_id">
                             {{ x.name }} ({{ x.total_jobs }})
                           </label>
@@ -102,7 +102,7 @@
                         <div class="list-group list-group-flush">
                           <label v-for="x in jobsStore.levels" :key="x"
                             class="list-group-item border-0 text-capitalize">
-                            <input @click="respondToCheckBox('level_id', x.id)" class="form-check-input me-1"
+                            <input @change="respondToCheckBox('level_id', x.id)" class="form-check-input me-1"
                               type="checkbox" :value="x.id" v-model="checked.level_id">
                             {{ x.name }} ({{ x.total_jobs }})
                           </label>
@@ -129,7 +129,7 @@
                       <div class="accordion-body small">
                         <div class="list-group list-group-flush">
                           <label v-for="x in salaryRanges" :key="x.id" class="list-group-item border-0 text-capitalize">
-                            <input @click="respondToCheckBox('salary_range', x.id)" class="form-check-input me-1"
+                            <input @change="respondToCheckBox('salary_range', x.id)" class="form-check-input me-1"
                               type="checkbox" :value="x.id" v-model="checked.salary_range">
                             ${{ x.min }} - ${{ x.max }}
                           </label>
@@ -345,7 +345,7 @@ function paginateToNext(page: any) {
 
 function respondToCheckBox(prop: string, value: any) {
   // window.scrollTo(0, 0)
-  checked[prop] = checked[prop].includes(value) ? [] : [value]; //only one item in each array
+  // checked[prop] = checked[prop].includes(value) ? [] : [value]; //only one item in each array
 
   getJobs()
 }

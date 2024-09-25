@@ -59,10 +59,6 @@ input::placeholder, textarea::placeholder {
   background-color: var(--theme-color) !important;
 }
 
-.cursor-pointer {
-  cursor: pointer;
-}
-
 .theme-color {
   color: var(--theme-color) !important;
 }
@@ -73,6 +69,13 @@ input::placeholder, textarea::placeholder {
 
 .theme-color2 {
   color: var(--theme-color2) !important;
+}
+
+.cursor-notallowed{
+  cursor: not-allowed !important;
+}
+.cursor-pointer {
+  cursor: pointer;
 }
 
 .hover-tiltX {
@@ -479,3 +482,4 @@ input[type="radio"]:checked+label:before {
   border: none !important;
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075)
 }
+

@@ -39,3 +39,5 @@ export interface JobOpening {
     isSaving: Boolean
 }
 
+export type JobStatusInterface = 'ALL' | 'IN_REVIEW' | 'SHORTLISTED' | 'OFFERED' | 'REJECTED' | 'INTERVIEWING'
+

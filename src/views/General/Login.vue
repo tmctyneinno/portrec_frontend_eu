@@ -42,12 +42,15 @@
 
                         <form @submit.prevent="submitForm" class="row g-2">
                             <div class="col-12">
-                                <label class="fw-bold text-muted small">Email Address:</label>
+                                <label class="fw-bold text-muted small">
+                                    {{ form.type == 'recruiter' ? 'Recruiter Email Address' : 'Email Address' }}:
+                                </label>
                                 <input v-model="form.email" type="text" class="form-control form-control-l  rounded-0"
                                     placeholder="Enter email address">
                             </div>
                             <div class="col-12">
-                                <div class="fw-bold text-muted small">Password:
+                                <div class="fw-bold text-muted small">
+                                    {{ form.type == 'recruiter' ? 'Recruiter Password' : 'Password' }}:
 
                                     <span v-if="form.password"
                                         @click="form.passwordDisplay = form.passwordDisplay == 'password' ? 'text' : 'password'"
@@ -107,7 +110,16 @@ const online = useOnline()
 const router = useRouter()
 const profile = useProfileStore()
 
-const form = reactive({
+interface LoginInterface {
+    type: 'seeker' | 'recruiter',
+    email: string,
+    password: string,
+    passwordDisplay: 'password' | 'text',
+    isError: boolean,
+    isLoading: boolean
+}
+
+const form = reactive<LoginInterface>({
     type: 'seeker',
     email: '',
     password: '',
@@ -118,12 +130,12 @@ const form = reactive({
 
 function submitForm() {
     if (!form.email || !form.password) {
-        useFxn.toastShort('Please complete fields')
+        useFxn.toast('Please complete fields', 'warning')
         return;
     }
 
     if (!useFxn.isEmail(form.email)) {
-        useFxn.toastShort('Email format is invalid!')
+        useFxn.toast('Email format is invalid!', 'warning')
         return;
     }
     // if (!online.value) {
@@ -165,7 +177,7 @@ async function signin() {
 }
 
 
-// google sign in
+// google sign in ################################
 const handleOnSuccess = async (response: ImplicitFlowSuccessResponse) => {
     // send code to a backend server to verify it.
     console.log("Code: ", response.code);

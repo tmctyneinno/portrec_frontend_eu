@@ -40,18 +40,24 @@
 
                         <form @submit.prevent="submitForm" class="row g-3">
                             <div class="col-12">
-                                <label class="fw-bold text-muted small">Full name:</label>
+                                <label class="fw-bold text-muted small">
+                                    {{ formType == 'recruiter' ? 'Recruiter Full name' : 'Full name' }}:
+                                </label>
                                 <input v-model="form.name" type="text" class="form-control form-control-l  rounded-0"
                                     placeholder="Enter your full name">
                             </div>
                             <div class="col-12 col-md-6">
-                                <label class="fw-bold text-muted small">Email Address:</label>
+                                <label class="fw-bold text-muted small">
+                                    {{ formType == 'recruiter' ? 'Recruiter Email Address' : 'Email Address' }}:
+                                </label>
                                 <input v-model="form.email" type="email" class="form-control form-control-l  rounded-0"
                                     placeholder="Enter email address">
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <label class="fw-bold text-muted small">Phone:</label>
+                                <label class="fw-bold text-muted small">
+                                    {{ formType == 'recruiter' ? 'Recruiter Phone No.' : 'Phone No.' }}:
+                                </label>
                                 <vue-tel-input :inputOptions="phoneField.input" :dropdownOptions="phoneField.dropDown"
                                     :autoFormat="true" v-model="form.phone"></vue-tel-input>
                             </div>
@@ -133,7 +139,6 @@ const router = useRouter()
 const formType = ref<'seeker' | 'recruiter'>('seeker')
 
 const form = reactive<any>({
-    type: 'seeker',
     name: '',
     email: '',
     password: '',

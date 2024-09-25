@@ -1,7 +1,7 @@
 <template>
   <overlayLoading v-if="loading" />
 
-  <div class="animate__animated animate__fadeIn">
+  <div v-else class="animate__animated animate__fadeIn">
 
     <div class="section-panel section-panel-light py-3 py-md-4">
       <div class="container mb-5">

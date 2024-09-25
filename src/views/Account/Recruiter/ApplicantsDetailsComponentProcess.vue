@@ -1,14 +1,15 @@
 <template>
     <div class="fw-bold mb-3">Current Stage:</div>
     <div class="row g-1">
-        <div class="col" v-for="(stage, index) in hiringProgressList" :key="index">
-            <div class="stage-box" :class="{ 'active': applicants.details?.status == stage.label }">{{ stage.label }}
+        <div class="col" v-for="(stage, index) in hiringProgressList" :key="index" @click="updateStage(stage.val)">
+            <div class="stage-box hover-tiltY" :class="{ 'active': applicants.details?.status == stage.label }">{{
+                stage.label }}
             </div>
         </div>
     </div>
     <hr class="faint my-4">
 
-    <div class="fw-bold mt-4">Move to Next Stage:</div>
+    <!-- <div class="fw-bold mt-4">Move to Next Stage:</div>
 
     <div class="row g-3 mt-1">
         <div class="col-md-6">
@@ -21,7 +22,7 @@
                 Click to Update
             </primaryButtonOutline>
         </div>
-    </div>
+    </div> -->
 
 
 
@@ -33,36 +34,55 @@ import { useRecruiterCommonStore } from './RecruiterCommonStore';
 import useFxn from '@/stores/Helpers/useFunctions';
 import { ref, watchEffect } from 'vue';
 import api from '@/stores/Helpers/axios'
+import type { JobStatusInterface } from '@/stores/interfaces';
 
 const recruiterCommonStore = useRecruiterCommonStore()
 const { applicants } = storeToRefs(recruiterCommonStore);
 
-const hiringProgress = ref<any>('')
+// const hiringProgress = ref<any>('')
 const hiringProgressLoading = ref<boolean>(false)
 
-const hiringProgressList = ref([
+const hiringProgressList = ref<{ label: string, val: JobStatusInterface }[]>([
     { label: 'In-Review', val: 'IN_REVIEW' },
     { label: 'Shortlisted', val: 'SHORTLISTED' },
     { label: 'Offered', val: 'OFFERED' },
     { label: 'Interviewing', val: 'INTERVIEWING' },
-    { label: 'Unsuitable', val: 'UNSUITABLE' },
+    { label: 'Rejected', val: 'REJECTED' },
 ])
 
 
-watchEffect(() => {
-    if (applicants.value.details?.status) {
-        hiringProgress.value = hiringProgressList.value.find((x: any) => x.label == applicants.value.details.status)
-    }
-})
+// watchEffect(() => {
+//     if (applicants.value.details?.status) {
+//         hiringProgress.value = hiringProgressList.value.find((x: any) => x.label == applicants.value.details.status)
+//     }
+// })
 
-function changeStage() {
+// function changeStage() {
+//     useFxn.confirm("update stage for this application?", 'Proceed').then(async (resp) => {
+//         if (resp.value == true) {
+//             hiringProgressLoading.value = true;
+//             try {
+//                 const obj = {
+//                     job_application_id: applicants.value.details.id,
+//                     status: hiringProgress.value.val
+//                 }
+//                 await api.recruiterUpdateJobApplicationStatus(obj)
+//                 recruiterCommonStore.loadApplicantDetails()
+//             } catch (error) {
+//                 // 
+//             }
+//         }
+//     })
+// }
+
+function updateStage(status: JobStatusInterface) {
     useFxn.confirm("update stage for this application?", 'Proceed').then(async (resp) => {
         if (resp.value == true) {
             hiringProgressLoading.value = true;
             try {
                 const obj = {
                     job_application_id: applicants.value.details.id,
-                    status: hiringProgress.value.val
+                    status: status
                 }
                 await api.recruiterUpdateJobApplicationStatus(obj)
                 recruiterCommonStore.loadApplicantDetails()
@@ -83,6 +103,11 @@ function changeStage() {
     text-align: center;
     font-size: 11px;
     font-style: italic;
+    cursor: pointer;
+}
+
+.stage-box:hover {
+    border-bottom: 1px solid var(--theme-color);
 }
 
 .active {

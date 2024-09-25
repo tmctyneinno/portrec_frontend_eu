@@ -95,8 +95,8 @@ import { useDateFormat } from '@vueuse/core';
 import { onMounted, ref, reactive, watch, computed } from 'vue';
 import useFxn from '@/stores/Helpers/useFunctions'
 import api from '@/stores/Helpers/axios'
+import type { JobStatusInterface } from '@/stores/interfaces';
 
-type StatusInterface = 'ALL' | 'IN_REVIEW' | 'SHORTLISTED' | 'OFFERED' | 'UNSUITABLE' | 'INTERVIEWING'
 
 const profileStore = useProfileStore()
 
@@ -128,7 +128,7 @@ const applications = reactive({
     "SHORTLISTED": [],
     "OFFERED": [],
     "INTERVIEWING": [],
-    "UNSUITABLE": []
+    "REJECTED": []
 })
 
 
@@ -145,7 +145,7 @@ async function getApplicationsList() {
         applications.SHORTLISTED = data.SHORTLISTED;
         applications.OFFERED = data.OFFERED;
         applications.INTERVIEWING = data.INTERVIEWING;
-        applications.UNSUITABLE = data.UNSUITABLE;
+        applications.REJECTED = data.REJECTED;
 
         isLoadingApplications.value = false
 
@@ -159,7 +159,7 @@ watch(() => dateRange.value, () => {
     getApplicationsList()
 })
 
-const tabs = reactive<{ showing: StatusInterface, menu: { id: StatusInterface, name: string }[] }>({
+const tabs = reactive<{ showing: JobStatusInterface, menu: { id: JobStatusInterface, name: string }[] }>({
     showing: 'ALL',
     menu: [
         {
@@ -175,8 +175,8 @@ const tabs = reactive<{ showing: StatusInterface, menu: { id: StatusInterface, n
             name: 'Interviewing',
         },
         {
-            id: 'UNSUITABLE',
-            name: 'Unsuitable',
+            id: 'REJECTED',
+            name: 'Rejected',
         },
         {
             id: 'OFFERED',
@@ -191,7 +191,7 @@ const tabs = reactive<{ showing: StatusInterface, menu: { id: StatusInterface, n
 
 
 
-const getApplicationsCount = (str: StatusInterface) => {
+const getApplicationsCount = (str: JobStatusInterface) => {
     return applications[str].length
 }
 

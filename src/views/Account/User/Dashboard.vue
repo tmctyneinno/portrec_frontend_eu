@@ -55,7 +55,7 @@
                             <div class="col-6 col-lg-12 bg-succes">
                                 <i class="color-green bi bi-square-fill"></i>
                                 <span class="fw-bold color-green mx-1">60%</span>
-                                <span class="text-muted">Unsuitable</span>
+                                <span class="text-muted">Rejected</span>
                             </div>
                             <div class="col-6 col-lg-12">
                                 <i class="color-faint bi bi-square-fill"></i>

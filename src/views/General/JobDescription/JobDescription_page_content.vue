@@ -34,8 +34,7 @@
                       <span class="line-right pe-4 me-3">
                         <i class="bi bi-share"></i>
                       </span>
-                      <button v-if="hasAppliedForThisJob" class="btn btn-primary rounded- px-3"
-                        disabled>Applied</button>
+                      <span v-if="hasAppliedForThisJob" class="text-warning small ">Already Applied</span>
                       <button v-else @click="openApplyModal" class="btn btn-primary rounded- px-3">Apply now</button>
                     </div>
                   </div>

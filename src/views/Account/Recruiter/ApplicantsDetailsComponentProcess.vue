@@ -29,18 +29,15 @@
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useRecruiterCommonStore } from './RecruiterCommonStore';
 import useFxn from '@/stores/Helpers/useFunctions';
-import { ref, watchEffect } from 'vue';
 import api from '@/stores/Helpers/axios'
 import type { JobStatusInterface } from '@/stores/interfaces';
 
 const recruiterCommonStore = useRecruiterCommonStore()
 const { applicants } = storeToRefs(recruiterCommonStore);
-
-// const hiringProgress = ref<any>('')
-const hiringProgressLoading = ref<boolean>(false)
 
 const hiringProgressList = ref<{ label: string, val: JobStatusInterface }[]>([
     { label: 'In-Review', val: 'IN_REVIEW' },
@@ -50,35 +47,10 @@ const hiringProgressList = ref<{ label: string, val: JobStatusInterface }[]>([
     { label: 'Rejected', val: 'REJECTED' },
 ])
 
-
-// watchEffect(() => {
-//     if (applicants.value.details?.status) {
-//         hiringProgress.value = hiringProgressList.value.find((x: any) => x.label == applicants.value.details.status)
-//     }
-// })
-
-// function changeStage() {
-//     useFxn.confirm("update stage for this application?", 'Proceed').then(async (resp) => {
-//         if (resp.value == true) {
-//             hiringProgressLoading.value = true;
-//             try {
-//                 const obj = {
-//                     job_application_id: applicants.value.details.id,
-//                     status: hiringProgress.value.val
-//                 }
-//                 await api.recruiterUpdateJobApplicationStatus(obj)
-//                 recruiterCommonStore.loadApplicantDetails()
-//             } catch (error) {
-//                 // 
-//             }
-//         }
-//     })
-// }
-
 function updateStage(status: JobStatusInterface) {
     useFxn.confirm("update stage for this application?", 'Proceed').then(async (resp) => {
         if (resp.value == true) {
-            hiringProgressLoading.value = true;
+            recruiterCommonStore.applicants.detailsLoading = true
             try {
                 const obj = {
                     job_application_id: applicants.value.details.id,

@@ -72,4 +72,8 @@ export default {
     userApplicationList(obj: any) {
         return $instanceForm.post(`job/user/applications`, obj)
     },
+
+    userNotifications() {
+        return $instance.get(`notifications/user`)
+    },
 }

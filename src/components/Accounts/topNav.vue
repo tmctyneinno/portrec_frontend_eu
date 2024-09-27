@@ -27,38 +27,66 @@
                     <span class="position-relative me-3 cursor-pointer bell dropdown-toggle" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         <i class="bi bi-bell "></i>
-                        <span
+                        <span v-if="profileStore.notifications.length"
                             class="position-absolute top-0 start-100 translate-middle p-1 mt-2 bg-danger border border-light rounded-circle">
                             <span class="visually-hidden"></span>
                         </span>
 
                         <div class="dropdown-menu dropdown-menu-end">
-                            <ul class="list-group list-group-flush  ">
-                                <li class=" dropdown-item list-group-item">Item</li>
-                                <li class=" dropdown-item list-group-item">Item</li>
-                                <li class=" dropdown-item list-group-item">Item</li>
-
+                            <ul v-if="profileStore.notifications.length" class="list-group list-group-flush">
+                                <li @click="visitLinkFromNotification(not)" v-for="not in profileStore.notifications"
+                                    :key="not.id" class="dropdown-item list-group-item xsmall">
+                                    <div class="fw-bold">{{ not.title }}</div>
+                                    <div class="fw-lighter truncate text-wrap">
+                                        {{ not.message }}
+                                    </div>
+                                </li>
                             </ul>
+                            <div v-else class="p-3 text-center xsmall">
+                                No New Notifications
+                            </div>
                         </div>
+
                     </span>
                 </div>
             </div>
         </nav>
-        <sideBarMobile :userType="userType" />
+        <sideBarMobile :userType="prop.userType" />
     </div>
 </template>
 
 
 <script lang="ts" setup>
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import sideBarMobile from './sideBarMobile.vue';
 import { computed } from 'vue';
 import { useRecruiterCommonStore } from '@/views/Account/Recruiter/RecruiterCommonStore';
+import { useProfileStore } from '@/stores/profileStore';
 
 const recruiterCommonStore = useRecruiterCommonStore()
 const route: any = useRoute()
+const router = useRouter()
 
-defineProps(['userType'])
+const profileStore = useProfileStore()
+
+const prop = defineProps(['userType'])
+
+
+async function visitLinkFromNotification(not: any) {
+    updateNotifications(not.id)
+    if (prop.userType == 'user') {
+        if (not.notification_type == 'JOB') {
+            router.push({ name: 'user-Applied_Jobs' })
+        }
+    }
+
+}
+
+function updateNotifications(id: any) {
+    profileStore.readNotification(id)
+    profileStore.getNotifications(prop.userType)
+}
+
 
 
 // const pageTitle = computed(() => {
@@ -106,5 +134,10 @@ function openJobPostingModal() {
 
 .dropdown-menu {
     border-radius: 0px;
+    width: 230px !important;
+}
+
+.dropdown-item:active {
+    background-color: transparent;
 }
 </style>

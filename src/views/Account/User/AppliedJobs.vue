@@ -174,10 +174,7 @@ const tabs = reactive<{ showing: JobStatusInterface, menu: { id: JobStatusInterf
             id: 'INTERVIEWING',
             name: 'Interviewing',
         },
-        {
-            id: 'REJECTED',
-            name: 'Rejected',
-        },
+
         {
             id: 'OFFERED',
             name: 'Offered'
@@ -185,6 +182,10 @@ const tabs = reactive<{ showing: JobStatusInterface, menu: { id: JobStatusInterf
         {
             id: 'SHORTLISTED',
             name: 'Shortlisted',
+        },
+        {
+            id: 'REJECTED',
+            name: 'Rejected',
         },
     ]
 })

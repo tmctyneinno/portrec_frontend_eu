@@ -21,6 +21,7 @@ const profileStore = useProfileStore()
 
 onMounted(async () => {
     await profileStore.getProfile()
+    await profileStore.getNotifications()
 })
 
 </script>

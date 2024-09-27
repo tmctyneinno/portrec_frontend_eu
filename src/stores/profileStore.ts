@@ -10,6 +10,7 @@ export const useProfileStore = defineStore('profileStore', () => {
     const userType: any = ref('')
     const userData: any = useStorage('protrec_$user_profile', null, sessionStorage)
     const avatar = ref<string>('')
+    const notifications = ref<{title:string, message:string, notification_type:string, id:string, ref_id:string}[]>([])
 
     const isLoggedIn = computed(() => token.value || Cookies.get('PortrecTkn'));
     const getUserType = computed(() => userType.value || Cookies.get('PortrecUserType'))
@@ -38,7 +39,7 @@ export const useProfileStore = defineStore('profileStore', () => {
     async function getProfile(type = 'user') {
         try {
             const resp = type == 'user' ? await api.userProfile() : await api.recruiterProfile();
-            console.log(resp);
+            // console.log(resp);
             if (resp.status === 201) {
                 userData.value = JSON.stringify(resp.data.body)
                 avatar.value = resp.data.body.profile_pic ? resp.data.body.profile_pic.image : 'https://via.placeholder.com/150'
@@ -50,6 +51,26 @@ export const useProfileStore = defineStore('profileStore', () => {
         }
     }
 
+    async function getNotifications(type = 'user') {
+        try {
+            const resp = type == 'user' ? await api.userNotifications() : await api.recruiterNotifications();
+            console.log(resp);
+            notifications.value = resp?.data ?? []
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
+
+
+    async function readNotification(id:any) {
+        try {
+            const resp = await api.readNotification(id);
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
     const data = computed(() => JSON.parse(userData.value))
     const profile = computed(() => data.value?.profile)
 
@@ -60,8 +81,11 @@ export const useProfileStore = defineStore('profileStore', () => {
         login,
         logout,
         getProfile,
+        getNotifications,
+        readNotification,
         profile,
         isLoggedIn,
-        getUserType
+        getUserType,
+        notifications
     }
 })

@@ -6,7 +6,8 @@ import Cookies from 'js-cookie';
 
 const progresses = [] as ProgressFinisher[];
 
-const hostURL = import.meta.env.VITE_API_URL;
+// const hostURL = import.meta.env.VITE_API_URL;
+const hostURL = 'api.portrec.ng';
 const apiURL = `${hostURL}/api/`;
 
 const contentHeaders = (type: 'form' | 'json') => {

@@ -215,25 +215,9 @@ import profilePicUploadComponent from './profilePicUploadComponent.vue'
 const profileStore = useProfileStore()
 
 
-// const allCountries = ref([])
-// const loading = ref(true)
-
 onMounted(async () => {
     updateFields()
 })
-
-// async function loadCountries() {
-//     const response = await fetch('https://restcountries.com/v3.1/all');
-//     if (response.ok) {
-//         const data = await response.json();
-//         let names = data.map((country: { name: any; }) => country.name.common)
-//         allCountries.value = names
-//         loading.value = false
-//     } else {
-//         console.error('', response.statusText);
-//     }
-// }
-
 
 function updateFields() {
     details.name = profileStore.data?.name ?? '';

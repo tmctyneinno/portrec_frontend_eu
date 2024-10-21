@@ -4,7 +4,7 @@
             <div class="side-image col-lg-4 d-none d-lg-block bg-danger min-vh-100"></div>
             <div class=" col-lg-8 d-flex justify-content-center align-items-center min-vh-100">
                 <div class="col-11 col-lg-12 row justify-content-center">
-                    <div class="col-md-8 pt-3">
+                    <div class="col-md-8 pt-3 animate__animated animate__fadeIn">
                         <div class="col-12 ">
                             <div class="type-nav theme-color d-flex justify-content-aroun justify-content-evenly mb-1">
                                 <span @click="formType = 'seeker'" class="fw-bolder cursor-pointer"
@@ -58,8 +58,9 @@
                                 <label class="fw-bold text-muted small">
                                     {{ formType == 'recruiter' ? 'Recruiter Phone No.' : 'Phone No.' }}:
                                 </label>
-                                <vue-tel-input :inputOptions="phoneField.input" :dropdownOptions="phoneField.dropDown"
-                                    :autoFormat="true" v-model="form.phone"></vue-tel-input>
+                                <vue-tel-input :validCharactersOnly="true" :inputOptions="phoneField.input"
+                                    :dropdownOptions="phoneField.dropDown" :autoFormat="true"
+                                    v-model="form.phone"></vue-tel-input>
                             </div>
 
                             <div class="col-12 col-md-6">
@@ -97,8 +98,8 @@
 
 
                             <div class="col-12 mt-3">
-                                <button v-if="!form.isLoading" type="submit"
-                                    class="btn btn-lg btn-primary rounded-0 w-100">
+                                <button v-if="!form.isLoading" type="submit" class="btn btn-lg rounded-0 w-100"
+                                    :class="formType == 'seeker' ? 'btn-primary' : 'btn-dark'">
                                     {{ formType !== 'seeker' ? 'Start Recruiting' : 'Create Account' }} <i
                                         class="bi bi-chevron-right"></i>
                                 </button>
@@ -162,6 +163,7 @@ const phoneField = {
         showDialCode: true,
         placeholder: 'Enter phone',
         styleClasses: 'phone-input-signup',
+        maxlength: 15
         // type: 'number'
     }
 

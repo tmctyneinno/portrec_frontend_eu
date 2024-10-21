@@ -218,7 +218,7 @@
                             <div class="col-md-3 justify-content-end">
                               <div class="text-cente">
                                 <router-link :to="`/job-description/${job.id}`"
-                                  class="btn p-2 btn-primary rounded-0 w-100">Apply</router-link>
+                                  class="btn p-2 btn-primary rounded-0 w-100">Details</router-link>
 
                                 <div class="progress mt-2 mb-0 rounded-0" role="progressbar"
                                   :aria-valuenow="job.total_applied" aria-valuemin="0" :aria-valuemax="job.capacity"

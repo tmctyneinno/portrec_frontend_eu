@@ -15,11 +15,17 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-lg-5">
+                    <div class="col-lg-5 d-none d-md-block">
                         <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
                             v-model="jobsStore.search.location" :loading="loading"
                             class="country-chooser-jobform find-jobs-select" placeholder="select country"
                             :options="allCountries" />
+                    </div>
+                    <div class="col-lg-5 d-md-none">
+                        <select class="form-select form-select-lg" placeholder="location">
+                            <option v-for="i in allCountries" :value="i">{{ i }}</option>
+                        </select>
+
                     </div>
                     <div class="col-lg-2">
                         <button @click="searchJobs" :disabled="formIsSearcing" type="submit" class="btn  w-100"
@@ -42,6 +48,7 @@ import { useJobsStore } from '@/stores/jobsStore';
 import api from '@/stores/Helpers/axios'
 import useFxn from '@/stores/Helpers/useFunctions'
 import { useRouter } from 'vue-router';
+import { Country } from 'country-state-city';
 
 const prop = defineProps({
     fromHome: {
@@ -51,8 +58,8 @@ const prop = defineProps({
 })
 
 const jobsStore = useJobsStore()
-const allCountries = ref([])
-const loading = ref(true)
+const allCountries = ref<any[]>([])
+const loading = ref(false)
 const titleField = ref<any>(null)
 const formIsSearcing = ref(false)
 const router = useRouter()
@@ -60,15 +67,21 @@ const router = useRouter()
 
 onMounted(async () => {
     titleField.value.focus()
-    const response = await fetch('https://restcountries.com/v3.1/all');
-    if (response.ok) {
-        const data = await response.json();
-        let names = data.map((country: { name: any; }) => country.name.common)
-        allCountries.value = names
-        loading.value = false
-    } else {
-        console.error('', response.statusText);
+    try {
+        const countriesArray = Country.getAllCountries()
+        allCountries.value = countriesArray.map((country: any) => country.name)
+    } catch (error) {
+        // 
     }
+    // const response = await fetch('https://restcountries.com/v3.1/all');
+    // if (response.ok) {
+    //     const data = await response.json();
+    //     let names = data.map((country: { name: any; }) => country.name.common)
+    //     allCountries.value = names
+    //     loading.value = false
+    // } else {
+    //     console.error('', response.statusText);
+    // }
 
     // for suggestions 
     document.body.addEventListener('click', handleBodyClick);
@@ -233,5 +246,10 @@ watchEffect(() => {
 
 .searchingBar-suggestions li:hover {
     background-color: #f0f0f0;
+}
+
+.form-select {
+    border: none;
+    border-bottom: 1px solid #94a3b8;
 }
 </style>

@@ -3,7 +3,9 @@
   <headerVue />
   <div class="space-from-header"></div>
 
-  <JobDescription_page_content />
+  <div class="min-vh-100">
+    <JobDescription_page_content />
+  </div>
 
   <!-- footer -->
   <footerVue />

@@ -292,23 +292,30 @@ import { useProfileStore } from '@/stores/profileStore';
 import api from '@/stores/Helpers/axios'
 import useFxn from "@/stores/Helpers/useFunctions";
 import profilePicUpload from './profilePicUpload.vue'
+import { Country } from 'country-state-city';
 
 const profileStore = useProfileStore()
 
 
-const allCountries = ref([])
+const allCountries = ref<string[]>([])
 const loading = ref(true)
 
 onMounted(async () => {
-    const response = await fetch('https://restcountries.com/v3.1/all');
-    if (response.ok) {
-        const data = await response.json();
-        let names = data.map((country: { name: any; }) => country.name.common)
-        allCountries.value = names
-        loading.value = false
-    } else {
-        console.error('', response.statusText);
+    try {
+        const countriesArray = Country.getAllCountries()
+        allCountries.value = countriesArray.map((country: any) => country.name)
+    } catch (error) {
+        // 
     }
+    // const response = await fetch('https://restcountries.com/v3.1/all');
+    // if (response.ok) {
+    //     const data = await response.json();
+    //     let names = data.map((country: { name: any; }) => country.name.common)
+    //     allCountries.value = names
+    //     loading.value = false
+    // } else {
+    //     console.error('', response.statusText);
+    // }
 })
 
 

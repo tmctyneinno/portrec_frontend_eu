@@ -42,6 +42,7 @@ import { ref, reactive, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useCommonStore } from './commonStore'
 import useFxn from '@/stores/Helpers/useFunctions';
+import { Country } from 'country-state-city';
 
 // search
 const form = reactive({
@@ -51,7 +52,7 @@ const form = reactive({
 const formSearchField = ref<any>(null)
 const isLoadingCountries = ref<boolean>(true)
 
-const allCountries = ref([])
+const allCountries = ref<string[]>([])
 const router = useRouter();
 const commonStore = useCommonStore();
 
@@ -62,17 +63,23 @@ onMounted(() => {
 })
 
 async function loadCountries() {
-
-    const response = await fetch('https://restcountries.com/v3.1/all');
-    if (response.ok) {
-        const data = await response.json();
-        let names = data.map((country: { name: any; }) => country.name.common)
-        allCountries.value = names
-        isLoadingCountries.value = false
-
-    } else {
-        console.error('', response.statusText);
+    try {
+        const countriesArray = Country.getAllCountries()
+        allCountries.value = countriesArray.map((country: any) => country.name)
+    } catch (error) {
+        // 
     }
+
+    // const response = await fetch('https://restcountries.com/v3.1/all');
+    // if (response.ok) {
+    //     const data = await response.json();
+    //     let names = data.map((country: { name: any; }) => country.name.common)
+    //     allCountries.value = names
+    //     isLoadingCountries.value = false
+
+    // } else {
+    //     console.error('', response.statusText);
+    // }
 }
 
 function getCompanies() {

@@ -238,7 +238,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-7">
-                                        <input placeholder="0.00" type="text" v-model="form.capacity"
+                                        <input placeholder="0" type="text" v-model="form.capacity"
                                             class="form-control rounded-0" v-maska data-maska="9#"
                                             data-maska-tokens="9:[0-9]:repeated" data-maska-reversed />
                                     </div>
@@ -524,8 +524,6 @@ watch(() => jobPosting.value.modal, () => {
 watch(() => route, () => {
     closeModal.value.click()
 }, { deep: true })
-
-
 
 
 // step1 #####################################

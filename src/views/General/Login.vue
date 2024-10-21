@@ -4,7 +4,7 @@
             <div class="side-image col-lg-4 d-none d-lg-block min-vh-100"></div>
             <div class=" col-lg-8 d-flex justify-content-center align-items-center min-vh-100">
                 <div class="col-11 col-lg-12 row justify-content-center">
-                    <div class="col-md-6">
+                    <div class="col-md-6 animate__animated animate__fadeIn">
                         <div class="col-12 ">
                             <div class="type-nav theme-color d-flex justify-content-aroun justify-content-evenly mb-3">
                                 <span @click="form.type = 'seeker'" class="fw-bolder cursor-pointer"
@@ -75,9 +75,9 @@
                                 </label>
                             </div>
                             <div class="col-12 mt-3">
-                                <button v-if="!form.isLoading" type="submit"
-                                    class="btn btn-lg btn-primary rounded-0 w-100">
-                                    {{ form.type == 'seeker' ? 'Login as Job Seeker' : 'Login as Recruiter' }}
+                                <button v-if="!form.isLoading" type="submit" class="btn btn-lg  rounded-0 w-100"
+                                    :class="form.type == 'seeker' ? 'btn-primary' : 'btn-dark'">
+                                    {{ form.type == 'seeker' ? 'Login as Job Seeker ' : 'Login as Recruiter' }}
                                 </button>
                                 <button v-else class="btn btn-primary rounded-0 w-100" disabled>
                                     <span class="spinner-border spinner-border" aria-hidden="true"></span>

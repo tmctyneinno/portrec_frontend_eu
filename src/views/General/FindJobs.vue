@@ -3,7 +3,9 @@
   <overlayLoading v-if="jobsStore.loading" />
   <div class="space-from-header"></div>
 
-  <FindJobs_page_content />
+  <div class="min-vh-100">
+    <FindJobs_page_content />
+  </div>
 
   <footerVue />
 </template>

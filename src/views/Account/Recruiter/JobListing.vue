@@ -11,7 +11,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <label class="small">Filter by deadline</label>
+                    <label class="small">Filter by Date Posted</label>
                     <!-- disable-year-select -->
                     <VueDatePicker class="fw-bold" :format="date_display" range multi-calendars :clearable="false"
                         :enable-time-picker="false" auto-apply v-model="dateRange">

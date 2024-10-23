@@ -13,9 +13,10 @@
                 <div class="col-lg-4">
                     <label class="small">Filter by Date Posted</label>
                     <!-- disable-year-select -->
-                    <VueDatePicker class="fw-bold" :format="date_display" range multi-calendars :clearable="false"
+                    <!-- <VueDatePicker class="fw-bold" :format="date_display" range multi-calendars :clearable="false"
                         :enable-time-picker="false" auto-apply v-model="dateRange">
-                    </VueDatePicker>
+                    </VueDatePicker> -->
+                    <CustomDateRangePicker v-model="dateRange" />
                 </div>
 
                 <div class="col-md-4" v-if="items.length">
@@ -78,13 +79,13 @@ import useFxn from '@/stores/Helpers/useFunctions'
 import { useRecruiterCommonStore } from './RecruiterCommonStore';
 import api from '@/stores/Helpers/axios';
 import type { ServerOptions } from 'vue3-easy-data-table';
+import CustomDateRangePicker from '@/components/CustomDateRangePicker.vue';
 
 const recruiterCommonStore = useRecruiterCommonStore()
 
 const profileStore = useProfileStore()
 onMounted(() => {
     console.log(profileStore.data);
-    setDateRange()
     getJobsList()
 })
 
@@ -96,15 +97,6 @@ const date_display = (date: Date[]) => {
     const dateMe2 = useDateFormat(date[1], 'MMM D, YYYY')
     return `${dateMe1.value} - ${dateMe2.value}`;
 }
-
-function setDateRange() {
-    const endDate = new Date();
-    const startDate = new Date(new Date().setDate(endDate.getDate() - 14));
-    dateRange.value = [startDate, endDate];
-}
-
-
-
 
 
 

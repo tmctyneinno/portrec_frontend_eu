@@ -50,7 +50,7 @@ const form = reactive({
     search: '',
 })
 const formSearchField = ref<any>(null)
-const isLoadingCountries = ref<boolean>(true)
+const isLoadingCountries = ref<boolean>(false)
 
 const allCountries = ref<string[]>([])
 const router = useRouter();

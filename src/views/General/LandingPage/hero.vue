@@ -1,7 +1,5 @@
-
-
 <template>
-    <div class=" min-vh-100 overflow-hidden bg-black pb-5">
+    <div class=" min-vh-10 overflow-hidden bg-black pb-5">
         <div class="container">
             <div class="row justify-content-center align-items-center">
                 <div class="col-md-9 col-lg-7">
@@ -84,9 +82,10 @@ onMounted(() => {
     }
 
     .hero-image {
-        margin-top: 30px;
+        /* margin-top: 30px;
         max-width: 100%;
-        height: auto;
+        height: auto; */
+        display: none;
     }
 }
 </style>

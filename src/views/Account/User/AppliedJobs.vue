@@ -8,9 +8,7 @@
                         <span class="fw-bold">{{ dateRange ? date_display(dateRange) : '' }}</span>.
                     </span>
                     <span class="float-start float-lg-end" style="width: 300px;">
-                        <VueDatePicker class="fw-bold" :format="date_display" range multi-calendars :clearable="false"
-                            :enable-time-picker="false" auto-apply v-model="dateRange">
-                        </VueDatePicker>
+                        <CustomDateRangePicker v-model="dateRange" />
                     </span>
                 </div>
             </div>
@@ -96,15 +94,14 @@ import { onMounted, ref, reactive, watch, computed } from 'vue';
 import useFxn from '@/stores/Helpers/useFunctions'
 import api from '@/stores/Helpers/axios'
 import type { JobStatusInterface } from '@/stores/interfaces';
+import CustomDateRangePicker from '@/components/CustomDateRangePicker.vue';
 
 
 const profileStore = useProfileStore()
 
 onMounted(() => {
-    setDateRange()
     getApplicationsList()
 })
-
 
 const dateRange = ref<any>([]);
 const isLoadingApplications = ref<boolean>(false);
@@ -115,13 +112,6 @@ const date_display = (date: Date[]) => {
     return `${dateMe1.value} - ${dateMe2.value}`;
 }
 
-function setDateRange() {
-    const endDate = new Date();
-    const startDate = new Date(new Date().setDate(endDate.getDate() - 7));
-    dateRange.value = [startDate, endDate];
-}
-
-
 const applications = reactive({
     "ALL": [],
     "IN_REVIEW": [],
@@ -130,7 +120,6 @@ const applications = reactive({
     "INTERVIEWING": [],
     "REJECTED": []
 })
-
 
 async function getApplicationsList() {
     isLoadingApplications.value = true;

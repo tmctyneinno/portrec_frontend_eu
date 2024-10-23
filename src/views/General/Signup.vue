@@ -6,12 +6,14 @@
                 <div class="col-11 col-lg-12 row justify-content-center">
                     <div class="col-md-8 pt-3 animate__animated animate__fadeIn">
                         <div class="col-12 ">
-                            <div class="type-nav theme-color d-flex justify-content-aroun justify-content-evenly mb-1">
-                                <span @click="formType = 'seeker'" class="fw-bolder cursor-pointer"
+                            <div class="text-center mb-3 fw-bold text-uppercase">REGISTER as a</div>
+                            <div class="type-nav theme-color d-flex justify-content-aroun justify-content-evenly mb-1 ">
+                                <span @click="formType = 'seeker'" class="fw-bolder cursor-pointer hover-tiltY"
                                     :class="{ 'active': formType == 'seeker' }">
                                     Job Seeker
                                 </span>
-                                <span @click="formType = 'recruiter'" class="fw-bolder cursor-pointer"
+                                <span class="text-dark">OR</span>
+                                <span @click="formType = 'recruiter'" class="fw-bolder cursor-pointer hover-tiltY"
                                     :class="{ 'active': formType == 'recruiter' }">
                                     Recruiter
                                 </span>

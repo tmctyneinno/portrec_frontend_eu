@@ -38,6 +38,7 @@
                         <div class="col-md-9">
                             <h5 class="fw-bold">
                                 Application History
+                                <span class="text-success-emphasis">({{ tabs.showing }})</span>
                             </h5>
                         </div>
                         <div class=" col-md-4 col-lg-3 float-end">
@@ -148,6 +149,10 @@ watch(() => dateRange.value, () => {
     getApplicationsList()
 })
 
+// const currentTabName = computed(()=>{
+
+// })
+
 const tabs = reactive<{ showing: JobStatusInterface, menu: { id: JobStatusInterface, name: string }[] }>({
     showing: 'ALL',
     menu: [
@@ -163,15 +168,15 @@ const tabs = reactive<{ showing: JobStatusInterface, menu: { id: JobStatusInterf
             id: 'INTERVIEWING',
             name: 'Interviewing',
         },
-
-        {
-            id: 'OFFERED',
-            name: 'Offered'
-        },
         {
             id: 'SHORTLISTED',
             name: 'Shortlisted',
         },
+        {
+            id: 'OFFERED',
+            name: 'Offered'
+        },
+
         {
             id: 'REJECTED',
             name: 'Rejected',

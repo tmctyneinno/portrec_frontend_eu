@@ -1,18 +1,21 @@
 <template>
     <div class="row g-3 p-lg-3 bg-light m-0 pb-5">
-        <div class="col-12">
+        <div class="col-12 mb-3">
             <div class="row">
                 <div class="col-12">
-                    <div class="fw-bold text-capitalize">{{ useFxn.greet() }}, {{ profileStore.data?.name ?? '' }}</div>
-                    <span class="text-muted">Here is what’s happening with your job search applications from
-                        <span class="fw-bold">{{ dateRange ? date_display(dateRange) : '' }}</span>.
-                    </span>
-                    <span class="float-start float-lg-end" style="width: 180px;">
-                        <VueDatePicker class="fw-bold" disable-year-select :format="date_display" range multi-calendars
-                            :clearable="false" :max-date="new Date()" :enable-time-picker="false" auto-apply
-                            v-model="dateRange">
-                        </VueDatePicker>
-                    </span>
+                    <div class="row g-2 justify-content-center align-items-center">
+                        <div class="col-md-8">
+                            <div class="fw-bold text-capitalize">{{ useFxn.greet() }}, {{ profileStore.data?.name ?? ''
+                                }}</div>
+                            <span class="text-muted">Here is what’s happening with your job search applications so far.
+                                <!-- <span class="fw-bold">{{ dateRange ? date_display(dateRange) : '' }}</span>. -->
+                            </span>
+                        </div>
+                        <div class="col-md-4">
+                            <!-- <CustomDateRangePicker v-model="dateRange" /> -->
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -23,15 +26,15 @@
                     <div class="card colored-card total-jobs-card shadow-sm">
                         <div class="card-body">
                             <div>Total Jobs Applied</div>
-                            <div class="big-number">45</div>
+                            <div class="big-number">{{ details.totalJobsApplied }}</div>
                         </div>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="card colored-card interviewed-card shadow-sm">
                         <div class="card-body">
-                            <div>Interviewed</div>
-                            <div class="big-number">18</div>
+                            <div>Jobs viewed</div>
+                            <div class="big-number">{{ details.totalJobsViewed }}</div>
                         </div>
                     </div>
                 </div>
@@ -46,29 +49,30 @@
                     <div class="row g-3">
                         <div class="col-lg-5 d-flex justify-content-lg-center align-items-center">
                             <div id="chart ">
-                                <apexchart type="donut" :options="chartOptions" :series="chartOptions.series">
+                                <apexchart type="donut" :options="chartOptions" :series="chartSeries">
                                 </apexchart>
                             </div>
                         </div>
 
                         <div class="col-lg-7 py-lg-5 xsmall row justify-content-center align-items-center">
                             <div class="col-6 col-lg-12 bg-succes">
-                                <i class="color-green bi bi-square-fill"></i>
-                                <span class="fw-bold color-green mx-1">60%</span>
+                                <i class="color-rejected bi bi-square-fill"></i>
+                                <span class="fw-bold color-rejected mx-1">{{ chartPercent.rejected }}%</span>
                                 <span class="text-muted">Rejected</span>
                             </div>
                             <div class="col-6 col-lg-12">
-                                <i class="color-faint bi bi-square-fill"></i>
-                                <span class="fw-bold color-green mx-1">40%</span>
-                                <span class="text-muted">Interviewed</span>
+                                <i class="color-green bi bi-square-fill"></i>
+                                <span class="fw-bold color-green mx-1">{{ chartPercent.total }} %</span>
+                                <span class="text-muted">In Review</span>
                             </div>
                         </div>
 
 
                     </div>
                     <div class="col-12 mt-3">
-                        <span class="fw-bold theme-color cursor-pointer float-lg-end">View All Applications <i
-                                class="bi bi-arrow-right"></i></span>
+                        <router-link to="/user/applied-jobs"
+                            class="fw-bold theme-color cursor-pointer float-lg-end hover-tiltY">View All Applications
+                            <i class="bi bi-arrow-right"></i></router-link>
                     </div>
 
                 </div>
@@ -76,24 +80,45 @@
         </div>
         <div class="col-md-5">
             <div class="card shadow-sm">
-                <div class="card-header py-2 fw-bold bg-transparent">Upcomming Interviews</div>
-                <div class="card-header py-2  bg-transparent shadow-sm">
+                <div class="card-header py-2 fw-bold bg-transparent border-0">Upcomming Interviews</div>
+                <!-- <div class="card-header py-2  bg-transparent shadow-sm">
                     Today, 26 November
                     <span class="float-end">
                         <i class="bi bi-chevron-left"></i>
                         <i class="bi bi-chevron-right"></i>
                     </span>
-                </div>
+                </div> -->
                 <div class="card-body row gy-3">
-
+                    <ComponentLoading v-if="details.isLoadingDetails" />
+                    <div v-else>
+                        <NoDataShow :text="'No Interviews'" icon="bi-calendar-x" />
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="col-12">
             <div class="card shadow-sm">
-                <div class="card-header fw-bold py-3 bg-transparent ">Recent Applications History</div>
+                <div class="card-header fw-bold py-3 bg-transparent border-0 ">Recent Applications History</div>
                 <div class="card-body min-vh-100">
+                    <EasyDataTable :loading="details.isLoadingDetails" show-index alternating
+                        :headers="AppliedHistoryTableHeader" :items="details.recentApplicationHistory"
+                        buttons-pagination>
+
+                        <template #header="header">
+                            <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
+                        </template>
+
+                        <template #item-created_at="item">
+                            {{ useFxn.dateDisplay(item.created_at) }}
+                        </template>
+
+                        <template #item-status="item">
+                            <span class="category-tag">
+                                {{ item.status }}
+                            </span>
+                        </template>
+                    </EasyDataTable>
                 </div>
             </div>
         </div>
@@ -103,35 +128,57 @@
 <script lang="ts" setup>
 import { useProfileStore } from '@/stores/profileStore';
 import { useDateFormat } from '@vueuse/core';
-import { onMounted, ref } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 import useFxn from '@/stores/Helpers/useFunctions'
+import api from '@/stores/Helpers/axios'
+import NoDataShow from '@/components/noDataShow.vue';
+import ComponentLoading from '@/components/componentLoading.vue';
+import CustomDateRangePicker from '@/components/CustomDateRangePicker.vue';
 
 const profileStore = useProfileStore()
 onMounted(() => {
-    console.log(profileStore.data);
-    setDateRange()
-    console.log(dateRange.value);
-
+    getDashboardInfo()
 })
 
+const details = reactive({
+    isLoadingDetails: false,
+    totalJobsApplied: 0,
+    totalJobsViewed: 0,
+    totalJobsRejected: 0,
+    upcomingInterviews: [],
+    recentApplicationHistory: [],
+})
+
+const AppliedHistoryTableHeader = ref([
+    { text: "Company Name", value: "company.name", sortable: true, },
+    { text: "Position", value: "job.title", sortable: true },
+    { text: "Date Applied", value: "created_at", sortable: true },
+    { text: "Status", value: "status", sortable: true },
+    // { text: "", value: "action" },
+]);
+
+
+
+async function getDashboardInfo() {
+    try {
+        details.isLoadingDetails = true
+        const { data } = await api.userDashboardInfo()
+        details.totalJobsApplied = data.totalJobsApplied ?? 0
+        details.totalJobsViewed = data.totalJobsViewed ?? 0
+        details.totalJobsRejected = data.totalJobsRejected ?? 0
+        details.upcomingInterviews = data.upcomingInterviews ?? []
+        details.recentApplicationHistory = data.recentApplicationHistory ?? []
+        updateChartSeries()
+        details.isLoadingDetails = false
+    } catch (error) {
+        console.log(error);
+        details.isLoadingDetails = false
+
+    }
+}
+
+
 const dateRange = ref();
-
-const date_display = (date: Date[]) => {
-    const dateMe1 = useDateFormat(date[0], 'MMM D')
-    const dateMe2 = useDateFormat(date[1], 'MMM D')
-    return `${dateMe1.value} - ${dateMe2.value}`;
-}
-
-function setDateRange() {
-    const endDate = new Date();
-    const startDate = new Date(new Date().setDate(endDate.getDate() - 7));
-    dateRange.value = [startDate, endDate];
-}
-
-
-
-
-
 
 // chart
 const chartOptions = {
@@ -146,14 +193,13 @@ const chartOptions = {
             enabled: false,
         }
     },
-    colors: ['#1EB0B4', '#E9EBFD'],
-    series: [40, 60],
-    // labels: ['Apples', 'Oranges', 'Bananas', 'Grapes', 'Mangoes'],
+    colors: ['#1EB0B4', '#9e1717'],
+    labels: ['IN REVIEW', 'REJECTED'],
     legend: {
         show: false
     },
     tooltip: {
-        enabled: false,
+        enabled: true,
     },
     responsive: [{
         breakpoint: 3000,
@@ -171,6 +217,22 @@ const chartOptions = {
             },
         }
     }]
+}
+
+const chartSeries = ref<any[]>([0, 0])
+const chartPercent = reactive({
+    total: 0,
+    rejected: 0,
+})
+function updateChartSeries() {
+    const totalJobsApplied = details.totalJobsApplied
+    const totalJobsRejected = details.totalJobsRejected
+    const totalJobsNotRejected = totalJobsApplied - totalJobsRejected
+    chartSeries.value = totalJobsApplied !== 0 ? [totalJobsNotRejected, totalJobsRejected] : [1]
+
+    // update percentages
+    chartPercent.total = totalJobsApplied !== 0 ? ((totalJobsNotRejected / totalJobsApplied) * 100) : 0
+    chartPercent.rejected = totalJobsApplied !== 0 ? ((totalJobsRejected / totalJobsApplied) * 100) : 0
 }
 
 </script>
@@ -206,7 +268,7 @@ const chartOptions = {
     color: #1EB0B4;
 }
 
-.color-faint {
-    color: #E9EBFD;
+.color-rejected {
+    color: #9e1717;
 }
 </style>

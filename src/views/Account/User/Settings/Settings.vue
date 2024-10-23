@@ -51,8 +51,9 @@
                             </div>
                             <div class="col-md-12">
                                 <label> Phone Number </label>
-                                <vue-tel-input :inputOptions="phoneField.input" :dropdownOptions="phoneField.dropDown"
-                                    :autoFormat="true" v-model="details.phone"></vue-tel-input>
+                                <vue-tel-input :validCharactersOnly="true" :inputOptions="phoneField.input"
+                                    :dropdownOptions="phoneField.dropDown" :autoFormat="true"
+                                    v-model="details.phone"></vue-tel-input>
                             </div>
                             <!-- <div class="col-md-7">
                                 <label> Email </label>
@@ -73,13 +74,17 @@
                             </div>
                             <div class="col-6">
                                 <label> Country</label>
-                                <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
-                                    class="country-chooser-settings" :clearable="false" v-model="details.country"
-                                    :loading="loading" placeholder="select country" :options="allCountries" />
+                                <v-select @option:selected="updateCitiesOnCountrySelect" append-to-body
+                                    :calculate-position="useFxn.vueSelectPositionCalc" class="country-chooser-settings"
+                                    :clearable="false" v-model="details.country" :loading="loading" label="name"
+                                    placeholder="select country" :options="allCountries" />
                             </div>
                             <div class="col-6">
                                 <label> City</label>
-                                <input v-model="details.location" class="form-control rounded-0" type="text">
+                                <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
+                                    class="country-chooser-settings" :clearable="false" v-model="details.location"
+                                    :loading="loading" placeholder="select city" :options="citiesArray" label="name" />
+                                <!-- <input v-model="details.location" class="form-control rounded-0" type="text"> -->
                             </div>
                             <div class="col-12">
                                 <label> Proffessional Headline </label>
@@ -292,32 +297,34 @@ import { useProfileStore } from '@/stores/profileStore';
 import api from '@/stores/Helpers/axios'
 import useFxn from "@/stores/Helpers/useFunctions";
 import profilePicUpload from './profilePicUpload.vue'
-import { Country } from 'country-state-city';
+import { Country, State } from 'country-state-city';
 
 const profileStore = useProfileStore()
 
 
-const allCountries = ref<string[]>([])
-const loading = ref(true)
+const allCountries = Country.getAllCountries()
+const citiesArray = ref<any[]>([])
+const loading = ref(false)
 
 onMounted(async () => {
-    try {
-        const countriesArray = Country.getAllCountries()
-        allCountries.value = countriesArray.map((country: any) => country.name)
-    } catch (error) {
-        // 
-    }
-    // const response = await fetch('https://restcountries.com/v3.1/all');
-    // if (response.ok) {
-    //     const data = await response.json();
-    //     let names = data.map((country: { name: any; }) => country.name.common)
-    //     allCountries.value = names
-    //     loading.value = false
-    // } else {
-    //     console.error('', response.statusText);
-    // }
+    // getCountries()
 })
 
+// function getCountries() {
+//     try {
+//         const countriesArray = Country.getAllCountries()
+//         allCountries.value = countriesArray.map((country: any) => country.name)
+//     } catch (error) {
+//         // 
+//     }
+// }
+
+function updateCitiesOnCountrySelect() {
+    console.log(details.country);
+
+    details.location = ''
+    citiesArray.value = State.getStatesOfCountry(details.country.isoCode)
+}
 
 
 
@@ -341,6 +348,10 @@ watch(() => profileStore.data, () => {
     details.gender_id = profileStore.profile?.gender_id ?? '';
     details.phone = profileStore.profile?.phone ?? '';
     details.location = profileStore.profile?.location ?? '';
+    // if (profileStore.profile?.country) {
+    //     const country = allCountries.find((x: any) => x.name == profileStore.profile?.country)
+    //     details.country = country
+    // }
     details.country = profileStore.profile?.country ?? '';
     details.proffesional_headline = profileStore.profile?.proffesional_headline ?? '';
     details.dob = profileStore.profile ? new Date(profileStore.profile.dob) : null;
@@ -359,7 +370,8 @@ const phoneField = {
     input: {
         showDialCode: true,
         placeholder: 'Enter phone',
-        styleClasses: 'phone-input-profile'
+        styleClasses: 'phone-input-profile',
+        maxlength: 15
     }
 
 }
@@ -392,8 +404,8 @@ async function submitProfileForm() {
         phone: details.phone,
         dob: details.dob,
         professional_headline: details.professional_headline,
-        location: details.location,
-        country: details.country,
+        location: details.location?.name ?? null,
+        country: details.country?.name ?? null,
     }
 
     try {

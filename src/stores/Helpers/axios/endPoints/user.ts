@@ -76,4 +76,8 @@ export default {
     userNotifications() {
         return $instance.get(`notifications/user`)
     },
+
+    userDashboardInfo() {
+        return $instance.get(`dashboard/user/info`)
+    },
 }

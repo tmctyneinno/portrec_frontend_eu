@@ -3,7 +3,7 @@
         <div class="card card-latest p-3 py-lg-4 hover-tiltY cursor-pointer">
             <div class="row">
                 <div class="col-3 row align-content-center ">
-                    <img :src="job.company?.image ?? ''" alt="_img">
+                    <img :src="job.image" alt="_img">
                 </div>
                 <div class="col-9">
                     <h5 class="slide-title job_title">

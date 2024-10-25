@@ -13,7 +13,7 @@
                 <div class="row gy-3 align-items-center">
 
                   <div class="col-md-1 text-lg-center">
-                    <img :src="currentJob?.company?.image ?? ''" class="img-fluid" width="55" alt="_img">
+                    <img :src="currentJob?.image" class="img-fluid" width="55" alt="_img">
                   </div>
 
                   <div class="col-md-7">
@@ -31,7 +31,7 @@
                   </div>
                   <div class="col-md-4 my-3 ">
                     <div class="float-end">
-                      <span class="line-right pe-4 me-3">
+                      <span @click="shareLink" class="line-right pe-4 me-3 cursor-pointer">
                         <i class="bi bi-share"></i>
                       </span>
                       <span v-if="hasAppliedForThisJob" class="text-warning small ">Already Applied</span>
@@ -203,6 +203,7 @@ import { useJobApplicationStore } from '@/stores/jobApplicationStore';
 import { useDateFormat } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
 import api from '@/stores/Helpers/axios'
+import { useShare } from '@vueuse/core'
 //@ts-ignore
 import numeral from 'numeral';
 
@@ -266,6 +267,18 @@ function dateShow(date: any) {
   return d.value
 }
 
+
+// share job
+const { share } = useShare()
+function shareLink() {
+  console.log(currentJob.value?.company?.name);
+
+  share({
+    title: `Job openeing - ${currentJob.value.title}`,
+    text: `Check out this job opening at -  ${currentJob.value?.company?.name}`,
+    url: location.href,
+  })
+}
 
 onBeforeRouteLeave(() => {
   modalOpen.value = false

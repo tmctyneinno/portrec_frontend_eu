@@ -15,11 +15,12 @@
             </div>
         </div>
         <div v-else>
-            <div class="row g-1">
+            <div class="row g-1 my-4">
                 <div class="col-md-2">
-                    <div class="dropzone" v-bind="getRootProps()">
+                    <div class="dropzone" v-bind="getRootProps()"
+                        :style="{ 'background-image': `url(${company.avatar})` }">
                         <div class="text-center small">
-                            <i class="bi bi-pencil"></i>
+                            <i class="bi bi-camera"></i>
                         </div>
                         <input v-bind="getInputProps()" />
                     </div>
@@ -63,7 +64,9 @@
                     </div>
                 </div>
             </div>
-            <hr>
+
+            <hr class="mb-4">
+
             <div class="row g-3">
                 <div class="col-lg-8">
                     <div class="card border-0 mb-3">
@@ -81,6 +84,9 @@
                             </div>
                         </div>
                     </div>
+
+                    <hr class="faint my-4">
+
                     <div class="card border-0 mb-3">
                         <div class="card-body">
                             <h5 class="card-title bg-transparent border-0 fw-bold">
@@ -96,6 +102,9 @@
                             </div>
                         </div>
                     </div>
+
+                    <hr class="faint my-4">
+
                     <div class="card border-0 mb-3">
                         <div class="card-body">
                             <h5 class="card-title bg-transparent border-0 fw-bold">
@@ -142,7 +151,9 @@
                             </div>
                         </div>
                     </div>
-                    <hr>
+
+                    <hr class="faint my-4">
+
                     <div class="card card border-0 d-none">
                         <h5 class="card-title bg-transparent border-0 fw-bold">
                             Open Positions
@@ -158,6 +169,7 @@
                         </div>
                     </div>
                 </div>
+
 
                 <div class="col-lg-4">
                     <div class="row g-3">
@@ -177,6 +189,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <hr class="faint my-4">
                         </div>
                         <div class="col-12">
                             <div class="card border-0 mb-3">
@@ -221,6 +234,8 @@ import { useRecruiterCommonStore } from '../RecruiterCommonStore';
 import { storeToRefs } from 'pinia';
 import ComponentLoading from '@/components/componentLoading.vue';
 import useFxn from '@/stores/Helpers/useFunctions';
+import api from '@/stores/Helpers/axios'
+
 //@ts-ignore
 import { useDropzone } from "vue3-dropzone";
 
@@ -272,28 +287,47 @@ const img = ref<any>(null)
 const imgSaving = ref(false)
 
 const { getRootProps, getInputProps } = useDropzone({
-    noDrag: true,
     multiple: false,
-    // maxSize: 2,
     onDrop: (acceptFiles: any[], rejectReasons: any) => {
-
-        // if (!useFxn.isOnline()) {
-        //     useFxn.toastShort('You are offline')
-        //     return
-        // }
-
         if (!useFxn.isExtension(acceptFiles[0].name, acceptedFormats)) {
             useFxn.toast('Please upload an image', 'warning');
             return;
         }
 
-        // let formData = new FormData();
-        // img.value = acceptFiles[0]
-        // formData.append("img", img.value);
-        // submitImage(formData)
-        console.log(rejectReasons);
+        const _2MBinBytes = 2097152;
+
+        if (acceptFiles[0].size > _2MBinBytes) {
+            useFxn.toast('File larger than 2MB', 'warning');
+            return;
+        }
+
+        let formData = new FormData();
+        img.value = acceptFiles[0]
+        formData.append("img", img.value);
+        submitImage(formData)
     },
 });
+
+
+
+async function submitImage(formData: FormData) {
+    try {
+        imgSaving.value = true
+
+        let { data } = await api.recruiterCompanyAvatarUpload(formData)
+        company.value.avatar = data.url
+        useFxn.toast('Updated successfully', 'success')
+    } catch (error) {
+        // console.log(error);
+        useFxn.toast('Something went wrong', 'error')
+
+    }
+    finally {
+        imgSaving.value = false
+    }
+}
+
+
 
 </script>
 
@@ -347,7 +381,7 @@ const { getRootProps, getInputProps } = useDropzone({
     height: 100px;
     width: 100px;
     border-radius: 50%;
-    background-color: var(--theme-color-soft);
+    /* background-color: var(--theme-color-soft); */
     border: 1px solid #e8e5e5;
     background-size: cover;
     background-position: center center;
@@ -359,6 +393,7 @@ const { getRootProps, getInputProps } = useDropzone({
 }
 
 .dropzone:hover {
+    border-width: 2px;
     border-color: var(--theme-color)
 }
 </style>

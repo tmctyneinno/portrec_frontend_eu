@@ -73,6 +73,10 @@ export default {
         return $instance.get(`recruiter/company/resources`)
     },
 
+    recruiterCompanyAvatarUpload(form: FormData) {
+        return $instanceForm.post(`recruiter/company/image`, form)
+    },
+
     recruiterUpdateJobApplicationStatus(data: any) {
         return $instance.post(`recruiter/job/application/status/update`, JSON.stringify(data))
     },

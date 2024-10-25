@@ -233,7 +233,7 @@ const hasAppliedForThisJob = ref(false)
 
 watchEffect(() => {
   if (profileStore.isLoggedIn && currentJob.value?.title) {
-    hasAppliedForThisJob.value = currentJob.value.applications.includes(profileStore.profile.user_id) ? true : false
+    hasAppliedForThisJob.value = currentJob.value.applications.includes(profileStore.profile?.user_id) ? true : false
   }
 })
 

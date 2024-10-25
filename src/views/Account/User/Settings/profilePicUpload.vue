@@ -30,8 +30,8 @@ const img = ref<any>(null)
 const imgSaving = ref(false)
 
 const { getRootProps, getInputProps } = useDropzone({
+    multiple: false,
     onDrop: (acceptFiles: any[], rejectReasons: any) => {
-
         if (!useFxn.isExtension(acceptFiles[0].name, acceptedFormats)) {
             useFxn.toast('Please upload an image', 'warning');
             return;
@@ -53,9 +53,8 @@ const { getRootProps, getInputProps } = useDropzone({
 async function submitImage(formData: FormData) {
     try {
         imgSaving.value = true
-        const pic_id = profileStore.data?.profile_pic?.id ?? null;
 
-        let { data } = await api.userProfilePicture(formData, pic_id)
+        let { data } = await api.userProfilePicture(formData)
         console.log(data);
 
 

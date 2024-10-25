@@ -54,6 +54,7 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
         resources: { employees: any[], industry: any[], countries: any[] },
         isLoading: boolean,
         companyFound: boolean,
+        avatar: string,
     }>({
         profileEditModal: false,
         socialLinksEditModal: false,
@@ -64,6 +65,7 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
         resources: { employees: [], industry: [], countries: [] },
         isLoading: false,
         companyFound: false,
+        avatar: '',
     })
 
     async function loadJobPostingDropdowns() {
@@ -93,6 +95,7 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
                 companyProfile.companyFound = false
             } else {
                 companyProfile.data = resp.data
+                companyProfile.avatar = resp.data?.avatar ?? 'https://via.placeholder.com/150'
                 companyProfile.companyFound = true
             }
             companyProfile.isLoading = false

@@ -16,4 +16,6 @@ export default {
     companyDetails(company_id: string | number) {
         return $instance.get(`/company/details/${company_id}`)
     },
+
+
 }

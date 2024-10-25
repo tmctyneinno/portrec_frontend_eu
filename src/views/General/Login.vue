@@ -91,6 +91,9 @@
                             </div>
                         </form>
                     </div>
+                    <router-link to="/" class="text-center my-3 hover-tiltY theme-color">
+                        <i class="bi bi-arrow-left"></i> Go to homepage
+                    </router-link>
                 </div>
 
             </div>

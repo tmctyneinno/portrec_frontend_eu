@@ -310,24 +310,11 @@ onMounted(async () => {
     // getCountries()
 })
 
-// function getCountries() {
-//     try {
-//         const countriesArray = Country.getAllCountries()
-//         allCountries.value = countriesArray.map((country: any) => country.name)
-//     } catch (error) {
-//         // 
-//     }
-// }
 
 function updateCitiesOnCountrySelect() {
-    console.log(details.country);
-
     details.location = ''
     citiesArray.value = State.getStatesOfCountry(details.country.isoCode)
 }
-
-
-
 
 const userData = {
     name: profileStore.data?.name ?? '',

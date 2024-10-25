@@ -67,7 +67,7 @@
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-12 col-md-12 text-center">
-                        <p class="mb-0">© 2023 PORTREC. </p>
+                        <p class="mb-0"> &copy; {{ (new Date()).getFullYear() }} PORTREC. </p>
                     </div>
                 </div>
             </div>

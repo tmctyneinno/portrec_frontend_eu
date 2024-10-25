@@ -10,7 +10,7 @@ export const useProfileStore = defineStore('profileStore', () => {
     const userType: any = ref('')
     const userData: any = useStorage('protrec_$user_profile', null, sessionStorage)
     const avatar = ref<string>('')
-    const notifications = ref<{title:string, message:string, notification_type:string, id:string, ref_id:string}[]>([])
+    const notifications = ref<{ title: string, message: string, notification_type: string, id: string, ref_id: string }[]>([])
 
     const isLoggedIn = computed(() => token.value || Cookies.get('PortrecTkn'));
     const getUserType = computed(() => userType.value || Cookies.get('PortrecUserType'))
@@ -42,7 +42,7 @@ export const useProfileStore = defineStore('profileStore', () => {
             // console.log(resp);
             if (resp.status === 201) {
                 userData.value = JSON.stringify(resp.data.body)
-                avatar.value = resp.data.body.profile_pic ? resp.data.body.profile_pic.image : 'https://via.placeholder.com/150'
+                avatar.value = resp.data.body?.avatar ?? 'https://via.placeholder.com/150'
                 // console.log('profile', JSON.parse(profile.value));
             }
         } catch (error) {
@@ -63,7 +63,7 @@ export const useProfileStore = defineStore('profileStore', () => {
     }
 
 
-    async function readNotification(id:any) {
+    async function readNotification(id: any) {
         try {
             const resp = await api.readNotification(id);
         } catch (error) {

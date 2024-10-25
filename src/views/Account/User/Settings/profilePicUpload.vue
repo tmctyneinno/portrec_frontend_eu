@@ -1,9 +1,6 @@
 <template>
     <div class="col-md-3">
         <div class="image-circle" :style="{ 'background-image': `url(${profileStore.avatar})` }"></div>
-        <!-- <div class="image-circle">
-            <img :src="profileStore.avatar" alt="avatar">
-        </div> -->
     </div>
     <div class="col-md-8">
         <div class="dropzone" v-bind="getRootProps()">
@@ -11,7 +8,7 @@
                 <div v-if="!imgSaving"><i class="bi bi-image them-color"></i></div>
                 <span v-else class="spinner-border spinner-border-sm" aria-hidden="true"></span>
                 <div><span class="theme-color">Click to replace</span> or drag and drop</div>
-                <div class="fw-light">SVG, PNG, JPG or GIF (max. 400 x 400px)</div>
+                <div class="fw-light">SVG, PNG, JPG or GIF (max: 2MB)</div>
             </div>
             <input v-bind="getInputProps()" />
         </div>
@@ -35,13 +32,14 @@ const imgSaving = ref(false)
 const { getRootProps, getInputProps } = useDropzone({
     onDrop: (acceptFiles: any[], rejectReasons: any) => {
 
-        if (!useFxn.isOnline()) {
-            useFxn.toastShort('You are offline')
-            return
-        }
-
         if (!useFxn.isExtension(acceptFiles[0].name, acceptedFormats)) {
             useFxn.toast('Please upload an image', 'warning');
+            return;
+        }
+        const _2MBinBytes = 2097152;
+
+        if (acceptFiles[0].size > _2MBinBytes) {
+            useFxn.toast('File larger than 2MB', 'warning');
             return;
         }
 
@@ -49,7 +47,6 @@ const { getRootProps, getInputProps } = useDropzone({
         img.value = acceptFiles[0]
         formData.append("img", img.value);
         submitImage(formData)
-        console.log(rejectReasons);
     },
 });
 
@@ -63,8 +60,7 @@ async function submitImage(formData: FormData) {
 
 
         if (data.status === 200) {
-            profileStore.avatar = data.body
-            // profileStore.avatar = 'https://picsum.photos/100/100'
+            profileStore.avatar = data.body.url
             useFxn.toast('Updated successfully', 'success')
         }
     } catch (error) {
@@ -116,4 +112,3 @@ async function submitImage(formData: FormData) {
     background-color: #41b883;
 }
 </style>
-

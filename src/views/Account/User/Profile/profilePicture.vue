@@ -2,8 +2,7 @@
     <div class="col-12">
         <div class="card border-0 shadow-sm position-relative">
             <div class="cover-photo"></div>
-            <img src="@/assets/images/dp_temp.png" alt="Profile Picture"
-                class="profile-picture mx-auto ms-5 d-block bg-light">
+            <img :src="profileStore.avatar" alt="Profile Picture" class="profile-picture mx-auto ms-5 d-block bg-light">
             <div class="card-body small">
                 <div class="d-flex float-lg-end ">
                     <div class="me-lg-5 mt-5 mt-lg-0 mb-3">

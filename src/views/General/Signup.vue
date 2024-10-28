@@ -6,7 +6,7 @@
                 <div class="col-11 col-lg-12 row justify-content-center">
                     <div class="col-md-8 pt-3 animate__animated animate__fadeIn">
                         <div class="col-12 ">
-                            <div class="text-center mb-3 fw-bold text-uppercase">REGISTER as a</div>
+                            <div class="text-center mb-3 fw-bold text-uppercase">REGISTER as</div>
                             <div class="type-nav theme-color d-flex justify-content-aroun justify-content-evenly mb-1 ">
                                 <span @click="formType = 'seeker'" class="fw-bolder cursor-pointer hover-tiltY"
                                     :class="{ 'active': formType == 'seeker' }">

@@ -46,7 +46,8 @@ export const useProfileStore = defineStore('profileStore', () => {
                 // console.log('profile', JSON.parse(profile.value));
             }
         } catch (error) {
-            console.log(error);
+            logout()
+            // console.log(error);
 
         }
     }

@@ -464,18 +464,24 @@ input[type="radio"]:checked+label:before {
 
 .vue3-easy-data-table__body td {
   border: none !important;
+  padding-block: 20px !important;
 }
 
 .vue3-easy-data-table__main.fixed-header th {
+  border: none !important;
   text-transform: uppercase;
-  padding-block: 15px !important;
+  padding-block: 20px !important;
   background-color: #F8F8FD !important;
-  color: red !important;
 }
 
 .vue3-easy-data-table__footer {
   border: none !important;
   padding-block: 30px !important;
+}
+
+.buttons-pagination .item.button.active{
+  background-color: var(--theme-color) !important;
+  border: none !important;
 }
 
 .dropdown-menu {

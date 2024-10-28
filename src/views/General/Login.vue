@@ -6,7 +6,7 @@
                 <div class="col-11 col-lg-12 row justify-content-center">
                     <div class="col-md-6 animate__animated animate__fadeIn">
                         <div class="col-12 ">
-                            <div class="text-center mb-3 fw-bold text-uppercase">Login as a</div>
+                            <div class="text-center mb-3 fw-bold text-uppercase">Login as </div>
                             <div class="type-nav theme-color d-flex justify-content-aroun justify-content-evenly mb-3">
                                 <span @click="form.type = 'seeker'" class="fw-bolder cursor-pointer hover-tiltY"
                                     :class="{ 'active': form.type == 'seeker' }">

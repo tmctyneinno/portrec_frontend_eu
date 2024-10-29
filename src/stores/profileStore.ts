@@ -45,10 +45,10 @@ export const useProfileStore = defineStore('profileStore', () => {
                 avatar.value = resp.data.body?.avatar ?? 'https://via.placeholder.com/150'
                 // console.log('profile', JSON.parse(profile.value));
             }
-        } catch (error) {
-            // logout()
-            // console.log(error);
-
+        } catch (error: any) {
+            if (error.response.status === 401) {
+                logout()
+            }
         }
     }
 

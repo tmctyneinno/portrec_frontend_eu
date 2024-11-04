@@ -5,19 +5,23 @@ import { useStorage } from '@vueuse/core'
 import api from '@/stores/Helpers/axios'
 
 export const useJobsStore = defineStore('jobsStore', () => {
-  // const functions = ref<any[]>([]);
-  // const categories = ref<any[]>([]);
-  // const latest = ref<any[]>([]);
-  // const types = ref<any[]>([]);
+  const functions = ref<any[]>([]);
+  const categories = ref<any[]>([]);
+  const latest = ref<any[]>([]);
+  const qualifications = ref<any[]>([]);
+  const types = ref<any[]>([]);
+  const levels = ref<any[]>([]);
+  const allJobsData = ref<any[]>([]);
+  const allJobsChunked = ref<any[]>([]);
 
-  const categories: any = useStorage('protrec_$cate', [], sessionStorage)
-  const qualifications: any = useStorage('protrec_$qualificatns', [], sessionStorage)
-  const types: any = useStorage('protrec_$jobTypes', [], sessionStorage)
-  const levels: any = useStorage('protrec_$jobLevels', [], sessionStorage)
-  const functions: any = useStorage('protrec_$jobfunctions', [], sessionStorage)
-  const latest: any = useStorage('protrec_$latest_jobs', [], sessionStorage)
-  const allJobsChunked: any = useStorage('protrec_$jobs_Chucked', [], sessionStorage)
-  const allJobsData: any = useStorage('protrec_$jobs_data', [], sessionStorage)
+  // const functions: any = useStorage('protrec_$jobfunctions', [], sessionStorage)
+  // const categories: any = useStorage('protrec_$cate', [], sessionStorage)
+  // const latest: any = useStorage('protrec_$latest_jobs', [], sessionStorage)
+  // const qualifications: any = useStorage('protrec_$qualificatns', [], sessionStorage)
+  // const types: any = useStorage('protrec_$jobTypes', [], sessionStorage)
+  // const levels: any = useStorage('protrec_$jobLevels', [], sessionStorage)
+  // const allJobsChunked: any = useStorage('protrec_$jobs_Chucked', [], sessionStorage)
+  // const allJobsData: any = useStorage('protrec_$jobs_data', [], sessionStorage)
   const loading = ref<boolean>(false)
   const queryObj = ref<any>({});
   const currentQueryStr = ref<string>('');

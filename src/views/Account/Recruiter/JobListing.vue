@@ -19,7 +19,7 @@
                     <CustomDateRangePicker v-model="dateRange" />
                 </div>
 
-                <div class="col-md-4" v-if="items.length">
+                <div class="col-md-4" >
                     <input v-model="searchTerm" type="text" class="form-control rounded-0" placeholder="search title..">
                 </div>
             </div>

@@ -19,7 +19,7 @@
             <ul class="nav nav-tabs" id="myTab" role="tablist">
 
                 <li v-for="(tab, index) in tabs.menu" :key="index" class="nav-item " role="presentation">
-                    <button :style="`color: ${statusColor(tab.id)} !important; border-color: ${statusColor(tab.id)} !important;`" @click="tabs.showing = tab.id" class="nav-link fw-bold"
+                    <button :style="`color: ${templateStore.statusColor(tab.id)} !important; border-color: ${templateStore.statusColor(tab.id)} !important;`" @click="tabs.showing = tab.id" class="nav-link fw-bold"
                         :class="{ 'active': tabs.showing == tab.id }" data-bs-toggle="tab" type="button" role="tab"
                         aria-controls="one" aria-selected="true">
                         {{ tab.name }}
@@ -38,7 +38,7 @@
                         <div class="col-md-9">
                             <h5 class="fw-bold">
                                 Application History
-                                <span class="small" :style="`color: ${statusColor(tabs.showing)}`">: {{ tabs.showing?.replace('_', ' ') }}</span>
+                                <span class="small" :style="`color: ${templateStore.statusColor(tabs.showing)}`">: {{ tabs.showing?.replace('_', ' ') }}</span>
                             </h5>
                         </div>
                         <div class=" col-md-4 col-lg-3 float-end">
@@ -61,7 +61,7 @@
                     </template>
 
                     <template #item-status="item">
-                        <span class="category-tag text-white" :style="`background-color: ${statusColor(item.status)}`">
+                        <span class="category-tag text-white" :style="`background-color: ${templateStore.statusColor(item.status)}`">
                             {{ item.status }}
                         </span>
                     </template>
@@ -96,6 +96,9 @@ import useFxn from '@/stores/Helpers/useFunctions'
 import api from '@/stores/Helpers/axios'
 import type { JobStatusInterface } from '@/stores/interfaces';
 import CustomDateRangePicker from '@/components/CustomDateRangePicker.vue';
+import { useTemplateStore } from '@/stores/templateStore';
+
+const templateStore = useTemplateStore()
 
 
 const profileStore = useProfileStore()
@@ -149,9 +152,6 @@ watch(() => dateRange.value, () => {
     getApplicationsList()
 })
 
-// const currentTabName = computed(()=>{
-
-// })
 
 
 
@@ -167,21 +167,13 @@ const tabs = reactive<{ showing: JobStatusInterface, menu: { id: JobStatusInterf
     ]
 })
 
-const statusColor = (tabNme: string) => {
-    let color;
-    if (tabNme == 'IN_REVIEW' || tabNme == 'In_Review')color = '#3734a7'
-    else if (tabNme == 'INTERVIEWING' || tabNme == 'Interviewing')color = '#a0ab19'
-    else if (tabNme == 'SHORTLISTED' || tabNme == 'Shortlisted')color = '#8e19ab'
-    else if (tabNme == 'OFFERED' || tabNme == 'Offered')color = '#34a749'
-    else if (tabNme == 'REJECTED' || tabNme == 'Rejected')color = '#a73434'
-    else color = '#111'
-    return color
-}
-
-
 const getApplicationsCount = (str: JobStatusInterface) => {
     return applications[str].length
 }
+
+const appliedHistory = computed(() => {
+    return applications[tabs.showing]
+})
 
 
 // table
@@ -191,12 +183,9 @@ const tableHeader = ref([
     { text: "Position", value: "job.title", sortable: true },
     { text: "Date Applied", value: "created_at", sortable: true },
     { text: "Status", value: "status", sortable: true },
-    // { text: "", value: "action" },
 ]);
 
-const appliedHistory = computed(() => {
-    return applications[tabs.showing]
-})
+
 
 </script>
 

@@ -75,7 +75,7 @@
 
                     <!-- shecdule and chat -->
                     <div class="d-flex justify-content-between mt-3">
-                        <button class="btn w-100 me-3  btn-primary-outline">Shedule
+                        <button class="btn w-100 me-3  btn-primary-outline">Schedule
                             Interview</button>
                         <button class="btn  btn-primary-outline">
                             <i class="bi bi-chat-left-text"></i>

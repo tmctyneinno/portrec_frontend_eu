@@ -17,6 +17,10 @@
                         :teleport="true" v-model="selectedJob" class="text-capitalize job-chooser" :clearable="true"
                         :options="jobOpeningsList" :reduce="(x: any) => x.id" label="label"></v-select>
                 </div>
+
+                <div class="col-md-4" >
+                    <input v-model="searchTerm" type="text" class="form-control rounded-0" placeholder="search title..">
+                </div>
             </div>
         </div>
 
@@ -41,7 +45,7 @@
                 </template>
 
                 <template #item-status="item">
-                    <span :class="classAccordingToStage(item.status) + '-tag'" class="category-tag">
+                    <span  class="category-tag text-white" :style="`background-color: ${templateStore.statusColor(item.status)}`">
                         {{ item.status }}
                     </span>
                 </template>
@@ -68,8 +72,10 @@ import useFxn from '@/stores/Helpers/useFunctions'
 import { useRecruiterCommonStore } from './RecruiterCommonStore';
 import type { ServerOptions } from 'vue3-easy-data-table';
 import api from '@/stores/Helpers/axios';
+import { useTemplateStore } from '@/stores/templateStore';
 
 const recruiterCommonStore = useRecruiterCommonStore()
+const templateStore = useTemplateStore()
 
 const profileStore = useProfileStore()
 onMounted(async () => {
@@ -151,6 +157,9 @@ watch(() => recruiterCommonStore.jobPosting.jobListUpdated, () => {
 
 watch(serverOptions, () => { getApplicationsList(); }, { deep: true });
 watch(() => selectedJob.value, () => { getApplicationsList(); }, { deep: true });
+
+const searchOnInput = useFxn.debounce(getApplicationsList, 300);
+watch(searchTerm, () => { serverOptions.value.page = 1; searchOnInput(); }, { deep: true });
 
 
 const classAccordingToStage = (stage: string) => {

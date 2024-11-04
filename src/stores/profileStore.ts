@@ -22,6 +22,8 @@ export const useProfileStore = defineStore('profileStore', () => {
 
         Cookies.set('PortrecUserType', loginType, { expires: 7 });
         userType.value = loginType;
+
+        window.location.reload();
     }
 
 

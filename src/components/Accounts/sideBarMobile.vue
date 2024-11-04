@@ -24,12 +24,12 @@
                     </router-link>
                 </li>
 
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <router-link class="nav-link" to="/user/help_center">
                         <i class="bi bi-question-circle"></i> &nbsp;
                         Help Center
                     </router-link>
-                </li>
+                </li> -->
             </ul>
         </div>
         <div class="offcanvas-footer">

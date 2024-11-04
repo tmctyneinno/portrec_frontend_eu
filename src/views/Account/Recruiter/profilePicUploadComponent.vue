@@ -33,15 +33,16 @@ const img = ref<any>(null)
 const imgSaving = ref(false)
 
 const { getRootProps, getInputProps } = useDropzone({
+    multiple: false,
     onDrop: (acceptFiles: any[], rejectReasons: any) => {
-
-        if (!useFxn.isOnline()) {
-            useFxn.toastShort('You are offline')
-            return
-        }
-
         if (!useFxn.isExtension(acceptFiles[0].name, acceptedFormats)) {
             useFxn.toast('Please upload an image', 'warning');
+            return;
+        }
+        const _2MBinBytes = 2097152;
+
+        if (acceptFiles[0].size > _2MBinBytes) {
+            useFxn.toast('File larger than 2MB', 'warning');
             return;
         }
 
@@ -49,22 +50,19 @@ const { getRootProps, getInputProps } = useDropzone({
         img.value = acceptFiles[0]
         formData.append("img", img.value);
         submitImage(formData)
-        console.log(rejectReasons);
     },
 });
 
 async function submitImage(formData: FormData) {
     try {
         imgSaving.value = true
-        const pic_id = profileStore.data?.profile_pic?.id ?? null;
 
-        let { data } = await api.userProfilePicture(formData, pic_id)
+        let { data } = await api.recruiterProfilePicture(formData)
         console.log(data);
 
 
         if (data.status === 200) {
-            profileStore.avatar = data.body
-            // profileStore.avatar = 'https://picsum.photos/100/100'
+            profileStore.avatar = data.body.url
             useFxn.toast('Updated successfully', 'success')
         }
     } catch (error) {

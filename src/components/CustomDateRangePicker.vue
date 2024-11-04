@@ -15,6 +15,7 @@ function setDateRange() {
     const endDate = new Date();
     const startDate = new Date(new Date().setDate(endDate.getDate() - 7));
     localValue.value = [startDate, endDate];
+    // localValue.value = [new Date(), new Date()];
 }
 
 const props = defineProps({

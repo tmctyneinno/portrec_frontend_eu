@@ -20,12 +20,12 @@
                 </router-link>
             </li>
 
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <router-link class="nav-link" :to="`/${prop.userType}/help-center`">
                     <i class="bi bi-question-circle"></i> &nbsp;
                     Help Center
                 </router-link>
-            </li>
+            </li> -->
 
         </ul>
 

@@ -25,5 +25,17 @@ export const useTemplateStore = defineStore('template', () => {
   })
 
 
-  return { navBarMenus, themeColors }
+  const statusColor = (statusText: string) => {
+    let color;
+    if (statusText == 'IN_REVIEW' || statusText == 'In_Review') color = '#3734a7'
+    else if (statusText == 'INTERVIEWING' || statusText == 'Interviewing') color = '#a0ab19'
+    else if (statusText == 'SHORTLISTED' || statusText == 'Shortlisted') color = '#8e19ab'
+    else if (statusText == 'OFFERED' || statusText == 'Offered') color = '#34a749'
+    else if (statusText == 'REJECTED' || statusText == 'Rejected') color = '#a73434'
+    else color = '#111'
+    return color
+  }
+
+
+  return { navBarMenus, themeColors, statusColor }
 })

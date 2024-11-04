@@ -75,8 +75,11 @@
 
                     <!-- shecdule and chat -->
                     <div class="d-flex justify-content-between mt-3">
-                        <button class="btn w-100 me-3  btn-primary-outline">Schedule
-                            Interview</button>
+                        <!-- <button class="btn w-100 me-3  btn-primary-outline">Schedule
+                            Interview</button> -->
+                            <a :href="userResume" target="_blank" class="btn w-100 me-3 btn-primary-outline" download>
+                            <i class="bi bi-file-earmark-arrow-down-fill"></i> Download Resume
+                        </a>
                         <button class="btn  btn-primary-outline">
                             <i class="bi bi-chat-left-text"></i>
                         </button>
@@ -123,8 +126,11 @@
                             </div>
                         </div>
                     </div>
+                    
                 </div>
             </div>
+
+
         </div>
 
         <div class="col-md-7">
@@ -137,12 +143,12 @@
                                 Applicant Profile
                             </button>
                         </li>
-                        <li class="nav-item" role="presentation">
+                        <!-- <li class="nav-item" role="presentation">
                             <button class="nav-link" id="tab2-tab" data-bs-toggle="tab" data-bs-target="#tab2"
                                 type="button" role="tab" aria-controls="tab2" aria-selected="false">
                                 Resume
                             </button>
-                        </li>
+                        </li> -->
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="tab3-tab" data-bs-toggle="tab" data-bs-target="#tab3"
                                 type="button" role="tab" aria-controls="tab3" aria-selected="false">
@@ -155,9 +161,9 @@
                         <div class="tab-pane active py-4" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
                             <ApplicantsDetailsComponentProfile />
                         </div>
-                        <div class="tab-pane py-4" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
+                        <!-- <div class="tab-pane py-4" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
                             <ApplicantsDetailsComponentResume />
-                        </div>
+                        </div> -->
                         <div class="tab-pane py-4" id="tab3" role="tabpanel" aria-labelledby="tab3-tab">
                             <ApplicantsDetailsComponentProcess />
                         </div>
@@ -174,7 +180,7 @@
 
 <script lang="ts" setup>
 import { useProfileStore } from '@/stores/profileStore';
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import useFxn from '@/stores/Helpers/useFunctions'
 import { useRecruiterCommonStore } from './RecruiterCommonStore';
 import ApplicantsDetailsComponentProfile from './ApplicantsDetailsComponentProfile.vue';
@@ -196,6 +202,11 @@ function navigateBack() {
     applicants.value.currentIdShowing = '';
     applicants.value.showing = 'list'
 }
+
+
+const userResume = computed(() => {
+    return applicants.value.details?.resume?.resume_url ?? null
+})
 
 </script>
 

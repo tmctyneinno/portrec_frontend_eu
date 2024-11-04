@@ -48,9 +48,13 @@ export const useProfileStore = defineStore('profileStore', () => {
                 // console.log('profile', JSON.parse(profile.value));
             }
         } catch (error: any) {
-            if (error.response.status === 401) {
-                 logout()
+            if (error.response.data.status === 401
+                || error.response.data.error == 'Unauthenticated'
+                || error.response.data.error == 'Unauthenticated.') {
+                logout()
             }
+            // console.log(error.response.data);
+
         }
     }
 

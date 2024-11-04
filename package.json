@@ -29,6 +29,7 @@
     "js-cookie": "^3.0.5",
     "maska": "^2.1.10",
     "numeral": "^2.0.6",
+    "pdf-viewer-vue": "^0.2.7",
     "pinia": "^2.1.6",
     "pinia-plugin-persist": "^1.0.0",
     "qalendar": "^3.8.1",

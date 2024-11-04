@@ -25,6 +25,7 @@ const skills = computed(() => {
     return applicants.value.details?.user?.skills ?? []
 })
 
+
 </script>
 
 <template>
@@ -93,6 +94,8 @@ const skills = computed(() => {
             <!-- <span v-show="!userSkills.length" class="text-muted2">No skills added</span> -->
         </div>
     </div>
+
+    
 </template>
 
 <style lang="css" scoped>

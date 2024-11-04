@@ -1,9 +1,7 @@
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia';
 import { useRecruiterCommonStore } from './RecruiterCommonStore';
-import useFxn from '@/stores/Helpers/useFunctions';
 import { computed } from 'vue';
-// import PDFViewer from 'pdf-viewer-vue'
 
 const recruiterCommonStore = useRecruiterCommonStore()
 const { applicants } = storeToRefs(recruiterCommonStore);
@@ -21,10 +19,7 @@ const userResume = computed(() => {
             </a>
         </div>
         <!-- <img src="@/assets/images/resume_sample.png" alt="resume"> -->
-        <!-- <PDFViewer
-      :source="userResume"
-      style="height: 100vh; width: 100%"
-    /> -->
+     
     </div>
 </template>
 

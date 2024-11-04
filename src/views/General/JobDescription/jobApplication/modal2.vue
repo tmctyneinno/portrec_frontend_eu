@@ -14,9 +14,11 @@
                 <div class="col-12 cursor-pointer" v-for="resume in resumesList" @click="chooseResume(resume.id)">
                     <div class="card file-card overflow-hidden">
                         <div class="row g-2">
-                            <div class="pdf-grid col-2 bg-primary fw-bold  text-white small">PDF</div>
-                            <div class="col-9">
-                                <div class="ps-2 py-2 ms-0">
+                            <div class="pdf-grid col-1 bg-primary fw-bold  text-white">
+                                <i class="bi bi-file-earmark-text"></i>
+                            </div>
+                            <div class="col-10">
+                                <div class="ps-2 py-1 ms-0">
                                     <div class="fw-bold text-muted">{{ resume.resume_name }}</div>
                                     <div class="text-muted2 xsmall">added: {{ timeAgo(resume.created_at) }}</div>
                                 </div>

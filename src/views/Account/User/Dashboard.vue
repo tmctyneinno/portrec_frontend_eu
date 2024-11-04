@@ -114,7 +114,7 @@
                         </template>
 
                         <template #item-status="item">
-                            <span class="category-tag">
+                            <span class="category-tag text-white" :style="{backgroundColor: templateStore.statusColor(item.status)}">
                                 {{ item.status }}
                             </span>
                         </template>
@@ -134,8 +134,13 @@ import api from '@/stores/Helpers/axios'
 import NoDataShow from '@/components/noDataShow.vue';
 import ComponentLoading from '@/components/componentLoading.vue';
 import CustomDateRangePicker from '@/components/CustomDateRangePicker.vue';
+import { useTemplateStore } from '@/stores/templateStore';
 
 const profileStore = useProfileStore()
+const templateStore  = useTemplateStore()
+
+
+
 onMounted(() => {
     getDashboardInfo()
 })

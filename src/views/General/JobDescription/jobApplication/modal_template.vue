@@ -1,8 +1,8 @@
 <template>
     <div class="modal fade show d-block" style="background-color: rgba(0, 0, 0, 0.502);" tabindex="-1"
         data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId">
-        <div class="modal-dialog " role="document">
-            <div class="modal-content px-1 px-lg-2 animate__animated animate__fadeIn">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable " role="document">
+            <div class="modal-content px-1 px-lg-2 animate__animated animate__slideInDown">
                 <div class="modal-header">
                     <div style="width: 90%;">
                         <div class="modal-title fw-bold fs-5">{{ store.currentJob.title }}</div>

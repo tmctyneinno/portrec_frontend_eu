@@ -10,41 +10,46 @@
         </template>
 
         <template #form>
-            <!-- <div class="col-12">
-                            <div class="card overflow-hidden">
-                                <div class="row g-0">
-                                    <div class="pdf-grid col-2 bg-primary fw-bold  text-white small">PDF</div>
-                                    <div class="col-8">
-                                        <div class="ps-2 py-1 ms-0">
-                                            <div class="fw-bold text-muted">BOMA AGINA-OBU.pdf</div>
-                                            <small class="text-muted">Last used on 7/25/2022</small>
-                                        </div>
-                                    </div>
-                                    <div class="col-1 d-flex align-items-center cursor-pointer">
-                                        <i class="bi bi-download"></i>
-                                    </div>
-                                    <div class="col-1 d-flex align-items-center cursor-pointer">
-                                        <i class="bi bi-circle-fill"></i>
-                                    </div>
+            <div class="row g-2">
+                <div class="col-12 cursor-pointer" v-for="resume in resumesList" @click="chooseResume(resume.id)">
+                    <div class="card file-card overflow-hidden">
+                        <div class="row g-2">
+                            <div class="pdf-grid col-2 bg-primary fw-bold  text-white small">PDF</div>
+                            <div class="col-9">
+                                <div class="ps-2 py-2 ms-0">
+                                    <div class="fw-bold text-muted">{{ resume.resume_name }}</div>
+                                    <div class="text-muted2 xsmall">added: {{ timeAgo(resume.created_at) }}</div>
                                 </div>
                             </div>
-                        </div> -->
+                            <div class="col-1 d-flex align-items-center ">
+                                <i v-if="resume.isChosen" class="bi bi-circle-fill"></i>
+                                <i v-else class="bi bi-circle"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
 
             <!-- <div class="col-12 d-flex justify-content-end ">
                             <small class="text-muted cursor-pointer">show more resume <i class="bi bi-chevron-down"></i>
                             </small>
                         </div> -->
 
-            <div class="col-12 col-md-6">
-                <div class="resume-attach" v-bind="getRootProps()">
-                    <i class="bi bi-paperclip fs-5"></i>
-                    <div class="text-muted small fw-bold">Attach Resume/CV</div>
-                    <input v-bind="getInputProps()" />
+            <div class="row g-2">
+                <div class="col-12 col-md-6">
+                    <div class="resume-attach" v-bind="getRootProps()">
+                        <i class="bi bi-paperclip fs-5"></i>
+                        <div class="text-muted small fw-bold">Attach Resume/CV</div>
+                        <input v-bind="getInputProps()" />
+                    </div>
                 </div>
-            </div>
-            <div v-if="store.applyData.resume" class="col-12 col-md-6">
-                <div class="alert small alert-success bg-transparent border-0" role="alert">
-                    {{ useFxn.truncateStr(store.applyData.resume_name, 18) }} <i class="bi bi-check-circle-fill"></i>
+                <div v-if="store.applyData.resume" class="col-12 col-md-6">
+                    <div class="alert small alert-success bg-transparent border-0" role="alert">
+                        {{ useFxn.truncateStr(store.applyData.resume_name, 18) }} <i
+                            class="bi bi-check-circle-fill"></i>
+                    </div>
                 </div>
             </div>
 
@@ -72,10 +77,48 @@ import { useJobApplicationStore } from '@/stores/jobApplicationStore';
 import { useDropzone } from "vue3-dropzone";
 import useFxn from "@/stores/Helpers/useFunctions";
 import modal_template from './modal_template.vue';
+import { useProfileStore } from '@/stores/profileStore';
+import { ref, onMounted } from 'vue';
+import { useTimeAgo } from '@vueuse/core';
 
-
+const profileStore = useProfileStore()
 
 const store = useJobApplicationStore()
+
+
+// resumes selection
+const resumesList = ref<any>([])
+
+onMounted(() => {
+    resumesList.value = profileStore?.data?.resume ?? []
+    if (resumesList.value.length) {
+        // @ts-ignore
+        resumesList.value.sort((a: any, b: any) => new Date(b.created_at) - new Date(a.created_at));
+        chooseResume(resumesList.value[0].id)
+
+    }
+})
+
+const timeAgo = (date: Date) => {
+    const parsed = useTimeAgo(new Date(date))
+    return parsed;
+}
+
+function resetResumeSelection() {
+    resumesList.value.forEach((resume: { isChosen: number; }) => resume.isChosen = 0);
+}
+
+function chooseResume(id: string) {
+    resetResumeSelection()
+    const resume = resumesList.value.find((x: { id: string; }) => x.id == id)
+    if (resume) resume.isChosen = 1
+    store.applyData.resume = id
+    console.log(resume)
+}
+
+
+
+
 const { getRootProps, getInputProps } = useDropzone({
     onDrop: (acceptFiles: any[], rejectReasons: any) => {
 
@@ -86,7 +129,20 @@ const { getRootProps, getInputProps } = useDropzone({
 
         store.applyData.resume = acceptFiles[0]
         store.applyData.resume_name = acceptFiles[0].name
-        console.log(rejectReasons);
+
+        resetResumeSelection()
+        resumesList.value.push({
+            resume_name: acceptFiles[0].name,
+            isChosen: 1,
+            id: resumesList.value.length + 1,
+            created_at: new Date()
+        })
+
+        // @ts-ignore
+        resumesList.value.sort((a: any, b: any) => new Date(b.created_at) - new Date(a.created_at));
+
+
+        // console.log(rejectReasons);
     },
 });
 
@@ -108,13 +164,21 @@ function switchOrSkipModal() {
 
 .resume-attach {
     border-style: dashed;
-    border-radius: 10px;
+    border-radius: 5px;
     border-color: var(--theme-color);
     display: flex;
     justify-content: space-around;
     align-items: center;
     background-color: var(--bs-light);
-    padding: 8px 10px;
+    padding: 3px 10px;
     cursor: pointer;
+}
+
+.resume-attach:hover {
+    background-color: #cccccc4d !important;
+}
+
+.file-card:hover {
+    background-color: #cccccc1d;
 }
 </style>

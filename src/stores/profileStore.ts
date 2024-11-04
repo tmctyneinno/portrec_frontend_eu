@@ -49,7 +49,7 @@ export const useProfileStore = defineStore('profileStore', () => {
             }
         } catch (error: any) {
             if (error.response.status === 401) {
-                logout()
+                 logout()
             }
         }
     }

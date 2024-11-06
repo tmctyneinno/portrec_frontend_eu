@@ -44,7 +44,7 @@
                                                 </div>
                                                 <div class="col-9 align-content-center">
                                                     <router-link :to="`/job-description/${job.id}`"
-                                                        class="btn p-2 btn-primary rounded-0 w-100">Apply</router-link>
+                                                        class="btn p-2 btn-primary w-100">Apply</router-link>
                                                 </div>
                                             </div>
                                         </div>
@@ -103,16 +103,15 @@
                                         </div>
                                         <div class="col-12">
                                             <input v-model="message.text" placeholder="type message here.." type="text"
-                                                class="form-control rounded-0">
+                                                class="form-control">
                                         </div>
                                         <div class="col-12">
-                                            <button v-if="!message.isSending" @click="sendMessage"
-                                                class="btn btn-primary rounded-0 w-100"> <i class="bi bi-chat"></i>
-                                                Chat
-                                                recruiter</button>
-                                            <button v-else class="btn btn-primary rounded-0 w-100" disabled>
-                                                Sending ...
-                                            </button>
+                                            <primaryButton :btnClass="'w-100'" v-if="!message.isSending"
+                                                @click="sendMessage">
+                                                <i class="bi bi-chat"></i> Chat recruiter
+                                            </primaryButton>
+                                            <primaryButtonLoading v-else :btnClass="'w-100'" />
+
                                         </div>
 
                                     </div>

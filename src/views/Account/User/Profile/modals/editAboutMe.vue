@@ -14,11 +14,10 @@
                     </div>
                 </div>
                 <div class="modal-footer border-0">
-                    <button @click="clickSave" v-if="!isSaving" type="button"
-                        class="btn btn-primary rounded-0">Save</button>
-                    <button v-else class=" btn btn-primary" type="button" disabled>
-                        <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
-                    </button>
+                    <primaryButton @click="clickSave" v-if="!isSaving">
+                        Save
+                    </primaryButton>
+                    <primaryButtonLoading v-else />
                 </div>
             </div>
         </div>

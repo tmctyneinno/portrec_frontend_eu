@@ -18,7 +18,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-12">
-                            <textarea v-model="tech_stack" class="form-control rounded-0"
+                            <textarea v-model="tech_stack" class="form-control "
                                 placeholder="state tech stack of your company" style="height: 100px;"></textarea>
                         </div>
                     </div>

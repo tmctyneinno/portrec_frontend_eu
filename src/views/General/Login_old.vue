@@ -1,38 +1,58 @@
 <template>
     <div class="wholePage">
-        <headerForLoginAndSignUp />
         <div class="row justify-content-center g-0">
+            <div class="side-image col-lg-4 d-none d-lg-block min-vh-100"></div>
             <div class=" col-lg-8 d-flex justify-content-center align-items-center min-vh-100">
                 <div class="col-11 col-lg-12 row justify-content-center">
                     <div class="col-md-6 animate__animated animate__fadeIn">
                         <div class="col-12 ">
-                            <div class="type-nav theme-color d-flex justify-content-end mb-3">
-                                <span @click="form.type = form.type == 'seeker' ? 'recruiter' : 'seeker'"
-                                    class="fw-bolder cursor-pointer hover-tiltY">
-                                    Login as {{ form.type !== 'seeker' ? 'Job Seeker' : 'Recruiter' }}
+                            <div class="text-center mb-3 fw-bold text-uppercase">Login as </div>
+                            <div class="type-nav theme-color d-flex justify-content-aroun justify-content-evenly mb-3">
+                                <span @click="form.type = 'seeker'" class="fw-bolder cursor-pointer hover-tiltY"
+                                    :class="{ 'active': form.type == 'seeker' }">
+                                    Job Seeker
+                                </span>
+                                <span class="text-dark">OR</span>
+                                <span @click="form.type = 'recruiter'" class="fw-bolder cursor-pointer hover-tiltY"
+                                    :class="{ 'active': form.type == 'recruiter' }">
+                                    Recruiter
                                 </span>
                             </div>
                         </div>
-                        <div class="col-12 mb-3">
-                            <div class="fs-4 fw-bolder text-center ">
-                                Welcome{{ form.type == 'seeker' ? '' : ', Admin' }}</div>
-                            <div class=" text-center">Enter your login details below</div>
+                        <div class="col-12 ">
+                            <div class="fs-4 fw-lighter text-center mb-2">Welcom back,
+                                {{ form.type == 'seeker' ? 'Dude' : 'Admin' }}</div>
+
                         </div>
 
+                        <!-- <div class="col-12 mb-2">
+                            <GoogleSignInButton @success="handleLoginSuccess" @error="handleLoginError">
+                            </GoogleSignInButton>
+                        </div> -->
+                        <div :disabled="!isReady" @click="() => loginWithGoogle()"
+                            class="card google-card rounded-0 p-2 ">
+                            <div class="fw-bolder text-center theme-color">
+                                <img src="@/assets/images/google_icon.png" width="20"> &nbsp;signin with Google
+                            </div>
+                        </div>
 
+                        <div class="col-12 my-3">
+                            <div class="between-lines text-muted">
+                                Or login with email
+                            </div>
+                        </div>
 
-
-                        <form @submit.prevent="submitForm" class="row g-3">
+                        <form @submit.prevent="submitForm" class="row g-2">
                             <div class="col-12">
                                 <label class="fw-bold text-muted small">
-                                    Enter email address
+                                    {{ form.type == 'recruiter' ? 'Recruiter Email Address' : 'Email Address' }}:
                                 </label>
-                                <input v-model="form.email" type="text" class="form-control form-control-lg  "
-                                    placeholder="email">
+                                <input v-model="form.email" type="text" class="form-control form-control-l  rounded-0"
+                                    placeholder="Enter email address">
                             </div>
                             <div class="col-12">
                                 <div class="fw-bold text-muted small">
-                                    Enter Password
+                                    {{ form.type == 'recruiter' ? 'Recruiter Password' : 'Password' }}:
 
                                     <span v-if="form.password"
                                         @click="form.passwordDisplay = form.passwordDisplay == 'password' ? 'text' : 'password'"
@@ -42,56 +62,38 @@
                                     </span>
                                 </div>
                                 <input v-model="form.password" :type="form.passwordDisplay"
-                                    class="form-control form-control-lg  " placeholder="password">
+                                    class="form-control form-control-l  rounded-0" placeholder="Enter password">
                             </div>
-                            <div v-if="form.isError" class="col-12 mt-2">
-                                <div class="alert alert-danger small py-1 border-0 text-danger">
+                            <div v-show="form.isError" class="col-12 mt-2">
+                                <div class="alert alert-danger small py-1 border-0 rounded-0 text-danger">
                                     Your password is incorrect or this account doesn't exist.
                                     <router-link class="text-danger" to="/reset_password">Reset password</router-link>
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <div class="col-12 mt-3">
                                 <label class="cursor-pointer">
                                     <input class="form-check-input me-1" type="checkbox" checked>
                                     Remember me
                                 </label>
-                                <label class="cursor-pointer float-end theme-color">
-                                    Forgot password?
-                                </label>
                             </div>
                             <div class="col-12 mt-3">
-                                <primaryButton v-if="!form.isLoading" :btnType="'submit'" :btnClass="` w-100 btn-lg`"
-                                    :btnMainClass="form.type == 'seeker' ? 'btn-primary' : 'btn-dark'">
-                                    {{ form.type == 'seeker' ? 'Login ' : 'Login as Recruiter' }}
-                                </primaryButton>
-                                <primaryButtonLoading :btnMainClass="form.type == 'seeker' ? 'btn-primary' : 'btn-dark'"
-                                    v-else :btnClass="`btn-lg w-100`" />
+                                <button v-if="!form.isLoading" type="submit" class="btn btn-lg  rounded-0 w-100"
+                                    :class="form.type == 'seeker' ? 'btn-primary' : 'btn-dark'">
+                                    {{ form.type == 'seeker' ? 'Login as Job Seeker ' : 'Login as Recruiter' }}
+                                </button>
+                                <button v-else class="btn btn-primary rounded-0 w-100" disabled>
+                                    <span class="spinner-border spinner-border" aria-hidden="true"></span>
+                                </button>
                             </div>
                             <div class="col-12 mt-3">
                                 Don't have an account? <router-link replace to="/signup"
                                     class="fw-bold theme-color text-decoration-none">Sign Up</router-link>
                             </div>
                         </form>
-
-                        <div class="col-12 my-3">
-                            <div class="between-lines text-muted">
-                                OR
-                            </div>
-                        </div>
-
-
-                        <div :disabled="!isReady" @click="() => loginWithGoogle()"
-                            class="card google-card rounded-0 p-2 ">
-                            <div class="fw-bolder text-center theme-color">
-                                <img src="@/assets/images/google_icon.png" width="20"> &nbsp;signin with Google
-                            </div>
-                        </div>
-                        <!-- <div class="col-12 mb-2">
-                            <GoogleSignInButton @success="handleLoginSuccess" @error="handleLoginError">
-                            </GoogleSignInButton>
-                        </div> -->
-
                     </div>
+                    <router-link to="/" class="text-center my-3 hover-tiltY theme-color">
+                        <i class="bi bi-arrow-left"></i> Go to homepage
+                    </router-link>
                 </div>
 
             </div>
@@ -106,7 +108,6 @@ import api from "@/stores/Helpers/axios";
 import { useOnline } from "@vueuse/core";
 import { useRouter } from "vue-router";
 import { useProfileStore } from "@/stores/profileStore";
-import headerForLoginAndSignUp from '@/components/headerForLoginAndSignUp.vue'
 // @ts-ignore
 import { useCodeClient, type ImplicitFlowSuccessResponse, type ImplicitFlowErrorResponse, } from "vue3-google-signin";
 
@@ -218,18 +219,8 @@ const { isReady, login: loginWithGoogle } = useCodeClient({
     min-height: 100vh;
 }
 
-/* @media(min-width: 767px) {
-    .wholePage {
-        padding-top: 50px;
-    }
-} */
-
 .type-nav span {
     padding: 7px 15px;
-}
-
-.type-nav span:hover {
-    background-color: #cccccc5d;
 }
 
 .active {

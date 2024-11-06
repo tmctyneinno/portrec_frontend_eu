@@ -18,8 +18,8 @@
                         :options="jobOpeningsList" :reduce="(x: any) => x.id" label="label"></v-select>
                 </div>
 
-                <div class="col-md-4" >
-                    <input v-model="searchTerm" type="text" class="form-control rounded-0" placeholder="search title..">
+                <div class="col-md-4">
+                    <input v-model="searchTerm" type="text" class="form-control" placeholder="search title..">
                 </div>
             </div>
         </div>
@@ -45,7 +45,8 @@
                 </template>
 
                 <template #item-status="item">
-                    <span  class="category-tag text-white" :style="`background-color: ${templateStore.statusColor(item.status)}`">
+                    <span class="category-tag text-white"
+                        :style="`background-color: ${templateStore.statusColor(item.status)}`">
                         {{ item.status }}
                     </span>
                 </template>

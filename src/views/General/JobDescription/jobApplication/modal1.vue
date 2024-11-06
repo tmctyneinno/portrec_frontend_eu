@@ -12,25 +12,28 @@
         <template #form>
             <div class="col-12">
                 <label class="fw-bold small">Full name</label>
-                <input :disabled="disableFields" v-model="store.applyData.fullname" type="text"
-                    class="form-control rounded-0" placeholder="Enter your fullname">
+                <input :disabled="disableFields" v-model="store.applyData.fullname" type="text" class="form-control "
+                    placeholder="Enter your fullname">
             </div>
             <div class="col-12 col-lg-7">
                 <label class="fw-bold small">Email address</label>
-                <input :disabled="disableFields" v-model="store.applyData.email" type="text"
-                    class="form-control rounded-0" placeholder="Enter your email address">
+                <input :disabled="disableFields" v-model="store.applyData.email" type="text" class="form-control "
+                    placeholder="Enter your email address">
             </div>
             <div class="col-12 col-lg-5">
                 <label class="fw-bold small">Phone number</label>
-                <input :disabled="disableFields" v-model="store.applyData.phone" type="text"
-                    class="form-control rounded-0" placeholder="Enter your phone number">
+                <input :disabled="disableFields" v-model="store.applyData.phone" type="text" class="form-control "
+                    placeholder="Enter your phone number">
             </div>
 
         </template>
 
         <template #buttons>
-            <button :disabled="!(store.applyData.fullname && store.applyData.email && store.applyData.phone)"
-                @click="store.switchModal(+1)" type="button" class="btn btn-primary w-100 rounded-0">Next</button>
+            <primaryButton :btnClass="'w-100'"
+                :disabled="!(store.applyData.fullname && store.applyData.email && store.applyData.phone)"
+                @click="store.switchModal(+1)">
+                Next
+            </primaryButton>
         </template>
     </modal_template>
 

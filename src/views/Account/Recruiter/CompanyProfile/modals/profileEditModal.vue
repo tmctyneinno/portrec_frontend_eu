@@ -18,8 +18,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-12">
-                            <textarea v-model="description" class="form-control rounded-0"
-                                style="height: 200px;"></textarea>
+                            <textarea v-model="description" class="form-control " style="height: 200px;"></textarea>
                         </div>
                     </div>
                 </div>

@@ -12,7 +12,7 @@
                     <div class="row g-3">
                         <div class="col-12">
                             <label class="form-label">Institution * </label>
-                            <textarea v-model="education.institution" class="form-control rounded-0" name="" id=""
+                            <textarea v-model="education.institution" class="form-control " name="" id=""
                                 rows="2"></textarea>
                         </div>
                         <div class="col-md-6">
@@ -36,23 +36,22 @@
                         <div class="col-lg-6">
                             <label class="form-label">Qualification * </label>
                             <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
-                                v-model="education.qualification" class="rounded-0 text-capitalize profile-edit-select"
+                                v-model="education.qualification" class=" text-capitalize profile-edit-select"
                                 :clearable="false" :options="jobsStore.qualifications" label="name"></v-select>
                         </div>
 
                         <div class="col-lg-6">
                             <label class="form-label">Description * </label>
-                            <textarea v-model="education.description" class="form-control rounded-0" name="" id=""
+                            <textarea v-model="education.description" class="form-control " name="" id=""
                                 rows="2"></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer border-0">
-                    <button @click="clickSave" v-if="!isSaving" type="button"
-                        class="btn btn-primary  rounded-0">Save</button>
-                    <button v-else class="btn btn-primary rounded-0 " disabled>
-                        <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
-                    </button>
+                    <primaryButton @click="clickSave" v-if="!isSaving">
+                        Save
+                    </primaryButton>
+                    <primaryButtonLoading v-else />
                 </div>
             </div>
         </div>
@@ -159,7 +158,7 @@ watch(() => route.path, () => {
 </style>
 
 <style>
-.dp__pointer {
+/* .dp__pointer {
     border-radius: 0px !important;
-}
+} */
 </style>

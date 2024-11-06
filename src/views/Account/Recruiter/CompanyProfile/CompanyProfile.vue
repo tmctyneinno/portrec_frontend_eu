@@ -9,7 +9,7 @@
                     <div class="text-muted">
                         You have not created any company. Create a company profile to continue
                     </div>
-                    <button class="btn btn-primary-outline rounded-0 mt-4">Create your company</button>
+                    <button class="btn btn-primary-outline mt-4">Create your company</button>
                 </div>
 
             </div>

@@ -14,7 +14,7 @@
                             <NoDataShow text="No messages" icon="bi-chat-square-text" />
                         </div>
                         <ul v-else class="list-group list-group-flush">
-                            <li @click="showMessages(convo.id)" v-for="(convo, index) in  convos.data " :key="index"
+                            <li @click="showMessages(convo.id)" v-for="(convo, index) in convos.data " :key="index"
                                 class="list-group-item cursor-pointer ps-0 "
                                 :class="{ 'bg-light theme-color': convoMessages.currentConvoId == convo.id }">
                                 <div class="row justify-content-center align-items-center">

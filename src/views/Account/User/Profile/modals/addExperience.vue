@@ -12,27 +12,26 @@
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label class="form-label">Company * </label>
-                            <input v-model="experience.company_name" type="text" class="form-control rounded-0">
+                            <input v-model="experience.company_name" type="text" class="form-control ">
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Location * </label>
-                            <input v-model="experience.company_location" type="text" class="form-control rounded-0">
+                            <input v-model="experience.company_location" type="text" class="form-control ">
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Title * </label>
-                            <input v-model="experience.job_title" type="text" class="form-control rounded-0">
+                            <input v-model="experience.job_title" type="text" class="form-control ">
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Type * </label>
                             <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
-                                v-model="experience.work_type_id" class="rounded-0 text-capitalize profile-edit-select"
+                                v-model="experience.work_type_id" class=" text-capitalize profile-edit-select"
                                 :clearable="false" :options="jobTypesArray"></v-select>
                         </div>
 
                         <div class="col-12">
                             <label class="form-label">Description * </label>
-                            <textarea v-model="experience.description" class="form-control rounded-0" name="" id=""
-                                rows="2"></textarea>
+                            <textarea v-model="experience.description" class="form-control " rows="2"></textarea>
                         </div>
 
                         <div class="col-md-6">
@@ -58,11 +57,10 @@
                     </div>
                 </div>
                 <div class="modal-footer border-0">
-                    <button @click="clickSave" v-if="!isSaving" type="button"
-                        class="btn btn-primary rounded-0">Save</button>
-                    <button v-else class="btn btn-primary rounded-0" disabled>
-                        <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
-                    </button>
+                    <primaryButton @click="clickSave" v-if="!isSaving">
+                        Save
+                    </primaryButton>
+                    <primaryButtonLoading v-else />
                 </div>
             </div>
         </div>

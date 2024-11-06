@@ -51,10 +51,13 @@
                             <div class="text-white">The latest jobs, articles, sent to your inbox weekly</div>
                             <form @submit.prevent class="row mt-3">
                                 <div class="col-8">
-                                    <input type="text" class="form-control rounded-0" placeholder="email address">
+                                    <input type="text" class="form-control" placeholder="email address">
                                 </div>
                                 <div class="col-4">
-                                    <button class="btn btn-primary rounded-0">Subscribe</button>
+                                    <!-- <button class="btn btn-primary">Subscribe</button> -->
+                                    <primaryButton>
+                                        Subscribe
+                                    </primaryButton>
                                 </div>
                             </form>
                         </div>

@@ -60,7 +60,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-7">
-                                        <input v-model="form.title" type="text" class="form-control rounded-0"
+                                        <input v-model="form.title" type="text" class="form-control "
                                             placeholder="e.g. Software Engineer">
                                     </div>
                                 </div>
@@ -145,7 +145,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-7">
-                                        <!-- <button class="btn btn-sm btn-primary-outline rounded-0">
+                                        <!-- <button class="btn btn-sm btn-primary-outline ">
                                             <i class="bi bi-plus-lg"></i> Add Skills
                                         </button> -->
                                         <v-select multiple append-to-body
@@ -180,13 +180,13 @@
                                             <div class="col-lg-5">
                                                 <label class="small">Min. Salary</label>
                                                 <input placeholder="0.00" type="text" v-model="form.min_salary"
-                                                    class="form-control rounded-0" v-maska data-maska="9,99#.##"
+                                                    class="form-control " v-maska data-maska="9,99#.##"
                                                     data-maska-tokens="9:[0-9]:repeated" data-maska-reversed />
                                             </div>
                                             <div class="col-lg-5">
                                                 <label class="small">Max. Salary</label>
                                                 <input placeholder="0.00" type="text" v-model="form.max_salary"
-                                                    class="form-control rounded-0" v-maska data-maska="9,99#.##"
+                                                    class="form-control " v-maska data-maska="9,99#.##"
                                                     data-maska-tokens="9:[0-9]:repeated" data-maska-reversed />
                                             </div>
                                         </div>
@@ -223,7 +223,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-7">
-                                        <textarea placeholder="enter location.." class="form-control rounded-0" rows="2"
+                                        <textarea placeholder="enter location.." class="form-control " rows="2"
                                             v-model="form.location"></textarea>
                                     </div>
 
@@ -238,9 +238,9 @@
                                         </div>
                                     </div>
                                     <div class="col-md-7">
-                                        <input placeholder="0" type="text" v-model="form.capacity"
-                                            class="form-control rounded-0" v-maska data-maska="9#"
-                                            data-maska-tokens="9:[0-9]:repeated" data-maska-reversed />
+                                        <input placeholder="0" type="text" v-model="form.capacity" class="form-control "
+                                            v-maska data-maska="9#" data-maska-tokens="9:[0-9]:repeated"
+                                            data-maska-reversed />
                                     </div>
 
                                 </div>
@@ -263,7 +263,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-7">
-                                        <textarea v-model="form.description" class="form-control rounded-0" rows="3"
+                                        <textarea v-model="form.description" class="form-control " rows="3"
                                             placeholder="Enter job description"></textarea>
                                         <!-- <small class="text-muted">minimum of 500 characters</small> -->
                                     </div>
@@ -278,7 +278,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-7">
-                                        <textarea v-model="form.experience" class="form-control rounded-0" rows="3"
+                                        <textarea v-model="form.experience" class="form-control " rows="3"
                                             placeholder="Enter job experience"></textarea>
                                         <!-- <small class="text-muted">minimum of 500 characters</small> -->
                                     </div>
@@ -299,8 +299,8 @@
 
                                             <div class="col-12">
                                                 <div class="input-group">
-                                                    <textarea v-model="item.descriptions" class="form-control rounded-0"
-                                                        rows="2" placeholder="enter responsibility"></textarea>
+                                                    <textarea v-model="item.descriptions" class="form-control " rows="2"
+                                                        placeholder="enter responsibility"></textarea>
                                                     <span @click="form.temp_responsibilities.splice(index, 1)"
                                                         v-if="form.temp_responsibilities.length > 1"
                                                         class="input-group-text cursor-pointer"><i
@@ -330,8 +330,8 @@
 
                                             <div class="col-12">
                                                 <div class="input-group">
-                                                    <textarea v-model="item.descriptions" class="form-control rounded-0"
-                                                        rows="2" placeholder="enter here.."></textarea>
+                                                    <textarea v-model="item.descriptions" class="form-control " rows="2"
+                                                        placeholder="enter here.."></textarea>
                                                     <span @click="form.temp_WhoYouAre.splice(index, 1)"
                                                         v-if="form.temp_WhoYouAre.length > 1"
                                                         class="input-group-text cursor-pointer"><i
@@ -363,8 +363,8 @@
 
                                             <div class="col-12">
                                                 <div class="input-group">
-                                                    <textarea v-model="item.descriptions" class="form-control rounded-0"
-                                                        rows="2" placeholder="enter here.."></textarea>
+                                                    <textarea v-model="item.descriptions" class="form-control " rows="2"
+                                                        placeholder="enter here.."></textarea>
                                                     <span @click="form.temp_niceToHave.splice(index, 1)"
                                                         v-if="form.temp_niceToHave.length > 1"
                                                         class="input-group-text cursor-pointer"><i
@@ -394,8 +394,8 @@
 
                                             <div class="col-12">
                                                 <div class="input-group">
-                                                    <textarea v-model="item.questions" class="form-control rounded-0"
-                                                        rows="2" placeholder="enter question.."></textarea>
+                                                    <textarea v-model="item.questions" class="form-control " rows="2"
+                                                        placeholder="enter question.."></textarea>
                                                     <span @click="form.temp_questions.splice(index, 1)"
                                                         v-if="form.temp_questions.length > 1"
                                                         class="input-group-text cursor-pointer"><i
@@ -433,12 +433,12 @@
                                     <div class="col-md-8">
                                         <div class="row">
                                             <div class="mb-2">
-                                                <input v-model="benefitsForm.title" type="text"
-                                                    class="form-control rounded-0" placeholder="title">
+                                                <input v-model="benefitsForm.title" type="text" class="form-control "
+                                                    placeholder="title">
                                             </div>
                                             <div class="mb-2">
                                                 <textarea v-model="benefitsForm.description" placeholder="description"
-                                                    class="form-control rounded-0" rows="2"></textarea>
+                                                    class="form-control " rows="2"></textarea>
                                             </div>
                                             <div>
                                                 <button class="float-end btn btn-success" @click="pushBenefits">
@@ -474,10 +474,10 @@
                         <primaryButtonLoading />
                     </div>
                     <div class="modal-footer border-" v-else>
-                        <button ref="closeModal" type="button" class="btn btn-light rounded-0" data-bs-dismiss="modal"
+                        <button ref="closeModal" type="button" class="btn btn-light " data-bs-dismiss="modal"
                             aria-label="Close">Cancel</button>
                         <button v-if="[2, 3].includes(jobPosting.stage)" @click="goToPrevious" type="button"
-                            class="btn btn-secondary rounded-0">
+                            class="btn btn-secondary ">
                             <i class=" bi bi-chevron-left"></i> Back
                         </button>
 

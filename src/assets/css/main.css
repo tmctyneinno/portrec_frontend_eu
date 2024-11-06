@@ -392,10 +392,10 @@ input[type="radio"]:checked+label:before {
   background: var(--theme-color) !important;
 }
 
-.vs__dropdown-toggle {
-  border-radius: 0px !important;
+/* .vs__dropdown-toggle { */
+  /* border-radius: 0px !important; */
   /* background-color: #fff !important; */
-}
+/* } */
 
 .vs__dropdown-menu {
   z-index: 9999 !important;

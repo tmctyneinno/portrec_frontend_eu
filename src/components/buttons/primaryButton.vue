@@ -8,6 +8,11 @@ const prop = defineProps({
         type: Boolean,
         required: false
     },
+    btnMainClass: {
+        type: String,
+        required: false,
+        default: 'btn-primary'
+    },
     btnType: {
         type: String,
         required: false,
@@ -20,7 +25,7 @@ watchEffect(() => {
 </script>
 
 <template>
-    <button class="btn btn-primary rounded-0" :class="btnClass" :type="buttonTypeMain" :disabled="disabled">
+    <button class="btn" :class="btnMainClass + ' ' + btnClass" :type="buttonTypeMain" :disabled="disabled">
         <slot></slot>
     </button>
 </template>

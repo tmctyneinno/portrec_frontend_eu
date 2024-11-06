@@ -28,8 +28,9 @@
                                 v-model="selectedSkills" :clearable="false" :options="skillsDropdown"></v-select>
                         </div>
                         <div class="col-12">
-                            <button :disabled="isSaving" @click="addSkill" type="button"
-                                class="btn btn-primary w-100 rounded-0">Add</button>
+                            <primaryButton :btnClass="'w-100'" :disabled="isSaving" @click="addSkill">
+                                Add
+                            </primaryButton>
                         </div>
                     </div>
                 </div>

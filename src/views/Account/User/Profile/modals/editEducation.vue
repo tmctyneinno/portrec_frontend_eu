@@ -6,7 +6,7 @@
                 <div class="modal-header border-0">
                     <h6 class="modal-title fw-bold">Edit Education</h6>
                     <button :disabled="isLoading" @click="deleteEducation" type="button"
-                        class="btn bg-danger-subtle text-danger btn-sm rounded-0 m-0 ms-3 py-1 px-3">
+                        class="btn bg-danger-subtle text-danger btn-sm  m-0 ms-3 py-1 px-3">
                         <i class="bi bi-x-lg"></i> Delete
                     </button>
                     <!-- <button ref="btnX" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
@@ -15,7 +15,7 @@
                     <div class="row g-3">
                         <div class="col-12">
                             <label class="form-label">Institution * </label>
-                            <textarea v-model="education.institution" class="form-control rounded-0" name="" id=""
+                            <textarea v-model="education.institution" class="form-control " name="" id=""
                                 rows="2"></textarea>
                         </div>
                         <div class="col-md-6">
@@ -39,28 +39,27 @@
                         <div class="col-lg-6">
                             <label class="form-label">Qualification * </label>
                             <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
-                                v-model="education.qualification" class="rounded-0 text-capitalize profile-edit-select"
+                                v-model="education.qualification" class=" text-capitalize profile-edit-select"
                                 :clearable="false" :options="jobsStore.qualifications" label="name"></v-select>
                         </div>
                         <div class="col-lg-6">
                             <label class="form-label">Description * </label>
-                            <textarea v-model="education.description" class="form-control rounded-0" name="" id=""
+                            <textarea v-model="education.description" class="form-control " name="" id=""
                                 rows="2"></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer border-0">
-                    <button v-show="!isLoading" ref="btnX" data-bs-dismiss="modal" class="btn btn-light rounded-0 ">
+                    <button v-show="!isLoading" ref="btnX" data-bs-dismiss="modal" class="btn btn-light  ">
                         Cancel
                     </button>
                     <!-- <button :disabled="isLoading" @click="deleteEducation" type="button"
-                        class="btn btn-danger rounded-0">Delete
+                        class="btn btn-danger ">Delete
                         Education</button> -->
-                    <button @click="updateClick" v-if="!isLoading" type="button" class="btn btn-primary  rounded-0">Save
-                        Changes</button>
-                    <button v-else class="btn btn-primary rounded-0" type="button" disabled>
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                    </button>
+                    <primaryButton @click="updateClick" v-if="!isLoading">
+                        Save Changes
+                    </primaryButton>
+                    <primaryButtonLoading v-else />
 
                 </div>
             </div>
@@ -208,7 +207,7 @@ watch(() => route.path, () => {
 </style>
 
 <style>
-.dp__pointer {
+/* .dp__pointer {
     border-radius: 0px !important;
-}
+} */
 </style>

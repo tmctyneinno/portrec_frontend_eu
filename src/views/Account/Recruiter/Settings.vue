@@ -43,7 +43,7 @@
                         <div class="row g-3">
                             <div class="col-12">
                                 <label> Full Name * </label>
-                                <input v-model="details.name" class="form-control rounded-0" type="text">
+                                <input v-model="details.name" class="form-control" type="text">
                             </div>
                             <div class="col-md-12">
                                 <label> Phone Number </label>
@@ -105,11 +105,11 @@
                 <!-- <hr> -->
                 <div class="col-12 col-lg-11">
                     <div class="col-md-4 col-lg-2 float-lg-end">
-                        <button v-if="!details.isLoading" @click="saveProfile"
-                            class="float-end btn btn-primary rounded-0 w-100" type="button">
+                        <button v-if="!details.isLoading" @click="saveProfile" class="float-end btn btn-primary  w-100"
+                            type="button">
                             Save profile
                         </button>
-                        <button v-else class="float-en btn btn-primary rounded-0 w-100" type="button" disabled>
+                        <button v-else class="float-en btn btn-primary  w-100" type="button" disabled>
                             <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
                         </button>
                     </div>
@@ -143,11 +143,13 @@
 
                             <div class="col-12">
                                 <label>Update Email</label>
-                                <input class="form-control rounded-0" type="text" placeholder="Enter your new email">
+                                <input class="form-control " type="text" placeholder="Enter your new email">
                             </div>
 
                             <div class="col-md-6">
-                                <button disabled class="btn btn-primary rounded-0 w-100">Update Email</button>
+                                <primaryButton :btnClass="'w-100'" :disabled="true">
+                                    Update Email
+                                </primaryButton>
                             </div>
                         </div>
                     </div>
@@ -165,28 +167,27 @@
                         <div class="row g-3">
                             <div class="col-12">
                                 <label> Old Password</label>
-                                <input v-model="password.old" class="form-control rounded-0" type="password"
+                                <input v-model="password.old" class="form-control " type="password"
                                     placeholder="Enter your old password">
                                 <span class="small text-muted2">Minimum 8 characters</span>
                             </div>
                             <div class="col-md-6">
                                 <label> New Password</label>
-                                <input v-model="password.new" class="form-control rounded-0" type="password"
+                                <input v-model="password.new" class="form-control " type="password"
                                     placeholder="new password">
                                 <span class="small text-muted2">Minimum 8 characters</span>
                             </div>
                             <div class="col-md-6">
                                 <label> Repeat new Password</label>
-                                <input v-model="password.repeat" class="form-control rounded-0" type="password"
+                                <input v-model="password.repeat" class="form-control " type="password"
                                     placeholder="new password">
                             </div>
 
                             <div class="col-md-6 mt-3">
-                                <button @click="changePassword" v-if="!password.isLoading"
-                                    class="btn btn-primary rounded-0 w-100">Change Password</button>
-                                <button v-else class="btn btn-primary rounded-0 w-100" disabled>
-                                    <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
-                                </button>
+                                <primaryButton @click="changePassword" v-if="!password.isLoading" :btnClass="'w-100'">
+                                    Change Password
+                                </primaryButton>
+                                <primaryButtonLoading v-else :btnClass="'w-100'" />
                             </div>
 
                         </div>

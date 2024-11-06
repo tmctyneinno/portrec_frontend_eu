@@ -20,7 +20,7 @@ watchEffect(() => {
 </script>
 
 <template>
-    <button class="btn btn-primary-outline rounded-0" :class="btnClass" :type="buttonTypeMain" :disabled="disabled">
+    <button class="btn btn-primary-outline" :class="btnClass" :type="buttonTypeMain" :disabled="disabled">
         <slot></slot>
     </button>
 </template>

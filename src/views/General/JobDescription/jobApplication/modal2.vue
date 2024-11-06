@@ -19,7 +19,8 @@
                             </div>
                             <div class="col-10">
                                 <div class="ps-2 py-1 ms-0">
-                                    <div class="fw-bold text-muted">{{ resume.resume_name }}</div>
+                                    <div class="fw-bold text-muted">{{ useFxn.truncateStr(resume.resume_name, 24) }}
+                                    </div>
                                     <div class="text-muted2 xsmall">added: {{ timeAgo(resume.created_at) }}</div>
                                 </div>
                             </div>
@@ -47,12 +48,12 @@
                         <input v-bind="getInputProps()" />
                     </div>
                 </div>
-                <div v-if="store.applyData.resume" class="col-12 col-md-6">
+                <!-- <div v-if="store.applyData.resume" class="col-12 col-md-6">
                     <div class="alert small alert-success bg-transparent border-0" role="alert">
                         {{ useFxn.truncateStr(store.applyData.resume_name, 18) }} <i
                             class="bi bi-check-circle-fill"></i>
                     </div>
-                </div>
+                </div> -->
             </div>
 
         </template>
@@ -61,11 +62,12 @@
             <div class="row">
                 <div class="col-6">
                     <button @click="store.switchModal(-1)" type="button"
-                        class="btn btn-outline-dark rounded-0 w-100">Back</button>
+                        class="btn btn-outline-dark  w-100">Back</button>
                 </div>
                 <div class="col-6">
-                    <button :disabled="!store.applyData.resume" @click="switchOrSkipModal" type="button"
-                        class="btn btn-primary rounded-0 w-100">Next</button>
+                    <primaryButton :disabled="!store.applyData.resume" @click="switchOrSkipModal" :btnClass="'w-100'">
+                        Next
+                    </primaryButton>
                 </div>
             </div>
         </template>

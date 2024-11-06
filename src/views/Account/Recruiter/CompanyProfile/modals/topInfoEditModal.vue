@@ -19,17 +19,17 @@
                     <div class="row g-3">
                         <div class="col-md-6">
                             <div class="form-label">Name <span class="text-danger">*</span> </div>
-                            <input v-model="form.name" type="text" class="form-control rounded-0">
+                            <input v-model="form.name" type="text" class="form-control ">
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-label">Website</div>
-                            <input v-model="form.website" type="text" class="form-control rounded-0">
+                            <input v-model="form.website" type="text" class="form-control ">
                         </div>
 
                         <div class="col-12">
                             <div class="form-label">Address</div>
-                            <input v-model="form.address" type="text" class="form-control rounded-0">
+                            <input v-model="form.address" type="text" class="form-control ">
                         </div>
                         <div class="col-md-6">
                             <div class="form-label">Country</div>

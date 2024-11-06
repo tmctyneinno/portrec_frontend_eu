@@ -6,7 +6,7 @@
                 <div class="modal-header border-0">
                     <h6 class="modal-title fw-bold">Edit Experience</h6>
                     <button :disabled="isLoading" @click="deleteExperience" type="button"
-                        class="btn bg-danger-subtle text-danger btn-sm rounded-0 m-0 ms-3 py-1 px-3">
+                        class="btn bg-danger-subtle text-danger btn-sm  m-0 ms-3 py-1 px-3">
                         <i class="bi bi-x-lg"></i> Delete
                     </button>
                     <!-- <button ref="btnX" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
@@ -15,29 +15,28 @@
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label class="form-label">Company * </label>
-                            <input v-model="experience.company_name" type="text" class="form-control rounded-0">
+                            <input v-model="experience.company_name" type="text" class="form-control ">
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Location * </label>
-                            <input v-model="experience.company_location" type="text" class="form-control rounded-0">
+                            <input v-model="experience.company_location" type="text" class="form-control ">
                             <!-- <small id="helpId" class="form-text text-muted">Help text</small> -->
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Title * </label>
-                            <input v-model="experience.job_title" type="text" class="form-control rounded-0">
+                            <input v-model="experience.job_title" type="text" class="form-control ">
                             <!-- <small id="helpId" class="form-text text-muted">Help text</small> -->
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Type * </label>
-                            <v-select v-model="experience.work_type_id"
-                                class="rounded-0 text-capitalize profile-edit-select" :clearable="false"
-                                :options="jobTypesArray"></v-select>
+                            <v-select v-model="experience.work_type_id" class=" text-capitalize profile-edit-select"
+                                :clearable="false" :options="jobTypesArray"></v-select>
                             <!-- <small id="helpId" class="form-text text-muted">Help text</small> -->
                         </div>
 
                         <div class="col-12">
                             <label class="form-label">Description * </label>
-                            <textarea v-model="experience.description" class="form-control rounded-0" name="" id=""
+                            <textarea v-model="experience.description" class="form-control" name="" id=""
                                 rows="4"></textarea>
                             <!-- <small id="helpId" class="form-text text-muted">Help text</small> -->
                         </div>
@@ -65,17 +64,17 @@
                     </div>
                 </div>
                 <div class="modal-footer border-0">
-                    <button v-show="!isLoading" ref="btnX" data-bs-dismiss="modal" class="btn btn-light rounded-0 ">
+                    <button v-show="!isLoading" ref="btnX" data-bs-dismiss="modal" class="btn btn-light ">
                         Cancel
                     </button>
                     <!-- <button :disabled="isLoading" @click="deleteExperience" type="button"
                         class="btn btn-danger rounded-0">Delete
                         Experience</button> -->
-                    <button @click="updateClick" v-if="!isLoading" type="button" class="btn btn-primary  rounded-0">Save
-                        Changes</button>
-                    <button v-else class="btn btn-primary rounded-0" type="button" disabled>
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                    </button>
+
+                    <primaryButton @click="updateClick" v-if="!isLoading">
+                        Save Changes
+                    </primaryButton>
+                    <primaryButtonLoading v-else />
                 </div>
             </div>
         </div>

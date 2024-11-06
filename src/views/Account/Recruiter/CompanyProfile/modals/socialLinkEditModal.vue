@@ -20,24 +20,23 @@
                     <div class="row g-3">
                         <div class="col-md-6">
                             <div class="form-label">Twitter</div>
-                            <input v-model="form.twitter" class="form-control rounded-0" type="text" placeholder="@..">
+                            <input v-model="form.twitter" class="form-control " type="text" placeholder="@..">
                         </div>
                         <div class="col-md-6">
                             <div class="form-label">Facebook</div>
-                            <input v-model="form.facebook" class="form-control rounded-0" type="text" placeholder="@..">
+                            <input v-model="form.facebook" class="form-control " type="text" placeholder="@..">
                         </div>
                         <div class="col-md-6">
                             <div class="form-label">Instagram</div>
-                            <input v-model="form.instagram" class="form-control rounded-0" type="text"
-                                placeholder="@..">
+                            <input v-model="form.instagram" class="form-control " type="text" placeholder="@..">
                         </div>
                         <div class="col-md-6">
                             <div class="form-label">Linkedin</div>
-                            <input v-model="form.linkedin" class="form-control rounded-0" type="text" placeholder="@..">
+                            <input v-model="form.linkedin" class="form-control " type="text" placeholder="@..">
                         </div>
                         <div class="col-12">
                             <div class="form-label">Company Email</div>
-                            <input v-model="form.email" class="form-control rounded-0" type="text">
+                            <input v-model="form.email" class="form-control " type="text">
                         </div>
                     </div>
                 </div>

@@ -12,32 +12,31 @@
                     <div class="row g-3">
                         <div class="col-12 col-md-6">
                             <label class="form-label">Instagram: </label>
-                            <input v-model="details.instagram" type="text" class="form-control rounded-0">
+                            <input v-model="details.instagram" type="text" class="form-control ">
                         </div>
                         <div class="col-12 col-md-6">
                             <label class="form-label">Twitter: </label>
-                            <input v-model="details.twitter" type="text" class="form-control rounded-0">
+                            <input v-model="details.twitter" type="text" class="form-control ">
                         </div>
                         <div class="col-12 col-md-6">
                             <label class="form-label">Facebook: </label>
-                            <input v-model="details.facebook" type="text" class="form-control rounded-0">
+                            <input v-model="details.facebook" type="text" class="form-control ">
                         </div>
                         <div class="col-12 col-md-6">
                             <label class="form-label">LinkedIn: </label>
-                            <input v-model="details.linkedin" type="text" class="form-control rounded-0">
+                            <input v-model="details.linkedin" type="text" class="form-control ">
                         </div>
                         <div class="col-12 col-md-6">
                             <label class="form-label">Website: </label>
-                            <input v-model="details.website" type="text" class="form-control rounded-0">
+                            <input v-model="details.website" type="text" class="form-control ">
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer border-0 pb-3">
-                    <button @click="clickSave" v-if="!isSaving" type="button"
-                        class="btn btn-primary rounded-0">Save</button>
-                    <button v-else class="btn btn-primary rounded-0" disabled>
-                        <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
-                    </button>
+                    <primaryButton @click="clickSave" v-if="!isSaving">
+                        Save
+                    </primaryButton>
+                    <primaryButtonLoading v-else />
                 </div>
             </div>
         </div>

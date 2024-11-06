@@ -11,13 +11,13 @@
         <template #form>
             <div class="col-12">
                 <label class="fw-bold small"> Portfolio URL (optional) </label>
-                <input v-model="store.applyData.portfolio_url" type="text" class="form-control rounded-0"
+                <input v-model="store.applyData.portfolio_url" type="text" class="form-control "
                     placeholder="Link to your portforlio URL">
             </div>
 
             <div class="col-12">
                 <label class="fw-bold small"> Cover Letter</label>
-                <textarea v-model="store.applyData.cover_letter" rows="5" class="form-control rounded-0"
+                <textarea v-model="store.applyData.cover_letter" rows="5" class="form-control "
                     placeholder="Add a cover letter or anything else you want to share"></textarea>
             </div>
         </template>
@@ -25,19 +25,17 @@
         <template #buttons>
             <div class="row">
                 <div class="col-2">
-                    <button @click="switchOrSkipModal" type="button" class="btn btn-secondary rounded-0 w-100">
+                    <button @click="switchOrSkipModal" type="button" class="btn btn-secondary  w-100">
                         <i class="bi bi-chevron-left"></i>
                     </button>
                 </div>
                 <div class="col-10">
-                    <button v-if="!isApplying" @click="applyForJob" :disabled="!store.applyData.cover_letter"
-                        type="button" class="btn btn-primary rounded-0 w-100">
+                    <primaryButton v-if="!isApplying" @click="applyForJob" :disabled="!store.applyData.cover_letter"
+                        :btnClass="'w-100'">
                         Submit Application
-                    </button>
-                    <button v-else class="btn btn-primary rounded-0 w-100" type="button" disabled>
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                        Submitting...
-                    </button>
+                    </primaryButton>
+                    <primaryButtonLoading v-else :btnClass="'w-100'" />
+
 
                 </div>
             </div>

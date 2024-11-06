@@ -12,25 +12,24 @@
                     <div class="row g-3">
                         <div class="col-12 col-md-6">
                             <label class=" form-label">Email: </label>
-                            <input v-model="details.email" type="text" class="form-control rounded-0" readonly>
+                            <input v-model="details.email" type="text" class="form-control " readonly>
                         </div>
                         <div class="col-12 col-md-6">
                             <label class=" form-label">Phone: </label>
                             <input v-maska data-maska="+9" data-maska-tokens="9:\d:multiple" v-model="details.phone"
-                                type="text" class="form-control rounded-0">
+                                type="text" class="form-control ">
                         </div>
                         <div class="col-12">
                             <label class="form-label">Languages (Seperate with commas): </label>
-                            <textarea v-model="details.languages" class="form-control rounded-0" rows="3"></textarea>
+                            <textarea v-model="details.languages" class="form-control " rows="3"></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer border-0">
-                    <button @click="clickSave" v-if="!isSaving" type="button"
-                        class="btn btn-primary rounded-0">Save</button>
-                    <button v-else class="btn btn-primary rounded-0" disabled>
-                        <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
-                    </button>
+                    <primaryButton @click="clickSave" v-if="!isSaving">
+                        Save
+                    </primaryButton>
+                    <primaryButtonLoading v-else />
                 </div>
             </div>
         </div>

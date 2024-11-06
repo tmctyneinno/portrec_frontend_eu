@@ -80,7 +80,7 @@
         </div>
         <div class="col-md-5">
             <div class="card shadow-sm">
-                <div class="card-header py-2 fw-bold bg-transparent border-0">Upcomming Interviews</div>
+                <div class="card-header py-2 fw-bold bg-transparent border-0">Upcoming Interviews</div>
                 <!-- <div class="card-header py-2  bg-transparent shadow-sm">
                     Today, 26 November
                     <span class="float-end">
@@ -114,7 +114,8 @@
                         </template>
 
                         <template #item-status="item">
-                            <span class="category-tag text-white" :style="{backgroundColor: templateStore.statusColor(item.status)}">
+                            <span class="category-tag text-white"
+                                :style="{ backgroundColor: templateStore.statusColor(item.status) }">
                                 {{ item.status }}
                             </span>
                         </template>
@@ -137,7 +138,7 @@ import CustomDateRangePicker from '@/components/CustomDateRangePicker.vue';
 import { useTemplateStore } from '@/stores/templateStore';
 
 const profileStore = useProfileStore()
-const templateStore  = useTemplateStore()
+const templateStore = useTemplateStore()
 
 
 

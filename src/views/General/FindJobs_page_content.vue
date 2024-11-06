@@ -14,7 +14,7 @@
               Find your <span class="theme-color fw-bold">dream job</span>
             </div>
             <div class="text-center small text-muted mb-4">
-              Find your next career at companies like HubSpot, Nike, and Dropbox
+              Discover top opportunities and explore opportunities across industries to find your next role
             </div>
             <div class="row justify-content-center">
               <div class="col-md-10">

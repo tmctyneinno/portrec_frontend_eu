@@ -12,7 +12,7 @@ export const useJobsStore = defineStore('jobsStore', () => {
   const types = ref<any[]>([]);
   const levels = ref<any[]>([]);
   const allJobsData = ref<any[]>([]);
-  const allJobsChunked = ref<any[]>([]);
+  const allJobsChunked = ref<any>([]);
 
   // const functions: any = useStorage('protrec_$jobfunctions', [], sessionStorage)
   // const categories: any = useStorage('protrec_$cate', [], sessionStorage)

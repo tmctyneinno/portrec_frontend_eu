@@ -5,10 +5,10 @@
             <div class=" col-lg-8 d-flex justify-content-center align-items-center min-vh-100">
                 <div class="col-11 col-lg-12 row justify-content-center">
                     <div class="col-md-6 animate__animated animate__fadeIn">
-                        <div class="col-12 ">
+                        <div class="col-12  cursor-pointer hover-tiltY"
+                            @click="formType = formType == 'seeker' ? 'recruiter' : 'seeker'">
                             <div class="type-nav theme-color d-flex justify-content-end mb-3">
-                                <span @click="formType = formType == 'seeker' ? 'recruiter' : 'seeker'"
-                                    class="fw-bolder cursor-pointer hover-tiltY">
+                                <span class="fw-bolder ">
                                     Sign Up as {{ formType !== 'seeker' ? 'Job Seeker' : 'Recruiter' }}
                                 </span>
                             </div>

@@ -102,6 +102,24 @@
                                 <hr>
                                 <div class="row g-3">
                                     <div class="col-md-5">
+                                        <strong>Job Function <span class="text-danger">*</span></strong>
+                                        <div class="text-muted small">
+                                            Select job function
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
+                                            :teleport="true" v-model="form.job_function_id"
+                                            class="text-capitalize job-chooser" :clearable="false"
+                                            :options="dropdowns.jobFunctions" :reduce="(x: any) => x.id"
+                                            label="name"></v-select>
+                                    </div>
+
+                                </div>
+
+                                <hr>
+                                <div class="row g-3">
+                                    <div class="col-md-5">
                                         <strong>Job Level <span class="text-danger">*</span></strong>
                                         <div class="text-muted small">
                                             Select level of employment
@@ -118,24 +136,7 @@
                                 </div>
                                 <hr>
 
-                                <div class="row g-3">
-                                    <div class="col-md-5">
-                                        <strong>Job Category <span class="text-danger">*</span></strong>
-                                        <div class="text-muted small">
-                                            Select job category
-                                        </div>
-                                    </div>
-                                    <div class="col-md-7">
-                                        <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
-                                            :teleport="true" v-model="form.job_function_id"
-                                            class="text-capitalize job-chooser" :clearable="false"
-                                            :options="dropdowns.jobFunctions" :reduce="(x: any) => x.id"
-                                            label="name"></v-select>
-                                    </div>
 
-                                </div>
-
-                                <hr>
 
                                 <div class="row g-3">
                                     <div class="col-md-5">

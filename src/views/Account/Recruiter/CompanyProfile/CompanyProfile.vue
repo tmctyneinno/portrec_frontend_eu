@@ -38,14 +38,14 @@
                             <div>
                                 <div clas="text-muted">Founded</div>
                                 <div v-if="company.data.date_founded" class="fw-bold lh-1">{{
-                                    useFxn.dateDisplay(company.data.date_founded) }}</div>
+                                    useFxn.dateDisplay(company.data?.date_founded) }}</div>
                                 <div v-else class="text-muted2 xsmall">Not added..</div>
                             </div>
                         </div>
                         <div class="col-6 col-lg-4 d-flex align-items-center">
                             <div> <i class="bi bi-people info-icon me-2"></i> </div>
                             <div>
-                                <div clas="text-muted ">Employees</div>
+                                <div clas="text-muted">Employees</div>
                                 <div v-if="company.data.sizes?.name" class="fw-bold lh-1">
                                     {{ company.data.sizes?.name }}
                                 </div>

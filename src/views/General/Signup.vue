@@ -229,6 +229,7 @@ async function register() {
     margin: 0 auto;
     overflow: hidden;
     min-height: 100vh;
+    margin-top: 50px !important;
 }
 
 @media(min-width: 767px) {

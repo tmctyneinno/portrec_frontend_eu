@@ -40,7 +40,13 @@
                         </div>
 
                         <div class="col-md-6">
-                            <div class="form-label">City</div>
+                            <div class="form-label">City
+
+                                <span v-if="!form.country" class="small text-danger ms-3">
+                                    Select Country first
+                                </span>
+                            </div>
+
                             <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc" :teleport="true"
                                 v-model="form.city" label="name" class="text-capitalize job-chooser " :clearable="false"
                                 :options="citiesArray"></v-select>

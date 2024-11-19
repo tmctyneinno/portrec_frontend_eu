@@ -124,15 +124,22 @@ export default {
         }
     },
 
-    dateDisplay: (date: Date, format = 'MMM D, YYYY') => {
+    dateDisplay: (date: Date | string, format = 'MMM D, YYYY') => {
 
-        if (!date) return '-'
-        const dd = useDateFormat(date, format)
-        return dd.value
+        if (!date) return '-';
+
+        // If the date is a string, attempt to convert it to a Date
+        const parsedDate = new Date(date);
+        if (isNaN(parsedDate.getTime())) {
+            return '-';
+        }
+
+        const dd = useDateFormat(parsedDate, format);
+        return dd.value;
     },
 
     timeAgo: (date: Date) => {
-        const timeAgo = useTimeAgo(date);
+        const timeAgo = useTimeAgo(new Date(date));
         return timeAgo.value;
     },
 

@@ -23,7 +23,8 @@
                         <i class=" bi bi-geo-alt location-select-icon"></i>
                     </div>
                     <div class="col-lg-5 d-md-none">
-                        <select class="form-select form-select-lg rounded-0" placeholder="location">
+                        <select class="form-select form-select-search-job form-select-lg rounded-0"
+                            placeholder="location">
                             <option v-for="i in allCountries" :value="i">{{ i }}</option>
                         </select>
 
@@ -260,7 +261,7 @@ watchEffect(() => {
     background-color: #f0f0f0;
 }
 
-.form-select {
+.form-select-search-job {
     border: none;
     border-bottom: 1px solid #94a3b8;
 }

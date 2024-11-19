@@ -4,7 +4,7 @@
             <div class="col-12">
                 <div class="row g-3">
                     <div class="col-lg-5">
-                        <div class="input-group position-relative searchingBar" ref="dropdownElement">
+                        <div class="input-group position-relative searchingBar border-right" ref="dropdownElement">
                             <span class="input-group-text" id="addon-search"><i class="bi bi-search"></i> </span>
                             <input @input="onInputChange" ref="titleField" v-model="jobsStore.search.title" type="text"
                                 class="form-control" placeholder="Job title or keyword" aria-describedby="addon-search">
@@ -15,14 +15,15 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-lg-5 d-none d-md-block">
+                    <div class="col-lg-5 d-none d-md-block position-relative">
                         <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
                             v-model="jobsStore.search.location" :loading="loading"
                             class="country-chooser-jobform find-jobs-select" placeholder="select country"
                             :options="allCountries" />
+                        <i class=" bi bi-geo-alt location-select-icon"></i>
                     </div>
                     <div class="col-lg-5 d-md-none">
-                        <select class="form-select form-select-lg" placeholder="location">
+                        <select class="form-select form-select-lg rounded-0" placeholder="location">
                             <option v-for="i in allCountries" :value="i">{{ i }}</option>
                         </select>
 
@@ -189,17 +190,28 @@ watchEffect(() => {
         border: none !important;
     }
 }
+
+.location-select-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    margin-right: 15px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #6c757d;
+}
 </style>
 
 <style>
 .country-chooser-jobform .vs__search::placeholder,
 .country-chooser-jobform .vs__dropdown-toggle,
 .country-chooser-jobform .vs__dropdown-menu {
-    background-color: #fff !important;
+    background-color: transparent !important;
     outline: 0;
     border-width: 0 0 1px;
     font-size: 14px;
     border-radius: 0px;
+    padding-left: 20px;
     /* border: none !important; */
 }
 

@@ -3,10 +3,10 @@ import { defineStore } from 'pinia'
 
 export const useTemplateStore = defineStore('template', () => {
   const navBarMenus: any[] = [
-    {
-      title: 'Find Jobs',
-      routePath: '/find-jobs'
-    },
+    // {
+    //   title: 'Find Jobs',
+    //   routePath: '/find-jobs'
+    // },
     {
       title: 'About Us',
       routePath: '/about-us'

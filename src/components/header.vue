@@ -10,6 +10,23 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item ">
+            <div class="dropdown open">
+              <a class="nav-link dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                For Company
+                <i class="bi bi-chevron-down"></i>
+              </a>
+              <div class="dropdown-menu border-0 animate__animated animate__fadeIn" aria-labelledby="triggerId">
+                <router-link class="dropdown-item hover-tiltX" to="/a">Hire Developers</router-link>
+                <router-link class="dropdown-item hover-tiltX" to="/b">Hire Designers</router-link>
+                <router-link class="dropdown-item hover-tiltX" to="/c">Hire Product Managers</router-link>
+                <router-link class="dropdown-item hover-tiltX" to="/d">Hire Project Managers</router-link>
+                <router-link class="dropdown-item hover-tiltX" to="/e">Hire Assistants</router-link>
+              </div>
+            </div>
+
+          </li>
           <li v-for="({ title, routePath }, i) in templateStore.navBarMenus" :key="i" class="nav-item ">
             <router-link class="nav-link mx-4 " :class="{ 'text-white': route.path == '/' && !headerDropped }"
               :to="routePath">{{ title
@@ -62,5 +79,23 @@ onMounted(() => {
   color: var(--theme-color);
   /* font-weight: bolder; */
   /* border-bottom: 1px solid var(--theme-color); */
+}
+
+.dropdown-toggle::after {
+  content: none !important;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-item:hover {
+  color: var(--theme-color);
+  background: transparent;
+}
+
+.dropdown-menu {
+  --bs-dropdown-link-active-color: var(--bs-body-color);
+  --bs-dropdown-link-active-bg: transparent;
 }
 </style>

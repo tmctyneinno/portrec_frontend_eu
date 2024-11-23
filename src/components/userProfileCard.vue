@@ -22,7 +22,7 @@
                         <i v-for="i in userProfile?.star ?? 0" class="bi bi-star-fill xsmall theme-color lh-1"></i>
                         <div class="text-muted">{{ userProfile?.title }}</div>
                         <span v-for="(skill, i) in userSkills() ?? []" :key="i"
-                            class="bg-secondary-subtle xsmall p-0 px-1 mx-1 d-inline-block text-nowrap mb-2">
+                            class="bg-secondary-subtle xsmall p-0 px-1 me-1 d-inline-block text-nowrap mb-2">
                             {{ skill }}
                         </span>
                     </div>
@@ -60,15 +60,21 @@
                 </div>
             </div>
             <div class="card-footer border-0 bg-transparent pt-0 ps-4 ">
-                <RouterLink class="theme-color fw-bold text-decoration-none fw-bold" to="/">
+                <button @click="navigateToUserProfile(userProfile.id)"
+                    class="btn btn-link ps-0 hover-tiltX text-decoration-none theme-color fw-bold text-decoration-none fw-bold">
                     View Profile <i class="bi bi-arrow-right"></i>
-                </RouterLink>
+                </button>
             </div>
 
         </div>
     </div>
 </template>
 <script lang="ts" setup>
+import { useRecruiterCommonStore } from '@/views/Account/Recruiter/RecruiterCommonStore';
+import { useRouter } from 'vue-router';
+
+const recruiterCommonStore = useRecruiterCommonStore()
+
 const props = defineProps({
     userProfile: {
         type: Object,
@@ -86,6 +92,13 @@ const userSkills = () => {
         : skills;
 };
 
+const router = useRouter();
+
+const navigateToUserProfile = (id: number | string) => {
+    recruiterCommonStore.usersOnSearch.selected = id;
+    router.push({ path: `/recruiter/user-profile/${id}`, query: { r: Math.random().toString(36).slice(2, 16) } });
+};
+
 </script>
 <style scoped>
 .card-icon {
@@ -100,8 +113,8 @@ const userSkills = () => {
 }
 
 .img-circle {
-    width: 32px;
-    height: 32px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     background-color: var(--theme-color-soft);
     border: 1px solid #e8e5e5;

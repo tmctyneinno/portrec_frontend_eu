@@ -1,7 +1,7 @@
 import { reactive, ref } from 'vue'
 import { defineStore } from 'pinia'
 import api from '@/stores/Helpers/axios'
-import type { JobOpeningInterface } from '@/stores/interfaces'
+import type { JobOpeningInterface, UserProfileCardInterface } from '@/stores/interfaces'
 
 export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () => {
     const applicants = reactive<{
@@ -66,6 +66,12 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
         isLoading: false,
         companyFound: false,
         avatar: '',
+    })
+
+    const usersOnSearch = reactive<{ list: UserProfileCardInterface[], selected: string | number, loading: boolean }>({
+        list: [],
+        selected: '',
+        loading: false
     })
 
     async function loadJobPostingDropdowns() {
@@ -252,5 +258,7 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
         companyProfile,
         getCompanyInformation,
         getCompanyResources,
+
+        usersOnSearch,
     }
 })

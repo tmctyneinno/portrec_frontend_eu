@@ -115,13 +115,11 @@ export default {
 
     greet: () => {
         const currentTime = new Date().getHours();
-        if (currentTime < 12) {
-            return "Good morning";
-        } else if (currentTime < 18) {
-            return "Good afternoon";
-        } else {
-            return "Good evening";
-        }
+        return currentTime < 12
+            ? "Good morning"
+            : currentTime < 18
+                ? "Good afternoon"
+                : "Good evening";
     },
 
     dateDisplay: (date: Date | string, format = 'MMM D, YYYY') => {

@@ -40,10 +40,10 @@ export interface JobOpeningInterface {
 }
 
 export interface UserProfileCardInterface {
-    id?: number,
+    id: number,
     name: string,
     title: string,
-    status: string,
+    status: 'recommended' | 'promoted',
     skills: string[],
     experience: number | string,
     star: number | string,

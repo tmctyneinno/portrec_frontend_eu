@@ -1,26 +1,16 @@
 <script lang="ts" setup>
-import { ref, watchEffect } from 'vue';
-
-const buttonTypeMain = ref<any>('button')
-const prop = defineProps({
-    btnClass: String,
-    disabled: {
-        type: Boolean,
-        required: false
-    },
+defineProps({
+    btnClass: { type: String, default: '' },
+    disabled: { type: Boolean, default: false },
     btnType: {
-        type: String,
-        required: false,
+        type: String as () => 'button' | 'submit' | 'reset' | undefined,
+        default: 'button'
     }
-})
-
-watchEffect(() => {
-    buttonTypeMain.value = prop.btnType ?? buttonTypeMain.value
-})
+});
 </script>
 
 <template>
-    <button class="btn btn-primary-outline" :class="btnClass" :type="buttonTypeMain" :disabled="disabled">
+    <button class="btn btn-primary-outline" :class="btnClass" :type="btnType" :disabled="disabled">
         <slot></slot>
     </button>
 </template>

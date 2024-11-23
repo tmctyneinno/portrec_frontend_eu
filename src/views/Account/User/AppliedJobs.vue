@@ -40,8 +40,8 @@
                         <div class="col-md-9">
                             <h5 class="fw-bold">
                                 Application History
-                                <span class="small" :style="`color: ${templateStore.statusColor(tabs.showing)}`">: {{
-                                    tabs.showing?.replace('_', ' ') }}</span>
+                                <!-- <span class="small" :style="`color: ${templateStore.statusColor(tabs.showing)}`">: {{
+                                    tabs.showing?.replace('_', ' ') }}</span> -->
                             </h5>
                         </div>
                         <div class=" col-md-4 col-lg-3 float-end">

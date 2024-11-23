@@ -25,10 +25,11 @@ export const useJobApplicationStore = defineStore('jobApplicationStore', () => {
     })
 
     function resetForm(): void {
-        Object.keys(applyData).forEach((x: string) => {
-            // @ts-ignore
-            if (x != 'isAuthUser' && x != 'answers') applyData[x] = ''
-        })
+        (Object.keys(applyData) as Array<keyof typeof applyData>).forEach((x) => {
+            if (x !== 'isAuthUser' && x !== 'answers') {
+                applyData[x] = '';
+            }
+        });
         applyData.answers = [];
         applyData.isAuthUser = false;
     }

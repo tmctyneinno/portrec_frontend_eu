@@ -35,6 +35,10 @@ export default {
         return $instance.post(`recruiter/job/list`, JSON.stringify(data))
     },
 
+    recruiterJobsListAll() {
+        return $instance.get(`recruiter/job/listAll`)
+    },
+
     recruiterJobPosting(job: any) {
         return $instance.post(`recruiter/job/post`, JSON.stringify(job))
     },

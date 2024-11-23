@@ -9,48 +9,46 @@
         <div class="col-lg-9">
             <SearchUsersForm />
         </div>
-        <div class="col-lg-3">
-            <div class="dropdown" @click="keepDropdownOpen">
-                <button ref="filterDropdownToggler" class="btn btn-outline-dark rounded-5 dropdown-toggle" type="button"
-                    id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="bi bi-filter"></i> Filter
-                </button>
-                <div class="dropdown-menu" aria-labelledby="triggerId">
-                    <ul class="list-group list-group-flush">
-                        <li @click="updateFilteredList(category.id)" v-for="category in categoriesDropdown"
-                            :key="category.id" class="list-group-item text-wrap cursor-pointer xsmall border-0">
-                            <div class="row g-3">
-                                <div class="col-1">
-                                    <i v-if="isAddedTofilteredList(category.id)"
-                                        class="bi bi-circle-fill theme-color"></i>
-                                    <i v-else class="bi bi-circle"></i>
+        <div class="dropdown col-md-3" @click="keepDropdownOpen">
+            <button ref="filterDropdownToggler" class="btn btn-outline-dark rounded-5 dropdown-toggle w-100"
+                type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="bi bi-filter"></i> Filter
+            </button>
+            <div class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="triggerId">
+                <ul class="list-group list-group-flush">
+                    <li @click="updateFilteredList(category.id)" v-for="category in categoriesDropdown"
+                        :key="category.id" class="list-group-item text-wrap cursor-pointer xsmall border-0">
+                        <div class="row g-3">
+                            <div class="col-1">
+                                <i v-if="isAddedTofilteredList(category.id)"
+                                    class="bi bi-check-circle-fill theme-color"></i>
+                                <i v-else class="bi bi-circle"></i>
 
-                                </div>
-                                <div class="col">
-                                    <div class="fw-bolder">
-                                        {{ category.name }}
-                                    </div>
-                                    <div class="small">{{ category.desc }}</div>
-                                </div>
                             </div>
+                            <div class="col">
+                                <div class="fw-bolder">
+                                    {{ category.name }}
+                                </div>
+                                <div class="small">{{ category.desc }}</div>
+                            </div>
+                        </div>
 
 
-                        </li>
-                    </ul>
+                    </li>
+                </ul>
 
-                    <div class="apply-filter float-end mx-2">
-                        <primaryButton @click="filterItems" :btn-class="'btn-sm'">
-                            Apply filter
-                        </primaryButton>
-                    </div>
+                <div class="apply-filter float-end mx-2 mt-2">
+                    <primaryButton @click="filterItems" :btn-class="'btn-sm'">
+                        Apply filter
+                    </primaryButton>
                 </div>
             </div>
 
         </div>
-        <div class="col-12 bg-light-subtle min-vh-100 p-3 rounded-4">
+        <div class="col-12 bg-light min-vh-100 p-2 px-lg-4 rounded-4">
             <div class="fs-4 mb-3" style="font-weight: 500;">Featured Talent</div>
             <div class="row g-3">
-                <userProfileCard v-for="user in userProfiles" :user-profile="user" />
+                <userProfileCard v-for="user in recruiterCommonStore.usersOnSearch.list" :user-profile="user" />
             </div>
         </div>
 
@@ -67,12 +65,12 @@ import api from '@/stores/Helpers/axios';
 import userProfileCard from '@/components/userProfileCard.vue';
 import type { UserProfileCardInterface } from '@/stores/interfaces';
 import SearchUsersForm from '@/components/searchUsersForm.vue';
-// import PrimaryButton from '@/components/buttons/primaryButton.vue';
 
 const recruiterCommonStore = useRecruiterCommonStore()
 
 const profileStore = useProfileStore()
 onMounted(() => {
+    recruiterCommonStore.usersOnSearch.list = userProfiles.value
     console.log(profileStore.data);
     // getJobsList()
 })
@@ -93,7 +91,7 @@ const userProfiles = ref<UserProfileCardInterface[]>([
 
     },
     {
-        id: 1,
+        id: 2,
         name: 'Samuel Cooner',
         title: 'Remote Software Enginner',
         status: 'promoted',
@@ -148,9 +146,14 @@ function filterItems() {
     content: none !important;
 }
 
-.dropdown-menu {
+.list-group-flush {
     height: 50vh;
     overflow-y: auto;
+
+}
+
+.dropdown-menu {
+    width: 100%;
 }
 
 .dropdown-item:hover {

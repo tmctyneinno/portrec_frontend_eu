@@ -1,6 +1,6 @@
 <template>
     <div class="position-relativ">
-        <form @submit.prevent="" class="col-md-12 p-3 p-lg-1 px- form-container">
+        <form @submit.prevent="" class="col-md-12 p-3 p-lg-2 px- form-container">
             <div class="row g-3">
                 <div class="col-lg-5">
                     <div class="input-group position-relative searchingBar border-right-lg" ref="dropdownElement">
@@ -188,7 +188,7 @@ watchEffect(() => {
 .location-select-icon {
     position: absolute;
     left: 10px;
-    top: 50%;
+    top: 40%;
     margin-right: 15px;
     transform: translateY(-50%);
     cursor: pointer;

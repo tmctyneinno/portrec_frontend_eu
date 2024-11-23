@@ -195,7 +195,7 @@ watchEffect(() => {
 .location-select-icon {
     position: absolute;
     left: 10px;
-    top: 50%;
+    top: 40%;
     margin-right: 15px;
     transform: translateY(-50%);
     cursor: pointer;

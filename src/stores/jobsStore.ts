@@ -1,7 +1,7 @@
 /* eslint-disable no-prototype-builtins */
 import { ref, reactive } from 'vue'
 import { defineStore } from 'pinia'
-import { useStorage } from '@vueuse/core'
+// import { useStorage } from '@vueuse/core'
 import api from '@/stores/Helpers/axios'
 
 export const useJobsStore = defineStore('jobsStore', () => {

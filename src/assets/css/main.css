@@ -462,6 +462,16 @@ input[type="radio"]:checked+label:before {
 }
 
 
+.vue3-easy-data-table{
+  min-height: 50vh;
+}
+
+.vue3-easy-data-table, .vue3-easy-data-table__main.fixed-header,
+.vue3-easy-data-table__footer{
+  border-radius: 7px !important;
+}
+
+
 .vue3-easy-data-table__body td {
   border: none !important;
   padding-block: 20px !important;
@@ -470,8 +480,9 @@ input[type="radio"]:checked+label:before {
 .vue3-easy-data-table__main.fixed-header th {
   border: none !important;
   text-transform: uppercase;
-  padding-block: 20px !important;
+  padding-block: 15px !important;
   background-color: #F8F8FD !important;
+ 
 }
 
 .vue3-easy-data-table__footer {

@@ -1,5 +1,5 @@
 <template>
-    <div v-if="company.isLoading">
+    <div class=" mt-lg-5 pt-lg-5 d-flex-center" v-if="company.isLoading">
         <ComponentLoading />
     </div>
     <div v-else>
@@ -31,8 +31,8 @@
                             <i class="bi bi-pencil-fill"></i>
                         </span> </h1>
 
-                    <router-link to="#" class="theme-color">{{ company.data.website ?? '' }}</router-link>
-                    <div class="row g-3 mt-2">
+                    <router-link to="#" class="theme-color xsmall">{{ company.data.website ?? '' }}</router-link>
+                    <div class="row g-3 mt-2 small">
                         <div class="col-6 col-lg-4 d-flex align-items-center">
                             <div><i class="bi bi-fire info-icon me-2"></i></div>
                             <div>
@@ -56,7 +56,9 @@
                             <div> <i class="bi bi-geo-alt info-icon me-2"></i> </div>
                             <div>
                                 <div clas="text-muted ">Location</div>
-                                <div v-if="company.data.address" class="fw-bold lh-1">{{ company.data.address }}</div>
+                                <div v-if="company.data.city" class="fw-bold lh-1">
+                                    {{ company.data.city }}, {{ company.data.country }}
+                                </div>
                                 <div v-else class="text-muted2 xsmall">Not added..</div>
                             </div>
                         </div>
@@ -334,9 +336,9 @@ async function submitImage(formData: FormData) {
 
 <style lang="css" scoped>
 .large-coy-name {
-    font-size: 2rem;
+    font-size: 1.6rem;
     font-weight: 600;
-    line-height: 1.46rem;
+    line-height: 0.2;
 }
 
 .info-icon {

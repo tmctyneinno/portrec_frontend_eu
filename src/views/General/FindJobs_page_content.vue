@@ -45,7 +45,8 @@
                       <div class="accordion-body small">
                         <div class="list-group list-group-flush">
 
-                          <label v-for="x in jobsStore.types" :key="x" class="list-group-item border-0 text-capitalize">
+                          <label v-for="x in jobsStore.types" :key="x"
+                            class="list-group-item border-0 text-capitalize small">
                             <input @change="respondToCheckBox('type_id', x.id)" class="form-check-input me-1"
                               type="checkbox" :value="x.id" v-model="checked.type_id">
                             {{ x.name }} ({{ x.total_jobs }})
@@ -73,10 +74,12 @@
                       <div class="accordion-body small">
                         <div class="list-group list-group-flush">
                           <label v-for="x in jobsStore.categories" :key="x"
-                            class="list-group-item border-0 text-capitalize">
+                            class="list-group-item border-0 text-capitalize small">
                             <input @change="respondToCheckBox('industry_id', x.id)" class="form-check-input me-1"
                               type="checkbox" :value="x.id" v-model="checked.industry_id">
-                            {{ x.name }} ({{ x.total_jobs }})
+                            <span v-if="windowWidth > 768"> {{ useFunctions.truncateStr(x.name, 20) }}</span>
+                            <span v-else> {{ x.name }}</span>
+                            ({{ x.total_jobs }})
                           </label>
 
                         </div>
@@ -101,7 +104,7 @@
                       <div class="accordion-body small">
                         <div class="list-group list-group-flush">
                           <label v-for="x in jobsStore.levels" :key="x"
-                            class="list-group-item border-0 text-capitalize">
+                            class="list-group-item border-0 text-capitalize small">
                             <input @change="respondToCheckBox('level_id', x.id)" class="form-check-input me-1"
                               type="checkbox" :value="x.id" v-model="checked.level_id">
                             {{ x.name }} ({{ x.total_jobs }})
@@ -128,7 +131,8 @@
                       :class="{ 'show': windowWidth > 768 }" data-bs-parent="#salary-range">
                       <div class="accordion-body small">
                         <div class="list-group list-group-flush">
-                          <label v-for="x in salaryRanges" :key="x.id" class="list-group-item border-0 text-capitalize">
+                          <label v-for="x in salaryRanges" :key="x.id"
+                            class="list-group-item border-0 text-capitalize small">
                             <input @change="respondToCheckBox('salary_range', x.id)" class="form-check-input me-1"
                               type="checkbox" :value="x.id" v-model="checked.salary_range">
                             ${{ x.min }} - ${{ x.max }}
@@ -262,6 +266,7 @@ import { onMounted, reactive, ref, watch } from 'vue';
 import { useJobsStore } from '@/stores/jobsStore';
 import { useRoute } from 'vue-router';
 import { useWindowSize } from '@vueuse/core'
+import useFunctions from '@/stores/Helpers/useFunctions';
 
 const jobsStore = useJobsStore()
 const route = useRoute()

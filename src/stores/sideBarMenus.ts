@@ -44,6 +44,11 @@ const recruiterMenu = [{
     icon: 'bi bi-chat-square-text'
 },
 {
+    title: 'Search Talent',
+    routeName: 'recruiter-Search_Talent',
+    icon: 'bi bi-person-workspace'
+},
+{
     title: 'Company Profile',
     routeName: 'recruiter-Company_Profile',
     icon: 'bi bi-buildings'

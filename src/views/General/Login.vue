@@ -216,14 +216,14 @@ const { isReady, login: loginWithGoogle } = useCodeClient({
     margin: 0 auto;
     overflow: hidden;
     min-height: 100vh;
-    margin-top: 50px !important;
+    padding-block: 30px;
 }
 
-/* @media(min-width: 767px) {
+@media(max-width: 767px) {
     .wholePage {
         padding-top: 50px;
     }
-} */
+}
 
 .type-nav span {
     padding: 7px 15px;

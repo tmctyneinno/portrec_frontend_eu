@@ -48,6 +48,7 @@ export default [
             { path: 'schedules', name: 'recruiter-Schedule', meta: { name: 'Schedule', auth: 'recruiter' }, component: () => import('../views/Account/Recruiter/Schedule.vue') },
             { path: 'settings', name: 'recruiter-Settings', meta: { name: 'Settings', auth: 'recruiter' }, component: () => import('../views/Account/Recruiter/Settings.vue') },
             { path: 'help-center', name: 'recruiter-Help_Center', meta: { name: 'Help Center', auth: 'recruiter' }, component: () => import('../views/Account/Recruiter/HelpCenter.vue') },
+            { path: 'search-talent', name: 'recruiter-Search_Talent', meta: { name: 'Search Talent', auth: 'recruiter' }, component: () => import('../views/Account/Recruiter/SearchTalent.vue') },
         ],
     },
 ]

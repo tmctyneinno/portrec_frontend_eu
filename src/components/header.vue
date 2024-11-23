@@ -17,12 +17,12 @@
                 For Company
                 <i class="bi bi-chevron-down"></i>
               </a>
-              <div class="dropdown-menu border-0 animate__animated animate__fadeIn" aria-labelledby="triggerId">
-                <router-link class="dropdown-item hover-tiltX" to="/a">Hire Developers</router-link>
-                <router-link class="dropdown-item hover-tiltX" to="/b">Hire Designers</router-link>
-                <router-link class="dropdown-item hover-tiltX" to="/c">Hire Product Managers</router-link>
-                <router-link class="dropdown-item hover-tiltX" to="/d">Hire Project Managers</router-link>
-                <router-link class="dropdown-item hover-tiltX" to="/e">Hire Assistants</router-link>
+              <div class="dropdown-menu animate__animated animate__zoomIn animate__faster" aria-labelledby="triggerId">
+                <router-link class="dropdown-item hover-tiltX" to="/search-talent">Hire Developers</router-link>
+                <router-link class="dropdown-item hover-tiltX" to="/search-talent">Hire Designers</router-link>
+                <router-link class="dropdown-item hover-tiltX" to="/search-talent">Hire Product Managers</router-link>
+                <router-link class="dropdown-item hover-tiltX" to="/search-talent">Hire Project Managers</router-link>
+                <router-link class="dropdown-item hover-tiltX" to="/search-talent">Hire Assistants</router-link>
               </div>
             </div>
 

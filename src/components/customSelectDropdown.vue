@@ -11,14 +11,10 @@
             </option>
         </select>
     </span>
-
-
-
 </template>
 
 <script setup lang="ts">
 import useFxn from '@/stores/Helpers/useFunctions';
-
 
 interface Item {
     id: number;
@@ -39,13 +35,15 @@ defineProps({
     label: {
         type: String,
         default: 'name',
-    },
+    }
 });
 
 
 const emit = defineEmits(['update:modelValue', 'selected']);
+
 const handleSelection = (selectedItem: any) => {
     emit('update:modelValue', selectedItem);
+    emit('selected', selectedItem);
 };
 
 const handleNativeSelection = (event: Event) => {

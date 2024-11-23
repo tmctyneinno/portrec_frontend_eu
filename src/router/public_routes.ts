@@ -24,6 +24,11 @@ export default [
         component: () => import('../views/General/About.vue')
     },
     {
+        path: '/search-talent',
+        name: 'Search Talent',
+        component: () => import('../views/General/searchTalent.vue')
+    },
+    {
         path: '/contact',
         name: 'Contact',
         component: () => import('../views/General/Contact.vue')

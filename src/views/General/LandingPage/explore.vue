@@ -17,10 +17,15 @@
             <div class="col-12 mt-4">
                 <div class="row g-4">
                     <div v-for="(cat, index) in jobsStore.categories" :key="index" class="col-md-4 col-lg-3">
-                        <div @click="gotoFindJobs(cat.id)" class="card explore-card shadow-sm p-3 py-lg-4 hover-tiltY">
-                            <div class="card-icon theme-color"><i class="bi" :class="cateIcon(cat.name)"></i> </div>
-                            <h3 class="card-title fw-light my-2 text-capitalize">{{ cat.name }}</h3>
-                            <div class="fw-bolder">{{ cat.total_jobs }} jobs available <i class="bi bi-arrow-right"></i>
+                        <div @click="gotoFindJobs(cat.id)" class="card explore-card shadow-sm  hover-tiltY h-100">
+                            <div class="card-body">
+                                <div class="card-icon theme-color"><i class="bi" :class="cateIcon(cat.name)"></i> </div>
+                                <h3 class="card-title fw-light my-2 text-capitalize">{{ cat.name }}</h3>
+                            </div>
+
+                            <div class=" card-footer bg-transparent border-0">
+                                <span class="float-end fw-bolder">{{ cat.total_jobs }} jobs available <i
+                                        class="bi bi-arrow-right"></i></span>
                             </div>
                         </div>
                     </div>
@@ -46,16 +51,21 @@ onMounted(() => {
 const cateIcon = (name: string) => {
     let iconsArray = [
         { name: 'design', icon: 'bi-vector-pen' },
+        { name: 'creative & design', icon: 'bi-vector-pen' },
+        { name: 'construction, education', icon: 'bi-duffle' },
         { name: 'sales', icon: 'bi-bar-chart' },
         { name: 'marketing', icon: 'bi-megaphone' },
         { name: 'finance', icon: 'bi-currency-exchange' },
+        { name: 'accounting, auditing & finance', icon: 'bi-currency-exchange' },
+        { name: 'banking, finance & insurance', icon: 'bi-currency-exchange' },
         { name: 'technology', icon: 'bi-laptop' },
         { name: 'engineering', icon: 'bi-code-slash' },
         { name: 'business', icon: 'bi-briefcase' },
         { name: 'human resource', icon: 'bi-people' },
     ]
+    // return 'bi-tags';
     let $found = iconsArray.find(x => x.name == name.toLocaleLowerCase());
-    return $found ? $found.icon : '';
+    return $found ? $found.icon : 'bi-tags';
 }
 
 function gotoFindJobs(id: any) {
@@ -80,6 +90,7 @@ function gotoFindJobs(id: any) {
     /* border-radius: 0%; */
     cursor: pointer;
     border: 0px;
+    min-height: 200px;
 }
 
 .explore-card:hover {

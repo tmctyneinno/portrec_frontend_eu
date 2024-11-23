@@ -278,7 +278,7 @@ hr.faint:after {
 
 /* text between lines */
 
-.border-right {
+.border-right-lg, .border-right {
   border-right: 1px solid #e5e5e5;
   margin-right: 10px;
 }
@@ -286,6 +286,10 @@ hr.faint:after {
 @media (max-width: 767px) {
   .border-right {
     margin-right: 3px;
+  }
+
+  .border-right-lg{
+    border-right: none !important;
   }
 }
 

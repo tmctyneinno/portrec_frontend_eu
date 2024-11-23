@@ -1,46 +1,35 @@
 <template>
     <div class="position-relativ">
-        <form @submit.prevent="" class="bg-white p-3 px-4 form-container shadow-sm">
-            <div class="col-12">
-                <div class="row g-3">
-                    <div class="col-lg-5">
-                        <div class="input-group position-relative searchingBar border-right-lg" ref="dropdownElement">
-                            <span class="input-group-text" id="addon-search"><i class="bi bi-search"></i> </span>
-                            <input @input="onInputChange" ref="titleField" v-model="jobsStore.search.title" type="text"
-                                class="form-control" placeholder="Job title or keyword" aria-describedby="addon-search">
+        <form @submit.prevent="" class="col-md-12 p-3 p-lg-1 px- form-container">
+            <div class="row g-3">
+                <div class="col-lg-5">
+                    <div class="input-group position-relative searchingBar border-right-lg" ref="dropdownElement">
+                        <span class="input-group-text" id="addon-search"><i class="bi bi-search"></i> </span>
+                        <input @input="onInputChange" ref="titleField" v-model="jobsStore.search.title" type="text"
+                            class="form-control" placeholder="keyword or skill" aria-describedby="addon-search">
 
-                            <ul v-if="suggestions.length" class="searchingBar-suggestions">
-                                <li v-for="(suggestion, index) in suggestions" :key="index"
-                                    @click="selectSuggestion(suggestion)">{{ suggestion }}</li>
-                            </ul>
-                        </div>
+                        <ul v-if="suggestions.length" class="searchingBar-suggestions">
+                            <li v-for="(suggestion, index) in suggestions" :key="index"
+                                @click="selectSuggestion(suggestion)">{{ suggestion }}</li>
+                        </ul>
                     </div>
-                    <div class="col-lg-5 d-none d-md-block position-relative">
-                        <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
-                            v-model="jobsStore.search.location" :loading="loading"
-                            class="country-chooser-jobform find-jobs-select" placeholder="select country"
-                            :options="allCountries" />
-                        <i class=" bi bi-geo-alt location-select-icon"></i>
-                    </div>
-                    <div class="col-lg-5 d-md-none">
-                        <select class="form-select form-select-search-job form-select-lg rounded-0"
-                            placeholder="location">
-                            <option v-for="i in allCountries" :value="i">{{ i }}</option>
-                        </select>
-
-                    </div>
-                    <div class="col-lg-2">
-                        <button @click="searchJobs" :disabled="formIsSearcing" type="submit" class="btn  w-100"
-                            :class="{ 'btn-dark': fromHome, 'btn-primary': !fromHome }">
-                            {{ formIsSearcing ? 'Searching...' : 'Search job' }}
-                        </button>
-                    </div>
+                </div>
+                <div class="col-lg-5  position-relative">
+                    <v-select :taggable="true" append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
+                        v-model="jobsStore.search.location" :loading="loading"
+                        class="country-chooser-jobform find-jobs-select" placeholder="city or state"
+                        :options="allCountries" />
+                    <i class=" bi bi-geo-alt location-select-icon"></i>
+                </div>
+                <div class="col-lg-2">
+                    <button @click="searchJobs" :disabled="formIsSearcing" type="submit" class="btn  w-100"
+                        :class="{ 'btn-dark': fromHome, 'btn-primary': !fromHome }">
+                        {{ formIsSearcing ? 'Searching...' : 'Search' }}
+                    </button>
                 </div>
             </div>
         </form>
-        <div v-if="!fromHome" class="mt-2 small">
-            Popupar: UI Designer, UX Researcher, Andrioid, Admin
-        </div>
+
     </div>
 </template>
 
@@ -101,18 +90,18 @@ async function searchJobs() {
         formIsSearcing.value = true
 
         try {
-            let resp = await api.searchByLocation(jobsStore.search.title, jobsStore.search.location)
-            if (resp.status == 200) {
-                jobsStore.allJobsChunked = resp.data.body
-                jobsStore.allJobsData = resp.data.body.data
-                jobsStore.isFromSearch = true
+            // let resp = await api.searchByLocation(jobsStore.search.title, jobsStore.search.location)
+            // if (resp.status == 200) {
+            //     jobsStore.allJobsChunked = resp.data.body
+            //     jobsStore.allJobsData = resp.data.body.data
+            //     jobsStore.isFromSearch = true
 
-                if (prop.fromHome) {
-                    router.push({
-                        path: '/find-jobs'
-                    })
-                }
-            }
+            //     if (prop.fromHome) {
+            //         router.push({
+            //             path: '/find-jobs'
+            //         })
+            //     }
+            // }
         } catch (error) {
             // 
         }
@@ -173,6 +162,10 @@ watchEffect(() => {
 .form-container,
 .btn {
     border-radius: 10px;
+}
+
+.form-container {
+    border: 1px solid var(--bs-border-color)
 }
 
 .input-group .form-control,

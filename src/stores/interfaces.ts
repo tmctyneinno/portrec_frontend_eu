@@ -10,7 +10,7 @@ export interface ApplyJobInterface {
     answers: any[]
 }
 
-export interface JobOpening {
+export interface JobOpeningInterface {
     job_level_id: string | number,
     job_function_id: string | number,
     industry_id: string | number,
@@ -37,6 +37,18 @@ export interface JobOpening {
     temp_niceToHave: any[],
     temp_questions: any[],
     isSaving: Boolean
+}
+
+export interface UserProfileCardInterface {
+    id?: number,
+    name: string,
+    title: string,
+    status: string,
+    skills: string[],
+    experience: number | string,
+    star: number | string,
+    location: string,
+    avalaiblity: string,
 }
 
 export type JobStatusInterface = 'ALL' | 'IN_REVIEW' | 'SHORTLISTED' | 'OFFERED' | 'REJECTED' | 'INTERVIEWING'

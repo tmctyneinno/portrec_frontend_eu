@@ -1,7 +1,7 @@
 import { reactive, ref } from 'vue'
 import { defineStore } from 'pinia'
 import api from '@/stores/Helpers/axios'
-import type { JobOpening } from '@/stores/interfaces'
+import type { JobOpeningInterface } from '@/stores/interfaces'
 
 export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () => {
     const applicants = reactive<{
@@ -134,7 +134,7 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
         }
     }
 
-    const jobPostingFieldsEmptyState: JobOpening = {
+    const jobPostingFieldsEmptyState: JobOpeningInterface = {
         job_level_id: '',
         job_function_id: '',
         industry_id: '',

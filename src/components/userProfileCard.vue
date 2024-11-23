@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="card-body py-0">
-                <div class="row g-lg-2">
+                <div class="row g-lg-5">
                     <div class="col-2 col-lg-1">
                         <div class="img-circle"></div>
                     </div>
@@ -59,7 +59,7 @@
 
                 </div>
             </div>
-            <div class="card-footer border-0 bg-transparent pt-0 ">
+            <div class="card-footer border-0 bg-transparent pt-0 ps-4 ">
                 <RouterLink class="theme-color fw-bold text-decoration-none fw-bold" to="/">
                     View Profile <i class="bi bi-arrow-right"></i>
                 </RouterLink>

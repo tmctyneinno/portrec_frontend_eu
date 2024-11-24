@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white py-4">
+    <div class="bg-white">
         <div class="container ">
             <div class=" mb-5 fs-4 fw-bold text-muted text-center">Companies we have helped</div>
             <carousel class="px-4 px-lg-0" :items-to-show="itemsToShow" snapAlign="start" :autoplay="5000"

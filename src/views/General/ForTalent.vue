@@ -80,11 +80,11 @@ import WhatOurClientsSay from './LandingPage/whatOurClientsSay.vue';
 
 
 const whyChoose: { icon: string, title: string, desc: string }[] = [
-  { icon: `bi-microsoft-teams`, title: `Efficient Matching`, desc: `Our website uses advanced algorithms to match employers with the most suitable candidates, saving time and effort in the hiring process.` },
-  { icon: `bi-telephone`, title: `Seamless Communication`, desc: `Our built-in messaging system allows easy and efficient communication between employers and potential hires, streamlining the interview process.` },
-  { icon: `bi-person`, title: `Comprehensive Profiles`, desc: `Employers can view detailed candidate profiles, including skills, experience, and certifications, making it easier to make informed hiring decisions.` },
-  { icon: `bi-microsoft-teams`, title: `Efficient Matching`, desc: `Our website uses advanced algorithms to match employers with the most suitable candidates, saving time and effort in the hiring process.` },
-  { icon: `bi-telephone`, title: `Seamless Communication`, desc: `Our built-in messaging system allows easy and efficient communication between employers and potential hires, streamlining the interview process.` },
-  { icon: `bi-person`, title: `Comprehensive Profiles`, desc: `Employers can view detailed candidate profiles, including skills, experience, and certifications, making it easier to make informed hiring decisions.` },
+  { icon: `bi-suitcase2`, title: `Access to Good Job Listings`, desc: `Find a variety of job opportunities, including exclusive roles from top employers, that aren’t available on other platforms.` },
+  { icon: `bi-graph-up-arrow`, title: `Career Growth Resources`, desc: `Take advantage of resources to boost your skills, including personalized career advice, training programs, and industry insights to stay competitive.` },
+  { icon: `bi-person`, title: `User-Friendly Experience`, desc: `Effortlessly search, apply, and track job applications through an intuitive platform designed to streamline your job-hunting journey.` },
+  { icon: `bi-graph-up-arrow`, title: `Career Growth Resources`, desc: `Take advantage of resources to boost your skills, including personalized career advice, training programs, and industry insights to stay competitive.` },
+  { icon: `bi-person`, title: `User-Friendly Experience`, desc: `Effortlessly search, apply, and track job applications through an intuitive platform designed to streamline your job-hunting journey.` },
+  { icon: `bi-suitcase2`, title: `Access to Good Job Listings`, desc: `Find a variety of job opportunities, including exclusive roles from top employers, that aren’t available on other platforms.` },
 ]
 </script>

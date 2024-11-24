@@ -1,5 +1,5 @@
 <template>
-    <div class=" min-vh-10 overflow-hidden bg-black pb-5">
+    <div class=" min-vh-10 overflow-hidden bg-black pb-5 mb-4">
         <div class="container">
             <div class="row justify-content-center align-items-center">
                 <div class="col-md-9 col-lg-7">

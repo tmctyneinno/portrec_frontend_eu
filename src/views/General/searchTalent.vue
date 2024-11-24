@@ -1,54 +1,42 @@
 <template>
-  <!-- header -->
   <headerVue />
   <div class="space-from-header"></div>
 
   <div class="container animate__animated animate__fadeIn">
 
-    <div class="section-panel min-vh-100 pt-5 pb-0">
-      <div class="row g-3">
+    <div class="section-panel min-vh-100 pt-3 pt-lg-0 pb-0">
+      <div class="row g-3  justify-content-center align-items-center">
         <!-- <div class="col-md-4"></div> -->
-        <div class="col-md-12">
-          <div class="section-title theme-color"> PORT<span class="theme-color2 fw-bold">REC</span></div>
+        <div class="col-md-6 order-2 order-md-1">
+          <div class=" fs-1 fw-bold" style="line-height: 1.3;">
+            Hire Top professional Product Designers
+          </div>
           <div class="">
             <p>
-              Portrec Resourcing recruits’ talents across all sectors that cover talent resourcing and executive,
-              umbrella
-              company, and payroll services.
+              Your vision deserves a great product designer to bring it to life. Finding the right fit alone is
+              challenging alone, but Arc makes hiring the best freelance or full-time remote product designers easy.
+              Save time by connecting directly with vetted product designers ready to interview.
             </p>
             <p>
-              You can get in touch with Portrec online or visit our offices in the UK & Africa, Lagos Nigeria. Our name
-              is
-              synonymous with quality recruits. We aim to satisfy all our stakeholders - recruiters and job seekers.
+              Find expert UI, UX, web, and product designers you need today.
             </p>
+
+
             <p>
-              How we discover your need?
-            </p>
-            <p>
-              We first analyse the company that comes for recruitment and figure out the right talent that the HRs would
-              be attracted to. That gives both the interviewees and interviewers in the panel an extra advantage.
-            </p>
-            <p>
-              Secondly, ours is an umbrella organization, providing solutions across the continents - Africa, the USA,
-              Europe, and Asia. Consultants and contracts avail out lucrative services and remember us for the
-              flexibility
-              and fast turnaround.
-            </p>
-            <p>
-              Most large-scale corporations face trouble with HR & Payroll. We, as an outsource, help them with such
-              solutions irrespective of the size of the business. What attracts clients are our customized, quick,
-              dynamic, and stand-alone payroll services across the UK & Africa market.
-            </p>
-            <p>
-              <button class="btn btn-primary rounded-0">Make enquiry</button>
+              <button class="btn btn-primary rounded-">Hire a designer</button>
+            <div class="text-muted">Risk free trial for any hire</div>
             </p>
           </div>
+        </div>
+        <div class="col-md-6 order-1 order-md-2">
+          <img src="@/assets/images/recruitment.png" width="100%" alt="">
+
         </div>
       </div>
     </div>
 
     <div class="py-3">
-      <img src="@/assets/images/about/about_1.jpg" width="100%" alt="">
+      <companiesWeHaveHelped class="d-none d-md-block" />
     </div>
 
     <div class="section-panel">
@@ -143,4 +131,6 @@
 <script setup lang="ts">
 import headerVue from '@/components/header.vue'
 import footerVue from '@/components/footer.vue'
+
+import companiesWeHaveHelped from './LandingPage/companies.vue';
 </script>

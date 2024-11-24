@@ -10,7 +10,7 @@
 
                     <div class=" col-md-4 col-sm-12">
                         <div class="footer_widget">
-                            <img src="@/assets/images/site_logo.png" class="img-footer small mb-2" alt="Portrec_Logo">
+                            <img src="/images/site_logo.png" class="img-footer small mb-2" alt="Portrec_Logo">
 
                             <div class="address mt-2 text-white">
                                 Great platform for job seeker that is passionate about

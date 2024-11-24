@@ -21,7 +21,7 @@
                 </div>
 
                 <div class=" d-flex justify-content-center my-5 ">
-                    <img src="@/assets/images/hero/hero-image.png" class="hero-image" alt="">
+                    <img src="/images/hero/hero-image.png" class="hero-image" alt="">
                 </div>
             </div>
         </div>

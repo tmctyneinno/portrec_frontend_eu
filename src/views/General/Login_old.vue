@@ -32,7 +32,7 @@
                         <div :disabled="!isReady" @click="() => loginWithGoogle()"
                             class="card google-card rounded-0 p-2 ">
                             <div class="fw-bolder text-center theme-color">
-                                <img src="@/assets/images/google_icon.png" width="20"> &nbsp;signin with Google
+                                <img src="/images/google_icon.png" width="20"> &nbsp;signin with Google
                             </div>
                         </div>
 
@@ -238,7 +238,7 @@ const { isReady, login: loginWithGoogle } = useCodeClient({
 }
 
 .side-image {
-    background: url('@/assets/images/signup.jpg') no-repeat;
+    background: url('/images/signup.jpg') no-repeat;
     background-size: cover;
     background-position: center center;
 }

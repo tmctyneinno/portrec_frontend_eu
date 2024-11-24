@@ -51,7 +51,7 @@ const location_country = computed(() => {
 <style lang="css" scoped>
 .cover-photo {
     height: 150px;
-    background: url('@/assets/images/profile_settings_head.png');
+    background: url('/images/profile_settings_head.png');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;

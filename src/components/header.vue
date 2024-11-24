@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg fixed-top p-3 bg-white" :class="customClass">
     <div class="container">
       <router-link class="navbar-brand" to="/">
-        <img src="@/assets/images/site_logo.png" width="140" alt="site_logo">
+        <img src="/images/site_logo.png" width="140" alt="site_logo">
       </router-link>
       <button class="navbar-toggler border-0" data-bs-toggle="offcanvas" data-bs-target="#menuOffcanvas"
         aria-controls="menuOffcanvas" type="button">
@@ -10,7 +10,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item ">
+          <li v-if="route.path != `/search-talent`" class="nav-item mx-4">
             <div class="dropdown open">
               <a class="nav-link dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
@@ -26,6 +26,9 @@
               </div>
             </div>
 
+          </li>
+          <li class="nav-item">
+            <router-link v-if="route.path != `/for-talent`" class="nav-link" to="/for-talent">For Talent</router-link>
           </li>
           <li v-for="({ title, routePath }, i) in templateStore.navBarMenus" :key="i" class="nav-item ">
             <router-link class="nav-link mx-4 " :class="{ 'text-white': route.path == '/' && !headerDropped }"

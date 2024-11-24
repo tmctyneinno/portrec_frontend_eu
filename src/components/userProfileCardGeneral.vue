@@ -1,8 +1,9 @@
 <template>
-    <div class="col-md-6 col-lg-">
-        <div class="card p-0 border-0 h-100  shadow-sm small text-capitalize">
-            <div class="card-header border-0 bg-transparent pb-0 text-muted xsmall">
-                <div class="float-end">
+    <div class="col-md-6 col-lg-4">
+        <div class="card p-0 border-0 h-100  shadow small text-capitalize">
+            <div class="card-header border-0 bg-transparent pb-0 text-muted">
+                <slot name="desc"></slot>
+                <div class="float-end my-4">
                     <span v-if="userProfile.status == 'promoted'">
                         <i class="bi bi-check-circle-fill theme-color"></i> Promoted
                     </span>
@@ -27,42 +28,11 @@
                         </span>
                     </div>
                 </div>
-                <div>
-                    <div class="table-responsive">
-                        <table class="table table-borderless">
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <span class="text-muted me-2"> Experience:</span>
-                                        {{ userProfile.experience }} years
-                                    </td>
-                                    <td>
-                                        <span class="text-muted me-2"> Skills:</span>
-                                        <span v-if="userProfile?.skills">
-                                            {{ userProfile.skills.toString() }}
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="text-muted me-2"> Location:</span>
-                                        {{ userProfile?.location }}
-                                    </td>
-                                    <td>
-                                        <span class="text-muted me-2"> Avalaiblity:</span>
-                                        {{ userProfile?.avalaiblity }}
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                </div>
             </div>
             <div class="card-footer border-0 bg-transparent pt-0 ps-4 ">
                 <button @click="navigateToUserProfile(userProfile.id)"
                     class="btn btn-link ps-0 hover-tiltX text-decoration-none theme-color fw-bold text-decoration-none fw-bold">
-                    View Profile <i class="bi bi-arrow-right"></i>
+                    Hire UI Designers <i class="bi bi-arrow-right"></i>
                 </button>
             </div>
 

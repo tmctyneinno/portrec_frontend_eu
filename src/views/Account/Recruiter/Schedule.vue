@@ -60,7 +60,7 @@
 
         <div class="col-lg-8">
             <Qalendar :events="events" :config="qualendarConfig" :selected-date="new Date()" />
-            <!-- <img src="@/assets/images/schedule.png" alt="schedule"> -->
+            <!-- <img src="/images/schedule.png" alt="schedule"> -->
         </div>
 
 

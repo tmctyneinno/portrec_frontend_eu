@@ -260,7 +260,7 @@ async function register() {
 }
 
 .side-image {
-    background: url('@/assets/images/signup.jpg') no-repeat;
+    background: url('/images/signup.jpg') no-repeat;
     background-size: cover;
     background-position: center center;
 }

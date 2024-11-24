@@ -18,8 +18,8 @@ const userResume = computed(() => {
                 <i class="bi bi-file-earmark"></i> Download Resume
             </a>
         </div>
-        <!-- <img src="@/assets/images/resume_sample.png" alt="resume"> -->
-     
+        <!-- <img src="/images/resume_sample.png" alt="resume"> -->
+
     </div>
 </template>
 

@@ -4,7 +4,7 @@
             <div class="row justify-content-center">
                 <div class="text-center mb-3" style=" color: #fff;  opacity: 0.4;">
                     <!-- <i class="bi bi-exclamation-triangle-fill"></i> -->
-                    <img src="@/assets/images/404.svg" width="32%" alt="">
+                    <img src="/images/404.svg" width="32%" alt="">
                 </div>
 
                 <h1 class="text-center text-white fw-bold">PAGE NOT FOUND</h1>

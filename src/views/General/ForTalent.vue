@@ -9,57 +9,32 @@
         <!-- <div class="col-md-4"></div> -->
         <div class="col-md-6 order-2 order-md-1">
           <div class=" fs-1 fw-bold" style="line-height: 1.3;">
-            Hire Top professional Product Designers
+            Find jobs, grow skills, and connect with employers.
           </div>
           <div class="">
             <p>
-              Your vision deserves a great product designer to bring it to life. Finding the right fit alone is
-              challenging alone, but Arc makes hiring the best freelance or full-time remote product designers easy.
-              Save time by connecting directly with vetted product designers ready to interview.
-            </p>
-            <p>
-              Find expert UI, UX, web, and product designers you need today.
+              Explore a wide range of job opportunities, enhance your skills, and connect with top employers to advance
+              your career successfully.
             </p>
 
-
             <p>
-              <RouterLink class="btn btn-primary rounded-" to="/recruiter/search-talent">
-                Hire a Designer
+              <RouterLink class="btn btn-primary rounded-" to="/find-jobs">
+                Find jobs
               </RouterLink>
-            <div class="text-muted small mt-2">Risk free trial for any hire</div>
             </p>
           </div>
         </div>
         <div class="col-md-6 order-1 order-md-2">
-          <img src="/images/recruitment.png" width="100%" alt="">
+          <img src="/images/talents.png" width="100%" alt="">
 
         </div>
       </div>
     </div>
 
-    <div class="py-0">
+    <div class="py-5">
       <companiesWeHaveHelped />
     </div>
 
-    <div class="section-panel">
-      <div class="section-title fs-2 text-lg-center mb-4">
-        Hire Product Designers with good track records
-      </div>
-
-      <div class="row g-3">
-        <UserProfileCard v-for="user in 12" :user-profile="userProfiles[0]">
-          <template #desc>
-            <div class=" text-dark">
-              <div class="fw-bold">UI Designers</div>
-              <div>
-                Crafting visually engaging and intuitive user interfaces, emphasizing layout, color, typography, and
-                interactive elements to enhance the overall user experience across digital platforms.
-              </div>
-            </div>
-          </template>
-        </UserProfileCard>
-      </div>
-    </div>
 
     <div class="section-panel pt-3 pt-lg-0">
       <div class="section-title fs-2 text-lg-center mb-4">
@@ -81,7 +56,7 @@
 
     <div class="section-panel pt-3 pt-lg-0">
       <div class="section-title fs-2 text-lg-center mb-4 text-uppercase">
-        What our clients say about <span class="theme-color  fw-bold">PORTREC</span>
+        Job seekers' testimonials about <span class="theme-color  fw-bold">PORTREC</span>
       </div>
       <WhatOurClientsSay />
     </div>
@@ -99,38 +74,8 @@ import headerVue from '@/components/header.vue'
 import footerVue from '@/components/footer.vue'
 
 import companiesWeHaveHelped from './LandingPage/companies.vue';
-import UserProfileCard from '@/components/userProfileCardGeneral.vue';
-import { ref } from 'vue';
-import type { UserProfileCardInterface } from '@/stores/interfaces';
 import WhatOurClientsSay from './LandingPage/whatOurClientsSay.vue';
 
-
-const userProfiles = ref<UserProfileCardInterface[]>([
-  {
-    id: 1,
-    name: 'Mary Jones',
-    title: 'Remote freelance designer',
-    status: 'recommended',
-    skills: ['illustration', 'design', 'design systems'],
-    experience: 3,
-    star: 4,
-    location: 'remote',
-    avalaiblity: 'remote',
-
-  },
-  {
-    id: 2,
-    name: 'Samuel Cooner',
-    title: 'Remote Software Enginner',
-    status: 'promoted',
-    skills: ['illustration', 'design', 'design systems'],
-    experience: 7,
-    star: 3,
-    location: 'remote',
-    avalaiblity: 'remote',
-
-  }
-])
 
 
 

@@ -28,7 +28,7 @@
                         <div class="col-12 mb-2">
                             <div class="card google-card rounded-0 p-2 ">
                                 <div class="fw-bolder text-center theme-color">
-                                    <img src="@/assets/images/google_icon.png" width="20"> &nbsp;Sign Up with Google
+                                    <img src="/images/google_icon.png" width="20"> &nbsp;Sign Up with Google
                                 </div>
                             </div>
                         </div>
@@ -273,7 +273,7 @@ async function register() {
 }
 
 .side-image {
-    background: url('@/assets/images/signup.jpg') no-repeat;
+    background: url('/images/signup.jpg') no-repeat;
     background-size: cover;
     background-position: center center;
 }

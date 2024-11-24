@@ -6,7 +6,7 @@
                     route.meta.name }}</span>
                 <!-- <span class="d-none d-md-block" v-else>Company (<strong>Nomad</strong>)</span> -->
                 <span class="d-md-none xsmall">
-                    <img src="@/assets/images/site_logo.png" width="100" alt="site_logo">
+                    <img src="/images/site_logo.png" width="100" alt="site_logo">
                     <!-- <span class="mx-2 text-muted2">|</span> {{ route.meta.name }} -->
                 </span>
                 <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas"

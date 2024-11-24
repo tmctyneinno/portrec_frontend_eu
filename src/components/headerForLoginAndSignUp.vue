@@ -3,7 +3,7 @@
     style="width: 50%">
     <div class="container">
       <router-link class="navbar-brand" to="/">
-        <img src="@/assets/images/site_logo.png" width="140" alt="site_logo">
+        <img src="/images/site_logo.png" width="140" alt="site_logo">
       </router-link>
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">

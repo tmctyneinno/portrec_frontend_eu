@@ -1,7 +1,7 @@
 <template>
     <div class="sidebar">
         <div class="logo-span p-4 ext-center">
-            <img src="@/assets/images/site_logo.png" width="140" alt="site_logo">
+            <img src="/images/site_logo.png" width="140" alt="site_logo">
         </div>
 
         <ul class="nav nav-pills flex-column mt-2">

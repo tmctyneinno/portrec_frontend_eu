@@ -4,7 +4,7 @@
   <!-- hero -->
   <heroVue />
   <!-- hero -->
-  <companiesVue class="d-none d-md-block" />
+  <companiesVue />
   <!-- explore -->
   <exploreVue />
   <!-- latest Jobs -->
@@ -30,4 +30,3 @@ import featuredJobsVue from './featuredJobs.vue'
 import quickCareerVue from './quickCareer.vue'
 import pricingVue from './pricing.vue'
 </script>
-

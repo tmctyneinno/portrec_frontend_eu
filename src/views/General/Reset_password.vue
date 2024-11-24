@@ -41,7 +41,7 @@
 <script lang="ts" setup>
 </script>
 
-<style  scoped>
+<style scoped>
 .wholePage {
     width: 100%;
     margin: 0 auto;
@@ -56,7 +56,7 @@
 }
 
 .side-image {
-    background: url('@/assets/images/signup.jpg') no-repeat;
+    background: url('/images/signup.jpg') no-repeat;
     background-size: cover;
     background-position: center center;
 }

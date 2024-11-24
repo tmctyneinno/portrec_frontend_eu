@@ -2,7 +2,7 @@
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
         <div class="offcanvas-header">
             <div class="offcanvas-title" id="offcanvasNavbarLabel">
-                <img src="@/assets/images/site_logo.png" width="140" alt="site_logo">
+                <img src="/images/site_logo.png" width="140" alt="site_logo">
             </div>
 
             <button ref="btnX" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -43,7 +43,8 @@
                                 </div>
                             </div>
                             <div class="col-8">
-                                <div class="fw-bold text-capitalize">{{ profileStore.data ? profileStore.data.name : '' }}
+                                <div class="fw-bold text-capitalize">{{ profileStore.data ? profileStore.data.name : ''
+                                    }}
                                 </div>
                                 <div class="fw-lighter">
                                     {{ profileStore.data ? profileStore.data.email : '' }}
@@ -68,7 +69,7 @@
     </div>
 </template>
 
-<script  lang="ts" setup>
+<script lang="ts" setup>
 import { computed, ref, watch } from 'vue';
 import { userMenu } from '@/stores/sideBarMenus'
 import { useRoute, useRouter } from 'vue-router';

@@ -575,15 +575,14 @@ const benefitsForm = reactive({
 
 function pushBenefits() {
 
-    if (benefitsForm.title && benefitsForm.description)
+    if (benefitsForm.title && benefitsForm.description) {
         // @ts-ignore
         form.value.benefits.push({
             title: benefitsForm.title,
             description: benefitsForm.description
         })
-
-    benefitsForm.description = benefitsForm.title = ''
-
+        benefitsForm.description = benefitsForm.title = ''
+    }
 }
 
 

@@ -21,8 +21,8 @@
                     <div class="d-block mb-2 position-relative">
                       <div class="slide-info text-muted small text-capitalize">
 
-                        {{ currentJob.company?.city ?? '' }},
-                        {{ currentJob.company?.country ?? '' }}
+                        {{ currentJob.company?.name ?? '' }},
+                        {{ `${currentJob.company?.country ?? ''}` }}
                         <i class="bi bi-dot"></i>
                         <i class="bi bi-briefcase ms-2"></i>
                         {{ currentJob.job_type?.name ?? '' }}
@@ -50,7 +50,7 @@
       </div>
     </div>
 
-    <div class="container bg-white px-lg-5">
+    <div class="container bg-whit px-lg-5">
       <div class="row py-5 gy-3 ">
         <div class="col-lg-8">
 

@@ -196,14 +196,15 @@
                         <div class="card-body">
                           <div class="row gy-3 align-items-center">
                             <div class="col-md-2 text-lg-center">
-                              <img :src="job.image" class="img-fluid" alt="_img">
+                              <img v-if="job.image" :src="job.image" class="img-fluid" alt="_img">
+                              <i v-else class="bi bi-suitcase-lg text-muted fs-2"></i>
                             </div>
                             <div class="col-md-7">
                               <h4 class="mb-0 job_title">{{ job.title }}</h4>
                               <div class="d-block mb-2 position-relative">
                                 <span class="text-muted medium text-capitalize"><i class="lni lni-map-marker me-1"></i>
-                                  {{ job.company ? job.company.city : '' }},
-                                  {{ job.company ? job.company.country : '' }},
+                                  {{ job.company ? job.company.name : '' }}
+                                  {{ job.company ? job.company.country : '' }}
 
                                 </span>
                               </div>

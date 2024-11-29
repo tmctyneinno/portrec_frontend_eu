@@ -273,18 +273,17 @@
                                 <hr>
                                 <div class="row g-3">
                                     <div class="col-md-5">
-                                        <strong>Job Experience- <span class="text-danger">*</span></strong>
+                                        <strong>Job Experience <span class="text-danger">*</span></strong>
                                         <div class="text-muted small">
                                             Enter Job experience
                                         </div>
                                     </div>
                                     <div class="col-md-7">
-                                        <textarea v-model="form.experience" class="form-control " rows="3"
+                                        <textarea v-model="form.experience" class="form-control " rows="2"
                                             placeholder="Enter job experience"></textarea>
                                         <!-- <small class="text-muted">minimum of 500 characters</small> -->
                                     </div>
                                 </div>
-
 
                                 <hr>
                                 <div class="row g-3">
@@ -300,7 +299,7 @@
 
                                             <div class="col-12">
                                                 <div class="input-group">
-                                                    <textarea v-model="item.descriptions" class="form-control " rows="2"
+                                                    <textarea v-model="item.descriptions" class="form-control " rows="3"
                                                         placeholder="enter responsibility"></textarea>
                                                     <span @click="form.temp_responsibilities.splice(index, 1)"
                                                         v-if="form.temp_responsibilities.length > 1"
@@ -412,6 +411,20 @@
                                         </button>
                                     </div>
                                 </div>
+                                <hr>
+                                <div class="row g-3 align-items-center">
+                                    <div class="col-md-5">
+                                        <strong>Job URL</strong>
+                                        <!-- <i v-if="useFxn.isValidUrl(form.job_url)"
+                                            class="bi bi-check-circle-fill text-success ms-2 small"></i> -->
+                                        <div class="text-muted small">
+                                            Enter job Url (if any) to enable job seekers apply externally.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <input type="text" class="form-control" v-model="form.job_url">
+                                    </div>
+                                </div>
 
 
                             </div>
@@ -472,7 +485,7 @@
 
                     </div>
                     <div class="modal-footer border-" v-if="form.isSaving">
-                        <primaryButtonLoading />
+                        <primaryButtonLoading :btnText="'Posting'" />
                     </div>
                     <div class="modal-footer border-" v-else>
                         <button ref="closeModal" type="button" class="btn btn-light " data-bs-dismiss="modal"
@@ -512,7 +525,10 @@ import api from '@/stores/Helpers/axios'
 const route = useRoute()
 const recruiterCommonStore = useRecruiterCommonStore()
 const profileStore = useProfileStore()
-const { jobPostingDropdowns: dropdowns, jobPostingFields: form, jobPosting } = storeToRefs(recruiterCommonStore)
+
+const { jobPostingDropdowns: dropdowns,
+    jobPostingFields: form, jobPosting }
+    = storeToRefs(recruiterCommonStore)
 
 // modal
 const openModal = ref<any>(null)
@@ -529,8 +545,7 @@ watch(() => route, () => {
 
 // step1 #####################################
 const skillsDropdown = computed(() => {
-    // @ts-ignore
-    const ids = form.value.required_skills.map(x => x.id)
+    const ids = form.value.required_skills.map((x: any) => x.id)
     return dropdowns.value.skills.filter((x: any) => !ids.includes(x.id))
 })
 

@@ -43,7 +43,7 @@ export default {
     },
 
     skills() {
-        return $instancePublic.get(`skills`)
+        return $instancePublic.get(`job/skills`)
     },
 
     searchByLocation(title: string, location: string) {

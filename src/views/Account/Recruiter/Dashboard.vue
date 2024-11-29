@@ -21,7 +21,7 @@
         <div class="col-lg-4">
             <div class="card colored-card card-color1 shadow-sm">
                 <div class="card-body">
-                    <div class="big-number">76</div>
+                    <div class="big-number">0</div>
                     <div class=" hover-tiltY cursor-pointer">New candidates to review
                         <span class="float-end ">
                             <i class="bi bi-chevron-right  "></i>
@@ -34,7 +34,7 @@
         <div class="col-lg-4">
             <div class="card colored-card card-color2 shadow-sm">
                 <div class="card-body">
-                    <div class="big-number">3</div>
+                    <div class="big-number">0</div>
                     <div class=" hover-tiltY cursor-pointer">Schedule for today
                         <span class="float-end">
                             <i class="bi bi-chevron-right"></i>
@@ -46,7 +46,7 @@
         <div class="col-lg-4">
             <div class="card colored-card card-color3 shadow-sm">
                 <div class="card-body">
-                    <div class="big-number">24</div>
+                    <div class="big-number">0</div>
                     <div class=" hover-tiltY cursor-pointer">Messages received
                         <span class="float-end">
                             <i class="bi bi-chevron-right"></i>
@@ -109,11 +109,11 @@
                                                     </span>
                                                 </div>
                                                 <div class="card-body pt-0">
-                                                    <div class="big-number">2,345</div>
+                                                    <div class="big-number">0</div>
                                                     <div class="text-muted small">This week
 
                                                         <span class="text-success fw-bold">
-                                                            65.4% <i class="bi bi-arrow-up"></i>
+                                                            0% <i class="bi bi-arrow-up"></i>
                                                         </span>
                                                     </div>
                                                 </div>
@@ -128,11 +128,11 @@
                                                     </span>
                                                 </div>
                                                 <div class="card-body pt-0">
-                                                    <div class="big-number">654</div>
+                                                    <div class="big-number">0</div>
                                                     <div class="text-muted small">This week
 
                                                         <span class="text-danger fw-bold">
-                                                            0.5% <i class="bi bi-arrow-down"></i>
+                                                            0.0% <i class="bi bi-arrow-down"></i>
                                                         </span>
                                                     </div>
                                                 </div>
@@ -167,7 +167,7 @@
                             Jobs Open
                         </div>
                         <div class="card-body pt-0">
-                            <div class="fw-bold" style="font-size: 2.6rem;">12
+                            <div class="fw-bold" style="font-size: 2.6rem;">0
                                 <span class=" fs-6 text-muted fw-lighter">Jobs Opened</span>
                             </div>
                         </div>
@@ -179,7 +179,7 @@
                             Applicants Summary
                         </div>
                         <div class="card-body pt-0">
-                            <div class="fw-bold" style="font-size: 2.6rem;">67
+                            <div class="fw-bold" style="font-size: 2.6rem;">0
                                 <span class=" fs-6 text-muted fw-lighter">Applicants</span>
                             </div>
 

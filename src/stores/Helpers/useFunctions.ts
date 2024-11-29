@@ -192,4 +192,20 @@ export default {
     arrayPropSum(array: any[], prop: string) {
         return array.reduce((total: number, array: any) => total + parseFloat(array[prop]), 0)
     },
+
+    isValidUrl(url: string) {
+        if (!url) return false; // Ensure the URL is not empty
+
+        try {
+            if (url.startsWith("www.")) { url = `https://${url}`; }
+            const parsedUrl: any = new URL(url);
+            const hostname = parsedUrl.hostname;
+
+            const hostnameRegex = /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            return hostnameRegex.test(hostname);
+
+        } catch {
+            return false;
+        }
+    }
 }

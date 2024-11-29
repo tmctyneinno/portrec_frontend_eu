@@ -21,6 +21,7 @@ export interface JobOpeningInterface {
     max_salary: string | number,
     deadline: Date,
     location: string,
+    job_url: string,
 
     description: string,
     qualifications: null,

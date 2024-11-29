@@ -151,6 +151,7 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
         max_salary: '',
         deadline: new Date(),
         location: '',
+        job_url: '',
 
         description: '',
         qualifications: null,
@@ -219,6 +220,7 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
         jobPostingFields.location = job.location;
 
         jobPostingFields.description = job.description;
+        jobPostingFields.job_url = job.job_url;
         jobPostingFields.qualifications = job.qualifications;
         jobPostingFields.experience = job.experience;
         jobPostingFields.other_qualifications = '';

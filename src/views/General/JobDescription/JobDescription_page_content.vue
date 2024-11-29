@@ -30,11 +30,14 @@
                     </div>
                   </div>
                   <div class="col-md-4 my-3 ">
+                    {{ currentJob.job_url }}
                     <div class="float-end">
                       <span @click="shareLink" class="line-right pe-4 me-3 cursor-pointer">
                         <i class="bi bi-share"></i>
                       </span>
                       <span v-if="hasAppliedForThisJob" class="text-warning small ">Already Applied</span>
+                      <button v-else-if="currentJob.job_url" @click="visitExternalLink"
+                        class="btn btn-primary rounded- px-3">Visit link</button>
                       <button v-else @click="openApplyModal" class="btn btn-primary rounded- px-3">Apply now</button>
                     </div>
                   </div>
@@ -260,6 +263,19 @@ async function getSimilarJobs() {
 function openApplyModal() {
   modalOpen.value = true;
   currentModal.value = 1
+}
+
+function visitExternalLink() {
+  let jobUrl = currentJob.value?.job_url;
+
+  if (jobUrl) {
+    if (!jobUrl.startsWith("https://")) {
+      jobUrl = `https://${jobUrl}`;
+    }
+    window.location.href = jobUrl;
+  } else {
+    console.log("Invalid URL");
+  }
 }
 
 function dateShow(date: any) {

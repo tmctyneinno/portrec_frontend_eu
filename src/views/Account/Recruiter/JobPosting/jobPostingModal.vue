@@ -622,7 +622,7 @@ const stepIsComplete = computed(() => {
 
 function submitJobPosting() {
     const obj: any = { ...form.value }
-    const validWhoWeAre = obj.temp_WhoYouAre.filter((x: any) => x.descriptions.trim() !== '')
+    const validWhoYouAre = obj.temp_WhoYouAre.filter((x: any) => x.descriptions.trim() !== '')
     const validResposibilities = obj.temp_responsibilities.filter((x: any) => x.descriptions.trim() !== '')
     const validNiceToHave = obj.temp_niceToHave.filter((x: any) => x.descriptions.trim() !== '')
     const validQuestions = obj.temp_questions.filter((x: any) => x.questions.trim() !== '')
@@ -642,10 +642,10 @@ function submitJobPosting() {
         })
     }
 
-    if (validWhoWeAre.length) {
+    if (validWhoYouAre.length) {
         other_qualifications.push({
-            title: 'Who_We_Are',
-            descriptions: validWhoWeAre.map((x: { descriptions: any; }) => x.descriptions)
+            title: 'Who_You_Are',
+            descriptions: validWhoYouAre.map((x: { descriptions: any; }) => x.descriptions)
         })
     }
 

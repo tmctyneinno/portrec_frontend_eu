@@ -100,7 +100,7 @@ input::placeholder, textarea::placeholder {
 
 .section-panel {
   /* overflow: hidden; */
-  padding-block: 100px;
+  padding-block: 40px;
 }
 
 .section-panel-light {
@@ -114,7 +114,7 @@ input::placeholder, textarea::placeholder {
 
 @media (max-width: 767px) {
   .section-panel {
-    padding-block: 60px;
+    padding-block: 40px;
   }
 
   .section-panel .section-title {

@@ -8,15 +8,14 @@
                         <div class="col-12  type-nav">
                             <router-link
                                 class=" hover-tiltY theme-color d-flex justify-content-end mb-3 fw-bolder text-decoration-none"
-                                to="/signup/recruiter">
-                                Sign Up as Recuiter</router-link>
+                                to="/signup">
+                                Sign Up as Job Seeker</router-link>
                         </div>
                         <div class="col-12 mb-3">
                             <div class="fs-4 fw-bolder text-center ">
                                 Sign Up</div>
                             <div class=" text-center">
-                                Create your account and unlock new opportunities – it only
-                                takes a few seconds!
+                                Post jobs, recruit professionals
                             </div>
                         </div>
 
@@ -73,12 +72,20 @@
                                     class="form-control form-control-lg" placeholder="confirm password">
                             </div>
 
+                            <div class="col-12">
+                                <div class="fw-bold text-muted small col-12">Enter Company name:
+                                </div>
+                                <input v-model="form.company_name" type="text" class="form-control form-control-lg"
+                                    placeholder=" company name">
+                            </div>
+
+
                             <div class="col-12 mt-3">
                                 <primaryButton v-if="!form.isLoading" :btnType="'submit'" :btnClass="` w-100 btn-lg`"
-                                    :btnMainClass="'btn-primary'">
-                                    Sign Up
+                                    :btnMainClass="'btn-dark'">
+                                    Sign Up as Recruiter
                                 </primaryButton>
-                                <primaryButtonLoading :btnMainClass="'btn-primary'" v-else :btnClass="`btn-lg w-100`" />
+                                <primaryButtonLoading :btnMainClass="'btn-dark'" v-else :btnClass="`btn-lg w-100`" />
                             </div>
                             <div class="col-12 mt-3">
                                 Already have an account? <router-link replace to="/login"
@@ -110,14 +117,13 @@ import HeaderForLoginAndSignUp from "@/components/headerForLoginAndSignUp.vue";
 const online = useOnline()
 const router = useRouter()
 
-
-
 const form = reactive<any>({
     name: '',
     email: '',
     password: '',
     password2: '',
     phone: '',
+    company_name: '',
     passwordDisplay: 'password',
     password2Display: 'password',
     isLoading: false
@@ -161,6 +167,11 @@ function submitForm() {
         return;
     }
 
+    if (!form.company_name) {
+        useFxn.toast('Please enter company name!', 'warning');
+        return;
+    }
+
     // if (!online.value) {
     //     useFxn.toastShort('No internet, You are offline!');
     //     return;
@@ -178,10 +189,11 @@ async function register() {
             fullName: form.name,
             phone: parseInt(form.phone.replace(/ /g, "")),
             email: form.email,
-            password: form.password
+            password: form.password,
+            company_name: form.company_name,
         }
 
-        const resp = await api.userRegister(sumitObj)
+        const resp = await api.recruiterRegister(sumitObj)
 
         if (resp.status === 203) {
             useFxn.toast(`${resp.data}`, 'error')
@@ -229,7 +241,6 @@ async function register() {
 .type-nav {
     padding: 7px 15px;
 }
-
 
 .type-nav a:hover {
     /* background-color: #cccccc5d; */

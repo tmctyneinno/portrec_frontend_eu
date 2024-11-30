@@ -183,7 +183,7 @@
               </div>
             </div>
             <div class="col-12">
-              <div class="card border-0 bg-light p-4">
+              <div class="card border-0 bg-light p-4 min-vh-100">
                 <div v-if="jobsStore.loading" style="min-height: 400px;">
                   <!-- <componentLoading /> -->
                 </div>
@@ -249,7 +249,7 @@
 
                   </div>
 
-                  <noDataShow v-else text="No jobs to show" />
+                  <noDataShow v-else text="No jobs" />
 
                 </div>
               </div>

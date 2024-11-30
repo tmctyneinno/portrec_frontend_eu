@@ -4,7 +4,7 @@
   <!-- hero -->
   <heroVue />
   <!-- hero -->
-  <companiesVue />
+  <companiesWeHaveHelped />
   <!-- explore -->
   <exploreVue />
   <!-- latest Jobs -->
@@ -23,7 +23,7 @@
 import headerVue from '@/components/header.vue'
 import footerVue from '@/components/footer.vue'
 import heroVue from './hero.vue'
-import companiesVue from './companies.vue'
+import companiesWeHaveHelped from './companiesWeHaveHelped.vue'
 import exploreVue from './explore.vue'
 import latestJobsVue from './latestJobs.vue'
 import featuredJobsVue from './featuredJobs.vue'

@@ -73,7 +73,7 @@
 import headerVue from '@/components/header.vue'
 import footerVue from '@/components/footer.vue'
 
-import companiesWeHaveHelped from './LandingPage/companies.vue';
+import companiesWeHaveHelped from './LandingPage/companiesWeHaveHelped.vue';
 import WhatOurClientsSay from './LandingPage/whatOurClientsSay.vue';
 
 

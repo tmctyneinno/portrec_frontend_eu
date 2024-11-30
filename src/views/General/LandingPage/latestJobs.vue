@@ -1,4 +1,3 @@
-
 <template>
     <div class="section-panel min-vh-100 section-panel-light">
         <div class="container">
@@ -16,7 +15,10 @@
                 </div>
             </div>
             <div class="col-12 mt-4">
-                <div class="row g-4">
+                <div v-if="!jobsStore.latest.length">
+                    <noDataShow text="No jobs posted" />
+                </div>
+                <div v-else class="row g-4">
                     <jobsDisplayVue :job="latest" v-for="(latest, i) in jobsStore.latest" :key="i"
                         @click="router.push({ 'path': `/job-description/${latest.id}` })" />
                 </div>
@@ -40,5 +42,3 @@ onMounted(() => {
 
 const router = useRouter()
 </script>
-
-

@@ -98,7 +98,7 @@
 import headerVue from '@/components/header.vue'
 import footerVue from '@/components/footer.vue'
 
-import companiesWeHaveHelped from './LandingPage/companies.vue';
+import companiesWeHaveHelped from './LandingPage/companiesWeHaveHelped.vue';
 import UserProfileCard from '@/components/userProfileCardGeneral.vue';
 import { ref } from 'vue';
 import type { UserProfileCardInterface } from '@/stores/interfaces';

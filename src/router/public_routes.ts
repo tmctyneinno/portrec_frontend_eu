@@ -63,8 +63,14 @@ export default [
     },
     {
         path: '/signup',
-        name: 'Sign Up',
+        name: 'Sign Up - User',
         component: () => import('../views/General/Signup.vue'),
+        beforeEnter: initGuard
+    },
+    {
+        path: '/signup/recruiter',
+        name: 'Sign Up - Recruiter',
+        component: () => import('../views/General/SignupRecruiter.vue'),
         beforeEnter: initGuard
     },
     {

@@ -1,7 +1,7 @@
 <template>
     <div class="bg-white">
-        <div class="container ">
-            <div class=" mb-5 fs-4 fw-bold text-muted text-center">Companies we have helped</div>
+        <div class="container my-5">
+            <div class=" mb-4 fs-4 fw-bold text-muted text-center">Companies we have helped</div>
             <carousel class="px-4 px-lg-0" :items-to-show="itemsToShow" snapAlign="start" :autoplay="5000"
                 :wrapAround="true">
                 <slide v-for="slide in images" :key="slide">

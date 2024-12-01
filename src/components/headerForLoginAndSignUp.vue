@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg fixed-top p-3 bg-transparent" :class="{ 'shadow-sm': headerDropped }"
+  <nav class="navbar navbar-expand-lg fixed-top p-3 bg-transparent" :class="{ 'd-none': headerDropped }"
     style="width: 50%">
     <div class="container">
       <router-link class="navbar-brand" to="/">
@@ -19,17 +19,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 const headerDropped = ref<boolean>(false)
 
-// onMounted(() => {
-//   window.addEventListener("scroll", function () {
-//     const scrollThreshold = 50;
-//     if (window.scrollY > scrollThreshold)
-//       headerDropped.value = true;
-//     else
-//       headerDropped.value = false;
-//   })
-// })
+onMounted(() => {
+  window.addEventListener("scroll", function () {
+    const scrollThreshold = 50;
+    if (window.scrollY > scrollThreshold)
+      headerDropped.value = true;
+    else
+      headerDropped.value = false;
+  })
+})
 </script>

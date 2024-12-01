@@ -13,72 +13,74 @@
                         </div>
                         <div class="col-12 mb-3">
                             <div class="fs-4 fw-bolder text-center ">
-                                Sign Up</div>
+                                {{ form.step == '1' ? 'Sign Up' : 'One more Step!' }}
+                            </div>
                             <div class=" text-center">
                                 Create your account and unlock new opportunities – it only
                                 takes a few seconds!
                             </div>
                         </div>
 
+                        <SignupStepOne v-if="form.step == '1'" />
 
-                        <form @submit.prevent="submitForm" class="row g-3">
+                        <form v-else @submit.prevent="submitForm" class="row g-3">
                             <div class="col-12">
                                 <label class="fw-bold text-muted small">
-                                    Enter Full name
+                                    About me
                                 </label>
-                                <input v-model="form.name" type="text" class="form-control form-control-lg"
-                                    placeholder="full name">
-                            </div>
-                            <div class="col-12">
-                                <label class="fw-bold text-muted small">
-                                    Enter email address
-                                </label>
-                                <input v-model="form.email" type="email" class="form-control form-control-lg"
-                                    placeholder="email address">
+                                <textarea v-model="form.about_me" class="form-control"
+                                    style="height: 120px;"></textarea>
                             </div>
 
                             <div class="col-12">
                                 <label class="fw-bold text-muted small">
-                                    Enter Phone Number
+                                    Skills
                                 </label>
-                                <vue-tel-input class="form-control form-control-lg p-0 rounded-3"
-                                    :validCharactersOnly="true" :inputOptions="phoneField.input"
-                                    :dropdownOptions="phoneField.dropDown" :autoFormat="true"
-                                    v-model="form.phone"></vue-tel-input>
+                                <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
+                                    placeholder="" class="skills-select" multiple v-model="form.skills"
+                                    :clearable="false" :options="skillsArray" label="name"></v-select>
                             </div>
 
                             <div class="col-12">
-                                <div class="fw-bold text-muted small col-12">Enter Password:
-                                    <span v-if="form.password"
-                                        @click="form.passwordDisplay = form.passwordDisplay == 'password' ? 'text' : 'password'"
-                                        class="float-end cursor-pointer theme-color">
-                                        <span v-if="form.passwordDisplay == 'password'"> show</span>
-                                        <span v-else> hide </span>
-                                    </span>
+                                <label class="fw-bold text-muted small">
+                                    Industry
+                                </label>
+                                <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
+                                    placeholder="" class="skills-select" v-model="form.industry" :clearable="false"
+                                    :options="industriesArray" label="name"></v-select>
+                            </div>
+
+                            <div class="col-12">
+                                <label class="fw-bold text-muted small">
+                                    Desired Pay
+                                </label>
+                                <div class="input-group mb-3">
+                                    <select v-model="form.desired_pay_currency" placeholder="Select Currency">
+                                        <option value="Naira">Naira (N)</option>
+                                        <option value="Dollar">Dollar ($)</option>
+                                    </select>
+
+                                    <input placeholder="0.00" type="text" v-model="form.desired_pay"
+                                        class="form-control " v-maska data-maska="9,99#.##"
+                                        data-maska-tokens="9:[0-9]:repeated" data-maska-reversed />
                                 </div>
-                                <input v-model="form.password" :type="form.passwordDisplay"
-                                    class="form-control form-control-lg" placeholder="password">
+
                             </div>
 
-                            <div class="col-12">
-                                <div class="fw-bold text-muted small col-12">Confirm Password:
-                                    <span v-if="form.password2"
-                                        @click="form.password2Display = form.password2Display == 'password' ? 'text' : 'password'"
-                                        class="float-end cursor-pointer theme-color">
-                                        <span v-if="form.password2Display == 'password'">show</span>
-                                        <span v-else>hide</span>
-                                    </span>
-                                </div>
-                                <input v-model="form.password2" :type="form.password2Display"
-                                    class="form-control form-control-lg" placeholder="confirm password">
-                            </div>
 
-                            <div class="col-12 mt-3">
-                                <primaryButton v-if="!form.isLoading" :btnType="'submit'" :btnClass="` w-100 btn-lg`"
+
+                            <div class="col-md-5 mt-3">
+                                <primaryButtonOutline @click="form.step = '1'" :btnClass="` w-100 btn-lg`"
                                     :btnMainClass="'btn-primary'">
+                                    <i class="bi bi-chevron-left"></i> Back
+                                </primaryButtonOutline>
+                            </div>
+
+                            <div class="col-md-7 mt-3">
+                                <primaryButton v-if="!form.isLoading" :btnType="'submit'" :btnClass="` w-100 btn-lg`">
                                     Sign Up
                                 </primaryButton>
-                                <primaryButtonLoading :btnMainClass="'btn-primary'" v-else :btnClass="`btn-lg w-100`" />
+                                <primaryButtonLoading v-else :btnClass="`btn-lg w-100`" />
                             </div>
                             <div class="col-12 mt-3">
                                 Already have an account? <router-link replace to="/login"
@@ -99,87 +101,77 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from "vue";
+import { onMounted, ref } from "vue";
 import useFxn from "@/stores/Helpers/useFunctions";
 import api from "@/stores/Helpers/axios";
 import { useOnline } from "@vueuse/core";
 import { useRouter } from "vue-router";
-import HeaderForLoginAndSignUp from "@/components/headerForLoginAndSignUp.vue";
+import { vMaska } from "maska";
 
+import HeaderForLoginAndSignUp from "@/components/headerForLoginAndSignUp.vue";
+import SignupStepOne from "./SignupStepOne.vue";
+import { useSignupStore } from "./SignupStore";
+import { storeToRefs } from "pinia";
+
+
+const signupStore = useSignupStore()
+const { form } = storeToRefs(signupStore)
 
 const online = useOnline()
 const router = useRouter()
 
+onMounted(() => {
+    getDropdowns()
+});
 
+const skillsArray = ref<any[]>([])
+const industriesArray = ref<any[]>([])
 
-const form = reactive<any>({
-    name: '',
-    email: '',
-    password: '',
-    password2: '',
-    phone: '',
-    passwordDisplay: 'password',
-    password2Display: 'password',
-    isLoading: false
-})
+async function getDropdowns() {
+    try {
+        const [skillsResponse, industriesResponse] = await Promise.all([
+            api.skills(),
+            api.jobIndustries()
+        ]);
+        skillsArray.value = skillsResponse?.data?.body ?? [];
+        industriesArray.value = industriesResponse?.data?.body ?? [];
 
-const phoneField = {
-    dropDown: {
-        showDialCodeInSelection: false,
-        showFlags: true,
-        showSearchBox: true,
-        showDialCodeInList: true,
-
-    },
-    input: {
-        showDialCode: true,
-        placeholder: 'Enter phone',
-        styleClasses: 'phone-input-signup',
-        maxlength: 15
-        // type: 'number'
+    } catch (error) {
+        console.error("Error fetching data:", error);
     }
-
 }
+
 
 function submitForm() {
-    const requiredFields = ['name', 'email', 'password', 'phone'];
-
-    for (const field of requiredFields) {
-        if (!form[field]) {
-            useFxn.toast(`Please complete ${field} field`, 'warning');
-            return;
-        }
-    }
-
-    if (form.password !== form.password2) {
-        useFxn.toast('Passwords do not match', 'warning');
+    if (!form.value.industry) {
+        useFxn.toastShort('Please select Industry');
         return;
     }
 
-    if (!useFxn.isEmail(form.email)) {
-        useFxn.toast('Email format is invalid!', 'warning');
+    if (!form.value.skills.length) {
+        useFxn.toastShort('Please select at least a skill');
         return;
     }
-
-    // if (!online.value) {
-    //     useFxn.toastShort('No internet, You are offline!');
-    //     return;
-    // }
-
-    form.isLoading = true;
     register()
-
 }
 
-async function register() {
-    try {
 
+
+async function register() {
+    form.value.isLoading = true;
+    try {
         const sumitObj: any = {
-            fullName: form.name,
-            phone: parseInt(form.phone.replace(/ /g, "")),
-            email: form.email,
-            password: form.password
+            fullName: form.value.name,
+            phone: parseInt(form.value.phone.replace(/ /g, "")),
+            email: form.value.email,
+            password: form.value.password,
+            about_me: form.value.about_me,
+            industry_id: form.value.industry.id,
+            skills: form.value.skills.map((x: { id: any; }) => x.id),
+            desired_pay: form.value.desired_pay,
+
         }
+
 
         const resp = await api.userRegister(sumitObj)
 
@@ -190,6 +182,11 @@ async function register() {
 
         else {
             useFxn.toast('Account created successfully! please login', 'success')
+            const fields = ['name', 'email', 'password', 'password2', 'phone', 'about_me', 'industry', 'desired_pay'];
+            fields.forEach(field => {
+                form.value[field] = '';
+            });
+            form.value.skills = [];
             router.push({ path: '/login' })
         }
     } catch (error: any) {
@@ -197,7 +194,7 @@ async function register() {
         useFxn.toast('Sorry, error occured, check your internet', 'error')
 
     } finally {
-        form.isLoading = false
+        form.value.isLoading = false
     }
 }
 </script>
@@ -250,5 +247,10 @@ async function register() {
 <style>
 .form-control .vti__input {
     background-color: transparent !important;
+}
+
+select {
+    border-color: var(--bs-border-color) !important;
+    padding-inline: 10px
 }
 </style>

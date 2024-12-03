@@ -6,7 +6,6 @@
                     <!-- <i class="bi bi-exclamation-triangle-fill"></i> -->
                     <img src="/images/404.svg" width="32%" alt="">
                 </div>
-
                 <h1 class="text-center text-white fw-bold">PAGE NOT FOUND</h1>
                 <div class="col-md-6">
                     <h3 class="text-center text-white">

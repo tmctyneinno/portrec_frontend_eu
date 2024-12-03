@@ -30,7 +30,6 @@
                     </div>
                   </div>
                   <div class="col-md-4 my-3 ">
-                    {{ currentJob.job_url }}
                     <div class="float-end">
                       <span @click="shareLink" class="line-right pe-4 me-3 cursor-pointer">
                         <i class="bi bi-share"></i>

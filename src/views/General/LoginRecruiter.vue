@@ -8,12 +8,12 @@
                         <div class="col-12  type-nav">
                             <router-link
                                 class=" hover-tiltY theme-color d-flex justify-content-end mb-3 fw-bolder text-decoration-none"
-                                to="/login/recruiter">
-                                Login as Recruiter</router-link>
+                                to="/login">
+                                Login as Job Seeker</router-link>
                         </div>
                         <div class="col-12 mb-3">
                             <div class="fs-4 fw-bolder text-center ">
-                                Welcome</div>
+                                Welcome, Admin</div>
                             <div class=" text-center">Enter your login details below</div>
                         </div>
 
@@ -58,13 +58,14 @@
                                 </label>
                             </div>
                             <div class="col-12 mt-3">
-                                <primaryButton v-if="!form.isLoading" :btnType="'submit'" :btnClass="` w-100 btn-lg`">
+                                <primaryButton v-if="!form.isLoading" :btnMainClass="'btn-dark'" :btnType="'submit'"
+                                    :btnClass="` w-100 btn-lg`">
                                     Login
                                 </primaryButton>
-                                <primaryButtonLoading v-else :btnClass="`btn-lg w-100`" />
+                                <primaryButtonLoading v-else :btnMainClass="'btn-dark'" :btnClass="`btn-lg w-100`" />
                             </div>
                             <div class="col-12 mt-3">
-                                Don't have an account? <router-link replace to="/signup"
+                                Don't have an account? <router-link replace to="/signup/recruiter"
                                     class="fw-bold theme-color text-decoration-none">Sign Up</router-link>
                             </div>
                         </form>
@@ -152,11 +153,11 @@ async function signin() {
             email: form.email,
             password: form.password
         }
-        const { data } = await api.userLogin(axObj)
+        const { data } = await api.recruiterLogin(axObj)
 
         if (data.status === 200) {
             // profile.token = data.body.token
-            const loginType = 'user';
+            const loginType = 'recruiter';
             profile.login(data.body.token, loginType)
             router.push({ path: `/${loginType}/dashboard` })
         }

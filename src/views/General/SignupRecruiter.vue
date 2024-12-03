@@ -202,7 +202,7 @@ async function register() {
 
         else {
             useFxn.toast('Account created successfully! please login', 'success')
-            router.push({ path: '/login' })
+            router.push({ path: '/login/recruiter' })
         }
     } catch (error: any) {
         console.error(error);

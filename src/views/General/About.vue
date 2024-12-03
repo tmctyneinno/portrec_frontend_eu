@@ -3,137 +3,97 @@
   <headerVue />
   <div class="space-from-header"></div>
 
-  <div class="container animate__animated animate__fadeIn">
+  <div class="bg-gradient">
+    <div class="container animate__animated animate__fadeIn ">
 
-    <div class="section-panel min-vh-100 pt-5 pb-0">
-      <div class="row g-3">
-        <!-- <div class="col-md-4"></div> -->
-        <div class="col-md-12">
-          <div class="section-title theme-color">ABOUT PORT<span class="theme-color2 fw-bold">REC</span></div>
-          <div class="">
-            <p>
-              Portrec Resourcing recruits’ talents across all sectors that cover talent resourcing and executive,
-              umbrella
-              company, and payroll services.
+      <div class="section-panel min-vh-100 pt-5 pb-0  ">
+        <div class="row g-3 justify-content-center align-items-center ">
+          <div class="col-lg-6 order-2 order-md-1 ">
+            <div class="section-title theme-color animate__animated animate__slideInLeft">ABOUT PORT<span
+                class="theme-color2 fw-bold">REC</span></div>
+            <p class="fw-bold">
+              Portrec Resourcing is a global recruitment and HR solutions provider, dedicated to matching top talent
+              with leading organizations across various sectors. We offer comprehensive services, including executive
+              search, talent resourcing, payroll management, and umbrella company solutions.
             </p>
             <p>
-              You can get in touch with Portrec online or visit our offices in the UK & Africa, Lagos Nigeria. Our name
-              is
-              synonymous with quality recruits. We aim to satisfy all our stakeholders - recruiters and job seekers.
-            </p>
-            <p>
-              How we discover your need?
-            </p>
-            <p>
-              We first analyse the company that comes for recruitment and figure out the right talent that the HRs would
-              be attracted to. That gives both the interviewees and interviewers in the panel an extra advantage.
-            </p>
-            <p>
-              Secondly, ours is an umbrella organization, providing solutions across the continents - Africa, the USA,
-              Europe, and Asia. Consultants and contracts avail out lucrative services and remember us for the
-              flexibility
-              and fast turnaround.
-            </p>
-            <p>
-              Most large-scale corporations face trouble with HR & Payroll. We, as an outsource, help them with such
-              solutions irrespective of the size of the business. What attracts clients are our customized, quick,
-              dynamic, and stand-alone payroll services across the UK & Africa market.
-            </p>
-            <p>
-              <button class="btn btn-primary rounded-0">Make enquiry</button>
+              With offices in the UK and Lagos, Nigeria, and a network spanning Africa, the USA, Europe, and Asia, we
+              deliver tailored solutions that meet the unique needs of both employers and job seekers. Known for our
+              commitment to quality and speed, Portrec supports businesses of all sizes with flexible, efficient, and
+              reliable HR and payroll services.
             </p>
           </div>
+          <div class="col-lg-6 order-1 order-md-2">
+            <img class=" animate__animated animate__pulse animate__infinite animate__slower "
+              src="/images/about/frame.png" width="100%" alt="">
+          </div>
         </div>
+
       </div>
-    </div>
 
-    <div class="py-3">
-      <img src="/images/about/about_1.jpg" width="100%" alt="">
-    </div>
 
-    <div class="section-panel">
       <div class="section-title fs-2 theme-color mb-4">Our Process</div>
-      <div class="row g-3">
-        <div class="col-md-6">
-          <img src="/images/about/process.jpg" width="100%" alt="">
-        </div>
-        <div class="col-md-6">
-          <h5 class="fw-bold">Talent Resourcing</h5>
-          <div>
-            The quality and qualification of job seekers are important criteria to determine the grade of the
-            consultancy.
-            Portrec proudly presents well-learned, harnessed individuals, prepared to face the industry leaders during
-            the
-            interviews. But hey! That’s not scary.And no need to worry if you are not up to the mark. There are many
-            features that can help you upgrade yourself. Companies look for a potential talent pool from a trustworthy
-            consultancy. We help them find the right candidate from our pool and redefine the customer-candidate
-            experience. Candidates who have a strong desire to nurture themselves for better companies, get ample
-            resources from the mentors of Portrec.With this prerogative, we were successful in establishing a
-            long-lasting
-            employer-employee relationship among thousands of quality talents dispersed across the world.
-            Our resource and talent management experts are always on their toes looking for vacancies where a desirable
-            candidate can fit in. Most of the candidates who register with us get placed in reputed organizations within
-            a
-            short span of time. But that’s not all. Our expert mentors advise each candidate to choose the right
-            organization based on their skill set and career aspirations.
+
+      <div class="section-panel" v-for="(section, index) in sections" :key="index">
+        <div class="row g-3 g-lg-5 justify-content-center align-items-center">
+          <div class="col-md-6" v-if="section.imagePosition === 'left'">
+            <img :src="section.image" width="100%" alt="" />
+          </div>
+          <div class="col-md-6">
+            <h5 class="fw-bold">{{ section.title }}</h5>
+            <p>{{ section.description }}</p>
+            <div v-for="(point, idx) in section.points" :key="idx">
+              <strong>{{ point.title }}</strong>: {{ point.content }}
+            </div>
+          </div>
+          <div class="col-md-6" v-if="section.imagePosition === 'right'">
+            <img :src="section.image" width="100%" alt="" />
           </div>
         </div>
+        <hr class="faint my-4">
       </div>
-    </div>
 
-    <div>
-      <div class="row g-3">
-        <div class="col-md-6">
-          <h5 class="fw-bold">Executive Search</h5>
-          <div>
-            Nobody likes poor leadership in an organization. It leads to mayhem in managing the resources, making
-            achieving something to perfection difficult.Our executive team is aware, agile, and influencing. Each staff
-            of
-            our organization is devoted to the betterment of the aspirants and recruiters. They learn how to coordinate
-            activities to ensure high-level success just by seeing people at work. All kinds of faults and blunders are
-            avoided when the executive team meticulously scrutinizes the activities. Portrec earned its fame thanks to
-            such leaders who have experience and skills is quite overwhelming. The executive search services offered by
-            Portrec helps organizations to identify the best business leaders who become the role model of corporate
-            strategy. Still Not Convinced?
-            Why do you think so many stakeholders trust us? Because: We employ an executive search strategy, to project
-            an
-            overview of the current job market. Every interaction discloses the proficiencies and competencies of the
-            candidate. We create our talent database with such information.
-            We prove ourselves time and again for the impeccable services we offer and ensure that no contributor is
-            disheartened.
-          </div>
-        </div>
-        <div class="col-md-6">
-          <img src="/images/about/executive.jpg" width="100%" alt="">
-        </div>
-      </div>
-    </div>
 
-    <div class="section-panel" style="padding-bottom: 200px;">
-      <div class="row g-3">
-        <div class="col-md-6">
-          <img src="/images/about/payroll.jpg" width="100%" alt="">
+
+      <div class="section-panel">
+        <h5 class="fw-bold">{{ staffOutsourcing.title }}</h5>
+
+        <!-- Background Checks -->
+        <p>
+          <strong>{{ staffOutsourcing.sections[0].heading }}</strong>:
+          {{ staffOutsourcing.sections[0].description }}
+        </p>
+
+        <!-- Recruitment -->
+        <p>
+          <strong>{{ staffOutsourcing.sections[1].heading }}</strong>:
+          {{ staffOutsourcing.sections[1].description }}
+        </p>
+
+        <!-- Staff Onboarding -->
+        <div>
+          <strong>{{ staffOutsourcing.sections[2].heading }}</strong>:
+          {{ staffOutsourcing.sections[2].description }}
+          <ul>
+            <li v-for="(item, index) in staffOutsourcing.sections[2].items" :key="index">
+              {{ item }}
+            </li>
+          </ul>
         </div>
-        <div class="col-md-6">
-          <h5 class="fw-bold">Payroll Services</h5>
-          <div>
-            Portrec earned its position as the fastest growing and one of the most efficient payroll outsourcing
-            companies
-            in the UK. We are versatile and offer payroll services to a small start-up as well as a corporation. First,
-            we
-            understand how your organization works. Next, our finance and management experts provide you the best
-            recommendation for a customized payroll service tailored for you. Here are some of the benefits you can get:
-            Superfast and Hassle-Free process saving time and money Reliable and Accurate when it comes to expectations
-            A secure and confidential solution.
-            We provide payroll services and solutions across various sectors in different business units. You can find a
-            brief explanation about each of those sectors:
-            Accounting and Finance Risk Management Technology and Security Compliance and Financial Crime
-            Business Change Transformation
-          </div>
+
+        <!-- Staff Training -->
+        <div class="mt-3">
+          <strong>{{ staffOutsourcing.sections[3].heading }}</strong>:
+          {{ staffOutsourcing.sections[3].description }}
+          <ul>
+            <li v-for="(item, index) in staffOutsourcing.sections[3].items" :key="index">
+              {{ item }}
+            </li>
+          </ul>
         </div>
       </div>
-    </div>
 
+    </div>
   </div>
 
   <!-- footer -->
@@ -143,4 +103,143 @@
 <script setup lang="ts">
 import headerVue from '@/components/header.vue'
 import footerVue from '@/components/footer.vue'
+
+
+
+const sections = [
+  {
+    title: "Permanent Recruitment",
+    description: `At Portrec, our permanent recruitment services connect businesses with top talent for long-term success. Our expert recruiters understand your company's unique needs and culture, ensuring a precise match between candidate and role. We handle:`,
+    points: [
+      {
+        title: "Job Description Development",
+        content: `We work with clients to create detailed job descriptions that accurately reflect the role's responsibilities, requirements, and company culture.`,
+      },
+      {
+        title: "Candidate Sourcing and Screening",
+        content: `Our recruiters utilize various channels to source top talent, including job boards, social media, and professional networks. We then screen candidates to ensure they meet the client's requirements.`,
+      },
+      {
+        title: "Interviews and Assessments",
+        content: `We coordinate interviews between clients and candidates, and can also provide assessment tools to help evaluate candidate skills and fit.`,
+      },
+      {
+        title: "Reference Checks",
+        content: `We conduct thorough reference checks to verify candidate credentials and work history.`,
+      },
+      {
+        title: "Job Offer Management",
+        content: `Once a candidate is selected, we assist with extending job offers, negotiating terms, and ensuring a smooth onboarding process.`,
+      },
+    ],
+    image: "/images/about/process.jpg",
+    imagePosition: "left",
+  },
+  {
+    title: "Contract Recruitment",
+    description: `Portrec's contract recruitment solutions provide flexible, skilled professionals for short-term or project-based needs. We offer:`,
+    points: [
+      {
+        title: "Temporary, Contract, or Freelance Staffing",
+        content: `We provide skilled professionals for short-term or project-based needs, offering flexibility and cost savings.`,
+      },
+      {
+        title: "Quick Turnaround Times",
+        content: `Our contract recruitment services ensure rapid deployment of talent to meet urgent business needs.`,
+      },
+      {
+        title: "Access to Specialized Skills",
+        content: `We offer access to specialized skills and expertise on a project basis.`,
+      },
+      {
+        title: "Cost-Effective Solutions",
+        content: `Our contract recruitment solutions reduce the costs associated with permanent recruitment and training.`,
+      },
+      {
+        title: "Compliance Management",
+        content: `We handle all compliance and regulatory requirements for contract staff.`,
+      },
+    ],
+    image: "/images/about/executive.jpg",
+    imagePosition: "right",
+  },
+  {
+    title: "Consulting and Change Management",
+    description: `Portrec's consulting and change management services support businesses through transformation and growth. Our experts provide:`,
+    points: [
+
+      {
+        title: "Organizational Design",
+        content: `We optimize organizational structures and processes for improved efficiency and performance.`,
+      },
+      {
+        title: "Change Management Planning",
+        content: `Our team develops and implements change management plans to minimize disruption and ensure smooth transitions.`,
+      },
+      {
+        title: "Talent Development Programs",
+        content: `We design and deliver training programs to enhance employee skills and performance.`,
+      },
+      {
+        title: "Performance Improvement Initiatives",
+        content: `Our experts identify areas for improvement and implement initiatives to boost productivity and efficiency.`,
+      },
+    ],
+    image: "/images/about/payroll.jpg",
+    imagePosition: "left",
+  },
+];
+
+
+const staffOutsourcing = {
+  title: "Staff Outsourcing",
+  sections: [
+    {
+      heading: "Background Checks",
+      description: `Our services range from previous employment checks, academic qualification checks, and other
+      areas requiring the job seeker’s authentication, criminal record checks, reference check etc.`,
+    },
+    {
+      heading: "Recruitment",
+      description: `We connect businesses with top talent, handling, Job description development, Candidate sourcing and
+      screening, Interviews and assessment, Job offer management`,
+    },
+    {
+      heading: "Staff Onboarding",
+      description: `We provide comprehensive onboarding programs to ensure new staff are integrated into the client's team, including:`,
+      items: [
+        "Paperwork and administrative tasks",
+        "Benefits enrollment",
+        "Company orientation",
+        "Job-specific training",
+      ],
+    },
+    {
+      heading: "Staff Training",
+      description: `Our training programs enhance staff skills and performance, covering:`,
+      items: [
+        "Industry-specific knowledge",
+        "Soft skills development",
+        "Technical skills training",
+        "Leadership development",
+      ],
+    },
+  ],
+};
+
+
 </script>
+
+<style>
+.bg-gradient {
+  height: 100%;
+  background: radial-gradient(circle at top left, #fcf5e1 0%, rgba(255, 255, 255, 0) 35%) !important;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+
+}
+
+.animate__infinite {
+  --animate-duration: 2s !important;
+}
+</style>

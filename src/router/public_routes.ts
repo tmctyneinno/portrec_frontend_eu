@@ -51,8 +51,14 @@ export default [
 
     {
         path: '/login',
-        name: 'Login',
+        name: 'Login - User',
         component: () => import('../views/General/Login.vue'),
+        beforeEnter: initGuard
+    },
+    {
+        path: '/login/recruiter',
+        name: 'Login - Recruiter',
+        component: () => import('../views/General/LoginRecruiter.vue'),
         beforeEnter: initGuard
     },
     {

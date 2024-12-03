@@ -13,6 +13,9 @@ import './assets/css/main.css'
 // animate.css
 import 'animate.css';
 
+//https://michalsnik.github.io/aos/
+import "aos/dist/aos.css";
+
 // vue3-carousel
 import 'vue3-carousel/dist/carousel.css'
 

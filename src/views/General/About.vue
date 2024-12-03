@@ -34,7 +34,7 @@
 
       <div class="section-title fs-2 theme-color mb-4">Our Process</div>
 
-      <div class="section-panel" v-for="(section, index) in sections" :key="index">
+      <div data-aos="fade-up" class="section-panel" v-for="(section, index) in sections" :key="index">
         <div class="row g-3 g-lg-5 justify-content-center align-items-center">
           <div class="col-md-6" v-if="section.imagePosition === 'left'">
             <img :src="section.image" width="100%" alt="" />
@@ -55,7 +55,7 @@
 
 
 
-      <div class="section-panel">
+      <div class="section-panel" data-aos="fade-up">
         <h5 class="fw-bold">{{ staffOutsourcing.title }}</h5>
 
         <!-- Background Checks -->
@@ -103,7 +103,14 @@
 <script setup lang="ts">
 import headerVue from '@/components/header.vue'
 import footerVue from '@/components/footer.vue'
+import { onMounted } from 'vue';
+// @ts-ignore
+import AOS from "aos";
 
+
+onMounted(() => {
+  AOS.init()
+})
 
 
 const sections = [

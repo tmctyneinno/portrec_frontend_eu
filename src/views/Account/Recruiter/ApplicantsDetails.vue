@@ -15,7 +15,7 @@
         </div>
 
         <div class="col-md-5">
-            <div class="card rounded-0">
+            <div class="card rounded-">
                 <div class="card-body">
 
                     <!-- name -->
@@ -33,7 +33,7 @@
                     </div>
 
 
-                    <div class="card mt-3 rounded-0 border-0 bg-light p-2">
+                    <div class="card mt-3 rounded- border-0 bg-light p-2">
                         <div class="card-header bg-transparent">
                             Applied
                             <span class="float-end xsmall">
@@ -42,14 +42,14 @@
                         </div>
                         <div class="card-body">
                             <div class="fw-bold"> {{ applicants.details?.job?.title }} </div>
-                            <div class="text-muted text-capitalize">{{ applicants.details?.job?.industry.name }}
+                            <div class="text-muted text-capitalize">{{ applicants.details?.job?.industry?.name }}
                                 ({{ applicants.details?.job?.job_type?.name }})
                             </div>
                         </div>
                     </div>
 
                     <!-- stage -->
-                    <div class="card mt-3 rounded-0 border-0 bg-light p-2">
+                    <div class="card mt-3 rounded- border-0 bg-light p-2">
                         <div class="card-body">
                             <div>
                                 <span class="xsmall">Status</span>
@@ -57,7 +57,7 @@
                                     <i class="bi bi-circle-fill theme-color"></i> {{ applicants.details?.status }}
                                 </span>
                             </div>
-                            <div class="progress rounded-0">
+                            <div class="progress rounded-">
                                 <div class="progress-bar bg-theme me-1" role="progressbar" style="width: 25%;"
                                     aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
 
@@ -75,11 +75,11 @@
 
                     <!-- shecdule and chat -->
                     <div class="d-flex justify-content-between mt-3">
-                        <!-- <button class="btn w-100 me-3  btn-primary-outline">Schedule
-                            Interview</button> -->
-                            <a :href="userResume" target="_blank" class="btn w-100 me-3 btn-primary-outline" download>
+                        <button class="btn w-100 me-3  btn-primary-outline">Schedule
+                            Interview</button>
+                        <!-- <a :href="userResume" target="_blank" class="btn w-100 me-3 btn-primary-outline" download>
                             <i class="bi bi-file-earmark-arrow-down-fill"></i> Download Resume
-                        </a>
+                        </a> -->
                         <button class="btn  btn-primary-outline">
                             <i class="bi bi-chat-left-text"></i>
                         </button>
@@ -126,7 +126,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
 
@@ -134,7 +134,7 @@
         </div>
 
         <div class="col-md-7">
-            <div class="card rounded-0 h-100">
+            <div class="card rounded- h-100">
                 <div class="card-body">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
@@ -143,12 +143,12 @@
                                 Applicant Profile
                             </button>
                         </li>
-                        <!-- <li class="nav-item" role="presentation">
+                        <li class="nav-item" role="presentation">
                             <button class="nav-link" id="tab2-tab" data-bs-toggle="tab" data-bs-target="#tab2"
                                 type="button" role="tab" aria-controls="tab2" aria-selected="false">
                                 Resume
                             </button>
-                        </li> -->
+                        </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="tab3-tab" data-bs-toggle="tab" data-bs-target="#tab3"
                                 type="button" role="tab" aria-controls="tab3" aria-selected="false">
@@ -161,11 +161,11 @@
                         <div class="tab-pane active py-4" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
                             <ApplicantsDetailsComponentProfile />
                         </div>
-                        <!-- <div class="tab-pane py-4" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
+                        <div class="tab-pane py-4" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
                             <ApplicantsDetailsComponentResume />
-                        </div> -->
+                        </div>
                         <div class="tab-pane py-4" id="tab3" role="tabpanel" aria-labelledby="tab3-tab">
-                            <ApplicantsDetailsComponentProcess />
+                            <ApplicantsDetailsComponentProgress />
                         </div>
                     </div>
                 </div>
@@ -185,7 +185,7 @@ import useFxn from '@/stores/Helpers/useFunctions'
 import { useRecruiterCommonStore } from './RecruiterCommonStore';
 import ApplicantsDetailsComponentProfile from './ApplicantsDetailsComponentProfile.vue';
 import ApplicantsDetailsComponentResume from './ApplicantsDetailsComponentResume.vue';
-import ApplicantsDetailsComponentProcess from './ApplicantsDetailsComponentProcess.vue';
+import ApplicantsDetailsComponentProgress from './ApplicantsDetailsComponentProgress.vue';
 import { storeToRefs } from 'pinia';
 import OverlayLoading from '@/components/overlayLoading.vue';
 

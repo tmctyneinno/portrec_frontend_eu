@@ -78,6 +78,6 @@ export default {
     },
 
     userDashboardInfo() {
-        return $instance.get(`dashboard/user/info`)
+        return $instance.get(`user/dashboard/info`)
     },
 }

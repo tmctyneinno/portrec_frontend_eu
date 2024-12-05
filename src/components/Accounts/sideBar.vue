@@ -31,27 +31,26 @@
 
         <div class="bottom">
             <div class="row justify-content-center g-2">
-                <div class="col-9">
-                    <div class="card text-center theme-color2 border-0">
-                        <div @click="logout" class="card-body p-0 cursor-pointer">
-                            <i class="bi bi-box-arrow-right"></i> Logout
+                <div class="dropdown col-11">
+                    <div v-if="profileStore.data" class="profile-card dropdown-toggle" cid="triggerId"
+                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div class="avatar" :style="{ 'background-image': `url(${profileStore.avatar})` }"></div>
+                        <div class="details">
+                            <p class="name m-0 xsmall fw-bolder">
+                                {{ profileStore.data?.name ?? '' }}
+                            </p>
+                            <p class="email m-0 xsmall">
+                                {{ profileStore.data?.email ?? '' }}
+                            </p>
                         </div>
+                        <i class="ms-2 bi bi-chevron-down"></i>
                     </div>
-                </div>
-                <div class="col-9">
-                    <div v-if="profileStore.data" class="row gx-5 justify-content-center align-items-cente xsmall">
-                        <div class="col-lg-2">
-                            <div class="img-circle" :style="{ 'background-image': `url(${profileStore.avatar})` }">
-                            </div>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="fw-bold text-capitalize xsmall">{{ profileStore.data ? profileStore.data.name :
-                                '' }}
-                            </div>
-                            <div class="fw-lighter xsmall">
-                                {{ profileStore.data ? profileStore.data.email : '' }}
-                            </div>
-                        </div>
+
+                    <div class="dropdown-menu dropdown-menu-end border-0" aria-labelledby="triggerId">
+                        <a @click="logout" class="dropdown-item text-danger bg-transparent" href="#">
+                            <i class="bi bi-box-arrow-right"></i> Logout
+                        </a>
+
                     </div>
                 </div>
             </div>
@@ -142,26 +141,46 @@ function logout() {
     left: 0;
     z-index: 1030;
     width: 249px;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
     background-color: #F8F8FD;
 }
 
-.bottom .img-circle {
+@media (max-width: 767px) {
+    .sidebar {
+        display: none;
+    }
+}
+
+
+.profile-card {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.profile-card:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* background-color: var(--theme-color-soft); */
+}
+
+.profile-card .avatar {
     width: 32px;
     height: 32px;
+    background-color: #d6d6d6;
     border-radius: 50%;
     background-color: var(--theme-color-soft);
     border: 1px solid #e8e5e5;
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
+    margin-right: 15px;
 }
 
-
-
-@media (max-width: 767px) {
-    .sidebar {
-        display: none;
-    }
+.profile-card .details {
+    display: flex;
+    flex-direction: column;
 }
 </style>

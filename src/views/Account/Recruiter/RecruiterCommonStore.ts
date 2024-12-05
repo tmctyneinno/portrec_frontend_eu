@@ -178,10 +178,6 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
 
 
     async function editJobOpening(job: any) {
-        // console.log(job, 'editig');
-
-        if (!jobPosting.hasLoadedDropdowns) await loadJobPostingDropdowns()
-
         const JSONrequired_skills = JSON.parse(job.required_skills)
         const JSONbenefits = JSON.parse(job.benefits)
         const JSONqualifications = JSON.parse(job.other_qualifications)
@@ -199,7 +195,7 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
             if (JSONnice)
                 temp_niceToHave = JSONnice.descriptions.map((x: any) => ({ descriptions: x }))
 
-            const JSONWho = JSONqualifications.find((x: { title: string }) => x.title == 'Who_We_Are')
+            const JSONWho = JSONqualifications.find((x: { title: string }) => x.title == 'Who_You_Are')
             if (JSONWho)
                 temp_WhoYouAre = JSONWho.descriptions.map((x: any) => ({ descriptions: x }))
         }

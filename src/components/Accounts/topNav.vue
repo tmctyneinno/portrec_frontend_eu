@@ -128,12 +128,10 @@ function openJobPostingModal() {
     padding-top: 6px;
 }
 
-.dropdown-toggle::after {
-    content: none !important;
-}
+
 
 .dropdown-menu {
-    border-radius: 0px;
+    /* border-radius: 0px; */
     width: 230px !important;
 }
 

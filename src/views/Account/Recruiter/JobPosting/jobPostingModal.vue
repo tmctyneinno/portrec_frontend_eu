@@ -73,10 +73,10 @@
                                         </div>
                                     </div>
                                     <div class="col-md-7">
-                                        <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
-                                            :teleport="true" v-model="form.job_type_id"
-                                            class="text-capitalize job-chooser" :clearable="false"
-                                            :options="dropdowns.jobTypes" :reduce="(x: any) => x.id"
+                                        <v-select :loading="!jobPosting.hasLoadedDropdowns" append-to-body
+                                            :calculate-position="useFxn.vueSelectPositionCalc" :teleport="true"
+                                            v-model="form.job_type_id" class="text-capitalize job-chooser"
+                                            :clearable="false" :options="dropdowns.jobTypes" :reduce="(x: any) => x.id"
                                             label="name"></v-select>
 
                                     </div>
@@ -90,11 +90,11 @@
                                         </div>
                                     </div>
                                     <div class="col-md-7">
-                                        <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
-                                            :teleport="true" v-model="form.industry_id"
-                                            class="text-capitalize job-chooser" :clearable="false"
-                                            :options="dropdowns.jobIndustries" :reduce="(x: any) => x.id"
-                                            label="name"></v-select>
+                                        <v-select :loading="!jobPosting.hasLoadedDropdowns" append-to-body
+                                            :calculate-position="useFxn.vueSelectPositionCalc" :teleport="true"
+                                            v-model="form.industry_id" class="text-capitalize job-chooser"
+                                            :clearable="false" :options="dropdowns.jobIndustries"
+                                            :reduce="(x: any) => x.id" label="name"></v-select>
 
                                     </div>
                                 </div>
@@ -108,11 +108,11 @@
                                         </div>
                                     </div>
                                     <div class="col-md-7">
-                                        <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
-                                            :teleport="true" v-model="form.job_function_id"
-                                            class="text-capitalize job-chooser" :clearable="false"
-                                            :options="dropdowns.jobFunctions" :reduce="(x: any) => x.id"
-                                            label="name"></v-select>
+                                        <v-select :loading="!jobPosting.hasLoadedDropdowns" append-to-body
+                                            :calculate-position="useFxn.vueSelectPositionCalc" :teleport="true"
+                                            v-model="form.job_function_id" class="text-capitalize job-chooser"
+                                            :clearable="false" :options="dropdowns.jobFunctions"
+                                            :reduce="(x: any) => x.id" label="name"></v-select>
                                     </div>
 
                                 </div>
@@ -126,10 +126,10 @@
                                         </div>
                                     </div>
                                     <div class="col-md-7">
-                                        <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
-                                            :teleport="true" v-model="form.job_level_id"
-                                            class="text-capitalize job-chooser" :clearable="false"
-                                            :options="dropdowns.jobLevels" :reduce="(x: any) => x.id"
+                                        <v-select :loading="!jobPosting.hasLoadedDropdowns" append-to-body
+                                            :calculate-position="useFxn.vueSelectPositionCalc" :teleport="true"
+                                            v-model="form.job_level_id" class="text-capitalize job-chooser"
+                                            :clearable="false" :options="dropdowns.jobLevels" :reduce="(x: any) => x.id"
                                             label="name"></v-select>
 
                                     </div>

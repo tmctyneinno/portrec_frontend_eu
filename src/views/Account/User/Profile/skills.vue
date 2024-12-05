@@ -11,7 +11,7 @@
             </div>
             <div class="card-body small">
                 <div class="row g-3">
-                    <div class="col-12 col-lg-6">
+                    <div class="col-12">
                         <div class="card border-0 bg-light-subtle h-100">
                             <div class="card-body small">
                                 <span v-for="skill in userSkills" :key="skill.id" class="skills-tag">

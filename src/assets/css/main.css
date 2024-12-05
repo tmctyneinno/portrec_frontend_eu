@@ -216,6 +216,10 @@ hr.faint:after {
   background-image: radial-gradient(farthest-side at center top, #cccccc 0%, rgba(255, 255, 255, 0) 100%);
 }
 
+.dropdown-toggle::after {
+  content: none !important;
+}
+
 .xsmall {
   font-size: .754em;
 }

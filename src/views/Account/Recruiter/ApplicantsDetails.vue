@@ -75,7 +75,7 @@
 
                     <!-- shecdule and chat -->
                     <div class="d-flex justify-content-between mt-3">
-                        <button class="btn w-100 me-3  btn-primary-outline">Schedule
+                        <button @click="openInterviewModal" class="btn w-100 me-3  btn-primary-outline">Schedule
                             Interview</button>
                         <!-- <a :href="userResume" target="_blank" class="btn w-100 me-3 btn-primary-outline" download>
                             <i class="bi bi-file-earmark-arrow-down-fill"></i> Download Resume
@@ -173,7 +173,7 @@
         </div>
 
 
-
+        <ScheduleIterviewModal />
 
     </div>
 </template>
@@ -188,9 +188,10 @@ import ApplicantsDetailsComponentResume from './ApplicantsDetailsComponentResume
 import ApplicantsDetailsComponentProgress from './ApplicantsDetailsComponentProgress.vue';
 import { storeToRefs } from 'pinia';
 import OverlayLoading from '@/components/overlayLoading.vue';
+import ScheduleIterviewModal from './Interview/scheduleIterviewModal.vue';
 
-const recruiterCommonStore = useRecruiterCommonStore()
-const { applicants } = storeToRefs(recruiterCommonStore)
+const commonStore = useRecruiterCommonStore()
+const { applicants, interview } = storeToRefs(commonStore)
 
 const profileStore = useProfileStore()
 onMounted(() => {
@@ -204,9 +205,14 @@ function navigateBack() {
 }
 
 
-const userResume = computed(() => {
-    return applicants.value.details?.resume?.resume_url ?? null
-})
+// const userResume = computed(() => {
+//     return applicants.value.details?.resume?.resume_url ?? null
+// })
+
+
+function openInterviewModal() {
+    interview.value.scheduleModal = !interview.value.scheduleModal
+}
 
 </script>
 

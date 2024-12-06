@@ -30,6 +30,10 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
         jobListUpdated: false
     })
 
+    const interview = reactive<{ scheduleModal: boolean }>({
+        scheduleModal: false,
+    })
+
     const jobPostingDropdowns = reactive<{
         jobFunctions: any[],
         jobIndustries: any[],
@@ -258,5 +262,7 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
         getCompanyResources,
 
         usersOnSearch,
+
+        interview
     }
 })

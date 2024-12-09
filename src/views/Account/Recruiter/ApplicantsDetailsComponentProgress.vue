@@ -49,41 +49,11 @@ import api from '@/stores/Helpers/axios'
 import type { JobStatusInterface } from '@/stores/interfaces';
 
 const recruiterCommonStore = useRecruiterCommonStore()
-const { applicants } = storeToRefs(recruiterCommonStore);
+const { applicants, hiringProgressList } = storeToRefs(recruiterCommonStore);
 
 const currentStage = computed(() => {
     return applicants.value.details?.status
 })
-
-
-const hiringProgressList = ref<{ label: string, val: JobStatusInterface, desc?: string }[]>([
-    {
-        label: 'In-Review',
-        val: 'IN_REVIEW',
-        desc: 'The application is being reviewed to assess initial eligibility based on submitted materials.',
-    },
-    {
-        label: 'Shortlisted',
-        val: 'SHORTLISTED',
-        desc: 'The candidate has passed the initial review and is under consideration for the next steps.',
-    },
-    {
-        label: 'Interviewing',
-        val: 'INTERVIEWING',
-        desc: 'The candidate is undergoing interviews and assessments to evaluate their suitability for the role.',
-    },
-    {
-        label: 'Offered',
-        val: 'OFFERED',
-        desc: 'The candidate has successfully completed the process and is being offered the position.',
-    },
-    {
-        label: 'Rejected',
-        val: 'REJECTED',
-        desc: 'The candidate is no longer being considered for the role and may receive feedback if available.',
-    },
-]);
-
 
 
 function updateStage(status: JobStatusInterface) {

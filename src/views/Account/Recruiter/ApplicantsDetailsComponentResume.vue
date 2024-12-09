@@ -2,7 +2,8 @@
 import { storeToRefs } from 'pinia';
 import { useRecruiterCommonStore } from './RecruiterCommonStore';
 import { computed } from 'vue';
-import PDFViewer from 'pdf-viewer-vue'
+import { VuePDF, usePDF } from '@tato30/vue-pdf'
+import '@tato30/vue-pdf/style.css'
 
 const recruiterCommonStore = useRecruiterCommonStore()
 const { applicants } = storeToRefs(recruiterCommonStore);
@@ -12,15 +13,17 @@ const userResume = computed(() => {
     // return applicants.value.details?.resume?.resume_url ?? null
     return `https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/web/compressed.tracemonkey-pldi-09.pdf`
 })
+const { pdf } = usePDF({
+    url: userResume.value,
+    enableXfa: true,
+})
 
-function handleDownload() {
 
-}
 </script>
 
 <template>
-    <div>
-        <PDFViewer :source="userResume" style="width: 100%; height: 100vh;" @download="handleDownload" />
+    <div class="d-flex justify-content-center overflow-hidden">
+        <VuePDF text-layer annotation-layer :pdf="pdf" />
     </div>
 </template>
 

@@ -25,9 +25,9 @@
         </div>
 
         <div class="col-12">
-            <!-- v-model:items-selected="itemsSelected" -->
-            <EasyDataTable :loading="itemsLoading" show-index alternating :headers="tableHeader" :items="items"
-                buttons-pagination v-model:server-options="serverOptions" :server-items-length="total">
+            <EasyDataTable class="recruiter-applicants-table" :loading="itemsLoading" show-index alternating
+                :headers="tableHeader" :items="items" buttons-pagination v-model:server-options="serverOptions"
+                :server-items-length="total" @click-row="goToApplicantsDetails">
 
                 <template #header="header">
                     <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
@@ -52,7 +52,7 @@
                 </template>
 
                 <template #item-action="item">
-                    <button @click="goToApplicantsDetails(item.id)"
+                    <button @click="goToApplicantsDetails(item)"
                         class="btn btn-sm btn-primary-outline  border-0 rounded-5  text-decoration-none btn-sm p-1 px-2 ">
                         <i class="bi bi-eye"></i>
                     </button>
@@ -180,8 +180,8 @@ const classAccordingToStage = (stage: string) => {
     return classname;
 }
 
-function goToApplicantsDetails(id: string) {
-    recruiterCommonStore.applicants.currentIdShowing = id;
+function goToApplicantsDetails(item: any) {
+    recruiterCommonStore.applicants.currentIdShowing = item.id;
     recruiterCommonStore.applicants.showing = 'details'
     recruiterCommonStore.loadApplicantDetails()
 }
@@ -205,5 +205,11 @@ function goToApplicantsDetails(id: string) {
     color: var(--theme-color) !important;
     border: 1px solid var(--theme-color) !important;
     background-color: var(--bs-light);
+}
+</style>
+
+<style>
+.recruiter-applicants-table .vue3-easy-data-table__body td {
+    cursor: pointer;
 }
 </style>

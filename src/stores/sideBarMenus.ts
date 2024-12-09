@@ -59,7 +59,7 @@ const recruiterMenu = [{
     icon: 'bi bi-journal-text'
 },
 {
-    title: 'Applications',
+    title: 'Applicants',
     routeName: 'recruiter-All_Applicants',
     icon: 'bi bi-people'
 },

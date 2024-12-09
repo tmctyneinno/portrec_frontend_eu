@@ -136,6 +136,20 @@ export default {
         return dd.value;
     },
 
+    dateTimeDisplay: (date: Date | string, format = 'MMM D, YYYY -  hh:mm a') => {
+
+        if (!date) return '-';
+
+        // If the date is a string, attempt to convert it to a Date
+        const parsedDate = new Date(date);
+        if (isNaN(parsedDate.getTime())) {
+            return '-';
+        }
+
+        const dd = useDateFormat(parsedDate, format);
+        return dd.value;
+    },
+
     timeAgo: (date: Date) => {
         const timeAgo = useTimeAgo(new Date(date));
         return timeAgo.value;

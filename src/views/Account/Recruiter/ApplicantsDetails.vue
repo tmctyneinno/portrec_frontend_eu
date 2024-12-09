@@ -58,17 +58,12 @@
                                 </span>
                             </div>
                             <div class="progress rounded-">
-                                <div class="progress-bar bg-theme me-1" role="progressbar" style="width: 25%;"
-                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                <div v-for="(progress, index) in commonStore.hiringProgressList" :key="progress.val"
+                                    class="progress-bar bg-transparent me-1" role="progressbar" style="width: 100%;"
+                                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+                                    :class="{ 'bg-theme': isHighlighted(index) }">
+                                </div>
 
-                                </div>
-                                <div class="progress-bar bg-theme me-1" role="progressbar" style="width: 25%;"
-                                    aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
-
-                                </div>
-                                <div class="progress-bar bg-theme" role="progressbar" style="width: 20%"
-                                    aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -173,7 +168,7 @@
         </div>
 
 
-        <ScheduleIterviewModal />
+        <scheduleInterviewModal />
 
     </div>
 </template>
@@ -188,7 +183,7 @@ import ApplicantsDetailsComponentResume from './ApplicantsDetailsComponentResume
 import ApplicantsDetailsComponentProgress from './ApplicantsDetailsComponentProgress.vue';
 import { storeToRefs } from 'pinia';
 import OverlayLoading from '@/components/overlayLoading.vue';
-import ScheduleIterviewModal from './Interview/scheduleIterviewModal.vue';
+import scheduleInterviewModal from './Interview/scheduleInterviewModal.vue';
 
 const commonStore = useRecruiterCommonStore()
 const { applicants, interview } = storeToRefs(commonStore)
@@ -213,6 +208,14 @@ function navigateBack() {
 function openInterviewModal() {
     interview.value.scheduleModal = !interview.value.scheduleModal
 }
+
+
+const currentIndex = computed(() =>
+    commonStore.hiringProgressList.findIndex((progress) => progress.label === applicants.value?.details?.status)
+);
+
+const isHighlighted = (index: any) => index <= currentIndex.value;
+
 
 </script>
 

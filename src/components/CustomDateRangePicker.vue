@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, defineProps, defineEmits, toRefs, watch, onMounted } from 'vue';
+import { ref, toRefs, watch, onMounted } from 'vue';
 import { useDateFormat } from '@vueuse/core';
 import {
     endOfMonth, endOfYear, startOfMonth,

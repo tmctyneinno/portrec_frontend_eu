@@ -246,7 +246,7 @@ watchEffect(() => {
 onBeforeMount(() => {
   // redirect to account page if loggged in
   if (profileStore.getUserType == 'user') {
-    router.replace({ path: `/user/job-description/${route.params.id}` })
+    router.replace({ path: `/user/job-description/${route.params.id}`, query: { t: new Date().getMilliseconds() } })
   }
 })
 

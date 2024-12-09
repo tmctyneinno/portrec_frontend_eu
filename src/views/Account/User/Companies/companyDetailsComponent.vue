@@ -43,8 +43,8 @@
                                                     <i class="bi bi-share"></i>
                                                 </div>
                                                 <div class="col-9 align-content-center">
-                                                    <router-link :to="`/job-description/${job.id}`"
-                                                        class="btn p-2 btn-primary w-100">Apply</router-link>
+                                                    <button @click="goToJob(job.id)"
+                                                        class="btn p-2 btn-primary w-100">Apply</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -177,12 +177,13 @@
 
 <script lang="ts" setup>
 import { onMounted, reactive, ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import overlayLoadingVue from '@/components/overlayLoading.vue';
 import api from '@/stores/Helpers/axios'
 import useFxn from '@/stores/Helpers/useFunctions';
 
 const route = useRoute()
+const router = useRouter()
 const pageIsLoading = ref(false)
 const companyData = ref<any>('')
 
@@ -227,6 +228,10 @@ async function sendMessage() {
             // console.log(error);
         }
     }
+}
+
+function goToJob(id: any) {
+    router.push({ path: `job-description/${btoa(id)}`, query: { t: new Date().getMilliseconds() } })
 }
 </script>
 

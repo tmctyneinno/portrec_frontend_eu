@@ -16,8 +16,8 @@
             </div>
             <div class="col-12 mt-4">
                 <div class="row g-4">
-                    <jobsDisplayVue2 @click="router.push({ 'path': `/job-description/${data.id}` })"
-                        v-for="(data, index) in dataList" :key="index" :job="data" />
+                    <jobsDisplayVue2 @click="goToJob(data.id)" v-for="(data, index) in dataList" :key="index"
+                        :job="data" />
                 </div>
 
             </div>
@@ -100,6 +100,11 @@ const dataList: any = [
     },
 
 ]
+
+
+function goToJob(id: any) {
+    router.push({ path: `job-description/${btoa(id)}`, query: { t: new Date().getMilliseconds() } })
+}
 
 </script>
 

@@ -20,7 +20,7 @@
                 </div>
                 <div v-else class="row g-4">
                     <jobsDisplayVue :job="latest" v-for="(latest, i) in jobsStore.latest" :key="i"
-                        @click="router.push({ 'path': `/job-description/${latest.id}` })" />
+                        @click="goToJob(latest.id)" />
                 </div>
             </div>
         </div>
@@ -41,4 +41,9 @@ onMounted(() => {
 
 
 const router = useRouter()
+
+
+function goToJob(id: any) {
+    router.push({ path: `job-description/${btoa(id)}`, query: { t: new Date().getMilliseconds() } })
+}
 </script>

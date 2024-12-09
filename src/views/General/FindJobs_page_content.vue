@@ -222,8 +222,8 @@
                             </div>
                             <div class="col-md-3 justify-content-end">
                               <div class="text-cente">
-                                <router-link :to="`/job-description/${job.id}`"
-                                  class="btn p-2 btn-primary rounded- w-100">Details</router-link>
+                                <button @click="goToJob(job.id)"
+                                  class="btn p-2 btn-primary rounded- w-100">Details</button>
 
                                 <div class="progress mt-2 mb-0 rounded-0" role="progressbar"
                                   :aria-valuenow="job.total_applied" aria-valuemin="0" :aria-valuemax="job.capacity"
@@ -265,12 +265,13 @@
 import searchJobForm from '@/components/searchJobForm.vue';
 import { onMounted, reactive, ref, watch } from 'vue';
 import { useJobsStore } from '@/stores/jobsStore';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { useWindowSize } from '@vueuse/core'
 import useFunctions from '@/stores/Helpers/useFunctions';
 
 const jobsStore = useJobsStore()
 const route = useRoute()
+const router = useRouter()
 
 const { width: windowWidth } = useWindowSize()
 
@@ -363,6 +364,11 @@ const salaryRanges = ref([
   { min: 1000, max: 2000, id: 3 },
   { min: 2000, max: 'above', id: 4 },
 ])
+
+
+function goToJob(id: any) {
+  router.push({ path: `job-description/${btoa(id)}`, query: { t: new Date().getMilliseconds() } })
+}
 
 
 </script>

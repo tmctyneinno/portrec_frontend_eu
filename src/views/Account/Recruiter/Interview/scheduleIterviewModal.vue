@@ -117,8 +117,6 @@ const { interview } = storeToRefs(recruiterCommonStore)
 const openInterviewModal = ref<any>(null)
 const closeInterviewModal = ref<any>(null)
 
-
-
 const form = reactive({
     isSaving: false,
     interview_date: new Date(),

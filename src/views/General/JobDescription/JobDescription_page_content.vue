@@ -181,8 +181,7 @@
         </div>
         <div class="col-12 mt-4">
           <div v-if="similarJobs.length" class="row g-4">
-            <jobsDisplayVue :job="i" @click="router.push({ 'path': `/job-description/${i.id}` })"
-              v-for="i in similarJobs" :key="i" />
+            <jobsDisplayVue :job="i" @click="goToJob(i.id)" v-for="i in similarJobs" :key="i" />
           </div>
           <noDataShow v-else text="No similar jobs" />
         </div>
@@ -226,7 +225,10 @@ const profileStore = useProfileStore()
 
 watchEffect(async () => {
   loading.value = true
-  await job.currentJobQuery(route.params.id)
+
+  // @ts-ignore
+  const jobId: any = atob(route.params.id)
+  await job.currentJobQuery(jobId)
   if (!currentJob.value.title) router.back()
   getSimilarJobs()
 })
@@ -294,6 +296,11 @@ function shareLink() {
     url: location.href,
   })
 }
+
+function goToJob(id: any) {
+  router.push({ path: `job-description/${btoa(id)}`, query: { t: new Date().getMilliseconds() } })
+}
+
 
 onBeforeRouteLeave(() => {
   modalOpen.value = false

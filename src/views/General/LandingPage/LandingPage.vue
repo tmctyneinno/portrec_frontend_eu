@@ -14,7 +14,7 @@
   <!-- quick Career -->
   <quickCareerVue />
   <!-- pricing -->
-  <pricingVue />
+  <!-- <pricingVue /> -->
   <!-- footer -->
   <footerVue />
 </template>

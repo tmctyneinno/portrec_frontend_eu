@@ -258,7 +258,6 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
         {
             label: 'Interviewing',
             val: 'INTERVIEWING',
-            desc: 'The candidate is undergoing interviews and assessments to evaluate their suitability for the role.',
         },
         {
             label: 'Offered',

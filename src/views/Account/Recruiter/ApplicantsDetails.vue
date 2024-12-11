@@ -15,7 +15,7 @@
         </div>
 
         <div class="col-md-5">
-            <div class="card rounded-">
+            <div class="card rounded- h-100">
                 <div class="card-body">
 
                     <!-- name -->

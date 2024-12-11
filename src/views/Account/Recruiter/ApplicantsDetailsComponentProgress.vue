@@ -12,9 +12,34 @@
     <hr class="faint my-4">
     <div class="card bg-light border-0">
         <div class="card-body " style="min-height: 100px;">
-            <span class="fst-italic text-muted" v-if="getStageDescription()">
+            <div class="fw-bold mb-3">Stage Info:</div>
+            <div class="fst-italic text-muted" v-if="getStageDescription()">
                 {{ getStageDescription() }}
-            </span>
+            </div>
+            <div v-else class="small">
+
+                <div class="row g-3">
+                    <div class="col-lg-6">
+                        <div class="text-muted">Interview Date</div>
+                        <div class="fw-bold">
+                            13th July 2025 (12pm)
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="text-muted">Interview Status</div>
+                        <div class="fw-bold badge rounded-pill bg-warning-subtle text-warning-emphasis">
+                            In Progess
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="text-muted">Interview location</div>
+                        <div class="fw-bold">
+                            Silver Crysta Room, Nomad Office
+                            3517 W. Gray St. Utica, Pennsylvania 57867
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="mt-3">
@@ -73,6 +98,7 @@ function updateStage(status: JobStatusInterface) {
         }
     })
 }
+
 
 function moveToNextStep() {
     if (!currentStage.value) return;

@@ -88,4 +88,9 @@ export default {
     recruiterNotifications() {
         return $instance.get(`notifications/recruiter`)
     },
+
+    recruiterScheduleInterview(form: FormData) {
+        return $instanceForm.post(`create/meeting`, form)
+    },
+
 }

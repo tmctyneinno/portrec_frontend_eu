@@ -9,9 +9,8 @@ const recruiterCommonStore = useRecruiterCommonStore()
 const { applicants } = storeToRefs(recruiterCommonStore);
 
 const userResume = computed(() => {
-    // return applicants.value.details?.resumeBase64 ?? null
-    // return applicants.value.details?.resume?.resume_url ?? null
-    return `https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/web/compressed.tracemonkey-pldi-09.pdf`
+    return applicants.value.details?.resume?.resume_url ?? null
+    // return `https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/web/compressed.tracemonkey-pldi-09.pdf`
 })
 const { pdf } = usePDF({
     url: userResume.value,

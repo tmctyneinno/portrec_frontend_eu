@@ -6,8 +6,8 @@
         </button>
 
         <div class="modal  fade" id="scheduleInterviewModal" tabindex="-1" data-bs-backdrop="static"
-            data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollabl modal-lg" role="document">
+            data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header border-0">
 
@@ -18,39 +18,30 @@
                     <div class="modal-body">
 
                         <form class="row g-3" @submit.prevent>
-                            <div class="col-md-6 col-lg-3">
-                                <div class="form-floating">
-                                    <select class="form-select" id="duration" aria-label="">
-                                        <option v-for="duration in durations" :key="duration.value"
-                                            :value="duration.value">
-                                            {{ duration.label }}
-                                        </option>
-                                    </select>
-                                    <label for="duration">Duration <span class="text-danger">*</span></label>
-                                </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="form-label">Duration <span class="text-danger">*</span></div>
+                                <select class="form-select" id="duration" aria-label="">
+                                    <option v-for="duration in durationsDropdown" :key="duration.value"
+                                        :value="duration.value">
+                                        {{ duration.label }}
+                                    </option>
+                                </select>
                             </div>
 
-                            <!-- <div class="col-md-6 col-lg-4">
-                                <div class="form-floating">
-                                    <input v-model="form.interviewer_no" placeholder="" type="text"
-                                        class="form-control " v-maska data-maska="#"
-                                        data-maska-tokens="#:[0-9]:repeated" data-maska-reversed id="interviewer_no" />
-                                    <label for="interviewer_no">Interviewer's phone number <span
-                                            class="text-danger">*</span></label>
-                                </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="form-label">Date<span class="text-danger">*</span></div>
+                                <VueDatePicker placeholder="" v-model="form.selected_date" :format="useFxn.dateDisplay"
+                                    :teleport="true" hide-input-icon :clearable="false" :enable-time-picker="false"
+                                    :is24="false" auto-apply id="interview_date">
+                                </VueDatePicker>
 
-                            </div> -->
+                            </div>
 
-                            <div class="col-md-6 col-lg-5">
-                                <div class="form-floating">
-                                    <VueDatePicker placeholder="" class="form-control datepicker-floating-label"
-                                        v-model="form.start_time" :format="useFxn.dateTimeDisplay" :teleport="true"
-                                        hide-input-icon :clearable="false" :enable-time-picker="true" :is24="false"
-                                        auto-apply id="interview_date">
-                                    </VueDatePicker>
-                                    <label for="interview_date">Date & Time <span class="text-danger">*</span></label>
-                                </div>
-
+                            <div class="col-md-6 col-lg-4">
+                                <div class="form-label">Time<span class="text-danger">*</span></div>
+                                <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
+                                    v-model="form.selected_time" class="text-capitalize time-chooser" :clearable="false"
+                                    :searchable="false" :options="timeDropdown"></v-select>
                             </div>
 
                             <!-- <div class="col-md-6">
@@ -75,20 +66,16 @@
                                 </div>
                             </div>
                             <div class="col-lg-12" v-if="form.meeting_type === 'physical'">
-                                <div class="form-floating">
-                                    <input v-model="form.location" type="text" class="form-control"
-                                        id="interview_address" placeholder="" />
-                                    <label for="interview_address">Address <span class="text-danger">*</span></label>
-                                </div>
+                                <div class="form-label">Address <span class="text-danger">*</span></div>
+                                <input v-model="form.location" type="text" class="form-control" id="interview_address"
+                                    placeholder="" />
 
                             </div>
 
                             <div class="col-12">
-                                <div class="form-floating">
-                                    <textarea class="form-control" placeholder="" id="floatingTextarea2"
-                                        style="height: 100px"></textarea>
-                                    <label for="floatingTextarea2">Additional message to candidate </label>
-                                </div>
+                                <div class="form-label">Additional message to candidate: </div>
+                                <textarea v-model="form.message" class="form-control" placeholder=""
+                                    id="floatingTextarea2" style="height: 60px"></textarea>
                             </div>
                         </form>
 
@@ -97,7 +84,7 @@
                     <div class="modal-footer border-0">
                         <!-- <button ref="closeInterviewModal" type="button" class="btn btn-light " data-bs-dismiss="modal"
                             aria-label="Close">Cancel</button> -->
-                        <div v-if="form.fieldError" class="small text-danger me-3">{{ form.fieldError }}llll</div>
+                        <div v-if="form.fieldError" class="small text-danger me-3">{{ form.fieldError }}</div>
 
                         <primaryButtonLoading v-if="form.isSaving" :btnText="'Creating schedule'" />
 
@@ -135,8 +122,10 @@ const closeInterviewModal = ref<any>(null)
 type meetingTypeOptions = 'online' | 'physical';
 interface InterviewForm {
     type: '2' | '1',
-    start_time: Date,
+    selected_date: Date,
+    selected_time: { value: string, label: string },
     duration: string,
+    message: string,
     topic: string,
     meeting_type: meetingTypeOptions,
     location: string,
@@ -148,8 +137,10 @@ interface InterviewForm {
 
 const form = reactive<InterviewForm>({
     type: '2',
-    start_time: new Date(),
+    selected_date: new Date(),
+    selected_time: { value: '12:00', label: '12PM' },
     duration: '10',
+    message: '',
     topic: '',
     meeting_type: 'online',
     location: '',
@@ -159,12 +150,15 @@ const form = reactive<InterviewForm>({
     fieldError: ''
 })
 
-const durations = ref<{ value: string, label: string }[]>([
+const durationsDropdown = ref<{ value: string, label: string }[]>([
     { value: '10', label: '10 mins' },
     { value: '15', label: '15 mins' },
     { value: '30', label: '30 mins' },
     { value: '40', label: '40 mins' },
 ])
+
+const timeDropdown = ref(useFxn.generateTimeOptions(8, 17));
+
 
 const meetingTypes = ref<{ name: string, value: meetingTypeOptions, icon: string }[]>([
     { name: 'Video', value: 'online', icon: 'bi bi-camera-video' },
@@ -201,10 +195,17 @@ async function createSchedule(obj: any) {
     }
     form.isSaving = true;
 
+    // combine date & time
+    const [hours, minutes] = form.selected_time.value.split(':').map(Number);
+    const start_time = new Date(form.selected_date)
+    start_time.setHours(hours, minutes, 0, 0);
+
+
     const formData = new FormData();
     formData.append('type', form.type);
-    formData.append('start_time', new Date(form.start_time).toISOString());
+    formData.append('start_time', start_time.toISOString());
     formData.append('duration', form.duration);
+    formData.append('message', form.message);
     formData.append('topic', form.topic);
     formData.append('meeting_type', form.meeting_type);
     formData.append('location', form.location);
@@ -242,10 +243,13 @@ async function createSchedule(obj: any) {
 </style>
 
 <style>
-.datepicker-floating-label .dp__input {
-    border: none !important;
-    padding: 0px !important;
-    background: transparent !important;
+.time-chooser .vs__search {
+    border: 0px !important;
+}
 
+
+.v-select,
+.v-select * {
+    line-height: 1.67rem !important;
 }
 </style>

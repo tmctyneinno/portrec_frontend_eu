@@ -379,9 +379,9 @@ async function submitPasswordForm() {
     background-color: #fff !important;
 } */
 
-.dob-settings-input .dp__pointer {
+/* .dob-settings-input .dp__pointer {
     border-radius: 0px !important;
-}
+} */
 
 .country-chooser-settings .vs__search,
 .gender-chooser .vs__search {
@@ -393,6 +393,6 @@ async function submitPasswordForm() {
 .country-chooser-settings .vs__dropdown-toggle,
 .gender-chooser .vs__dropdown-toggle {
     background-color: #fff !important;
-    border-radius: 0px;
+    /* border-radius: 0px; */
 }
 </style>

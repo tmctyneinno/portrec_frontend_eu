@@ -211,5 +211,18 @@ export default {
         if (!url) return false; // Ensure the URL is not empty
         const regex = /^(https?:\/\/)?(www\.)?([a-zA-Z0-9-]+)\.([a-zA-Z]{2,})(\/.*)?$/;
         return regex.test(url);
+    },
+
+    generateTimeOptions: (startHour: number, endHour: number) => {
+        const times = [];
+        for (let hour = startHour; hour <= endHour; hour++) {
+            const isPM = hour >= 12;
+            const displayHour = hour % 12 || 12;
+            const label = `${displayHour}${isPM ? 'PM' : 'AM'}`;
+            const value = `${hour < 10 ? '0' : ''}${hour}:00`;
+            times.push({ value, label });
+        }
+
+        return times;
     }
 }

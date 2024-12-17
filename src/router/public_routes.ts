@@ -80,6 +80,12 @@ export default [
         beforeEnter: initGuard
     },
     {
+        path: '/meeting/invite',
+        alias: '/meeting/accept',
+        name: 'Meeting Invite',
+        component: () => import('../views/MeetingInvite.vue')
+    },
+    {
         path: '/:pathMatch(.*)*',
         name: '404',
         component: () => import('../views/PageNotFound.vue')

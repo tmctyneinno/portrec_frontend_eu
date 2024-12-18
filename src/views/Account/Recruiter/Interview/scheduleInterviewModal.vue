@@ -20,12 +20,10 @@
                         <form class="row g-3" @submit.prevent>
                             <div class="col-md-6 col-lg-4">
                                 <div class="form-label">Duration <span class="text-danger">*</span></div>
-                                <select class="form-select" id="duration" aria-label="">
-                                    <option v-for="duration in durationsDropdown" :key="duration.value"
-                                        :value="duration.value">
-                                        {{ duration.label }}
-                                    </option>
-                                </select>
+                                <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
+                                    v-model="form.duration" class="text-capitalize time-chooser" :clearable="false"
+                                    :searchable="false" :options="durationsDropdown"
+                                    :reduce="(x: any) => x.value"></v-select>
                             </div>
 
                             <div class="col-md-6 col-lg-4">
@@ -41,7 +39,7 @@
                                 <div class="form-label">Time<span class="text-danger">*</span></div>
                                 <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
                                     v-model="form.selected_time" class="text-capitalize time-chooser" :clearable="false"
-                                    :searchable="false" :options="timeDropdown"></v-select>
+                                    :searchable="true" :options="timeDropdown"></v-select>
                             </div>
 
                             <!-- <div class="col-md-6">
@@ -72,10 +70,20 @@
 
                             </div>
 
-                            <div class="col-12">
+                            <div class="col-lg-6">
                                 <div class="form-label">Additional message to candidate: </div>
                                 <textarea v-model="form.message" class="form-control" placeholder=""
-                                    id="floatingTextarea2" style="height: 60px"></textarea>
+                                    style="height: 80px"></textarea>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-label">Team Members:
+                                    <span class="small text-muted">
+                                        Seperate emails with commas (,)
+                                    </span>
+                                </div>
+
+                                <textarea v-model="form.team_members" class="form-control"
+                                    placeholder="one@email.com,two@email.com" style="height: 80px"></textarea>
                             </div>
                         </form>
 
@@ -126,6 +134,7 @@ interface InterviewForm {
     selected_time: { value: string, label: string },
     duration: string,
     message: string,
+    team_members: string,
     topic: string,
     meeting_type: meetingTypeOptions,
     location: string,
@@ -141,6 +150,7 @@ const form = reactive<InterviewForm>({
     selected_time: { value: '12:00', label: '12PM' },
     duration: '10',
     message: '',
+    team_members: '',
     topic: '',
     meeting_type: 'online',
     location: '',
@@ -206,6 +216,7 @@ async function createSchedule(obj: any) {
     formData.append('start_time', start_time.toISOString());
     formData.append('duration', form.duration);
     formData.append('message', form.message);
+    formData.append('team_members', form.team_members);
     formData.append('topic', form.topic);
     formData.append('meeting_type', form.meeting_type);
     formData.append('location', form.location);

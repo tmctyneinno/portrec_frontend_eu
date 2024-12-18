@@ -5,4 +5,5 @@ export default {
         return $instance.get(`notification/read/${id}`)
     },
 
+
 }

@@ -80,4 +80,13 @@ export default {
     userDashboardInfo() {
         return $instance.get(`user/dashboard/info`)
     },
+
+    meetingInfomation(id: string | number) {
+        return $instance.get(`get/meeting/info/${id}`)
+    },
+
+    meetingAccept(obj: FormData) {
+        return $instanceForm.post(`user/accept/interview`, obj)
+    },
+
 }

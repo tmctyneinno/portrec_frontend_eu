@@ -103,7 +103,7 @@ const dataList: any = [
 
 
 function goToJob(id: any) {
-    router.push({ path: `job-description/${btoa(id)}`, query: { t: new Date().getMilliseconds() } })
+    router.push({ path: `job-description/${btoa(id)}`, query: { t: new Date().getTime() } })
 }
 
 </script>

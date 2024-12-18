@@ -20,12 +20,13 @@
                         <div @click="gotoFindJobs(cat.id)" class="card explore-card shadow-sm  hover-tiltY h-100">
                             <div class="card-body">
                                 <div class="card-icon theme-color"><i class="bi" :class="cateIcon(cat.name)"></i> </div>
-                                <h3 class="card-title fw-light my-2 text-capitalize">{{ cat.name }}</h3>
+                                <h4 class="card-title fw-light my-2 text-capitalize">{{ cat.name }}</h4>
                             </div>
 
                             <div class=" card-footer bg-transparent border-0">
-                                <span class="float-end fw-bolder">{{ cat.total_jobs }} jobs available <i
-                                        class="bi bi-arrow-right"></i></span>
+                                <span class="float-end fw-bolder">{{ cat.total_jobs }}
+                                    {{ cat.total_jobs == 1 ? 'job' : 'jobs' }} available
+                                    <i class="bi bi-arrow-right"></i></span>
                             </div>
                         </div>
                     </div>
@@ -83,7 +84,7 @@ function gotoFindJobs(id: any) {
 }
 
 .card-icon {
-    font-size: 2.51rem;
+    font-size: 2rem;
 }
 
 .explore-card {

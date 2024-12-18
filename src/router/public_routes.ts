@@ -81,7 +81,7 @@ export default [
     },
     {
         path: '/meeting/invite',
-        alias: '/meeting/accept',
+        alias: ['/meeting/accept', '/candidate/accept/view'],
         name: 'Meeting Invite',
         component: () => import('../views/MeetingInvite.vue')
     },

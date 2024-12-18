@@ -13,7 +13,8 @@
                 <div class="row gy-3 align-items-center">
 
                   <div class="col-md-1 text-lg-center">
-                    <img :src="currentJob?.image" class="img-fluid" width="55" alt="_img">
+                    <img v-if="currentJob?.image" :src="currentJob.image" class="img-fluid" width="55" alt="_img">
+                    <i v-else class="bi bi-suitcase-lg fs-2 text-muted"></i>
                   </div>
 
                   <div class="col-md-7">
@@ -243,12 +244,14 @@ watchEffect(() => {
 })
 
 
-onBeforeMount(() => {
-  // redirect to account page if loggged in
-  if (profileStore.getUserType == 'user') {
-    router.replace({ path: `/user/job-description/${route.params.id}`, query: { t: new Date().getMilliseconds() } })
-  }
-})
+// onBeforeMount(() => {
+//   console.log(route.path);
+
+//   // redirect to account page if loggged in
+//   // if (profileStore.getUserType == 'user') {
+//   //   router.replace({ path: `/user/job-description/${route.params.id}`, query: { t: new Date().getTime() } })
+//   // }
+// })
 
 async function getSimilarJobs() {
   try {
@@ -298,7 +301,7 @@ function shareLink() {
 }
 
 function goToJob(id: any) {
-  router.push({ path: `job-description/${btoa(id)}`, query: { t: new Date().getMilliseconds() } })
+  router.push({ path: `job-description/${btoa(id)}`, query: { t: new Date().getTime() } })
 }
 
 

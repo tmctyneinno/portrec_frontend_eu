@@ -70,7 +70,10 @@
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-12 col-md-12 text-center">
-                        <p class="mb-0"> &copy; {{ (new Date()).getFullYear() }} PORTREC. </p>
+                        <p class="mb-0"> &copy; {{ (new Date()).getFullYear() }} PORTREC.
+                            Resourcing is a tradename / part of THE MORGANS CONSORTIUM Consulting Limited - Companies
+                            House Reg No : 09045481
+                        </p>
                     </div>
                 </div>
             </div>

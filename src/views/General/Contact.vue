@@ -15,10 +15,16 @@
           <div class="col-lg-12 text-center">
             <div class="min-vh- bg-light my-3">
               <div>
-                <GoogleMap api-key="GOOGLE_MAPS_API_KEY" style="width: 100%; height: 500px" :center="map_center"
+                <div class="mapswrapper"><iframe width="600" height="450" loading="lazy" allowfullscreen
+                    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=2nd%20Floor%2C%201%20Adeola%20Adeoye%20Street%2C%20Toyin%20Street%2C%20Ikeja%2C%20Lagos%2C%20Nigeria.&zoom=10&maptype=roadmap"></iframe><a
+                    href="https://www.fluxpromptgenerator.net">Prompt Generator</a>
+
+
+                </div>
+                <!-- <GoogleMap api-key="GOOGLE_MAPS_API_KEY" style="width: 100%; height: 500px" :center="map_center"
                   :zoom="15">
                   <Marker :options="{ position: map_center }" />
-                </GoogleMap>
+                </GoogleMap> -->
               </div>
             </div>
           </div>
@@ -141,3 +147,25 @@ const locations = [
   },
 ];
 </script>
+
+<style scoped>
+.mapswrapper {
+  background: #fff;
+  position: relative
+}
+
+.mapswrapper iframe {
+  border: 0;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.mapswrapper a {
+  color: rgba(0, 0, 0, 0);
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 0
+}
+</style>

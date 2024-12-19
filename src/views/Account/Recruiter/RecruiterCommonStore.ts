@@ -136,13 +136,15 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
             const { data } = await api.recruiterJobApplicationDetails(applicants.currentIdShowing)
             applicants.details = data
             applicants.detailsLoading = false;
-            console.log(applicants.details, 'data 000000');
+            // console.log(applicants.details, 'data 000000');
 
         } catch (error) {
             // console.log(error);
 
         }
     }
+
+
 
     const jobPostingFieldsEmptyState: JobOpeningInterface = {
         job_level_id: '',

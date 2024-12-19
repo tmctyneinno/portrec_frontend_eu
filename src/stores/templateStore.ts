@@ -25,7 +25,7 @@ export const useTemplateStore = defineStore('template', () => {
   })
 
 
-  const statusColor = (statusText: string) => {
+  const applicationStatusColor = (statusText: string) => {
     let color;
     if (statusText == 'IN_REVIEW' || statusText == 'In_Review') color = '#3734a7'
     else if (statusText == 'INTERVIEWING' || statusText == 'Interviewing') color = '#a0ab19'
@@ -37,5 +37,5 @@ export const useTemplateStore = defineStore('template', () => {
   }
 
 
-  return { navBarMenus, themeColors, statusColor }
+  return { navBarMenus, themeColors, applicationStatusColor }
 })

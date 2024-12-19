@@ -7,7 +7,8 @@
                 <div class="fw-bold fs-5 mt-4">Invitation Details</div>
                 <!-- <div class="small"> {{ useFxn.dateTimeDisplay(interviewDetails.interview_date) }} </div> -->
                 <div class="col-12">
-                    <div class="fw-bold text-capitalize">{{ interviewDetails?.get_jobs?.job?.title ?? '' }},</div>
+                    <div class="fw-bold text-capitalize">{{ interviewDetails?.get_jobs?.job?.title ?? '' }}, {{
+                        interviewDetails?.company?.name }}</div>
                     <div class="text-muted small text-capitalize">{{ interviewDetails?.get_jobs?.job?.location ?? '' }}.
                     </div>
                     <div class="text-muted mt-2 small">
@@ -26,8 +27,9 @@
                 <div v-if="interviewDetails?.meeting_type != 'physical'" class="col-12">
                     <p>Dear candidate,</p>
                     <p>Sequel to your application as the role of
-                        <strong>{{ interviewDetails?.get_jobs?.job?.title ?? '' }}</strong>, you are hereby
-                        scheduled for a zoom meeting with details as follows:
+                        <strong>{{ interviewDetails?.get_jobs?.job?.title ?? '' }}</strong> at
+                        <strong>{{ interviewDetails?.company?.name ?? 'Our Company' }}</strong>,
+                        you are hereby scheduled for a zoom meeting with details as follows:
                     </p>
                     <div class="my-3">
                         <div>Join zoom meeting:</div>
@@ -47,7 +49,9 @@
                 <div v-else class="col-12">
                     <p>Dear candidate,</p>
                     <p>Sequel to your application as the role of
-                        <strong>{{ interviewDetails?.get_jobs?.job?.title ?? '' }}</strong>, you are hereby
+                        <strong>{{ interviewDetails?.get_jobs?.job?.title ?? '' }}</strong>
+                        at <strong> {{ interviewDetails?.company?.name ?? 'Our Company' }}</strong>, you are
+                        hereby
                         scheduled for physical meeting:
                     </p>
                     <div class="my-3">

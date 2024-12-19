@@ -115,7 +115,7 @@
 
                         <template #item-status="item">
                             <span class="category-tag text-white"
-                                :style="{ backgroundColor: templateStore.statusColor(item.status) }">
+                                :style="{ backgroundColor: templateStore.applicationStatusColor(item.status) }">
                                 {{ item.status }}
                             </span>
                         </template>

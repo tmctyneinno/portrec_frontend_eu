@@ -20,7 +20,7 @@
 
                 <li v-for="(tab, index) in tabs.menu" :key="index" class="nav-item " role="presentation">
                     <button
-                        :style="`color: ${templateStore.statusColor(tab.id)} !important; border-color: ${templateStore.statusColor(tab.id)} !important;`"
+                        :style="`color: ${templateStore.applicationStatusColor(tab.id)} !important; border-color: ${templateStore.applicationStatusColor(tab.id)} !important;`"
                         @click="tabs.showing = tab.id" class="nav-link fw-bold"
                         :class="{ 'active': tabs.showing == tab.id }" data-bs-toggle="tab" type="button" role="tab"
                         aria-controls="one" aria-selected="true">
@@ -40,7 +40,7 @@
                         <div class="col-md-9">
                             <h5 class="fw-bold">
                                 Application History
-                                <!-- <span class="small" :style="`color: ${templateStore.statusColor(tabs.showing)}`">: {{
+                                <!-- <span class="small" :style="`color: ${templateStore.applicationStatusColor(tabs.showing)}`">: {{
                                     tabs.showing?.replace('_', ' ') }}</span> -->
                             </h5>
                         </div>
@@ -65,7 +65,7 @@
 
                     <template #item-status="item">
                         <span class="category-tag text-white"
-                            :style="`background-color: ${templateStore.statusColor(item.status)}`">
+                            :style="`background-color: ${templateStore.applicationStatusColor(item.status)}`">
                             {{ item.status }}
                         </span>
                     </template>

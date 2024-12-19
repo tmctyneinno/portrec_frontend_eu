@@ -93,4 +93,8 @@ export default {
         return $instanceForm.post(`create/meeting`, form)
     },
 
+    recruiterGetInterviews() {
+        return $instance.get(`get/recruiter/interviews`)
+    },
+
 }

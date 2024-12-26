@@ -49,11 +49,10 @@
         </div>
 
         <div class="col-12 mt-3">
-            <primaryButton v-if="!form.isLoading" :btnType="'submit'" :btnClass="` w-100 btn-lg`"
-                :btnMainClass="'btn-primary'">
+            <primaryButton v-if="!form.isLoading" :btnType="'submit'" :className="` w-100 btn-lg`">
                 Next <i class="bi bi-chevron-right"></i>
             </primaryButton>
-            <primaryButtonLoading :btnMainClass="'btn-primary'" v-else :btnClass="`btn-lg w-100`" />
+            <primaryButtonLoading v-else :className="`btn-lg w-100`" />
         </div>
         <div class="col-12 mt-3">
             Already have an account? <router-link replace to="/login"

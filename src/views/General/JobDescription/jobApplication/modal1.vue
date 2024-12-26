@@ -29,7 +29,7 @@
         </template>
 
         <template #buttons>
-            <primaryButton :btnClass="'w-100'"
+            <primaryButton :className="'w-100'"
                 :disabled="!(store.applyData.fullname && store.applyData.email && store.applyData.phone)"
                 @click="store.switchModal(+1)">
                 Next

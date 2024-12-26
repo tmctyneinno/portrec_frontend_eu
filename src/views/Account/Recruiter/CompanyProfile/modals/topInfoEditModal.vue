@@ -70,10 +70,10 @@
                     </div>
                 </div>
                 <div class="modal-footer border-0">
-                    <primaryButton :btnClass="'w-100'" v-if="!isSaving" @click="save">
+                    <primaryButton :className="'w-100'" v-if="!isSaving" @click="save">
                         Update
                     </primaryButton>
-                    <primaryButtonLoading :btnClass="'w-100'" v-else />
+                    <primaryButtonLoading :className="'w-100'" v-else />
                 </div>
             </div>
         </div>

@@ -65,7 +65,7 @@
                         class="btn btn-outline-dark  w-100">Back</button>
                 </div>
                 <div class="col-6">
-                    <primaryButton :disabled="!store.applyData.resume" @click="switchOrSkipModal" :btnClass="'w-100'">
+                    <primaryButton :disabled="!store.applyData.resume" @click="switchOrSkipModal" :className="'w-100'">
                         Next
                     </primaryButton>
                 </div>

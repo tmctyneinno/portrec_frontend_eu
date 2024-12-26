@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 defineProps({
-    btnClass: { type: String, default: '' },
+    className: { type: String, default: '' },
     disabled: { type: Boolean, default: false },
     btnMainClass: { type: String, default: 'btn-primary' },
     btnType: {
@@ -11,7 +11,7 @@ defineProps({
 </script>
 
 <template>
-    <button class="btn" :class="`${btnMainClass} ${btnClass}`" :type="btnType" :disabled="disabled">
+    <button class="btn" :class="`${btnMainClass} ${className}`" :type="btnType" :disabled="disabled">
         <slot></slot>
     </button>
 </template>

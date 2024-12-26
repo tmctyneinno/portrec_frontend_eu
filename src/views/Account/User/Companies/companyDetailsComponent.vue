@@ -106,11 +106,11 @@
                                                 class="form-control">
                                         </div>
                                         <div class="col-12">
-                                            <primaryButton :btnClass="'w-100'" v-if="!message.isSending"
+                                            <primaryButton :className="'w-100'" v-if="!message.isSending"
                                                 @click="sendMessage">
                                                 <i class="bi bi-chat"></i> Chat recruiter
                                             </primaryButton>
-                                            <primaryButtonLoading v-else :btnClass="'w-100'" />
+                                            <primaryButtonLoading v-else :className="'w-100'" />
 
                                         </div>
 

@@ -59,10 +59,10 @@
                             </div>
                             <div class="col-12 mt-3">
                                 <primaryButton v-if="!form.isLoading" :btnMainClass="'btn-dark'" :btnType="'submit'"
-                                    :btnClass="` w-100 btn-lg`">
+                                    :className="` w-100 btn-lg`">
                                     Login
                                 </primaryButton>
-                                <primaryButtonLoading v-else :btnMainClass="'btn-dark'" :btnClass="`btn-lg w-100`" />
+                                <primaryButtonLoading v-else :btnMainClass="'btn-dark'" :className="`btn-lg w-100`" />
                             </div>
                             <div class="col-12 mt-3">
                                 Don't have an account? <router-link replace to="/signup/recruiter"

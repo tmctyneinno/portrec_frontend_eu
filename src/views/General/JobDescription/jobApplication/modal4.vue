@@ -31,10 +31,10 @@
                 </div>
                 <div class="col-10">
                     <primaryButton v-if="!isApplying" @click="applyForJob" :disabled="!store.applyData.cover_letter"
-                        :btnClass="'w-100'">
+                        :className="'w-100'">
                         Submit Application
                     </primaryButton>
-                    <primaryButtonLoading v-else :btnClass="'w-100'" />
+                    <primaryButtonLoading v-else :className="'w-100'" />
 
 
                 </div>

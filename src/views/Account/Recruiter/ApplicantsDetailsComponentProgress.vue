@@ -55,7 +55,7 @@
                 :options="hiringProgressList"></v-select>
         </div>
         <div class="col-md-6">
-            <primaryButtonOutline @click="changeStage" :btnClass="'w-100'">
+            <primaryButtonOutline @click="changeStage" className="w-100">
                 Click to Update
             </primaryButtonOutline>
         </div>

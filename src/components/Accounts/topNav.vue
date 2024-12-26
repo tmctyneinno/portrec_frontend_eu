@@ -20,7 +20,7 @@
                         Back to homepage
                     </router-link>
 
-                    <primaryButton @click="openJobPostingModal" v-else :btnClass="'me-5 btn-sm'">
+                    <primaryButton @click="openJobPostingModal" v-else className="me-5 btn-sm">
                         <i class="bi bi-plus-lg"></i> Post a Job
                     </primaryButton>
 

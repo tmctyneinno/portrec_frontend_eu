@@ -26,7 +26,7 @@
                         class="btn btn-outline-dark  w-100">Back</button>
                 </div>
                 <div class="col-6">
-                    <primaryButton :disabled="hasNotFullyAnswered" @click="store.switchModal(+1)" :btnClass="'w-100'">
+                    <primaryButton :disabled="hasNotFullyAnswered" @click="store.switchModal(+1)" :className="'w-100'">
                         Next
                     </primaryButton>
                 </div>

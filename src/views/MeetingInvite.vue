@@ -66,15 +66,15 @@
                     <p> Goodluck!</p>
                 </div>
                 <div class="col-12" v-if="!interviewDetails?.candidate_approved">
-                    <primaryButtonOutline @click="respondToMeeting('reject')" :btnClass="'rounded-3 float-end mx-2'">
+                    <primaryButtonOutline @click="respondToMeeting('reject')" className="rounded-3 float-end mx-2">
                         Reject
                     </primaryButtonOutline>
-                    <primaryButton @click="respondToMeeting('accept')" :btnClass="'rounded-3 float-end mx-2'">
+                    <primaryButton @click="respondToMeeting('accept')" className="'rounded-3 float-end mx-2'">
                         Accept
                     </primaryButton>
                 </div>
                 <div v-else class="col-12">
-                    <primaryButtonOutline :disabled="true" :btnClass="'rounded-3 float-end mx-2'">
+                    <primaryButtonOutline :disabled="true" className="rounded-3 float-end mx-2">
                         Already Responded
                     </primaryButtonOutline>
                 </div>

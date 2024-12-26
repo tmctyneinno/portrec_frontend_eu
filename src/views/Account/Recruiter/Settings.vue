@@ -147,7 +147,7 @@
                             </div>
 
                             <div class="col-md-6">
-                                <primaryButton :btnClass="'w-100'" :disabled="true">
+                                <primaryButton className="w-100" :disabled="true">
                                     Update Email
                                 </primaryButton>
                             </div>
@@ -184,10 +184,10 @@
                             </div>
 
                             <div class="col-md-6 mt-3">
-                                <primaryButton @click="changePassword" v-if="!password.isLoading" :btnClass="'w-100'">
+                                <primaryButton @click="changePassword" v-if="!password.isLoading" className="w-100">
                                     Change Password
                                 </primaryButton>
-                                <primaryButtonLoading v-else :btnClass="'w-100'" />
+                                <primaryButtonLoading v-else className="w-100" />
                             </div>
 
                         </div>

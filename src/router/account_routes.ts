@@ -32,6 +32,7 @@ export default [
             { path: 'browse-companies', name: 'user-Browse_Companies', meta: { name: 'Browse Companies', auth: 'user' }, component: () => import('../views/Account/User/Companies/Companies.vue') },
             { path: 'profile', name: 'user-Profile', meta: { name: 'My Profile', auth: 'user' }, component: () => import('../views/Account/User/Profile/Profile.vue') },
             { path: 'help-center', name: 'user-Help_Center', meta: { name: 'Help Center', auth: 'user' }, component: () => import('../views/Account/User/HelpCenter.vue') },
+            { path: 'billings', name: 'user-Billings', meta: { name: 'Billings', auth: 'user' }, component: () => import('../views/Account/User/Billings.vue') },
         ],
     },
 

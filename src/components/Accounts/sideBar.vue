@@ -20,6 +20,13 @@
                 </router-link>
             </li>
 
+            <li class="nav-item">
+                <router-link class="nav-link " :to="`/${prop.userType}/billings`">
+                    <i class="bi bi-wallet2"></i> &nbsp;
+                    Billings
+                </router-link>
+            </li>
+
             <!-- <li class="nav-item">
                 <router-link class="nav-link" :to="`/${prop.userType}/help-center`">
                     <i class="bi bi-question-circle"></i> &nbsp;

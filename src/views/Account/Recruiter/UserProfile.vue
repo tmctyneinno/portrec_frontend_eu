@@ -32,7 +32,7 @@
                                 <i class="bi bi-geo-alt"></i> {{ userProfile?.location }}
                             </div>
                             <div class="my-2">
-                                <primaryButton @click="openHireModal" :btnClass="'btn-sm xsmall'">
+                                <primaryButton @click="openHireModal" :className="'btn-sm xsmall'">
                                     Hire Mary
                                 </primaryButton>
                             </div>
@@ -243,7 +243,7 @@
                     </div>
                 </div>
                 <div class="modal-footer border-0">
-                    <primaryButton :btnClass="'btn-sm'">
+                    <primaryButton className="btn-sm">
                         Send request
                     </primaryButton>
 

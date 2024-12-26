@@ -35,10 +35,10 @@
                                     :clearable="false" :options="skillsDropdown"></v-select>
                             </div>
                             <div class="col-12 col-lg-12">
-                                <primaryButton :btnClass="'w-100'" v-if="!isSaving" @click="addSkill">
+                                <primaryButton :className="'w-100'" v-if="!isSaving" @click="addSkill">
                                     Add Skills
                                 </primaryButton>
-                                <primaryButtonLoading :btnClass="'w-100'" v-else />
+                                <primaryButtonLoading :className="'w-100'" v-else />
                             </div>
                             <!-- </div> -->
                             <!-- </div> -->

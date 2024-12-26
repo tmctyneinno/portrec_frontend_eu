@@ -10,17 +10,23 @@ export const useProfileStore = defineStore('profileStore', () => {
     const userType: any = ref('')
     const userData: any = useStorage('protrec_$user_profile', null, sessionStorage)
     const avatar = ref<string>('')
-    const notifications = ref<{ title: string, message: string, notification_type: string, id: string, ref_id: string }[]>([])
+    const notifications = ref<{
+        title: string,
+        message: string,
+        notification_type: string,
+        id: string,
+        ref_id: string
+    }[]>([])
 
     const isLoggedIn = computed(() => token.value || Cookies.get('PortrecTkn'));
     const getUserType = computed(() => userType.value || Cookies.get('PortrecUserType'))
 
 
     const login = (tokenStr: string, loginType = 'user') => {
-        Cookies.set('PortrecTkn', tokenStr, { expires: 7 });
+        Cookies.set('PortrecTkn', tokenStr, { expires: 1 });
         token.value = tokenStr;
 
-        Cookies.set('PortrecUserType', loginType, { expires: 7 });
+        Cookies.set('PortrecUserType', loginType, { expires: 1 });
         userType.value = loginType;
 
         window.location.reload();
@@ -54,7 +60,6 @@ export const useProfileStore = defineStore('profileStore', () => {
                 logout()
             }
             // console.log(error.response.data);
-
         }
     }
 

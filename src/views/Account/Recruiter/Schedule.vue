@@ -17,11 +17,11 @@
         </div>
 
         <div class="col-lg-4 border-righ">
-            <div class="card">
+            <div class="card h-100">
                 <div class="card-body">
-                    <button class="btn btn-sm btn-primary-outline fw-bold mb-3 w-100">
+                    <!-- <button class="btn btn-sm btn-primary-outline fw-bold mb-3 w-100">
                         <i class="bi bi-plus"></i> Create Event
-                    </button>
+                    </button> -->
                     <VCalendar class="border-0" title-position="left" expanded :attributes='calendeAttributes' />
                 </div>
             </div>
@@ -62,47 +62,136 @@
         </div>
 
         <div class="col-lg-8">
-            <div class="fw-bold mb-2">Interviews</div>
-            <EasyDataTable class="" :loading="tableIsLoading" show-index alternating :headers="tableHeader"
-                :items="interviews" buttons-pagination>
+            <div class="card">
+                <div class=" card-header bg-transparent border-0 pb-0 fw-bold mb-2">Interviews</div>
+                <div class="card-body">
+                    <EasyDataTable class="border-0" :loading="tableIsLoading" show-index :headers="tableHeader"
+                        :items="interviews" buttons-pagination>
 
-                <template #header="header">
-                    <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
-                </template>
+                        <template #header="header">
+                            <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
+                        </template>
 
-                <template #item-score="item">
-                    <i v-if="item.score < 3" class="bi bi-star text-dark"></i>
-                    <i v-else class="bi bi-star-fill text-warning"></i>
-                    {{ item.score }}
+                        <template #item-interview_date="item">
+                            {{ useFxn.dateDisplay(item.interview_date) }}
+                        </template>
 
-                </template>
+                        <template #item-candidate_approved="item">
+                            <span class="category-tag"
+                                :class="!item.candidate_approved ? 'bg-light' : (item.candidate_approved == 1 ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger')">
+                                {{ !item.candidate_approved ? 'Not Responded' : (item.candidate_approved == 1 ?
+                                    'Accepted' :
+                                    'Rejected') }}
+                            </span>
+                        </template>
 
-                <template #item-interview_date="item">
-                    {{ useFxn.dateDisplay(item.interview_date) }}
-                </template>
+                        <template #item-view="item">
+                            <button @click="viewDetails(item)"
+                                class=" btn btn-sm btn-primary-outline border-0 rounded-5 text-decoration-none btn-sm ">
+                                <i class=" bi bi-eye"></i>
+                            </button>
 
-                <template #item-candidate_approved="item">
-                    <span class="category-tag"
-                        :class="!item.candidate_approved ? 'bg-light' : (item.candidate_approved == 1 ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger')">
-                        {{ !item.candidate_approved ? 'Not Responded' : (item.candidate_approved == 1 ? 'Accepted' :
-                            'Rejected') }}
-                    </span>
-                </template>
+                        </template>
 
-                <template #item-action="item">
-                    <button
-                        class=" btn btn-sm btn-primary-outline border-0 rounded-5 text-decoration-none btn-sm p-1 px-2 ">
-                        <i class=" bi bi-eye"></i>
-                    </button>
-                </template>
+                        <template #item-delete="item">
 
-            </EasyDataTable>
+                            <button v-if="!item?.candidate_approved" @click="deleteItem(item.id)"
+                                class=" btn btn-sm btn-primary-outline border-0 rounded-5 text-decoration-none btn-sm ">
+                                <i class=" bi bi-trash3"></i>
+                            </button>
+                        </template>
+
+                    </EasyDataTable>
+                </div>
+            </div>
+
+
             <!-- <Qalendar :events="events" :config="qualendarConfig" :selected-date="new Date()" /> -->
-
-
         </div>
+    </div>
 
 
+
+
+
+
+    <!-- ScheduleDetailsModal -->
+    <button type="button" ref="detailsModalOpen" class="d-none" data-bs-toggle="modal"
+        data-bs-target="#ScheduleDetailsModal">
+    </button>
+
+    <!-- Modal Body -->
+    <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+    <div class="modal fade" id="ScheduleDetailsModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+        role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitleId">
+                        {{ itemToView.description }}
+                    </h5>
+                    <!-- <button ref="detailsModalClose" type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button> -->
+                </div>
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-6 col-lg-4 ">
+                            <strong>Job:</strong>
+                            <div class="text-muted">
+                                {{ itemToView?.get_jobs?.job?.title ?? '-' }}
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4 ">
+                            <strong>Applied Date:</strong>
+                            <div class="text-muted">
+                                {{ useFxn.dateDisplay(itemToView?.get_jobs?.applied_date) }}
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4 ">
+                            <strong>Interview Date:</strong>
+                            <div class="text-muted">
+                                {{ useFxn.dateDisplay(itemToView?.interview_date) }}
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4 ">
+                            <strong>Interview Type:</strong>
+                            <div class="text-muted">
+                                {{ itemToView?.meeting_type ?? '-' }}
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-lg-8 ">
+                            <strong>Location:</strong>
+                            <div class="text-muted">
+                                {{ itemToView?.location }}
+                            </div>
+                        </div>
+
+                        <div v-if="itemToView?.meeting_type == 'online'" class="col-md-12 ">
+                            <strong>Host URL:</strong>
+                            <div class="text-muted">
+                                <a :href="itemToView?.host_url" target="_blank">{{ itemToView?.host_url }}</a>
+                            </div>
+                        </div>
+
+                        <div v-if="itemToView?.meeting_type == 'online'" class="col-md-12 ">
+                            <strong>Join URL:</strong>
+                            <div class="text-muted">
+                                <a :href="itemToView?.host_url" target="_blank">{{ itemToView?.host_url }}</a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer border-0">
+                    <button ref="detailsModalClose" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -115,6 +204,7 @@ import useFxn from '@/stores/Helpers/useFunctions'
 // @ts-ignore
 // import { Qalendar } from "qalendar";
 import api from '@/stores/Helpers/axios'
+import { onBeforeRouteLeave } from 'vue-router';
 
 
 // const recruiterCommonStore = useRecruiterCommonStore()
@@ -143,9 +233,6 @@ async function getInterviews() {
         interviews.value = data
         tableIsLoading.value = false
         calendeAttributes.value[0].dates = interviews.value.map((x: { interview_date: Date }) => new Date(x.interview_date))
-        // console.log(calendeAttributes.value[0].dates);
-
-
     } catch (error) {
         // console.log(error);
 
@@ -156,12 +243,42 @@ const tableHeader = ref([
     { text: "Description", value: "description", sortable: true, },
     { text: "Status", value: "candidate_approved", sortable: true },
     { text: "Date", value: "interview_date", sortable: true },
-    { text: "Meeting Type", value: "meeting_type", sortable: true },
-    { text: "", value: "action" },
+    // { text: "Meeting Type", value: "meeting_type", sortable: true },
+    { text: "", value: "view" },
+    { text: "", value: "delete" },
 ]);
 
 
+// view Interview
+const detailsModalOpen = ref<any>(null)
+const detailsModalClose = ref<any>(null)
+const itemToView = ref<any>({})
+function viewDetails(item: any) {
+    detailsModalOpen.value?.click()
+    itemToView.value = item
+}
+onBeforeRouteLeave(() => {
+    detailsModalClose.value?.click()
+})
 
+
+
+// delete Interview
+function deleteItem(id: string) {
+    useFxn.confirm("Are you sure you want to delete this schedule?", "Yes Delete").then(async (response) => {
+        if (response.value) {
+            try {
+                const formData = new FormData();
+                formData.append('interview_id', id)
+                await api.recruiterDeleteInterview(formData)
+                useFxn.toast("Interview Deleted Successfully", "success")
+                getInterviews()
+            } catch (error) {
+                useFxn.toast("Sorry something went wrong", "error")
+            }
+        }
+    })
+}
 
 
 

@@ -66,10 +66,10 @@
                     <p> Goodluck!</p>
                 </div>
                 <div class="col-12" v-if="!interviewDetails?.candidate_approved">
-                    <primaryButtonOutline @click="respondToMeetting('reject')" :btnClass="'rounded-3 float-end mx-2'">
+                    <primaryButtonOutline @click="respondToMeeting('reject')" :btnClass="'rounded-3 float-end mx-2'">
                         Reject
                     </primaryButtonOutline>
-                    <primaryButton @click="respondToMeetting('accept')" :btnClass="'rounded-3 float-end mx-2'">
+                    <primaryButton @click="respondToMeeting('accept')" :btnClass="'rounded-3 float-end mx-2'">
                         Accept
                     </primaryButton>
                 </div>
@@ -125,7 +125,7 @@ async function getMeetingDetails() {
     }
 }
 
-async function respondToMeetting(action: 'accept' | 'reject') {
+async function respondToMeeting(action: 'accept' | 'reject') {
     sendingResponse.value = true
     try {
         const formData = new FormData();

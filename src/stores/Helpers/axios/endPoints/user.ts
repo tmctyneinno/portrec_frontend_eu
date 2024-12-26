@@ -89,4 +89,7 @@ export default {
         return $instanceForm.post(`user/accept/interview`, obj)
     },
 
+    userGetInterviews() {
+        return $instance.get(`user/get/interviews`)
+    },
 }

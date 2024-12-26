@@ -97,4 +97,8 @@ export default {
         return $instance.get(`get/recruiter/interviews`)
     },
 
+    recruiterDeleteInterview(form: FormData) {
+        return $instanceForm.post(`delete/interview`, form)
+    },
+
 }

@@ -40,7 +40,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 d-none">
             <div class="card shadow-sm">
                 <div class="color-green card-header py-2 pt-3 bg-transparent fw-bold border-0">
                     Jobs Applied
@@ -78,7 +78,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-9">
             <div class="card shadow-sm">
                 <div class="card-header py-2 fw-bold bg-transparent border-0">Upcoming Interviews</div>
                 <!-- <div class="card-header py-2  bg-transparent shadow-sm">
@@ -91,7 +91,30 @@
                 <div class="card-body row gy-3">
                     <ComponentLoading v-if="details.isLoadingDetails" />
                     <div v-else>
-                        <NoDataShow :text="'No Interviews'" icon="bi-calendar-x" />
+                        <NoDataShow v-if="!details.upcomingInterviews.length" :text="'No Interviews'"
+                            icon="bi-calendar-x" />
+                        <div v-else>
+                            <EasyDataTable :loading="details.isLoadingDetails" show-index alternating
+                                :headers="interviewsHeader" :items="details.upcomingInterviews" buttons-pagination>
+
+                                <template #header="header">
+                                    <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text
+                                        }}</span>
+                                </template>
+
+                                <template #item-interview_date="item">
+                                    {{ useFxn.dateDisplay(item.interview_date) }}
+                                </template>
+
+                                <template #item-status="item">
+                                    <span class="category-tag"
+                                        :class="!item.candidate_approved ? 'bg-light' : (item.candidate_approved == 1 ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger')">
+                                        {{ !item.candidate_approved ? 'Not Responded' : (item.candidate_approved == 1 ?
+                                            'Accepted' : 'Rejected') }}
+                                    </span>
+                                </template>
+                            </EasyDataTable>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -144,6 +167,7 @@ const templateStore = useTemplateStore()
 
 onMounted(() => {
     getDashboardInfo()
+    getInterviews()
 })
 
 const details = reactive({
@@ -165,6 +189,15 @@ const AppliedHistoryTableHeader = ref([
 
 
 
+const interviewsHeader = ref([
+    { text: "Date", value: "interview_date", sortable: true, },
+    { text: "Type", value: "meeting_type", sortable: true },
+    { text: "Status", value: "status", sortable: true },
+]);
+
+
+
+
 async function getDashboardInfo() {
     try {
         details.isLoadingDetails = true
@@ -175,6 +208,25 @@ async function getDashboardInfo() {
         details.upcomingInterviews = data.upcomingInterviews ?? []
         details.recentApplicationHistory = data.recentApplicationHistory ?? []
         updateChartSeries()
+        details.isLoadingDetails = false
+    } catch (error) {
+        console.log(error);
+        details.isLoadingDetails = false
+
+    }
+}
+
+
+
+
+
+
+async function getInterviews() {
+    try {
+        details.isLoadingDetails = true
+        const { data } = await api.userGetInterviews()
+        // console.log(data);
+        details.upcomingInterviews = data ?? []
         details.isLoadingDetails = false
     } catch (error) {
         console.log(error);

@@ -26,7 +26,9 @@
                                 <div>0113510138
                                     <i v-if="!copied" @click="copy('0113510138')"
                                         class="float-end bi bi-copy cursor-pointer"></i>
-                                    <span v-else class="float-end text-success xsmall">copied</span>
+                                    <span v-else class="float-end text-success small">
+                                        <i class="bi bi-check-lg"></i> copied
+                                    </span>
                                 </div>
                             </li>
                             <li class="list-group-item border-0">
@@ -70,7 +72,7 @@ const { copy, copied } = useClipboard()
 
 function backToOptions() {
     subscriptionBankTransferModalClose.value?.click()
-    subscriptionStore.modal.options = !subscriptionStore.modal.options
+    subscriptionStore.launchModal('options')
 }
 
 

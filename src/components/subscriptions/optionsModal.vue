@@ -24,7 +24,7 @@
 
                         <ul class="list-group list-group-flush">
                             <li v-for="(option, index) in paymentOptions" :key="index"
-                                class="list-group-item cursor-pointer" @click="selectedOption = option.value">
+                                class="list-group-item border-0 cursor-pointer" @click="selectedOption = option.value">
                                 <i :class="option.icon" class="me-3"></i>
                                 {{ option.title }}
                                 <i v-if="selectedOption == option.value"
@@ -65,13 +65,13 @@ const paymentOptions = ref<{ icon: string, title: string, value: PaymentOptionTy
     { icon: `bi bi-credit-card`, title: 'Card', value: "card" },
     { icon: `bi bi-arrow-down-up`, title: 'Bank Transfer', value: "transfer" },
 ])
-const selectedOption = ref<PaymentOptionTypes>('transfer')
+const selectedOption = ref<PaymentOptionTypes>('card')
 
 
 function openSelectedOption() {
-    if (selectedOption.value == 'card') subscriptionStore.modal.cardPayment = !subscriptionStore.modal.cardPayment
-    else subscriptionStore.modal.bankTransfer = !subscriptionStore.modal.bankTransfer
-    subscriptionStore.modal.options = !subscriptionStore.modal.options
+    if (selectedOption.value == 'card') subscriptionStore.launchModal('cardPayment')
+    else subscriptionStore.launchModal('bankTransfer')
+    subscriptionStore.launchModal('options')
 }
 
 
@@ -83,3 +83,9 @@ onBeforeRouteLeave(() => {
     subscriptionOptionsModalClose.value?.click()
 })
 </script>
+
+<style scoped>
+.list-group-item:hover {
+    background-color: #96929215;
+}
+</style>

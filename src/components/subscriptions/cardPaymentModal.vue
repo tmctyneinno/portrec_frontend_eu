@@ -69,7 +69,7 @@ const subscriptionCardPaymentModalClose = ref<any>(null)
 
 function backToOptions() {
     subscriptionCardPaymentModalClose.value?.click()
-    subscriptionStore.modal.options = !subscriptionStore.modal.options
+    subscriptionStore.launchModal('options')
 }
 
 

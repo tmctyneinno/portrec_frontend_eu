@@ -5,11 +5,24 @@
         </div>
 
         <ul class="nav nav-pills flex-column mt-2">
-            <li class="nav-item" v-for="i in menu" :key="i">
-                <router-link class="nav-link" :to="{ name: i.routeName }">
-                    <i :class="i.icon"></i> &nbsp;
-                    {{ i.title }}
-                </router-link>
+            <li class="nav-item" v-for="(menu, index) in menus" :key="index">
+                <template v-if="menu.isPremium">
+                    <span class="nav-link disabled-link">
+                        <i :class="menu.icon"></i> &nbsp;
+                        <span class="position-relative">
+                            {{ menu.title }}
+                            <span class="premium-badge">premium</span>
+                        </span>
+                    </span>
+                </template>
+                <template v-else>
+                    <router-link class="nav-link" :to="{ name: menu.routeName }">
+                        <i :class="menu.icon"></i> &nbsp;
+                        <span class="position-relative">
+                            {{ menu.title }}
+                        </span>
+                    </router-link>
+                </template>
             </li>
 
             <hr class="my-2 mx-3">
@@ -71,21 +84,11 @@
 import { computed } from 'vue';
 import { userMenu, recruiterMenu } from '@/stores/sideBarMenus'
 import { useProfileStore } from '@/stores/profileStore';
-// import { useRouter } from 'vue-router';
 
 const profileStore = useProfileStore()
 const prop = defineProps(['userType'])
-// const router = useRouter()
 
-// ############# load menu according to usertype in prop ##################
-const menu = computed(() => {
-    const menuObject: any = {
-        user: userMenu,
-        recruiter: recruiterMenu,
-    };
-
-    return menuObject[prop.userType];
-});
+const menus = computed(() => (prop.userType === 'recruiter' ? recruiterMenu : userMenu));
 
 function logout() {
     profileStore.logout()
@@ -189,5 +192,21 @@ function logout() {
 .profile-card .details {
     display: flex;
     flex-direction: column;
+}
+
+.premium-badge {
+    position: absolute;
+    top: -5px;
+    left: 94px;
+    background-color: var(--bs-warning-bg-subtle);
+    border-radius: 8px;
+    padding: 2px 5px;
+    font-size: x-small;
+}
+
+.disabled-link {
+    color: #8080807e !important;
+    pointer-events: none;
+    cursor: default;
 }
 </style>

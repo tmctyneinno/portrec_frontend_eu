@@ -51,6 +51,7 @@ export default [
             { path: 'help-center', name: 'recruiter-Help_Center', meta: { name: 'Help Center', auth: 'recruiter' }, component: () => import('../views/Account/Recruiter/HelpCenter.vue') },
             { path: 'search-talent', name: 'recruiter-Search_Talent', meta: { name: 'Search Talent', auth: 'recruiter' }, component: () => import('../views/Account/Recruiter/SearchTalent.vue') },
             { path: 'user-profile/:id', name: 'recruiter-User_Profile', meta: { name: 'User Profile', auth: 'recruiter' }, component: () => import('../views/Account/Recruiter/UserProfile.vue') },
+            { path: 'billings', name: 'recruiter-Billings', meta: { name: 'Billings', auth: 'recruiter' }, component: () => import('../views/Account/Recruiter/Billings.vue') },
         ],
     },
 ]

@@ -2,8 +2,12 @@ import { reactive, ref } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useSubscriptionStore = defineStore('subscriptionStore', () => {
-
-    const modal = reactive({
+    interface ModalState {
+        options: boolean;
+        cardPayment: boolean;
+        bankTransfer: boolean;
+    }
+    const modal = reactive<ModalState>({
         options: false,
         cardPayment: false,
         bankTransfer: false,
@@ -24,11 +28,11 @@ export const useSubscriptionStore = defineStore('subscriptionStore', () => {
         { desc: 'Gain an advantage over other others by being among the first profiles recruiters see.', lineThrough: false },
     ]);
 
-    const userPremiumPrice = ref<number>(4000)
+    const premiumPrice = ref<number>(4000)
 
-    function openOptions() {
-        modal.options = !modal.options
+    function launchModal(modalName: 'options' | 'cardPayment' | 'bankTransfer') {
+        modal[modalName] = !modal[modalName]
     }
 
-    return { freePlan, premiumPlan, userPremiumPrice, modal, openOptions }
+    return { freePlan, premiumPlan, premiumPrice, modal, launchModal, }
 })

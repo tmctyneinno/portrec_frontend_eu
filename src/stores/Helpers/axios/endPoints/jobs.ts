@@ -10,6 +10,10 @@ export default {
         return $instance.get(`job/all/latest`)
     },
 
+    featuredJobs(queryStr?: string) {
+        return $instance.get(`get/featured/jobs${queryStr}`)
+    },
+
     jobDetails(id: any) {
         return $instancePublic.get(`job/${id}`)
     },

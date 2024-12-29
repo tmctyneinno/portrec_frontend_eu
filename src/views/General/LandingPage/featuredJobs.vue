@@ -1,5 +1,5 @@
 <template>
-    <div class="section-panel min-vh-100">
+    <div v-if="featurdJobsList.length" class="section-panel min-vh-100">
         <div class="container">
             <div class="col-12">
                 <div class="row">
@@ -16,10 +16,16 @@
             </div>
             <div class="col-12 mt-4">
                 <div class="row g-4">
-                    <featuredJobsCard @click="goToJob(data.id)" v-for="(data, index) in dataList" :key="index"
+                    <featuredJobsCard @click="goToJob(data.id)" v-for="(data, index) in featurdJobsList" :key="index"
                         :job="data" />
                 </div>
 
+            </div>
+
+            <!-- pagination -->
+            <div class="mt-5">
+                <customPagination :currentPage="pagination.currentPage" :perPage="pagination.perPage"
+                    :totalRecords="pagination.totalRecords" @moveToNext="paginateToNext" />
             </div>
         </div>
     </div>
@@ -29,78 +35,44 @@
 <script lang="ts" setup>
 import featuredJobsCard from '@/components/featuredJobsCard.vue';
 import { useRouter } from 'vue-router';
+import { onMounted, reactive, ref, watch } from 'vue';
+import { useJobsStore } from '@/stores/jobsStore';
+
+
+const jobsStore = useJobsStore()
+
+const featurdJobsList = ref<any[]>([])
+const pagination = reactive({
+    currentPage: 0,
+    totalPages: 0,
+    perPage: 0,
+    totalRecords: 0,
+})
+
+
+onMounted(() => {
+    loadFeaturedJobs()
+
+})
+
+async function loadFeaturedJobs(page = 1) {
+    await jobsStore.getFeaturedJobs(page)
+    featurdJobsList.value = jobsStore.featured.data
+    pagination.currentPage = jobsStore.featured?.current_page ?? 0
+    pagination.totalPages = jobsStore.featured?.last_page ?? 0
+    pagination.perPage = jobsStore.featured?.per_page ?? 0
+    pagination.totalRecords = jobsStore.featured?.total ?? 0
+}
+
+
+function paginateToNext(page: any) {
+    window.scrollTo(0, 0)
+    loadFeaturedJobs(page)
+}
+
+
+
 const router = useRouter()
-
-const dataList: any = [
-    {
-        id: 1,
-        title: 'Email Marketing',
-        company: 'Revoult',
-        location: 'Madrid, Spain',
-        jobType: 'full',
-        tags: ['marketing', 'design']
-    },
-
-    {
-        id: 2,
-        title: 'Brand Designer',
-        company: 'DropBox',
-        location: 'San Francisco, US',
-        jobType: 'full',
-        tags: ['design', 'business']
-    },
-    {
-        id: 3,
-        title: 'Email Marketing',
-        company: 'Pitch',
-        location: 'Berling, Germany',
-        jobType: 'full',
-        tags: ['marketing']
-    },
-
-    {
-        id: 4,
-        title: 'UI/UX Designer',
-        company: 'Pitch',
-        location: 'Berling, Germany',
-        jobType: 'full',
-        tags: ['technology']
-    },
-    {
-        id: 5,
-        title: 'Media Expert',
-        company: 'Pitch',
-        location: 'Berling, Germany',
-        jobType: 'full',
-        tags: ['technology', 'business']
-    },
-    {
-        id: 6,
-        title: 'Cleaner',
-        company: 'Maldavis',
-        location: 'Toronto, Spain',
-        jobType: 'full',
-        tags: ['business']
-    },
-    {
-        id: 7,
-        title: 'Web Designer',
-        company: 'Magnet',
-        location: 'Abuja, Nigeria',
-        jobType: 'part',
-        tags: ['technology', 'business']
-    },
-    {
-        id: 8,
-        title: 'Web Designer',
-        company: 'Magnet',
-        location: 'Abuja, Nigeria',
-        jobType: 'part',
-        tags: ['technology', 'business']
-    },
-
-]
-
 
 function goToJob(id: any) {
     router.push({ path: `job-description/${btoa(id)}`, query: { t: new Date().getTime() } })

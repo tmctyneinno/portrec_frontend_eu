@@ -10,7 +10,8 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li v-if="route.path != `/search-talent`" class="nav-item mx-4">
+          <!-- <li v-if="route.path != `/search-talent`" class="nav-item mx-4"> -->
+          <li class="nav-item mx-4">
             <div class="dropdown open">
               <a class="nav-link dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
@@ -28,7 +29,8 @@
 
           </li>
           <li class="nav-item">
-            <router-link v-if="route.path != `/for-talent`" class="nav-link" to="/for-talent">For Talent</router-link>
+            <!-- <router-link v-if="route.path != `/for-talent`" class="nav-link" to="/for-talent">For Talent</router-link> -->
+            <router-link class="nav-link" to="/for-talent">For Talent</router-link>
           </li>
           <li v-for="({ title, routePath }, i) in templateStore.navBarMenus" :key="i" class="nav-item ">
             <router-link class="nav-link mx-4 " :class="{ 'text-white': route.path == '/' && !headerDropped }"

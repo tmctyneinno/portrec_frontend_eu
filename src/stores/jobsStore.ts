@@ -8,6 +8,7 @@ export const useJobsStore = defineStore('jobsStore', () => {
   const functions = ref<any[]>([]);
   const categories = ref<any[]>([]);
   const latest = ref<any[]>([]);
+  const featured = ref<any>([]);
   const qualifications = ref<any[]>([]);
   const types = ref<any[]>([]);
   const levels = ref<any[]>([]);
@@ -142,6 +143,21 @@ export const useJobsStore = defineStore('jobsStore', () => {
 
   }
 
+  async function getFeaturedJobs(page = 1) {
+    try {
+      const queryStr = `?page=${page}`
+      const resp: any = await api.featuredJobs(queryStr)
+      if (resp.status == 200)
+        featured.value = resp.data.data
+    } catch (error) {
+      console.log(error);
+    }
+    finally {
+      loading.value = false
+    }
+
+  }
+
   const jobsKeyWords = ["Accountant",
     "Administrative Assistant",
     "Analyst",
@@ -203,6 +219,7 @@ export const useJobsStore = defineStore('jobsStore', () => {
     types,
     levels,
     latest,
+    featured,
     queryObj,
     allJobsChunked,
     allJobsData,
@@ -215,6 +232,7 @@ export const useJobsStore = defineStore('jobsStore', () => {
     getJobFunctions,
     getJobCategories,
     getLatestJobs,
+    getFeaturedJobs,
     getJobQualifications,
   }
 })

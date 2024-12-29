@@ -23,11 +23,14 @@
                         <div class="footer_widget">
                             <h4 class="widget_title">About</h4>
                             <ul class="footer-menu">
-                                <li><a href="#">Companies</a></li>
+                                <li>
+                                    <router-link to="/about-us">About Portrec</router-link>
+                                </li>
+                                <!-- <li><a href="#">Companies</a></li>
                                 <li><a href="#">Pricing</a></li>
                                 <li><a href="#">Terms</a></li>
                                 <li><a href="#">Advice</a></li>
-                                <li><a href="#">Private Policy</a></li>
+                                <li><a href="#">Private Policy</a></li> -->
                             </ul>
                         </div>
                     </div>
@@ -36,11 +39,15 @@
                         <div class="footer_widget">
                             <h4 class="widget_title">Resources</h4>
                             <ul class="footer-menu">
-                                <li><a href="#">Explore All Jobs</a></li>
-                                <li><a href="#">Help Docs</a></li>
-                                <li><a href="#">Guide</a></li>
-                                <li><a href="#">Updates</a></li>
-                                <li><a href="#">Contact Us</a></li>
+                                <li>
+                                    <router-link to="/find-jobs">Explore All jobs</router-link>
+                                </li>
+                                <!-- <li><a href="#">Help Docs</a></li> -->
+                                <!-- <li><a href="#">Guide</a></li> -->
+                                <!-- <li><a href="#">Updates</a></li> -->
+                                <li>
+                                    <router-link to="/contact">Contact Us</router-link>
+                                </li>
                             </ul>
                         </div>
                     </div>

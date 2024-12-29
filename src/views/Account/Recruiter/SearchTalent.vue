@@ -38,7 +38,7 @@
                 </ul>
 
                 <div class="apply-filter float-end mx-2 mt-2">
-                    <primaryButton @click="filterItems" :btn-class="'btn-sm'">
+                    <primaryButton @click="filterItems" className="btn-sm">
                         Apply filter
                     </primaryButton>
                 </div>

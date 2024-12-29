@@ -16,7 +16,7 @@
             </div>
             <div class="col-12 mt-4">
                 <div class="row g-4">
-                    <jobsDisplayVue2 @click="goToJob(data.id)" v-for="(data, index) in dataList" :key="index"
+                    <featuredJobsCard @click="goToJob(data.id)" v-for="(data, index) in dataList" :key="index"
                         :job="data" />
                 </div>
 
@@ -27,7 +27,7 @@
 
 
 <script lang="ts" setup>
-import jobsDisplayVue2 from '@/components/jobsDisplay2.vue';
+import featuredJobsCard from '@/components/featuredJobsCard.vue';
 import { useRouter } from 'vue-router';
 const router = useRouter()
 

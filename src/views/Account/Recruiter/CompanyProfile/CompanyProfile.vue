@@ -15,7 +15,7 @@
             </div>
         </div>
         <div v-else>
-            <div class="row g-1 my-4">
+            <div class="row g-4 g-lg-1 my-4">
                 <div class="col-md-2">
                     <div class="dropzone" v-bind="getRootProps()"
                         :style="{ 'background-image': `url(${company.avatar})` }">

@@ -199,6 +199,7 @@ function logout() {
     top: -5px;
     left: 94px;
     background-color: var(--bs-warning-bg-subtle);
+    color: var(--bs-warning-text-emphasis);
     border-radius: 8px;
     padding: 2px 5px;
     font-size: x-small;

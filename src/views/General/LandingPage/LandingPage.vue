@@ -12,7 +12,7 @@
   <!-- featured Jobs -->
   <featuredJobsVue />
   <!-- quick Career -->
-  <quickCareerVue />
+  <!-- <quickCareerVue /> -->
   <!-- pricing -->
   <!-- <pricingVue /> -->
   <!-- footer -->

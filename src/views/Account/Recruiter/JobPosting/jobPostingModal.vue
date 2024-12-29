@@ -704,9 +704,9 @@ async function updateFormToApi(obj: any) {
 </script>
 
 <style scoped>
-.form-select {
+/* .form-select {
     border-radius: 0px !important;
-}
+} */
 </style>
 
 <style>

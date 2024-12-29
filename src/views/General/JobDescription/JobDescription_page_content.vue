@@ -13,8 +13,8 @@
                 <div class="row gy-3 align-items-center">
 
                   <div class="col-md-1 text-lg-center">
-                    <img v-if="currentJob?.image" :src="currentJob.image" class="img-fluid" width="55" alt="_img">
-                    <i v-else class="bi bi-suitcase-lg fs-2 text-muted"></i>
+                    <img v-if="currentJob?.image" :src="currentJob.image" class="img-fluid" width="100" alt="_img">
+                    <i v-else class="bi bi-suitcase-lg text-muted2" style="font-size: 4rem;"></i>
                   </div>
 
                   <div class="col-md-7">
@@ -224,12 +224,14 @@ const similarJobs = ref<any[]>([])
 
 const profileStore = useProfileStore()
 
+const jobIdOnRoute = ref<string>('')
+
 watchEffect(async () => {
   loading.value = true
 
   // @ts-ignore
-  const jobId: any = atob(route.params.id)
-  await job.currentJobQuery(jobId)
+  jobIdOnRoute.value = atob(route.params.id)
+  await job.currentJobQuery(jobIdOnRoute.value)
   if (!currentJob.value.title) router.back()
   getSimilarJobs()
 })
@@ -255,7 +257,7 @@ watchEffect(() => {
 
 async function getSimilarJobs() {
   try {
-    const resp: any = await api.similarJobs(route.params.id)
+    const resp: any = await api.similarJobs(jobIdOnRoute.value)
     if (resp.status == 200)
       similarJobs.value = resp.data.body
     console.log('similarJobs', resp.data.body);

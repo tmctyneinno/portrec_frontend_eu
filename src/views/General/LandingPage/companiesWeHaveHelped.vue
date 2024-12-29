@@ -23,7 +23,8 @@ import { useWindowSize } from '@vueuse/core';
 import { computed } from 'vue';
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 
-const images: string[] = ['reform.png', 'statamic.png', 'transitor.png', 'tupple.png', 'savvycal.png']
+// const images: string[] = ['reform.png', 'statamic.png', 'transitor.png', 'tupple.png', 'savvycal.png']
+const images: string[] = ['crafties.png', 'headway.png', 'NeptuneMFB.png', 'nukreationz.png', 'rehoboth.webp']
 const screenWidth = useWindowSize()
 const itemsToShow = computed(() => { return screenWidth.width.value > 988 ? 5 : 2; })
 

@@ -42,10 +42,6 @@ export default {
         return $instancePublic.get(`job/functions`)
     },
 
-    jobIndustries() {
-        return $instancePublic.get(`job/industries`)
-    },
-
     skills() {
         return $instancePublic.get(`job/skills`)
     },

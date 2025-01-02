@@ -49,7 +49,7 @@ export interface UserProfileCardInterface {
     experience: number | string,
     star: number | string,
     location: string,
-    avalaiblity: string,
+    availability: string,
 }
 
 export type JobStatusInterface = 'ALL' | 'IN_REVIEW' | 'SHORTLISTED' | 'OFFERED' | 'REJECTED' | 'INTERVIEWING'

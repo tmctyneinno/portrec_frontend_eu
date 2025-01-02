@@ -50,7 +50,7 @@
                                     </td>
                                     <td>
                                         <span class="text-muted me-2"> Avalaiblity:</span>
-                                        {{ userProfile?.avalaiblity }}
+                                        {{ userProfile?.availablity }}
                                     </td>
                                 </tr>
                             </tbody>

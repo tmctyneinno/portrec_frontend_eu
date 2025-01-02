@@ -30,10 +30,11 @@
 
                     </div>
                     <div class="col-lg-2">
-                        <button @click="searchJobs" :disabled="formIsSearcing" type="submit" class="btn  w-100"
-                            :class="{ 'btn-dark': fromHome, 'btn-primary': !fromHome }">
-                            {{ formIsSearcing ? 'Searching...' : 'Search job' }}
-                        </button>
+                        <primaryButtonLoading v-if="formIsSearching" className="w-100" />
+                        <primaryButton v-else @click="searchJobs" className="w-100"
+                            :btnMainClass="fromHome ? 'btn-dark' : 'btn-primary'" btnType="submit">
+                            Search
+                        </primaryButton>
                     </div>
                 </div>
             </div>
@@ -63,7 +64,7 @@ const jobsStore = useJobsStore()
 const allCountries = ref<any[]>([])
 const loading = ref(false)
 const titleField = ref<any>(null)
-const formIsSearcing = ref(false)
+const formIsSearching = ref(false)
 const router = useRouter()
 
 
@@ -98,7 +99,7 @@ async function searchJobs() {
     // }
 
     if (jobsStore.search.title) {
-        formIsSearcing.value = true
+        formIsSearching.value = true
 
         try {
             let resp = await api.searchByLocation(jobsStore.search.title, jobsStore.search.location)
@@ -117,7 +118,7 @@ async function searchJobs() {
             // 
         }
         finally {
-            formIsSearcing.value = false
+            formIsSearching.value = false
         }
     }
 }

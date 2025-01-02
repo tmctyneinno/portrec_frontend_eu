@@ -24,7 +24,7 @@
 
             <p>
               <RouterLink class="btn btn-primary rounded-" to="/recruiter/search-talent">
-                Hire a Designer
+                Hire {{ tagNameOnRoute ?? 'Talents' }}
               </RouterLink>
             <div class="text-muted small mt-2">Risk free trial for any hire</div>
             </p>
@@ -46,14 +46,17 @@
         Hire Product Designers with good track records
       </div>
 
-      <div class="row g-3">
-        <UserProfileCard v-for="user in 12" :user-profile="userProfiles[0]">
+      <div v-if="!talents.length" class="min-vh-50 d-flex justify-content-center align-items-center">
+        <noDataShow :text="'No ' + tagNameOnRoute + ' to Show.'" />
+      </div>
+
+      <div v-else class="row g-3">
+        <UserProfileCard v-for="talent in talents" :key="talent.id" :user-profile="talent">
           <template #desc>
             <div class=" text-dark">
-              <div class="fw-bold">UI Designers</div>
+              <div class="fw-bold">{{ tagNameOnRoute }}</div>
               <div>
-                Crafting visually engaging and intuitive user interfaces, emphasizing layout, color, typography, and
-                interactive elements to enhance the overall user experience across digital platforms.
+                {{ tagDescription }}
               </div>
             </div>
           </template>
@@ -85,52 +88,108 @@
       </div>
       <WhatOurClientsSay />
     </div>
-
-
-
   </div>
 
-  <!-- footer -->
   <footerVue />
 </template>
 
 <script setup lang="ts">
+import { onMounted, watch, ref, computed } from 'vue';
+import { useRoute } from 'vue-router';
 import headerVue from '@/components/header.vue'
 import footerVue from '@/components/footer.vue'
 
 import companiesWeHaveHelped from './LandingPage/companiesWeHaveHelped.vue';
-import UserProfileCard from '@/components/userProfileCardGeneral.vue';
-import { ref } from 'vue';
-import type { UserProfileCardInterface } from '@/stores/interfaces';
 import WhatOurClientsSay from './LandingPage/whatOurClientsSay.vue';
+import UserProfileCard from '@/components/userProfileCardGeneral.vue';
+import api from '@/stores/Helpers/axios'
+import type { UserProfileCardInterface } from '@/stores/interfaces';
+
+const route = useRoute()
+const tagNameOnRoute = ref<any>('Talents')
+const idOnRoute = ref<any>(null)
+const isLoadingTalents = ref<boolean>(false)
+const talents = ref<UserProfileCardInterface[]>([])
+
+onMounted(() => {
+  loadDetailsOnRoute()
+})
+
+watch(() => [route.query?.tag], () => {
+  loadDetailsOnRoute()
+  window.location.reload()
+})
 
 
-const userProfiles = ref<UserProfileCardInterface[]>([
-  {
-    id: 1,
-    name: 'Mary Jones',
-    title: 'Remote freelance designer',
-    status: 'recommended',
-    skills: ['illustration', 'design', 'design systems'],
-    experience: 3,
-    star: 4,
-    location: 'remote',
-    avalaiblity: 'remote',
+async function loadDetailsOnRoute() {
+  idOnRoute.value = route.query?.ref ?? null
+  tagNameOnRoute.value = route.query?.tag
+  await getIndustryCareeres()
+}
 
-  },
-  {
-    id: 2,
-    name: 'Samuel Cooner',
-    title: 'Remote Software Enginner',
-    status: 'promoted',
-    skills: ['illustration', 'design', 'design systems'],
-    experience: 7,
-    star: 3,
-    location: 'remote',
-    avalaiblity: 'remote',
+async function getIndustryCareeres() {
+  isLoadingTalents.value = true
+  try {
+    const resp = await api.searchTalent(idOnRoute.value)
+    const array = resp?.data?.body ?? []
+    if (array.length) {
+      array.forEach((item: any) => {
+        const userSkills = (item.user.acquired_skills ?? []).map((x: { skills: { name: any } }) => x.skills.name);
 
+        const newMapp: UserProfileCardInterface = {
+          id: item.user.id,
+          name: item.user.name,
+          title: item.user_profile.professional_headline,
+          status: item.is_promoted == 1 ? 'promoted' : 'recommended',
+          skills: userSkills,
+          experience: 3,
+          star: 4,
+          location: 'remote',
+          availability: 'remote',
+        }
+        talents.value.push(newMapp)
+      });
+    }
+    isLoadingTalents.value = false
   }
-])
+  catch {
+    isLoadingTalents.value = false
+  }
+}
+
+const tagDescription = computed(() => {
+  const categories = [
+    {
+      title: 'Designers',
+      desc: 'Crafting visually engaging and intuitive user interfaces, focusing on layout, color, typography, and interactive elements to enhance the overall user experience.',
+    },
+    {
+      title: 'Salespeople',
+      desc: 'Building relationships, identifying customer needs, and driving revenue through effective communication and tailored solutions.',
+    },
+    {
+      title: 'Marketers',
+      desc: 'Creating and executing strategies to promote products or services, focusing on brand awareness, audience engagement, and lead generation.',
+    },
+    {
+      title: 'Business Experts',
+      desc: 'Providing strategic guidance, managing operations, and ensuring sustainable growth within an organization.',
+    },
+    {
+      title: 'Project Managers',
+      desc: 'Planning, executing, and overseeing projects to ensure they are completed on time, within scope, and on budget.',
+    },
+    {
+      title: 'Software Engineers',
+      desc: 'Designing, developing, and maintaining software solutions to solve complex problems and enhance functionality across digital platforms.',
+    },
+  ];
+
+  const found = categories.find((x: { title: string }) => x.title == tagNameOnRoute.value)
+  return found?.desc ?? ''
+
+})
+
 
 
 

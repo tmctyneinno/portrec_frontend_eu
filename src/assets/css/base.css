@@ -67,6 +67,10 @@ body {
   border-radius: 5px;
 }
 
+.min-vh-50{
+  min-height: 50vh;
+}
+
 /* @media (prefers-color-scheme: dark) {
   ::-webkit-scrollbar-track {
     background-color: #000000;

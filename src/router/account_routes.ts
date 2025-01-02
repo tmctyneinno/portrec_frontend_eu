@@ -1,7 +1,8 @@
-// @ts-nocheck
-import { useProfileStore } from '@/stores/profileStore';
 
-const accountGuard = (to, from, next) => {
+import { useProfileStore } from '@/stores/profileStore';
+import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router';
+
+const accountGuard = (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
 
     const profileStore = useProfileStore();
     if (!profileStore.isLoggedIn) {

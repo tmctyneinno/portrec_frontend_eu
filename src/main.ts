@@ -8,7 +8,7 @@ import 'bootstrap/dist/js/bootstrap.min.js'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 
 // custom css
-import './assets/css/main.css'
+import './assets/css/custom.css'
 
 // animate.css
 import 'animate.css';

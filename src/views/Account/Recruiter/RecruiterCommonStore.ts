@@ -86,7 +86,7 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
             jobPostingDropdowns.jobLevels = levels.data.body
             const types = await api.jobTypes()
             jobPostingDropdowns.jobTypes = types.data.body
-            const industries = await api.jobIndustries()
+            const industries = await api.jobCategories()
             jobPostingDropdowns.jobIndustries = industries.data.body
             const skills = await api.skills()
             jobPostingDropdowns.skills = skills.data.body

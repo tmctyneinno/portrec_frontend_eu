@@ -1,5 +1,5 @@
 <template>
-    <div class="row g-3 p-lg-3 bg-light m-0 pb-5">
+    <div class="row g-3 p-lg-3 bg-ligh m-0 pb-5">
         <div class="col-12 mb-3">
             <div class="row">
                 <div class="col-12">
@@ -167,7 +167,7 @@ const templateStore = useTemplateStore()
 
 onMounted(() => {
     getDashboardInfo()
-    getInterviews()
+    // getInterviews()
 })
 
 const details = reactive({
@@ -206,27 +206,9 @@ async function getDashboardInfo() {
         details.totalJobsViewed = data.totalJobsViewed ?? 0
         details.totalJobsRejected = data.totalJobsRejected ?? 0
         details.upcomingInterviews = data.upcomingInterviews ?? []
-        details.recentApplicationHistory = data.recentApplicationHistory ?? []
-        updateChartSeries()
-        details.isLoadingDetails = false
-    } catch (error) {
-        console.log(error);
-        details.isLoadingDetails = false
-
-    }
-}
-
-
-
-
-
-
-async function getInterviews() {
-    try {
-        details.isLoadingDetails = true
-        const { data } = await api.userGetInterviews()
-        // console.log(data);
-        details.upcomingInterviews = data ?? []
+        // updateChartSeries()
+        const interviewResponse = await api.userGetInterviews()
+        details.upcomingInterviews = interviewResponse?.data ?? []
         details.isLoadingDetails = false
     } catch (error) {
         console.log(error);

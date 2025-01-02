@@ -1,15 +1,15 @@
 <template>
-    <div class="row g-3 m-0 pb-5 justify-content-center align-items-center">
+    <div class="row g-3 m-0 pb-5 justify-content-cente align-items-cente">
         <div class="col-12 mb-3">
             <div class="fw-bold text-capitalize fs-5">Find the Right Talent for Your Project</div>
             <div class="text-muted small">Find the perfect professional from our pool of experts. Browse by
                 category, skill, or experience level to connect with the right fit for your needs.
             </div>
         </div>
-        <div class="col-lg-9">
+        <div class="col-lg-10">
             <SearchUsersForm />
         </div>
-        <div class="dropdown col-md-3" @click="keepDropdownOpen">
+        <div class="dropdown col-md-3 d-none" @click="keepDropdownOpen">
             <button ref="filterDropdownToggler" class="btn btn-outline-dark rounded-5 dropdown-toggle w-100"
                 type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="bi bi-filter"></i> Filter
@@ -87,7 +87,7 @@ const userProfiles = ref<UserProfileCardInterface[]>([
         experience: 3,
         star: 4,
         location: 'remote',
-        avalaiblity: 'remote',
+        availability: 'remote',
 
     },
     {
@@ -99,7 +99,7 @@ const userProfiles = ref<UserProfileCardInterface[]>([
         experience: 7,
         star: 3,
         location: 'remote',
-        avalaiblity: 'remote',
+        availability: 'remote',
 
     }
 ])

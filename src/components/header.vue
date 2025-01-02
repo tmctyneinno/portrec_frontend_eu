@@ -11,19 +11,18 @@
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <!-- <li v-if="route.path != `/search-talent`" class="nav-item mx-4"> -->
-          <li class="nav-item mx-4">
-            <div class="dropdown open">
-              <a class="nav-link dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
+          <li v-if="talentsList.length" class="nav-item mx-4">
+            <div class="dropdown">
+              <button ref="dropdownToggler" class="nav-link dropdown-toggle" type="button" id="triggerId"
+                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 For Company
                 <i class="bi bi-chevron-down"></i>
-              </a>
+              </button>
               <div class="dropdown-menu animate__animated animate__zoomIn animate__faster" aria-labelledby="triggerId">
-                <router-link class="dropdown-item hover-tiltX" to="/search-talent">Hire Developers</router-link>
-                <router-link class="dropdown-item hover-tiltX" to="/search-talent">Hire Designers</router-link>
-                <router-link class="dropdown-item hover-tiltX" to="/search-talent">Hire Product Managers</router-link>
-                <router-link class="dropdown-item hover-tiltX" to="/search-talent">Hire Project Managers</router-link>
-                <router-link class="dropdown-item hover-tiltX" to="/search-talent">Hire Assistants</router-link>
+                <span @click="goToTalentPage(list.id, list.title)" v-for="list in talentsList" :key="list.id"
+                  class="dropdown-item hover-tiltX cursor-pointer">Hire {{
+                    list.title
+                  }}</span>
               </div>
             </div>
 
@@ -54,11 +53,15 @@
 import { onMounted, ref, computed } from 'vue';
 import mobileMenuVue from './mobileMenu.vue';
 import { useTemplateStore } from '@/stores/templateStore';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
+import { useJobsStore } from '@/stores/jobsStore';
+
+const jobsStore = useJobsStore()
 
 const templateStore = useTemplateStore()
 const headerDropped = ref<boolean>(false)
 const route = useRoute()
+const router = useRouter()
 
 const customClass = computed(() => ({
   // 'b': route.path !== '/',
@@ -75,7 +78,56 @@ onMounted(() => {
     else
       headerDropped.value = false;
   })
+  getIndustries()
 })
+
+
+// Search Talent - for company #### START
+
+const jobCategories = ref<any[]>([])
+
+async function getIndustries() {
+  await jobsStore.getJobCategories()
+  jobCategories.value = jobsStore.categories
+}
+
+const titleMapping: any = {
+  design: "Designers",
+  sales: "Salespeople",
+  marketing: "Marketers",
+  business: "Business Experts",
+  "Product & Project Management": "Project Managers",
+  "Software & Data": "Software Engineers",
+};
+
+
+const talentsList = computed(() => {
+  const mapped = jobCategories.value.map((cate: { name: string, id: number }) => ({
+    title: titleMapping[cate.name] || null,
+    id: cate.id
+  }))
+  return mapped.filter(x => x.title != null)
+})
+
+
+const dropdownToggler = ref<any>(null)
+
+function goToTalentPage(ref: number, tag: string) {
+  dropdownToggler.value?.click()
+  router.push({
+    path: `search-talent`,
+    query: {
+      ref: ref,
+      tag: tag,
+      tm: new Date().getTime()
+    }
+  })
+  // window.location.reload()
+}
+
+
+// Search Talent - for company #### END
+
 </script>
 
 <style scoped>

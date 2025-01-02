@@ -1,5 +1,5 @@
 <template>
-    <div class="row g-3 p-lg-3 bg-light m-0 pb-5">
+    <div class="row g-3 p-lg-3 bg-light-subtle rounded-3 m-0 pb-5">
         <div class="col-12">
             <div class="row g-3">
                 <div class="col-12">

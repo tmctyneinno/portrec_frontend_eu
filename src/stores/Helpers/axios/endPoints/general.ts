@@ -5,5 +5,9 @@ export default {
         return $instance.get(`notification/read/${id}`)
     },
 
+    searchTalent(industry_id: string) {
+        return $instance.get(`get/industry/careers/${industry_id}`)
+    },
+
 
 }

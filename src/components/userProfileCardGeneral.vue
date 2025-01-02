@@ -16,7 +16,8 @@
             <div class="card-body py-0">
                 <div class="row g-lg-5">
                     <div class="col-2 col-lg-1">
-                        <div class="img-circle" :style="{ 'background-image': `url(/images/profile.png)` }"></div>
+                        <!-- :style="{ 'background-image': `url(/images/profile.png)` }" -->
+                        <div class="img-circle"></div>
                     </div>
                     <div class="col-10">
                         <div class="fw-bolder lh-1">{{ userProfile?.name }}</div>
@@ -32,7 +33,7 @@
             <div class="card-footer border-0 bg-transparent pt-0 ps-4 ">
                 <button @click="navigateToUserProfile(userProfile.id)"
                     class="btn btn-link ps-0 hover-tiltX text-decoration-none theme-color fw-bold text-decoration-none fw-bold">
-                    Hire UI Designers <i class="bi bi-arrow-right"></i>
+                    Hire this Talent <i class="bi bi-arrow-right"></i>
                 </button>
             </div>
 
@@ -66,7 +67,7 @@ const router = useRouter();
 
 const navigateToUserProfile = (id: number | string) => {
     recruiterCommonStore.usersOnSearch.selected = id;
-    router.push({ path: `/recruiter/user-profile/${id}`, query: { r: Math.random().toString(36).slice(2, 16) } });
+    router.push({ path: `/recruiter/user-profile/${id}`, query: { rd: Math.random().toString(36).slice(2, 16) } });
 };
 
 </script>

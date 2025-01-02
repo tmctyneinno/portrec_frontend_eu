@@ -22,10 +22,10 @@
                     <i class=" bi bi-geo-alt location-select-icon"></i>
                 </div>
                 <div class="col-lg-2">
-                    <button @click="searchJobs" :disabled="formIsSearcing" type="submit" class="btn  w-100"
-                        :class="{ 'btn-dark': fromHome, 'btn-primary': !fromHome }">
-                        {{ formIsSearcing ? 'Searching...' : 'Search' }}
-                    </button>
+                    <primaryButton @click="searchJobs" className="w-100" btnType="submit">
+                        Search
+                    </primaryButton>
+                    <!-- <primaryButtonLoading className="w-100" /> -->
                 </div>
             </div>
         </form>
@@ -41,18 +41,11 @@ import useFxn from '@/stores/Helpers/useFunctions'
 import { useRouter } from 'vue-router';
 import { Country } from 'country-state-city';
 
-const prop = defineProps({
-    fromHome: {
-        type: Boolean,
-        default: false
-    }
-})
-
 const jobsStore = useJobsStore()
 const allCountries = ref<any[]>([])
 const loading = ref(false)
 const titleField = ref<any>(null)
-const formIsSearcing = ref(false)
+const formIsSearching = ref(false)
 const router = useRouter()
 
 
@@ -87,7 +80,7 @@ async function searchJobs() {
     // }
 
     if (jobsStore.search.title) {
-        formIsSearcing.value = true
+        formIsSearching.value = true
 
         try {
             // let resp = await api.searchByLocation(jobsStore.search.title, jobsStore.search.location)
@@ -106,7 +99,7 @@ async function searchJobs() {
             // 
         }
         finally {
-            formIsSearcing.value = false
+            formIsSearching.value = false
         }
     }
 }

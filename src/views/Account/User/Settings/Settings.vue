@@ -47,7 +47,7 @@
                         <div class="row g-3">
                             <div class="col-12">
                                 <label> Full Name * </label>
-                                <input v-model="details.name" class="form-control rounded-0" type="text">
+                                <input v-model="details.name" class="form-control " type="text">
                             </div>
                             <div class="col-md-12">
                                 <label> Phone Number </label>
@@ -57,7 +57,7 @@
                             </div>
                             <!-- <div class="col-md-7">
                                 <label> Email </label>
-                                <input v-model="details.email" class="form-control rounded-0" type="text">
+                                <input v-model="details.email" class="form-control " type="text">
                             </div> -->
                             <div class="col-md-6">
                                 <label> Date of Birth </label>
@@ -84,12 +84,12 @@
                                 <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
                                     class="country-chooser-settings" :clearable="false" v-model="details.location"
                                     :loading="loading" placeholder="select city" :options="citiesArray" label="name" />
-                                <!-- <input v-model="details.location" class="form-control rounded-0" type="text"> -->
+                                <!-- <input v-model="details.location" class="form-control " type="text"> -->
                             </div>
                             <div class="col-12">
                                 <label> Proffessional Headline </label>
-                                <input v-model="details.professional_headline" class="form-control rounded-0"
-                                    type="text" placeholder="e.g: Software Enginner">
+                                <input v-model="details.professional_headline" class="form-control " type="text"
+                                    placeholder="e.g: Software Enginner">
                             </div>
                         </div>
                     </div>
@@ -126,13 +126,11 @@
                 <!-- <hr> -->
                 <div class="col-12 col-lg-11">
                     <div class="col-md-2 float-lg-end">
-                        <button v-if="!details.isLoading" @click="saveProfile"
-                            class="float-end btn btn-primary rounded-0 w-100" type="button">
+                        <primaryButton v-if="!details.isLoading" @click="saveProfile" className="float-end w-100">
                             Save profile
-                        </button>
-                        <button v-else class="float-en btn btn-primary rounded-0 w-100" type="button" disabled>
-                            <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
-                        </button>
+                        </primaryButton>
+
+                        <primaryButtonLoading v-else className="w-100 " />
                     </div>
 
                 </div>
@@ -164,11 +162,11 @@
 
                             <div class="col-12">
                                 <label>Update Email</label>
-                                <input class="form-control rounded-0" type="text" placeholder="Enter your new email">
+                                <input class="form-control " type="text" placeholder="Enter your new email">
                             </div>
 
                             <div class="col-md-6">
-                                <button disabled class="btn btn-primary rounded-0 w-100">Update Email</button>
+                                <button disabled class="btn btn-primary  w-100">Update Email</button>
                             </div>
                         </div>
                     </div>
@@ -186,26 +184,26 @@
                         <div class="row g-3">
                             <div class="col-12">
                                 <label> Old Password</label>
-                                <input v-model="password.old" class="form-control rounded-0" type="password"
+                                <input v-model="password.old" class="form-control " type="password"
                                     placeholder="Enter your old password">
                                 <span class="small text-muted2">Minimum 8 characters</span>
                             </div>
                             <div class="col-md-6">
                                 <label> New Password</label>
-                                <input v-model="password.new" class="form-control rounded-0" type="password"
+                                <input v-model="password.new" class="form-control " type="password"
                                     placeholder="new password">
                                 <span class="small text-muted2">Minimum 8 characters</span>
                             </div>
                             <div class="col-md-6">
                                 <label> Repeat new Password</label>
-                                <input v-model="password.repeat" class="form-control rounded-0" type="password"
+                                <input v-model="password.repeat" class="form-control " type="password"
                                     placeholder="new password">
                             </div>
 
                             <div class="col-md-6 mt-3">
                                 <button @click="changePassword" v-if="!password.isLoading"
-                                    class="btn btn-primary rounded-0 w-100">Change Password</button>
-                                <button v-else class="btn btn-primary rounded-0 w-100" disabled>
+                                    class="btn btn-primary  w-100">Change Password</button>
+                                <button v-else class="btn btn-primary  w-100" disabled>
                                     <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
                                 </button>
                             </div>
@@ -276,7 +274,9 @@
                                 <div class="row">
                                     <div class="col-2 "></div>
                                     <div class="col-10 col-md-6">
-                                        <button class="btn btn-primary w-100 rounded-0">Update Settings</button>
+                                        <primaryButton className="w-100">
+                                            Update Settings
+                                        </primaryButton>
                                     </div>
                                 </div>
                             </div>
@@ -487,20 +487,20 @@ async function submitPasswordForm() {
     background-color: #fff !important;
 } */
 
-.dob-settings-input .dp__pointer {
+/* .dob-settings-input .dp__pointer {
     border-radius: 0px !important;
-}
+} */
 
 .country-chooser-settings .vs__search,
 .gender-chooser .vs__search {
     line-height: 1.7rem !important;
-    border-radius: 0px !important;
+    /* border-radius: 0px !important; */
     border: 0px !important;
 }
 
 .country-chooser-settings .vs__dropdown-toggle,
 .gender-chooser .vs__dropdown-toggle {
     background-color: #fff !important;
-    border-radius: 0px;
+    /* border-radius: 0px; */
 }
 </style>

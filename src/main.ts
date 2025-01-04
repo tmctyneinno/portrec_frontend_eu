@@ -78,7 +78,7 @@ import piniaPersist from 'pinia-plugin-persist'
 
 import jobsDisplayVue from '@/components/jobsDisplay.vue';
 import overlayLoading from '@/components/overlayLoading.vue';
-import noDataShow from '@/components/noDataShow.vue';
+import emptyDataComponent from '@/components/emptyDataComponent.vue';
 import componentLoading from '@/components/componentLoading.vue';
 import customPagination from '@/components/customPagination.vue';
 
@@ -109,7 +109,7 @@ app.component('customPagination', customPagination)
 // custom components
 app.component('jobsDisplayVue', jobsDisplayVue)
 app.component('overlayLoading', overlayLoading)
-app.component('noDataShow', noDataShow)
+app.component('emptyDataComponent', emptyDataComponent)
 app.component('componentLoading', componentLoading)
 app.component('primaryButton', primaryButton)
 app.component('primaryButtonOutline', primaryButtonOutline)

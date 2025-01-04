@@ -91,7 +91,7 @@
                 <div class="card-body row gy-3">
                     <ComponentLoading v-if="details.isLoadingDetails" />
                     <div v-else>
-                        <NoDataShow v-if="!details.upcomingInterviews.length" :text="'No Interviews'"
+                        <emptyDataComponent v-if="!details.upcomingInterviews.length" :text="'No Interviews'"
                             icon="bi-calendar-x" />
                         <div v-else>
                             <EasyDataTable :loading="details.isLoadingDetails" show-index alternating
@@ -155,7 +155,7 @@ import { useDateFormat } from '@vueuse/core';
 import { onMounted, reactive, ref } from 'vue';
 import useFxn from '@/stores/Helpers/useFunctions'
 import api from '@/stores/Helpers/axios'
-import NoDataShow from '@/components/noDataShow.vue';
+import emptyDataComponent from '@/components/emptyDataComponent.vue';
 import ComponentLoading from '@/components/componentLoading.vue';
 import CustomDateRangePicker from '@/components/CustomDateRangePicker.vue';
 import { useTemplateStore } from '@/stores/templateStore';

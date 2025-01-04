@@ -249,7 +249,7 @@
 
                   </div>
 
-                  <noDataShow v-else text="No jobs" />
+                  <emptyDataComponent v-else text="No jobs" />
 
                 </div>
               </div>

@@ -16,7 +16,7 @@
             </div>
             <div class="col-12 mt-4">
                 <div v-if="!jobsStore.latest.length">
-                    <noDataShow text="No jobs posted" />
+                    <emptyDataComponent text="No jobs posted" />
                 </div>
                 <div v-else class="row g-4">
                     <jobsDisplayVue :job="latest" v-for="(latest, i) in jobsStore.latest" :key="i"

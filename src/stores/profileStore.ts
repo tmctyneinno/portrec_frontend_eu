@@ -7,6 +7,7 @@ import Cookies from 'js-cookie';
 
 export const useProfileStore = defineStore('profileStore', () => {
     const token: any = ref('')
+    const tokenExpiry = 3 // days
     const userType: any = ref('')
     const userData: any = useStorage('protrec_$user_profile', null, sessionStorage)
     const avatar = ref<string>('')
@@ -23,10 +24,10 @@ export const useProfileStore = defineStore('profileStore', () => {
 
 
     const login = (tokenStr: string, loginType = 'user') => {
-        Cookies.set('PortrecTkn', tokenStr, { expires: 1 });
+        Cookies.set('PortrecTkn', tokenStr, { expires: tokenExpiry });
         token.value = tokenStr;
 
-        Cookies.set('PortrecUserType', loginType, { expires: 1 });
+        Cookies.set('PortrecUserType', loginType, { expires: tokenExpiry });
         userType.value = loginType;
 
         window.location.reload();

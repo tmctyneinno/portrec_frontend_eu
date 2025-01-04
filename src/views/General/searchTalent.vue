@@ -21,7 +21,6 @@
               Find expert UI, UX, web, and product designers you need today.
             </p>
 
-
             <p>
               <RouterLink class="btn btn-primary rounded-" to="/recruiter/search-talent">
                 Hire {{ tagNameOnRoute ?? 'Talents' }}
@@ -47,7 +46,7 @@
       </div>
 
       <div v-if="!talents.length" class="min-vh-50 d-flex justify-content-center align-items-center">
-        <noDataShow :text="'No ' + tagNameOnRoute + ' to Show.'" />
+        <emptyDataComponent :text="'No ' + tagNameOnRoute + ' to Show.'" />
       </div>
 
       <div v-else class="row g-3">

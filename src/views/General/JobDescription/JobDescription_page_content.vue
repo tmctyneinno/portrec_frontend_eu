@@ -184,7 +184,7 @@
           <div v-if="similarJobs.length" class="row g-4">
             <jobsDisplayVue :job="i" @click="goToJob(i.id)" v-for="i in similarJobs" :key="i" />
           </div>
-          <noDataShow v-else text="No similar jobs" />
+          <emptyDataComponent v-else text="No similar jobs" />
         </div>
       </div>
     </div>

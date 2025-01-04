@@ -206,8 +206,8 @@ function logout() {
 }
 
 .disabled-link {
-    color: #8080807e !important;
-    pointer-events: none;
-    cursor: default;
+    /* color: #8080807e !important; */
+    /* pointer-events: none; */
+    cursor: not-allowed;
 }
 </style>

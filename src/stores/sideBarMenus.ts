@@ -55,7 +55,7 @@ const recruiterMenu = [{
     title: 'Search Talent',
     routeName: 'recruiter-Search_Talent',
     icon: 'bi bi-person-workspace',
-    isPremium: true
+    isPremium: false
 },
 {
     title: 'Company Profile',

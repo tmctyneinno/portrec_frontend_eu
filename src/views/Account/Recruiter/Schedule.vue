@@ -16,6 +16,60 @@
             <hr>
         </div>
 
+
+
+        <div class="col-lg-8">
+            <div class="card">
+                <div class=" card-header bg-transparent border-0 pb-0 fw-bold mb-2">Interviews</div>
+                <div class="card-body">
+                    <EasyDataTable alternating class="border-0" :loading="tableIsLoading" show-index
+                        :headers="tableHeader" :items="interviews" buttons-pagination>
+
+                        <template #header="header">
+                            <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
+                        </template>
+
+                        <template #item-interview_date="item">
+                            {{ useFxn.dateDisplay(item.interview_date) }}
+                        </template>
+
+                        <template #item-candidate_approved="item">
+                            <span class="category-tag"
+                                :class="!item.candidate_approved ? 'bg-light' : (item.candidate_approved == 1 ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger')">
+                                {{ !item.candidate_approved ? 'Not Responded' : (item.candidate_approved == 1 ?
+                                    'Accepted' :
+                                    'Rejected') }}
+                            </span>
+                        </template>
+
+                        <template #item-view="item">
+                            <button @click="viewDetails(item)"
+                                class=" btn btn-sm btn-primary-outline border-0 rounded-5 text-decoration-none btn-sm ">
+                                <i class=" bi bi-eye"></i>
+                            </button>
+
+                        </template>
+
+                        <template #item-delete="item">
+
+                            <button v-if="!item?.candidate_approved" @click="deleteItem(item.id)"
+                                class=" btn btn-sm btn-primary-outline border-0 rounded-5 text-decoration-none btn-sm ">
+                                <i class=" bi bi-trash3"></i>
+                            </button>
+                        </template>
+
+                    </EasyDataTable>
+                </div>
+            </div>
+
+
+            <!-- <Qalendar :events="events" :config="qualendarConfig" :selected-date="new Date()" /> -->
+        </div>
+
+
+
+
+
         <div class="col-lg-4 border-righ">
             <div class="card h-100">
                 <div class="card-body">
@@ -61,53 +115,7 @@
             </div> -->
         </div>
 
-        <div class="col-lg-8">
-            <div class="card">
-                <div class=" card-header bg-transparent border-0 pb-0 fw-bold mb-2">Interviews</div>
-                <div class="card-body">
-                    <EasyDataTable class="border-0" :loading="tableIsLoading" show-index :headers="tableHeader"
-                        :items="interviews" buttons-pagination>
 
-                        <template #header="header">
-                            <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
-                        </template>
-
-                        <template #item-interview_date="item">
-                            {{ useFxn.dateDisplay(item.interview_date) }}
-                        </template>
-
-                        <template #item-candidate_approved="item">
-                            <span class="category-tag"
-                                :class="!item.candidate_approved ? 'bg-light' : (item.candidate_approved == 1 ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger')">
-                                {{ !item.candidate_approved ? 'Not Responded' : (item.candidate_approved == 1 ?
-                                    'Accepted' :
-                                    'Rejected') }}
-                            </span>
-                        </template>
-
-                        <template #item-view="item">
-                            <button @click="viewDetails(item)"
-                                class=" btn btn-sm btn-primary-outline border-0 rounded-5 text-decoration-none btn-sm ">
-                                <i class=" bi bi-eye"></i>
-                            </button>
-
-                        </template>
-
-                        <template #item-delete="item">
-
-                            <button v-if="!item?.candidate_approved" @click="deleteItem(item.id)"
-                                class=" btn btn-sm btn-primary-outline border-0 rounded-5 text-decoration-none btn-sm ">
-                                <i class=" bi bi-trash3"></i>
-                            </button>
-                        </template>
-
-                    </EasyDataTable>
-                </div>
-            </div>
-
-
-            <!-- <Qalendar :events="events" :config="qualendarConfig" :selected-date="new Date()" /> -->
-        </div>
     </div>
 
 

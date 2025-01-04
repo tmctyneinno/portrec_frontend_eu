@@ -119,7 +119,7 @@
                                 </div>
                             </div>
                             <div v-else>
-                                <noDataShowVue text="" />
+                                <emptyDataComponent text="" />
                             </div>
                         </div>
                     </div>
@@ -141,7 +141,7 @@ import api from '@/stores/Helpers/axios'
 import useFxn from '@/stores/Helpers/useFunctions';
 import overlayLoadingVue from '@/components/overlayLoading.vue';
 import { useRouter } from 'vue-router';
-import noDataShowVue from '@/components/noDataShow.vue';
+// import emptyDataComponentVue from '@/components/emptyDataComponent.vue';
 import { useCommonStore } from './commonStore'
 
 const tempos = reactive({

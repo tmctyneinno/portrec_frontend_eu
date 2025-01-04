@@ -8,7 +8,7 @@
                         <span class="fw-bold">{{ dateRange ? date_display(dateRange) : '' }}</span>.
                     </span>
                     <span class="float-start float-lg-end">
-                        <VueDatePicker class="fw-bold" disable-year-select :format="date_display" range multi-calendars
+                        <VueDatePicker class="fw-bold" disable-year-selec :format="date_display" range multi-calendars
                             :clearable="false" :max-date="new Date()" :enable-time-picker="false" auto-apply
                             v-model="dateRange">
                         </VueDatePicker>
@@ -191,13 +191,13 @@
             </div>
         </div>
 
-        <div class="col-12">
+        <!-- <div class="col-12">
             <div class="card shadow-sm">
                 <div class="card-header fw-bold py-3 bg-transparent ">Recent Applications History</div>
                 <div class="card-body min-vh-100">
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 
@@ -218,8 +218,8 @@ onMounted(() => {
 const dateRange = ref();
 
 const date_display = (date: Date[]) => {
-    const dateMe1 = useDateFormat(date[0], 'MMM D')
-    const dateMe2 = useDateFormat(date[1], 'MMM D')
+    const dateMe1 = useDateFormat(date[0], 'MMM D YYYY')
+    const dateMe2 = useDateFormat(date[1], 'MMM D YYYY')
     return `${dateMe1.value} - ${dateMe2.value}`;
 }
 

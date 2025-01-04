@@ -519,6 +519,7 @@ input[type="radio"]:checked+label:before {
 .vue3-easy-data-table__body td {
   border: none !important;
   padding-block: 20px !important;
+  /* background-color: transparent !important; */
 }
 
 .vue3-easy-data-table__main.fixed-header th {
@@ -531,7 +532,7 @@ input[type="radio"]:checked+label:before {
 
 .vue3-easy-data-table__footer {
   border: none !important;
-  padding-block: 30px !important;
+  padding-block: 20px !important;
 }
 
 .buttons-pagination .item.button.active{

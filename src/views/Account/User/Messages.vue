@@ -11,10 +11,10 @@
                     </div>
                     <div class="col-12">
                         <div v-if="!convos.data.length">
-                            <NoDataShow text="No messages" icon="bi-chat-square-text" />
+                            <emptyDataComponent text="No messages" icon="bi-chat-square-text" />
                         </div>
                         <ul v-else class="list-group list-group-flush">
-                            <li @click="showMessages(convo.id)" v-for="(convo, index) in  convos.data " :key="index"
+                            <li @click="showMessages(convo.id)" v-for="(convo, index) in convos.data " :key="index"
                                 class="list-group-item cursor-pointer ps-0 "
                                 :class="{ 'bg-light theme-color': convoMessages.currentConvoId == convo.id }">
                                 <div class="row justify-content-center align-items-center">
@@ -148,7 +148,7 @@
 import { ref, reactive, onMounted, computed } from 'vue';
 import EmojiPicker from 'vue3-emoji-picker'
 import api from '@/stores/Helpers/axios'
-import NoDataShow from '@/components/noDataShow.vue';
+import emptyDataComponent from '@/components/emptyDataComponent.vue';
 import useFxn from '@/stores/Helpers/useFunctions';
 import { useProfileStore } from '@/stores/profileStore';
 import componentLoadingVue from '@/components/componentLoading.vue';

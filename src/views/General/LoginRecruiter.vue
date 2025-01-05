@@ -156,10 +156,7 @@ async function signin() {
         const { data } = await api.recruiterLogin(axObj)
 
         if (data.status === 200) {
-            // profile.token = data.body.token
-            const loginType = 'recruiter';
-            profile.login(data.body.token, loginType)
-            router.push({ path: `/${loginType}/dashboard` })
+            profile.login(data.body.token, 'recruiter')
         }
     } catch (error: any) {
         if (error.response.status === 401) {

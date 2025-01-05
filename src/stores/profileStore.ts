@@ -10,6 +10,7 @@ export const useProfileStore = defineStore('profileStore', () => {
     const tokenExpiry = 3 // days
     const userType: any = ref('')
     const userData: any = useStorage('protrec_$user_profile', null, sessionStorage)
+    const isNewLogin: any = useStorage('protrec_$isNewLogin', '1')
     const avatar = ref<string>('')
     const notifications = ref<{
         title: string,
@@ -91,6 +92,7 @@ export const useProfileStore = defineStore('profileStore', () => {
         token,
         data,
         avatar,
+        isNewLogin,
         login,
         logout,
         getProfile,

@@ -1,5 +1,5 @@
 <template>
-    <div class="row g-3">
+    <div class="row g-3 pb-5">
         <div class="col-lg-5 line-right px-3 min-vh-100">
             <div class="row">
                 <div class="col-12">

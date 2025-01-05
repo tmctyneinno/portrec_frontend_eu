@@ -24,6 +24,7 @@ export default [
         beforeEnter: accountGuard,
         component: () => import('../views/Account/User/Layout.vue'),
         children: [
+            { path: 'get-started', name: 'user-Get_Started', meta: { name: 'Get Started', auth: 'user' }, component: () => import('../views/Account/User/GetStarted.vue') },
             { path: 'dashboard', name: 'user-Dashboard', meta: { name: 'Dashboard', auth: 'user' }, alias: '/user', component: () => import('../views/Account/User/Dashboard.vue') },
             { path: 'settings', name: 'user-Settings', meta: { name: 'Settings', auth: 'user' }, component: () => import('../views/Account/User/Settings/Settings.vue') },
             { path: 'message', name: 'user-Messages', meta: { name: 'Messages', auth: 'user' }, component: () => import('../views/Account/User/Messages.vue') },
@@ -42,6 +43,7 @@ export default [
         beforeEnter: accountGuard,
         component: () => import('../views/Account/Recruiter/Layout.vue'),
         children: [
+            { path: 'get-started', name: 'recruiter-Get_Started', meta: { name: 'Get Started', auth: 'recruiter' }, component: () => import('../views/Account/Recruiter/GetStarted.vue') },
             { path: 'dashboard', name: 'recruiter-Dashboard', meta: { name: 'Dashboard', auth: 'recruiter' }, alias: '/recruiter', component: () => import('../views/Account/Recruiter/Dashboard.vue') },
             { path: 'messages', name: 'recruiter-Messages', meta: { name: 'Messages', auth: 'recruiter' }, component: () => import('../views/Account/Recruiter/Messages.vue') },
             { path: 'company', name: 'recruiter-Company_Profile', meta: { name: 'Company Profile', auth: 'recruiter' }, component: () => import('../views/Account/Recruiter/CompanyProfile/CompanyProfile.vue') },

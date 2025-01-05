@@ -5,7 +5,13 @@ import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router';
 const initGuard = (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
     const profileStore = useProfileStore();
     if (profileStore.isLoggedIn) {
-        next({ path: `/${profileStore.getUserType}/dashboard` });
+        const path = profileStore.isNewLogin == 1
+            ? `/${profileStore.getUserType}/get-started`
+            : `/${profileStore.getUserType}/dashboard`;
+
+        if (profileStore.isNewLogin == 1) profileStore.isNewLogin = 0;
+
+        next({ path });
     }
     else {
         next()

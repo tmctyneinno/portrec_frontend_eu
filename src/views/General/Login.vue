@@ -17,9 +17,6 @@
                             <div class=" text-center">Enter your login details below</div>
                         </div>
 
-
-
-
                         <form @submit.prevent="submitForm" class="row g-3">
                             <div class="col-12">
                                 <label class="fw-bold text-muted small">
@@ -155,10 +152,7 @@ async function signin() {
         const { data } = await api.userLogin(axObj)
 
         if (data.status === 200) {
-            // profile.token = data.body.token
-            const loginType = 'user';
-            profile.login(data.body.token, loginType)
-            router.push({ path: `/${loginType}/dashboard` })
+            profile.login(data.body.token, 'user')
         }
     } catch (error: any) {
         if (error.response.status === 401) {

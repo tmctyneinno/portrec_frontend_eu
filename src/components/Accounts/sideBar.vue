@@ -1,7 +1,7 @@
 <template>
     <div class="sidebar">
         <div class="logo-span p-4 ext-center">
-            <img src="/images/site_logo.png" width="140" alt="site_logo">
+            <img src="/images/site_logo.png" width="140" alt="site_logo" />
         </div>
 
         <ul class="nav nav-pills flex-column mt-2">
@@ -25,18 +25,16 @@
                 </template>
             </li>
 
-            <hr class="my-2 mx-3">
+            <hr class="my-2 mx-3" />
             <li class="nav-item">
-                <router-link class="nav-link " :to="`/${prop.userType}/settings`">
-                    <i class="bi bi-gear"></i> &nbsp;
-                    Settings
+                <router-link class="nav-link" :to="`/${prop.userType}/settings`">
+                    <i class="bi bi-gear"></i> &nbsp; Settings
                 </router-link>
             </li>
 
             <li class="nav-item">
-                <router-link class="nav-link " :to="`/${prop.userType}/billings`">
-                    <i class="bi bi-wallet2"></i> &nbsp;
-                    Billings
+                <router-link class="nav-link" :to="`/${prop.userType}/billings`">
+                    <i class="bi bi-wallet2"></i> &nbsp; Billings
                 </router-link>
             </li>
 
@@ -46,11 +44,10 @@
                     Help Center
                 </router-link>
             </li> -->
-
         </ul>
 
         <div class="bottom">
-            <div class="row justify-content-center g-2">
+            <div class="row justify-content-center">
                 <div class="dropdown col-11">
                     <div v-if="profileStore.data" class="profile-card dropdown-toggle" cid="triggerId"
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -70,33 +67,28 @@
                         <a @click="logout" class="dropdown-item text-danger bg-transparent" href="#">
                             <i class="bi bi-box-arrow-right"></i> Logout
                         </a>
-
                     </div>
                 </div>
             </div>
-
         </div>
-
     </div>
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed } from 'vue'
 import { userMenu, recruiterMenu } from '@/stores/sideBarMenus'
-import { useProfileStore } from '@/stores/profileStore';
+import { useProfileStore } from '@/stores/profileStore'
 
 const profileStore = useProfileStore()
 const prop = defineProps(['userType'])
 
-const menus = computed(() => (prop.userType === 'recruiter' ? recruiterMenu : userMenu));
+const menus = computed(() => (prop.userType === 'recruiter' ? recruiterMenu : userMenu))
 
 function logout() {
     profileStore.logout()
     // router.replace({ path: '/login' })
     window.location.reload()
 }
-
-
 </script>
 
 <style scoped>
@@ -108,7 +100,7 @@ function logout() {
     width: 250px !important;
     background-color: #fff;
     border-right: 1px solid #cccccc44;
-    background-color: #F8F8FD;
+    background-color: #f8f8fd;
     overflow-y: auto;
 }
 
@@ -137,9 +129,8 @@ function logout() {
     border: none !important;
 }
 
-
 .active {
-    background-color: #E9EBFD !important;
+    background-color: #e9ebfd !important;
     color: var(--theme-color) !important;
     border-left: 2px solid var(--theme-color);
 }
@@ -151,8 +142,8 @@ function logout() {
     left: 0;
     z-index: 1030;
     width: 249px;
-    padding-bottom: 20px;
-    background-color: #F8F8FD;
+    padding-bottom: 10px;
+    background-color: #f8f8fd;
 }
 
 @media (max-width: 767px) {
@@ -161,11 +152,10 @@ function logout() {
     }
 }
 
-
 .profile-card {
     display: flex;
     align-items: center;
-    padding: 15px;
+    padding: 8px;
     border-radius: 8px;
     background-color: #fff;
     cursor: pointer;

@@ -41,10 +41,8 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { useRecruiterCommonStore } from '@/views/Account/Recruiter/RecruiterCommonStore';
 import { useRouter } from 'vue-router';
 
-const recruiterCommonStore = useRecruiterCommonStore()
 
 const props = defineProps({
     userProfile: {
@@ -66,7 +64,6 @@ const userSkills = () => {
 const router = useRouter();
 
 const navigateToUserProfile = (id: number | string) => {
-    recruiterCommonStore.usersOnSearch.selected = id;
     router.push({ path: `/recruiter/user-profile/${id}`, query: { rd: Math.random().toString(36).slice(2, 16) } });
 };
 

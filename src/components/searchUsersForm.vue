@@ -2,10 +2,10 @@
     <div class="position-relativ">
         <form @submit.prevent="" class="col-md-12 p-3 p-lg-2 px- form-container">
             <div class="row g-3">
-                <div class="col-lg-5">
-                    <div class="input-group position-relative searchingBar border-right-lg" ref="dropdownElement">
+                <div class="col-lg-8">
+                    <div class="input-group position-relative searchingBar border-right-l" ref="dropdownElement">
                         <span class="input-group-text" id="addon-search"><i class="bi bi-search"></i> </span>
-                        <input @input="onInputChange" ref="titleField" v-model="jobsStore.search.title" type="text"
+                        <input @input="onInputChange" ref="titleField" v-model="searchForm.keyword" type="text"
                             class="form-control" placeholder="keyword or skill" aria-describedby="addon-search">
 
                         <ul v-if="suggestions.length" class="searchingBar-suggestions">
@@ -14,18 +14,18 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-5  position-relative">
+                <!-- <div class="col-lg-5  position-relative">
                     <v-select :taggable="true" append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
-                        v-model="jobsStore.search.location" :loading="loading"
+                        v-model="searchForm.location" :loading="loading"
                         class="country-chooser-jobform find-jobs-select" placeholder="city or state"
                         :options="allCountries" />
                     <i class=" bi bi-geo-alt location-select-icon"></i>
-                </div>
-                <div class="col-lg-2">
-                    <primaryButton @click="searchJobs" className="w-100" btnType="submit">
+                </div> -->
+                <div class="col-lg-4">
+                    <primaryButton v-if="!formIsSearching" @click="searchUsers" className="w-100" btnType="submit">
                         Search
                     </primaryButton>
-                    <!-- <primaryButtonLoading className="w-100" /> -->
+                    <primaryButtonLoading v-else className="w-100" />
                 </div>
             </div>
         </form>
@@ -34,19 +34,27 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, watchEffect } from 'vue';
+import { ref, onMounted, watchEffect, reactive } from 'vue';
 import { useJobsStore } from '@/stores/jobsStore';
 import api from '@/stores/Helpers/axios'
 import useFxn from '@/stores/Helpers/useFunctions'
-import { useRouter } from 'vue-router';
 import { Country } from 'country-state-city';
+import type { UserProfileCardInterface } from '@/stores/interfaces';
 
 const jobsStore = useJobsStore()
 const allCountries = ref<any[]>([])
 const loading = ref(false)
 const titleField = ref<any>(null)
 const formIsSearching = ref(false)
-const router = useRouter()
+
+const searchForm = reactive({
+    keyword: '',
+    // location: ''
+})
+
+
+
+const emits = defineEmits(['done'])
 
 
 onMounted(async () => {
@@ -57,46 +65,52 @@ onMounted(async () => {
     } catch (error) {
         // 
     }
-    // const response = await fetch('https://restcountries.com/v3.1/all');
-    // if (response.ok) {
-    //     const data = await response.json();
-    //     let names = data.map((country: { name: any; }) => country.name.common)
-    //     allCountries.value = names
-    //     loading.value = false
-    // } else {
-    //     console.error('', response.statusText);
-    // }
 
     // for suggestions 
     document.body.addEventListener('click', handleBodyClick);
 })
 
 
-async function searchJobs() {
-
-    // if (!useFxn.isOnline()) {
-    //     useFxn.toastShort('You are offline!')
-    //     return
-    // }
-
-    if (jobsStore.search.title) {
+async function searchUsers() {
+    if (searchForm.keyword) {
         formIsSearching.value = true
 
-        try {
-            // let resp = await api.searchByLocation(jobsStore.search.title, jobsStore.search.location)
-            // if (resp.status == 200) {
-            //     jobsStore.allJobsChunked = resp.data.body
-            //     jobsStore.allJobsData = resp.data.body.data
-            //     jobsStore.isFromSearch = true
+        const formData = new FormData()
+        formData.append('search', searchForm.keyword)
+        // formData.append('location', searchForm.location)
 
-            //     if (prop.fromHome) {
-            //         router.push({
-            //             path: '/find-jobs'
-            //         })
-            //     }
-            // }
+        const talentSorted: UserProfileCardInterface[] = []
+
+        try {
+            let resp = await api.recruiterSearchTalent(formData)
+
+            const array = resp?.data?.body ?? []
+
+            if (array.length) {
+                array.forEach((item: any) => {
+                    const userSkills = (item.user.skill ?? []).map((x: { skills: { name: any } }) => x.skills.name);
+
+                    const newMapp: UserProfileCardInterface = {
+                        id: item.user.id,
+                        name: item.user.name,
+                        title: item.user?.profile?.professional_headline,
+                        status: item.is_promoted == 1 ? 'promoted' : 'recommended',
+                        skills: userSkills,
+                        experience: item.user?.profile?.experience_level,
+                        star: 4,
+                        location: item.user?.profile?.location,
+                        availability: '',
+                    }
+                    talentSorted.push(newMapp)
+                });
+            }
+
+            emits('done', talentSorted)
+
+
         } catch (error) {
-            // 
+            console.log(error);
+
         }
         finally {
             formIsSearching.value = false

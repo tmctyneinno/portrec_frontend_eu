@@ -50,7 +50,7 @@
       </div>
 
       <div v-else class="row g-3">
-        <UserProfileCard v-for="talent in talents" :key="talent.id" :user-profile="talent">
+        <UserProfileCardGeneral v-for="talent in talents" :key="talent.id" :user-profile="talent">
           <template #desc>
             <div class=" text-dark">
               <div class="fw-bold">{{ tagNameOnRoute }}</div>
@@ -59,7 +59,7 @@
               </div>
             </div>
           </template>
-        </UserProfileCard>
+        </UserProfileCardGeneral>
       </div>
     </div>
 
@@ -100,7 +100,7 @@ import footerVue from '@/components/footer.vue'
 
 import companiesWeHaveHelped from './LandingPage/companiesWeHaveHelped.vue';
 import WhatOurClientsSay from './LandingPage/whatOurClientsSay.vue';
-import UserProfileCard from '@/components/userProfileCardGeneral.vue';
+import UserProfileCardGeneral from '@/components/userProfileCardGeneral.vue';
 import api from '@/stores/Helpers/axios'
 import type { UserProfileCardInterface } from '@/stores/interfaces';
 
@@ -133,12 +133,12 @@ async function getIndustryCareeres() {
     const array = resp?.data?.body ?? []
     if (array.length) {
       array.forEach((item: any) => {
-        const userSkills = (item.user.acquired_skills ?? []).map((x: { skills: { name: any } }) => x.skills.name);
+        const userSkills = (item.user.skill ?? []).map((x: { skills: { name: any } }) => x.skills.name);
 
         const newMapp: UserProfileCardInterface = {
           id: item.user.id,
           name: item.user.name,
-          title: item.user_profile.professional_headline,
+          title: item.user?.profile?.professional_headline ?? '',
           status: item.is_promoted == 1 ? 'promoted' : 'recommended',
           skills: userSkills,
           experience: 3,

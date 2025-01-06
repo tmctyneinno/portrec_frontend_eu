@@ -101,4 +101,8 @@ export default {
         return $instanceForm.post(`delete/interview`, form)
     },
 
+    recruiterSearchTalent(form: FormData) {
+        return $instanceForm.post(`get/all/careers`, form)
+    },
+
 }

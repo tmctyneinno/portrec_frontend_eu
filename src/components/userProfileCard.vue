@@ -1,7 +1,7 @@
 <template>
     <div class="col-md-6 col-lg-">
         <div class="card p-0 border-0 h-100  shadow-sm small text-capitalize">
-            <div class="card-header border-0 bg-transparent pb-0 text-muted xsmall">
+            <div class="card-header border-0 bg-transparent py-3 text-muted xsmall">
                 <div class="float-end">
                     <span v-if="userProfile.status == 'promoted'">
                         <i class="bi bi-check-circle-fill theme-color"></i> Promoted
@@ -15,7 +15,8 @@
             <div class="card-body py-0">
                 <div class="row g-lg-5">
                     <div class="col-2 col-lg-1">
-                        <div class="img-circle" :style="{ 'background-image': `url(/images/profile.png)` }"></div>
+                        <!-- :style="{ 'background-image': `url(/images/profile.png)` }" -->
+                        <div class="img-circle"></div>
                     </div>
                     <div class="col-10">
                         <div class="fw-bolder lh-1">{{ userProfile?.name }}</div>
@@ -27,41 +28,22 @@
                         </span>
                     </div>
                 </div>
-                <div>
-                    <div class="table-responsive">
-                        <table class="table table-borderless">
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <span class="text-muted me-2"> Experience:</span>
-                                        {{ userProfile.experience }} years
-                                    </td>
-                                    <td>
-                                        <span class="text-muted me-2"> Skills:</span>
-                                        <span v-if="userProfile?.skills">
-                                            {{ userProfile.skills.toString() }}
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="text-muted me-2"> Location:</span>
-                                        {{ userProfile?.location }}
-                                    </td>
-                                    <td>
-                                        <span class="text-muted me-2"> Avalaiblity:</span>
-                                        {{ userProfile?.availablity }}
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <div class="row g-3 my-2">
+                    <div class="col-lg-6">
+                        <div class="text-muted me-2"> Experience:</div>
+                        {{ userProfile.experience ? userProfile.experience + 'years' : '-' }}
                     </div>
 
+                    <div class="col-lg-6">
+                        <div class="text-muted me-2"> Location:</div>
+                        {{ userProfile.location ?? '-' }}
+                    </div>
                 </div>
+
             </div>
-            <div class="card-footer border-0 bg-transparent pt-0 ps-4 ">
+            <div class="card-footer border-0 bg-transparent pt-0 ps- ">
                 <button @click="navigateToUserProfile(userProfile.id)"
-                    class="btn btn-link ps-0 hover-tiltX text-decoration-none theme-color fw-bold text-decoration-none fw-bold">
+                    class="btn btn-link ps-0 hover-tiltX theme-color fw-bold text-decoration-none fw-bold">
                     View Profile <i class="bi bi-arrow-right"></i>
                 </button>
             </div>
@@ -70,10 +52,10 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { useRecruiterCommonStore } from '@/views/Account/Recruiter/RecruiterCommonStore';
+// import { useRecruiterCommonStore } from '@/views/Account/Recruiter/RecruiterCommonStore';
 import { useRouter } from 'vue-router';
 
-const recruiterCommonStore = useRecruiterCommonStore()
+// const recruiterCommonStore = useRecruiterCommonStore()
 
 const props = defineProps({
     userProfile: {
@@ -95,7 +77,6 @@ const userSkills = () => {
 const router = useRouter();
 
 const navigateToUserProfile = (id: number | string) => {
-    recruiterCommonStore.usersOnSearch.selected = id;
     router.push({ path: `/recruiter/user-profile/${id}`, query: { r: Math.random().toString(36).slice(2, 16) } });
 };
 

@@ -72,11 +72,11 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
         avatar: '',
     })
 
-    const usersOnSearch = reactive<{ list: UserProfileCardInterface[], selected: string | number, loading: boolean }>({
-        list: [],
-        selected: '',
-        loading: false
-    })
+    // const usersOnSearch = reactive<{ list: UserProfileCardInterface[], selected: string | number, loading: boolean }>({
+    //     list: [],
+    //     selected: '',
+    //     loading: false
+    // })
 
     async function loadJobPostingDropdowns() {
         try {
@@ -291,7 +291,7 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
         getCompanyInformation,
         getCompanyResources,
 
-        usersOnSearch,
+        // usersOnSearch,
 
         interview,
         hiringProgressList

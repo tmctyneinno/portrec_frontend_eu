@@ -6,8 +6,8 @@
                 category, skill, or experience level to connect with the right fit for your needs.
             </div>
         </div>
-        <div class="col-lg-10">
-            <SearchUsersForm />
+        <div class="col-lg-6 px-0">
+            <SearchUsersForm @done="loadTalents" />
         </div>
         <div class="dropdown col-md-3 d-none" @click="keepDropdownOpen">
             <button ref="filterDropdownToggler" class="btn btn-outline-dark rounded-5 dropdown-toggle w-100"
@@ -48,7 +48,13 @@
         <div class="col-12 bg-light min-vh-100 p-2 px-lg-4 rounded-4">
             <div class="fs-4 mb-3" style="font-weight: 500;">Featured Talent</div>
             <div class="row g-3">
-                <userProfileCard v-for="user in recruiterCommonStore.usersOnSearch.list" :user-profile="user" />
+                <div v-if="!talents.length" class="min-vh-50 d-flex justify-content-center align-items-center">
+                    <emptyDataComponent :text="'No result to Show.'" />
+                </div>
+
+                <div v-else class="row g-3">
+                    <userProfileCard v-for="talent in talents" :key="talent.id" :user-profile="talent" />
+                </div>
             </div>
         </div>
 
@@ -56,58 +62,21 @@
 </template>
 
 <script lang="ts" setup>
-import { useProfileStore } from '@/stores/profileStore';
-import { useDateFormat } from '@vueuse/core';
-import { onMounted, ref, watch } from 'vue';
-import useFxn from '@/stores/Helpers/useFunctions'
-import { useRecruiterCommonStore } from './RecruiterCommonStore';
-import api from '@/stores/Helpers/axios';
+import { ref } from 'vue';
 import userProfileCard from '@/components/userProfileCard.vue';
 import type { UserProfileCardInterface } from '@/stores/interfaces';
 import SearchUsersForm from '@/components/searchUsersForm.vue';
 
-const recruiterCommonStore = useRecruiterCommonStore()
-
-const profileStore = useProfileStore()
-onMounted(() => {
-    recruiterCommonStore.usersOnSearch.list = userProfiles.value
-    console.log(profileStore.data);
-    // getJobsList()
-})
+const talents = ref<UserProfileCardInterface[]>([])
 
 
-
-const userProfiles = ref<UserProfileCardInterface[]>([
-    {
-        id: 1,
-        name: 'Mary Jones',
-        title: 'Remote freelance designer',
-        status: 'recommended',
-        skills: ['illustration', 'design', 'design systems'],
-        experience: 3,
-        star: 4,
-        location: 'remote',
-        availability: 'remote',
-
-    },
-    {
-        id: 2,
-        name: 'Samuel Cooner',
-        title: 'Remote Software Enginner',
-        status: 'promoted',
-        skills: ['illustration', 'design', 'design systems'],
-        experience: 7,
-        star: 3,
-        location: 'remote',
-        availability: 'remote',
-
-    }
-])
+function loadTalents(data: UserProfileCardInterface[]) {
+    // console.log(data);
+    talents.value = data
+}
 
 
-
-
-// dropdown
+// dropdown #######################################
 const filteredList = ref<number[]>([])
 const filterDropdownToggler = ref<any>(null)
 

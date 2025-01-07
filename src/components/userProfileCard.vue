@@ -28,7 +28,8 @@
                         </span>
                     </div>
                 </div>
-                <div class="row g-3 my-2">
+                <hr class="faint">
+                <div class="row g-3 mb-3">
                     <div class="col-lg-6">
                         <div class="text-muted me-2"> Experience:</div>
                         {{ userProfile.experience ? userProfile.experience + 'years' : '-' }}

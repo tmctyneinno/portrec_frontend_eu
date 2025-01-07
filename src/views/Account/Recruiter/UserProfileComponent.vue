@@ -141,8 +141,6 @@
                                     </div>
                                 </div>
                             </li>
-
-
                         </ul>
                     </div>
                 </div>
@@ -307,7 +305,7 @@ const userProfile = ref<UserProfileCardInterface>(
         experience: 3,
         star: 4,
         location: 'remote',
-        avalaiblity: 'remote',
+        availability: 'remote',
 
     },
 )

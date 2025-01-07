@@ -9,16 +9,12 @@
         <!-- <div class="col-md-4"></div> -->
         <div class="col-md-6 order-2 order-md-1">
           <div class=" fs-1 fw-bold" style="line-height: 1.3;">
-            Hire Top professional Product Designers
+            Hire Top professional {{ tagNameOnRoute }}
           </div>
           <div class="">
+            <p> {{ tagDescription }} </p>
             <p>
-              Your vision deserves a great product designer to bring it to life. Finding the right fit alone is
-              challenging alone, but Arc makes hiring the best freelance or full-time remote product designers easy.
-              Save time by connecting directly with vetted product designers ready to interview.
-            </p>
-            <p>
-              Find expert UI, UX, web, and product designers you need today.
+              Find expert {{ tagNameOnRoute }} you need today.
             </p>
 
             <p>

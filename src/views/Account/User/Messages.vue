@@ -4,9 +4,9 @@
             <div class="row">
                 <div class="col-12">
                     <div class="input-group mb-4">
-                        <label class="input-group-text bg-transparent text-muted border-end-0 pe-0 rounded-0 "><i
+                        <label class="input-group-text bg-transparent text-muted border-end-0 pe-0 rounded- "><i
                                 class="bi bi-search"></i></label>
-                        <input type="text" class="form-control border-start-0 rounded-0" placeholder="search messages"
+                        <input type="text" class="form-control border-start-0 rounded-" placeholder="search messages"
                             aria-label="Button" aria-describedby="" />
                     </div>
                     <div class="col-12">

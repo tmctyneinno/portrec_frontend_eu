@@ -106,8 +106,12 @@ const locations = [
       {
         type: "text",
         icon: "bi bi-geo-alt",
-        value:
-          "International House, 24 Holborn Viaduct, London, EC1A 2BN, United Kingdom",
+        value: "International House, 24 Holborn Viaduct, London, EC1A 2BN, United Kingdom.",
+      },
+      {
+        type: "text",
+        icon: "bi bi-geo-alt",
+        value: "21 Gillabbey Terrace, Gillabbey Street, Cork, T12 KPN4, Republic of Ireland.",
       },
       {
         type: "link",

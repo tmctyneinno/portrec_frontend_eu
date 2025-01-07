@@ -117,28 +117,28 @@
                                     </div>
 
                                     <div class="mt-3 small">
-                                        <div class="mt-2" v-if="companyData.recruiter.email">
+                                        <div class="mt-2" v-if="companyData?.recruiter?.email">
                                             <i class="bi bi-envelope-fill"></i>
                                             <strong class="ms-1">Email:</strong>
                                             {{ companyData.recruiter.email }}
                                         </div>
 
-                                        <div class="mt-2" v-if="companyData.recruiter.phone">
+                                        <div class="mt-2" v-if="companyData?.recruiter?.phone">
                                             <i class="bi bi-telephone-fill"></i>
                                             <strong class="ms-1">Call:</strong>
                                             {{ companyData.recruiter.phone }}
                                         </div>
 
-                                        <div class="mt-2" v-if="companyData.recruiter.location">
+                                        <div class="mt-2" v-if="companyData?.recruiter?.location">
                                             <i class="bi bi-geo-alt-fill"></i>
                                             <strong class="ms-1">Location:</strong>
-                                            {{ companyData.recruiter.location }}
+                                            {{ companyData?.recruiter?.location }}
                                         </div>
 
-                                        <div class="mt-2" v-if="companyData.recruiter.industry">
+                                        <div class="mt-2" v-if="companyData.recruiter?.industry">
                                             <i class="bi bi-building-fill"></i>
                                             <strong class="ms-1">Location:</strong>
-                                            {{ companyData.recruiter.industry.name }}
+                                            {{ companyData.recruiter?.industry?.name }}
                                         </div>
 
                                         <div class="mt-2" v-if="companyData.facebook">

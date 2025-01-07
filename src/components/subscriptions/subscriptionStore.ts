@@ -17,13 +17,11 @@ export const useSubscriptionStore = defineStore('subscriptionStore', () => {
         { desc: 'Build a complete profile to attract recruiters.', lineThrough: false },
         { desc: 'Start applying for jobs.', lineThrough: false },
         { desc: 'Attract more attention from top recruiters looking for talent.', lineThrough: true },
-        { desc: 'Attract more attention from top recruiters looking for talent.', lineThrough: true },
         { desc: 'Gain an advantage over other others by being among the first profiles recruiters see.', lineThrough: true }
     ]);
 
     const premiumPlan = ref([
         { desc: 'Your profile appears on the first page of recruiter searches, making you stand out.', lineThrough: false },
-        { desc: 'Attract more attention from top recruiters looking for talent.', lineThrough: false },
         { desc: 'Attract more attention from top recruiters looking for talent.', lineThrough: false },
         { desc: 'Gain an advantage over other others by being among the first profiles recruiters see.', lineThrough: false },
     ]);

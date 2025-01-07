@@ -11,7 +11,7 @@
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <!-- <li v-if="route.path != `/search-talent`" class="nav-item mx-4"> -->
-          <li v-if="talentsList.length" class="nav-item mx-4">
+          <li class="nav-item mx-4">
             <div class="dropdown">
               <button ref="dropdownToggler" class="nav-link dropdown-toggle" type="button" id="triggerId"
                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -19,10 +19,10 @@
                 <i class="bi bi-chevron-down"></i>
               </button>
               <div class="dropdown-menu animate__animated animate__zoomIn animate__faster" aria-labelledby="triggerId">
-                <span @click="goToTalentPage(list.id, list.title)" v-for="list in talentsList" :key="list.id"
-                  class="dropdown-item hover-tiltX cursor-pointer">Hire {{
-                    list.title
-                  }}</span>
+                <span @click="goToTalentPage(id, title)" v-for="{ title, id } in talentsList" :key="id"
+                  class="dropdown-item hover-tiltX cursor-pointer">
+                  Hire {{ title }}
+                </span>
               </div>
             </div>
 
@@ -33,8 +33,9 @@
           </li>
           <li v-for="({ title, routePath }, i) in templateStore.navBarMenus" :key="i" class="nav-item ">
             <router-link class="nav-link mx-4 " :class="{ 'text-white': route.path == '/' && !headerDropped }"
-              :to="routePath">{{ title
-              }}</router-link>
+              :to="routePath">
+              {{ title }}
+            </router-link>
           </li>
         </ul>
         <div class="d-flex">

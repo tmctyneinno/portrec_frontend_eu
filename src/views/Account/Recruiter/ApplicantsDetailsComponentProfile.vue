@@ -5,11 +5,11 @@ import useFxn from '@/stores/Helpers/useFunctions';
 import { computed } from 'vue';
 
 const recruiterCommonStore = useRecruiterCommonStore()
-const { applicants } = storeToRefs(recruiterCommonStore);
+const { jobApplication } = storeToRefs(recruiterCommonStore);
 
 
 const languages = computed(() => {
-    const data = applicants.value.details?.user?.profile?.languages;
+    const data = jobApplication.value.details?.user?.profile?.languages;
     if (!data) return '-';
 
     const formattedLanguages = data
@@ -22,7 +22,7 @@ const languages = computed(() => {
 });
 
 const skills = computed(() => {
-    return applicants.value.details?.user?.skills ?? []
+    return jobApplication.value.details?.user?.skills ?? []
 })
 
 
@@ -33,18 +33,18 @@ const skills = computed(() => {
     <div class="row mt-1 g-3">
         <div class="col-md-6">
             <div class="text-muted">Full Name</div>
-            <div>{{ applicants.details?.user?.name }}</div>
+            <div>{{ jobApplication.details?.user?.name }}</div>
         </div>
 
         <div class="col-md-6">
             <div class="text-muted">Gender</div>
-            <div>{{ applicants.details?.user?.profile?.gender_id ?? '-' }}</div>
+            <div>{{ jobApplication.details?.user?.profile?.gender_id ?? '-' }}</div>
         </div>
 
         <div class="col-md-6">
             <div class="text-muted">Date of Birth</div>
             <div>
-                {{ useFxn.dateDisplay(applicants.details?.user?.profile?.dob) }} </div>
+                {{ useFxn.dateDisplay(jobApplication.details?.user?.profile?.dob) }} </div>
         </div>
 
         <div class="col-md-6">
@@ -66,8 +66,8 @@ const skills = computed(() => {
     <div class="row mt-1 g-3">
         <div class="col-12">
             <div class="text-muted">About Me</div>
-            <div v-if="applicants.details?.user?.profile?.about_me"
-                v-html="applicants.details?.user?.profile?.about_me"></div>
+            <div v-if="jobApplication.details?.user?.profile?.about_me"
+                v-html="jobApplication.details?.user?.profile?.about_me"></div>
             <div v-else>-</div>
         </div>
 
@@ -78,7 +78,7 @@ const skills = computed(() => {
 
         <div class="col-md-6">
             <div class="text-muted">Experience in Years</div>
-            <div>{{ applicants.details?.user?.profile?.years_experience ?? '-' }}</div>
+            <div>{{ jobApplication.details?.user?.profile?.years_experience ?? '-' }}</div>
         </div>
 
         <div class="col-md-6">
@@ -95,7 +95,7 @@ const skills = computed(() => {
         </div>
     </div>
 
-    
+
 </template>
 
 <style lang="css" scoped>

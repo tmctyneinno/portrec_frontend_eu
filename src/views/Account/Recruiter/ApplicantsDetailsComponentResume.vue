@@ -6,10 +6,10 @@ import { VuePDF, usePDF } from '@tato30/vue-pdf'
 import '@tato30/vue-pdf/style.css'
 
 const recruiterCommonStore = useRecruiterCommonStore()
-const { applicants } = storeToRefs(recruiterCommonStore);
+const { jobApplication } = storeToRefs(recruiterCommonStore);
 
 const userResume = computed(() => {
-    return applicants.value.details?.resume?.resume_url ?? null
+    return jobApplication.value.details?.resume?.resume_url ?? null
     // return `https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/web/compressed.tracemonkey-pldi-09.pdf`
 })
 const { pdf } = usePDF({

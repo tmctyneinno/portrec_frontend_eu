@@ -1,5 +1,5 @@
 <template>
-    <OverlayLoading v-if="applicants.detailsLoading" />
+    <OverlayLoading v-if="jobApplication.detailsLoading" />
     <div class="row g-3 m-0 pb-5">
         <div class="col-12">
             <div class="row g-3">
@@ -22,10 +22,10 @@
                     <div class="d-lg-flex ">
                         <i style="font-size: 3rem;" class="bi bi-person-circle text-muted me-3"></i>
                         <div>
-                            <div class="fs-3 fw-lighter">{{ applicants.details?.user?.name }}</div>
+                            <div class="fs-3 fw-lighter">{{ jobApplication.details?.user?.name }}</div>
                             <!-- <div>Product Designer</div> -->
-                            <div>{{ applicants.details?.user?.profile?.professional_headline }}</div>
-                            <div class="text-muted">{{ applicants.details?.user?.email }}</div>
+                            <div>{{ jobApplication.details?.user?.profile?.professional_headline }}</div>
+                            <div class="text-muted">{{ jobApplication.details?.user?.email }}</div>
                             <!-- <div class="fw-bold">
                                 <i class="bi bi-star-fill text-warning"></i> 4.0
                             </div> -->
@@ -37,13 +37,13 @@
                         <div class="card-header bg-transparent">
                             Applied
                             <span class="float-end xsmall">
-                                {{ useFxn.timeAgo(applicants.details?.applied_date) }}
+                                {{ useFxn.timeAgo(jobApplication.details?.applied_date) }}
                             </span>
                         </div>
                         <div class="card-body">
-                            <div class="fw-bold"> {{ applicants.details?.job?.title }} </div>
-                            <div class="text-muted text-capitalize">{{ applicants.details?.job?.industry?.name }}
-                                ({{ applicants.details?.job?.job_type?.name }})
+                            <div class="fw-bold"> {{ jobApplication.details?.job?.title }} </div>
+                            <div class="text-muted text-capitalize">{{ jobApplication.details?.job?.industry?.name }}
+                                ({{ jobApplication.details?.job?.job_type?.name }})
                             </div>
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                             <div>
                                 <span class="xsmall">Status</span>
                                 <span class="float-end xsmall">
-                                    <i class="bi bi-circle-fill theme-color"></i> {{ applicants.details?.status }}
+                                    <i class="bi bi-circle-fill theme-color"></i> {{ jobApplication.details?.status }}
                                 </span>
                             </div>
                             <div class="progress rounded-">
@@ -89,35 +89,38 @@
                             <i class="bi bi-envelope me-3"></i>
                             <div>
                                 <div class="text-muted">Email</div>
-                                <div>{{ applicants.details?.user?.email }}</div>
+                                <div>{{ jobApplication.details?.user?.email }}</div>
                             </div>
                         </div>
                         <div class="my-2 d-flex">
                             <i class="bi bi-phone me-3"></i>
                             <div>
                                 <div class="text-muted">Phone</div>
-                                <div>{{ applicants.details?.user?.phone }}</div>
+                                <div>{{ jobApplication.details?.user?.phone }}</div>
                             </div>
                         </div>
                         <div class="my-2 d-flex">
                             <i class="bi bi-instagram me-3"></i>
                             <div>
                                 <div class="text-muted">Instagram</div>
-                                <div class="theme-color">{{ applicants.details?.user?.profile?.instagram ?? '-' }}</div>
+                                <div class="theme-color">{{ jobApplication.details?.user?.profile?.instagram ?? '-' }}
+                                </div>
                             </div>
                         </div>
                         <div class="my-2 d-flex">
                             <i class="bi bi-twitter-x me-3"></i>
                             <div>
                                 <div class="text-muted">Twitter</div>
-                                <div class="theme-color">{{ applicants.details?.user?.profile?.twitter ?? '-' }}</div>
+                                <div class="theme-color">{{ jobApplication.details?.user?.profile?.twitter ?? '-' }}
+                                </div>
                             </div>
                         </div>
                         <div class="my-2 d-flex">
                             <i class="bi bi-globe me-3"></i>
                             <div>
                                 <div class="text-muted">Website</div>
-                                <div class="theme-color">{{ applicants.details?.user?.profile?.website ?? '-' }}</div>
+                                <div class="theme-color">{{ jobApplication.details?.user?.profile?.website ?? '-' }}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -186,7 +189,7 @@ import OverlayLoading from '@/components/overlayLoading.vue';
 import scheduleInterviewModal from './Interview/scheduleInterviewModal.vue';
 
 const commonStore = useRecruiterCommonStore()
-const { applicants, interview } = storeToRefs(commonStore)
+const { jobApplication, interview } = storeToRefs(commonStore)
 
 const profileStore = useProfileStore()
 onMounted(() => {
@@ -195,13 +198,13 @@ onMounted(() => {
 
 
 function navigateBack() {
-    applicants.value.currentIdShowing = '';
-    applicants.value.showing = 'list'
+    jobApplication.value.currentIdShowing = '';
+    jobApplication.value.showing = 'list'
 }
 
 
 // const userResume = computed(() => {
-//     return applicants.value.details?.resume?.resume_url ?? null
+//     return jobApplication.value.details?.resume?.resume_url ?? null
 // })
 
 
@@ -211,7 +214,7 @@ function openInterviewModal() {
 
 
 const currentIndex = computed(() =>
-    commonStore.hiringProgressList.findIndex((progress) => progress.label === applicants.value?.details?.status)
+    commonStore.hiringProgressList.findIndex((progress) => progress.label === jobApplication.value?.details?.status)
 );
 
 const isHighlighted = (index: any) => index <= currentIndex.value;

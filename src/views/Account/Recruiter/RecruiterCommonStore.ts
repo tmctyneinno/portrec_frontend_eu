@@ -1,18 +1,20 @@
 import { reactive, ref } from 'vue'
 import { defineStore } from 'pinia'
 import api from '@/stores/Helpers/axios'
-import type { JobOpeningInterface, JobStatusInterface, UserProfileCardInterface } from '@/stores/interfaces'
+import type { JobOpeningInterface, JobStatusInterface } from '@/stores/interfaces'
 
 export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () => {
-    const applicants = reactive<{
+    const jobApplication = reactive<{
         showing: 'list' | 'details',
         currentIdShowing: string,
         details: any,
+        interview: any,
         detailsLoading: boolean
     }>({
         showing: 'list',
         currentIdShowing: '',
         details: null,
+        interview: null,
         detailsLoading: false
     })
 
@@ -72,12 +74,6 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
         avatar: '',
     })
 
-    // const usersOnSearch = reactive<{ list: UserProfileCardInterface[], selected: string | number, loading: boolean }>({
-    //     list: [],
-    //     selected: '',
-    //     loading: false
-    // })
-
     async function loadJobPostingDropdowns() {
         try {
             const functions = await api.jobFunctions()
@@ -130,13 +126,17 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
 
 
 
-    async function loadApplicantDetails() {
+    async function getJobApplication() {
         try {
-            applicants.detailsLoading = true
-            const { data } = await api.recruiterJobApplicationDetails(applicants.currentIdShowing)
-            applicants.details = data
-            applicants.detailsLoading = false;
-            // console.log(applicants.details, 'data 000000');
+            jobApplication.detailsLoading = true
+            const { data } = await api.recruiterJobApplicationDetails(jobApplication.currentIdShowing)
+            jobApplication.details = data
+            jobApplication.detailsLoading = false;
+
+            // get interview
+            const interviewResp: any = await api.recruiterGetInterviews()
+            const interviewData = interviewResp?.data ?? []
+            jobApplication.interview = interviewData.find((x: any) => x.user_id == jobApplication.currentIdShowing)
 
         } catch (error) {
             // console.log(error);
@@ -278,12 +278,12 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
 
 
     return {
-        applicants,
+        jobApplication,
         jobPosting,
         loadJobPostingDropdowns,
         editJobOpening,
         resetJobPostingForm,
-        loadApplicantDetails,
+        getJobApplication,
         jobPostingDropdowns,
         jobPostingFields,
 

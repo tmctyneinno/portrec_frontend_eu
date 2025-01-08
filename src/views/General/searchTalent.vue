@@ -17,12 +17,12 @@
               Find expert {{ tagNameOnRoute }} you need today.
             </p>
 
-            <p>
+            <div>
               <RouterLink class="btn btn-primary rounded-" to="/recruiter/search-talent">
                 Hire {{ tagNameOnRoute ?? 'Talents' }}
               </RouterLink>
-            <div class="text-muted small mt-2">Risk free trial for any hire</div>
-            </p>
+              <div class="text-muted small mt-2">Risk free trial for any hire</div>
+            </div>
           </div>
         </div>
         <div class="col-md-6 order-1 order-md-2">
@@ -112,7 +112,7 @@ onMounted(() => {
 
 watch(() => [route.query?.tag], () => {
   loadDetailsOnRoute()
-  window.location.reload()
+  // window.location.reload()
 })
 
 

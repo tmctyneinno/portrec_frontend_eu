@@ -181,9 +181,9 @@ const classAccordingToStage = (stage: string) => {
 }
 
 function goToApplicantsDetails(item: any) {
-    recruiterCommonStore.applicants.currentIdShowing = item.id;
-    recruiterCommonStore.applicants.showing = 'details'
-    recruiterCommonStore.loadApplicantDetails()
+    recruiterCommonStore.jobApplication.currentIdShowing = item.id;
+    recruiterCommonStore.jobApplication.showing = 'details'
+    recruiterCommonStore.getJobApplication()
 }
 
 </script>

@@ -13,29 +13,33 @@
     <div class="card bg-light border-0">
         <div class="card-body " style="min-height: 100px;">
             <div class="fw-bold mb-3">Stage Info:</div>
-            <div class="fst-italic text-muted" v-if="getStageDescription()">
-                {{ getStageDescription() }}
+            <div class="fst-italic text-muted" v-if="stageDescription()">
+                {{ stageDescription() }}
             </div>
             <div v-else class="small">
-
-                <div class="row g-3">
+                <div v-if="!jobApplication.interview">
+                    No interview scheduled for this Job Application.
+                </div>
+                <div v-else class="row g-3">
                     <div class="col-lg-6">
                         <div class="text-muted">Interview Date</div>
                         <div class="fw-bold">
-                            13th July 2025 (12pm)
+                            {{ useFxn.dateTimeDisplay(jobApplication.interview.interview_date) }}
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="text-muted">Interview Status</div>
                         <div class="fw-bold badge rounded-pill bg-warning-subtle text-warning-emphasis">
-                            In Progess
+                            In Progress
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="text-muted">Interview location</div>
-                        <div class="fw-bold">
-                            Silver Crysta Room, Nomad Office
-                            3517 W. Gray St. Utica, Pennsylvania 57867
+                        <div class="fw-bold" v-if="jobApplication.interview.location">
+                            {{ jobApplication.interview.location }}
+                        </div>
+                        <div v-else class="fw-bold">
+                            Zoom Meeting
                         </div>
                     </div>
                 </div>
@@ -46,27 +50,10 @@
         <button @click="moveToNextStep" class="btn btn-light bg-secondary-subtle theme-color">Move to Next Step</button>
     </div>
 
-    <!-- <div class="fw-bold mt-4">Move to Next Stage:</div>
-
-    <div class="row g-3 mt-1">
-        <div class="col-md-6">
-            <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc" :teleport="true"
-                v-model="hiringProgress" class="text-capitalize job-chooser " :clearable="false"
-                :options="hiringProgressList"></v-select>
-        </div>
-        <div class="col-md-6">
-            <primaryButtonOutline @click="changeStage" className="w-100">
-                Click to Update
-            </primaryButtonOutline>
-        </div>
-    </div> -->
-
-
-
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useRecruiterCommonStore } from './RecruiterCommonStore';
 import useFxn from '@/stores/Helpers/useFunctions';
@@ -74,24 +61,24 @@ import api from '@/stores/Helpers/axios'
 import type { JobStatusInterface } from '@/stores/interfaces';
 
 const recruiterCommonStore = useRecruiterCommonStore()
-const { applicants, hiringProgressList } = storeToRefs(recruiterCommonStore);
+const { jobApplication, hiringProgressList } = storeToRefs(recruiterCommonStore);
 
 const currentStage = computed(() => {
-    return applicants.value.details?.status
+    return jobApplication.value.details?.status
 })
 
 
 function updateStage(status: JobStatusInterface) {
     useFxn.confirm("update stage for this application?", 'Proceed').then(async (resp) => {
         if (resp.value == true) {
-            recruiterCommonStore.applicants.detailsLoading = true
+            recruiterCommonStore.jobApplication.detailsLoading = true
             try {
                 const obj = {
-                    job_application_id: applicants.value.details.id,
+                    job_application_id: jobApplication.value.details.id,
                     status: status
                 }
                 await api.recruiterUpdateJobApplicationStatus(obj)
-                recruiterCommonStore.loadApplicantDetails()
+                recruiterCommonStore.getJobApplication()
             } catch (error) {
                 // 
             }
@@ -112,7 +99,7 @@ function moveToNextStep() {
 }
 
 
-function getStageDescription() {
+function stageDescription() {
     if (currentStage.value) {
         const stage = hiringProgressList.value.find(item => item.label === currentStage.value);
         return stage?.desc ?? '';

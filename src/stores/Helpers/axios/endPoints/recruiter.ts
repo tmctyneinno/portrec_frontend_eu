@@ -105,4 +105,8 @@ export default {
         return $instanceForm.post(`get/all/careers`, form)
     },
 
+    recruiterGetUserProfile(id: any) {
+        return $instance.get(`recruiter/get/user/profile/${id}`,)
+    },
+
 }

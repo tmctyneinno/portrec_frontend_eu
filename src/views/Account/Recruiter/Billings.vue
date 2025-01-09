@@ -33,6 +33,9 @@
                             </div>
                         </li>
                     </ul>
+                    <div v-else>
+                        <componentLoading />
+                    </div>
 
                     <hr>
                     <!-- <primaryButton :className="'w-100'">
@@ -54,7 +57,7 @@
                             Unlock access to a premium CV database and search for top candidates to streamline your
                             hiring process and find the best talent quickly.
                         </div>
-                        <div class="fw-bold mt-3" style="font-size: 1.47rem;">
+                        <div v-if="premiumPlan?.subcription_data" class="fw-bold mt-3" style="font-size: 1.47rem;">
                             &#8358;{{ useFxn.addCommas(premiumPlan?.amount ?? 0) }} <sub>/month</sub>
                         </div>
                     </div>
@@ -72,6 +75,10 @@
                             </div>
                         </li>
                     </ul>
+
+                    <div v-else>
+                        <componentLoading />
+                    </div>
 
                     <hr>
                     <primaryButton :className="'w-100'">

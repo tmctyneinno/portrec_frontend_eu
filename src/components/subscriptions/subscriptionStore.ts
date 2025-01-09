@@ -19,8 +19,6 @@ export const useSubscriptionStore = defineStore('subscriptionStore', () => {
     }
 
 
-
-
     const userPlans = ref<any[]>([])
     const recruiterPlans = ref<any[]>([])
 

@@ -275,14 +275,15 @@ function visitExternalLink() {
   let jobUrl = currentJob.value?.job_url;
 
   if (jobUrl) {
-    if (!jobUrl.startsWith("https://")) {
+    if (!jobUrl.startsWith("https://") && !jobUrl.startsWith("http://")) {
       jobUrl = `https://${jobUrl}`;
     }
-    window.location.href = jobUrl;
+    window.open(jobUrl, '_blank'); // Open in a new tab
   } else {
     console.log("Invalid URL");
   }
 }
+
 
 function dateShow(date: any) {
   let d = useDateFormat(date, `MMMM D, YYYY`)

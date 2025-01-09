@@ -290,11 +290,11 @@ function deleteItem(id: string) {
 
 
 
-const calendeAttributes = ref([
+const calendeAttributes = ref<any[]>([
     {
         key: 'today',
         highlight: true,
-        dates: [new Date(), useFxn.addDaysToDate(new Date(), 1)],
+        dates: [],
     },
 ]);
 
@@ -308,15 +308,6 @@ const events = ref(
             isEditable: true,
             id: "5602b6f589fc"
         },
-        {
-            title: "Interview",
-            with: "Amaka",
-            time: { start: dateFormat(new Date()), end: dateFormat(new Date()) },
-            color: "green",
-            isEditable: true,
-            id: "5602b6f589fc"
-        }
-        // ...
     ]
 )
 

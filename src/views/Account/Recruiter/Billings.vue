@@ -4,6 +4,7 @@
             <h4 class="fw-bold text-center">Upgrade to the plan that will best meets your needs</h4>
             <div class="small text-center text-muted">
                 Upgrade to stand out and land your dream job.
+
             </div>
         </div>
         <div class="col-md-6">
@@ -11,10 +12,9 @@
                 <div class="card-body">
                     <div class="card-title">
                         <span class="theme-color fw-bold">Free</span>
-                        <primaryButton @click="subscriptionStore.launchModal('options')"
-                            :className="'btn-sm float-end'">
-                            Subscribe
-                        </primaryButton>
+                        <span class="float-end xsmall alert alert-warning p-0 px-2 border-0">
+                            You are on <strong>FREE</strong> PLAN
+                        </span>
                         <div class="text-muted small mt-3">
                             Create your profile, apply for jobs, and explore opportunities without any charges.
                         </div>
@@ -22,22 +22,22 @@
 
                     <hr>
 
-                    <ul class="list-group list-group-flush small">
-                        <li class="list-group-item d-flex border-0" v-for="(item, index) in subscriptionStore.freePlan"
+                    <ul v-if="freePlan?.subcription_data" class="list-group list-group-flush small">
+                        <li class="list-group-item d-flex border-0" v-for="(item, index) in freePlan.subcription_data"
                             :key="index">
                             <div class="col-1">
                                 <i class="bi bi-check2-all"></i>
                             </div>
-                            <div :class="['col', !item.lineThrough ? 'fw-bold' : 'text-decoration-line-through']">
-                                {{ item.desc }}
+                            <div class="fw-bold">
+                                {{ item.information }}
                             </div>
                         </li>
                     </ul>
 
                     <hr>
-                    <primaryButton :className="'w-100'">
+                    <!-- <primaryButton :className="'w-100'">
                         Continue with Free Subscription
-                    </primaryButton>
+                    </primaryButton> -->
                 </div>
             </div>
         </div>
@@ -55,28 +55,25 @@
                             hiring process and find the best talent quickly.
                         </div>
                         <div class="fw-bold mt-3" style="font-size: 1.47rem;">
-                            &#8358;{{ useFxn.addCommas(subscriptionStore.premiumPrice) }} <sub>/month</sub>
+                            &#8358;{{ useFxn.addCommas(premiumPlan?.amount ?? 0) }} <sub>/month</sub>
                         </div>
                     </div>
 
                     <hr>
 
-                    <ul class="list-group list-group-flush small">
+                    <ul v-if="premiumPlan?.subcription_data" class="list-group list-group-flush small">
                         <li class="list-group-item d-flex border-0"
-                            v-for="(item, index) in subscriptionStore.premiumPlan" :key="index">
+                            v-for="(item, index) in premiumPlan.subcription_data" :key="index">
                             <div class="col-1">
                                 <i class="bi bi-check2-all"></i>
                             </div>
-                            <div :class="['col', !item.lineThrough ? 'fw-bold' : 'text-decoration-line-through']">
-                                {{ item.desc }}
+                            <div class="fw-bold">
+                                {{ item.information }}
                             </div>
                         </li>
                     </ul>
 
                     <hr>
-                    <primaryButtonOutline :className="'w-100 mb-2'">
-                        Try 1 month FREE
-                    </primaryButtonOutline>
                     <primaryButton :className="'w-100'">
                         Upgrade to Premium
                     </primaryButton>
@@ -87,11 +84,27 @@
     <optionsModal />
 </template>
 <script lang="ts" setup>
+import { onMounted, ref } from 'vue';
 import useFxn from '@/stores/Helpers/useFunctions';
 import { useSubscriptionStore } from '@/components/subscriptions/subscriptionStore';
 import optionsModal from '@/components/subscriptions/optionsModal.vue';
 
+import api from '@/stores/Helpers/axios'
+
 const subscriptionStore = useSubscriptionStore()
+
+const freePlan = ref<any>(null)
+const premiumPlan = ref<any>(null)
+
+onMounted(() => {
+    loadSubscriptionsData()
+})
+
+async function loadSubscriptionsData() {
+    await subscriptionStore.getSubscriptions()
+    freePlan.value = subscriptionStore.recruiterPlanDetails('Free')
+    premiumPlan.value = subscriptionStore.recruiterPlanDetails('Premium')
+}
 
 </script>
 

@@ -9,5 +9,9 @@ export default {
         return $instance.get(`get/industry/careers/${industry_id}`)
     },
 
+    getSubscriptions() {
+        return $instance.get(`get/subscriptions`)
+    },
+
 
 }

@@ -67,8 +67,6 @@
 
                             </div>
 
-
-
                             <div class="col-md-5 mt-3">
                                 <primaryButtonOutline @click="form.step = '1'" :className="` w-100 btn-lg`">
                                     <i class="bi bi-chevron-left"></i> Back
@@ -130,7 +128,7 @@ async function getDropdowns() {
     try {
         const [skillsResponse, industriesResponse] = await Promise.all([
             api.skills(),
-            api.jobIndustries()
+            api.jobCategories()
         ]);
         skillsArray.value = skillsResponse?.data?.body ?? [];
         industriesArray.value = industriesResponse?.data?.body ?? [];
@@ -186,6 +184,7 @@ async function register() {
                 form.value[field] = '';
             });
             form.value.skills = [];
+            form.value.step = '1'
             router.push({ path: '/login' })
         }
     } catch (error: any) {

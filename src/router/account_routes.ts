@@ -35,6 +35,7 @@ export default [
             { path: 'profile', name: 'user-Profile', meta: { name: 'My Profile', auth: 'user' }, component: () => import('../views/Account/User/Profile/Profile.vue') },
             { path: 'help-center', name: 'user-Help_Center', meta: { name: 'Help Center', auth: 'user' }, component: () => import('../views/Account/User/HelpCenter.vue') },
             { path: 'billings', name: 'user-Billings', meta: { name: 'Billings', auth: 'user' }, component: () => import('../views/Account/User/Billings.vue') },
+            { path: 'initiate/subscription/payment', name: 'user-Verify_Payment', meta: { name: 'Verify Payment', auth: 'user' }, component: () => import('../views/Account/User/VerifyPayment.vue') },
         ],
     },
 
@@ -55,6 +56,7 @@ export default [
             { path: 'search-talent', name: 'recruiter-Search_Talent', meta: { name: 'Search Talent', auth: 'recruiter' }, component: () => import('../views/Account/Recruiter/SearchTalent.vue') },
             { path: 'user-profile/:id', name: 'recruiter-User_Profile', meta: { name: 'User Profile', auth: 'recruiter' }, component: () => import('../views/Account/Recruiter/UserProfileComponent.vue') },
             { path: 'billings', name: 'recruiter-Billings', meta: { name: 'Billings', auth: 'recruiter' }, component: () => import('../views/Account/Recruiter/Billings.vue') },
+            { path: 'initiate/subscription/payment', name: 'recruiter-Verify_Payment', meta: { name: 'Verify Payment', auth: 'recruiter' }, component: () => import('../views/Account/Recruiter/VerifyPayment.vue') },
         ],
     },
 ]

@@ -92,4 +92,12 @@ export default {
     userGetInterviews() {
         return $instance.get(`user/get/interviews`)
     },
+
+    userInitiatePayment(obj: FormData) {
+        return $instanceForm.post(`user/initiate/subscription/payment`, obj)
+    },
+
+    userVerifyPayment(queryString: string) {
+        return $instance.get(`user/verify/payment${queryString}`)
+    },
 }

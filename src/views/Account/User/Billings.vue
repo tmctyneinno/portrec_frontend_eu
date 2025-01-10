@@ -49,7 +49,7 @@
                 <div class="card-body">
                     <div class="card-title">
                         <span class="theme-color fw-bold">Premium</span>
-                        <primaryButton @click="subscriptionStore.launchModal('options')"
+                        <primaryButton @click="subscriptionStore.launchModal('options', premiumPlan.amount)"
                             :className="'btn-sm float-end'">
                             Upgrade
                         </primaryButton>
@@ -81,7 +81,8 @@
                     </div>
 
                     <hr>
-                    <primaryButton :className="'w-100'">
+                    <primaryButton @click="subscriptionStore.launchModal('options', premiumPlan.amount)"
+                        :className="'w-100'">
                         Upgrade to Premium
                     </primaryButton>
                 </div>

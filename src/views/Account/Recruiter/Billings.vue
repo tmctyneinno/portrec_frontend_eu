@@ -49,7 +49,8 @@
                 <div class="card-body">
                     <div class="card-title">
                         <span class="theme-color fw-bold">Premium</span>
-                        <primaryButton @click="subscriptionStore.launchModal('options')"
+                        <primaryButton
+                            @click="subscriptionStore.launchModal('options', premiumPlan.amount, 'recruiter')"
                             :className="'btn-sm float-end'">
                             Upgrade
                         </primaryButton>
@@ -81,7 +82,8 @@
                     </div>
 
                     <hr>
-                    <primaryButton :className="'w-100'">
+                    <primaryButton @click="subscriptionStore.launchModal('options', premiumPlan.amount, 'recruiter')"
+                        :className="'w-100'">
                         Upgrade to Premium
                     </primaryButton>
                 </div>
@@ -95,8 +97,6 @@ import { onMounted, ref } from 'vue';
 import useFxn from '@/stores/Helpers/useFunctions';
 import { useSubscriptionStore } from '@/components/subscriptions/subscriptionStore';
 import optionsModal from '@/components/subscriptions/optionsModal.vue';
-
-import api from '@/stores/Helpers/axios'
 
 const subscriptionStore = useSubscriptionStore()
 

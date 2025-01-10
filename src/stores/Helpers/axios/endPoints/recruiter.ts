@@ -109,4 +109,12 @@ export default {
         return $instance.get(`recruiter/get/user/profile/${id}`,)
     },
 
+    recruiterInitiatePayment(obj: FormData) {
+        return $instanceForm.post(`recruiter/initiate/subscription/payment`, obj)
+    },
+
+    recruiterVerifyPayment(queryString: string) {
+        return $instance.get(`recruiter/verify/payment${queryString}`)
+    },
+
 }

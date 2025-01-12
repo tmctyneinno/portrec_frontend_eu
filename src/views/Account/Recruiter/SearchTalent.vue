@@ -6,6 +6,7 @@
                 category, skill, or experience level to connect with the right fit for your needs.
             </div>
         </div>
+        <div class="col-lg-6 d-none d-lg-block"></div>
         <div class="col-lg-6 px-0">
             <SearchUsersForm @done="loadTalents" />
         </div>

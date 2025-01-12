@@ -11,12 +11,12 @@
             </div>
             <div class="card-body small">
 
-                <p v-if="!experienceArray().length" class="text-muted2">
+                <p v-if="!experienceArray.length" class="text-muted2">
                     Add experiences
                 </p>
 
                 <ul v-else class="list-group list-group-flush">
-                    <li v-for="(exp, index) in experienceArray()" :key="index"
+                    <li v-for="(exp, index) in experienceArray" :key="index"
                         class="list-group-item border-1 rounded-1 mb-3 p-lg-3">
 
                         <div class="row g-3">
@@ -64,13 +64,14 @@ import { useProfileStore } from '@/stores/profileStore';
 import { useEditingProfileStore } from './editingProfileStore'
 import { useJobsStore } from '@/stores/jobsStore';
 import useFxn from '@/stores/Helpers/useFunctions'
+import { computed } from 'vue';
 
 const profileStore = useProfileStore()
 const jobsStore = useJobsStore()
 const editingStore = useEditingProfileStore()
 
 
-const experienceArray = () => profileStore.data?.experience ?? [];
+const experienceArray = computed(() => { return profileStore.data?.experience ?? [] });
 
 const getWorkType = (id: any) => jobsStore.types.find((x: { id: any; }) => x.id === id)?.name ?? '';
 

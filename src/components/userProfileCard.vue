@@ -1,5 +1,5 @@
 <template>
-    <div class="col-md-6 col-lg-">
+    <div class="col-md-6 col-lg-4">
         <div class="card p-0 border-0 h-100  shadow-sm small text-capitalize">
             <div class="card-header border-0 bg-transparent py-3 text-muted xsmall">
                 <div class="float-end">
@@ -31,8 +31,9 @@
                 <hr class="faint">
                 <div class="row g-3 mb-3">
                     <div class="col-lg-6">
-                        <div class="text-muted me-2"> Experience:</div>
-                        {{ userProfile.experience ? userProfile.experience + 'years' : '-' }}
+                        <div class="text-muted me-2"> Email:</div>
+                        <!-- {{ userProfile.experience ? userProfile.experience + 'years' : '-' }} -->
+                        {{ userProfile.email }}
                     </div>
 
                     <div class="col-lg-6">
@@ -53,14 +54,14 @@
     </div>
 </template>
 <script lang="ts" setup>
-// import { useRecruiterCommonStore } from '@/views/Account/Recruiter/RecruiterCommonStore';
 import { useRouter } from 'vue-router';
+import type { UserProfileCardInterface } from '@/stores/interfaces';
+import type { PropType } from 'vue';
 
-// const recruiterCommonStore = useRecruiterCommonStore()
 
 const props = defineProps({
     userProfile: {
-        type: Object,
+        type: Object as PropType<UserProfileCardInterface>,
         required: true,
     }
 })

@@ -7,7 +7,7 @@
                     <h6 class="modal-title fw-bold">Edit Experience</h6>
                     <button :disabled="isLoading" @click="deleteExperience" type="button"
                         class="btn bg-danger-subtle text-danger btn-sm  m-0 ms-3 py-1 px-3">
-                        <i class="bi bi-x-lg"></i> Delete
+                        <i class="bi bi-trash3"></i>
                     </button>
                     <!-- <button ref="btnX" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
                 </div>
@@ -83,7 +83,7 @@
 
 <script lang="ts" setup>
 import { watch, ref, reactive, computed } from 'vue';
-import { useRoute } from 'vue-router'
+import { onBeforeRouteLeave, useRoute } from 'vue-router'
 import { useProfileStore } from '@/stores/profileStore';
 import { useEditingProfileStore } from '../editingProfileStore'
 import { useJobsStore } from '@/stores/jobsStore';
@@ -218,7 +218,7 @@ async function save() {
 
 
 const btnX = ref<any>(null)
-watch(() => route.path, () => {
+onBeforeRouteLeave(() => {
     btnX.value.click();
 })
 

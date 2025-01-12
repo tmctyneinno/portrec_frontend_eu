@@ -41,7 +41,7 @@
 
 <script lang="ts" setup>
 import { watch, ref, watchEffect } from 'vue';
-import { useRoute } from 'vue-router'
+import { onBeforeRouteLeave, useRoute } from 'vue-router'
 import { useProfileStore } from '@/stores/profileStore';
 import { useEditingProfileStore } from '../editingProfileStore';
 import api from '@/stores/Helpers/axios'
@@ -126,7 +126,7 @@ async function saveSkill() {
 
 
 const btnX = ref<any>(null)
-watch(() => route.path, () => {
+onBeforeRouteLeave(() => {
     btnX.value.click();
 })
 

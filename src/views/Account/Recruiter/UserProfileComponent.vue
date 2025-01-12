@@ -223,6 +223,25 @@
                             </div>
                         </div>
 
+                        <hr>
+
+                        <div class="">
+                            <div class="fw-bold mb-3 text-muted">Porfolios</div>
+                            <div v-if="!user?.portfolios.length">
+                                No Portfolios added.
+                            </div>
+                            <div v-else class="mt-2">
+                                <div class="portfolio-container">
+                                    <div v-for="(item, index) in user.portfolios" :key="index"
+                                        @click="visitURL(item.project_url)"
+                                        class="portfolio-item text-wrap card hover-tiltY">
+                                        <img class="portfolio-image" :src="item.images" alt="image">
+                                        <div class="portfolio-text">{{ item.project_title }} </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
 
                     </div>
                 </div>
@@ -285,8 +304,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useDateFormat } from '@vueuse/core';
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import useFxn from '@/stores/Helpers/useFunctions'
 import api from '@/stores/Helpers/axios';
 import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router';
@@ -367,6 +385,18 @@ const userSkillsTruncate = computed(() => {
         : userSkills.value;
 });
 
+function visitURL(url: string) {
+
+    if (url) {
+        if (!url.startsWith("https://") && !url.startsWith("http://")) {
+            url = `https://${url}`;
+        }
+        window.open(url, '_blank'); // Open in a new tab
+    } else {
+        console.log("Invalid URL");
+    }
+}
+
 
 
 
@@ -405,6 +435,8 @@ onBeforeRouteLeave(() => {
 </script>
 
 <style lang="css" scoped>
+@import '@/assets/css/portfolioView.css';
+
 .img-circle {
     width: 72px;
     height: 72px;

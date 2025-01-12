@@ -9,18 +9,23 @@
         </div>
         <div class="offcanvas-body">
             <ul class="nav nav-pills flex-column">
-                <li class="nav-item" v-for="i in menu" :key="i">
-                    <router-link class="nav-link " :to="{ name: i.routeName }">
-                        <i :class="i.icon"></i> &nbsp;
-                        {{ i.title }}
+                <li class="nav-item" v-for="(menu, index) in menus" :key="index">
+                    <router-link class="nav-link" :to="{ name: menu.routeName }">
+                        <i :class="menu.icon"></i> &nbsp;
+                        {{ menu.title }}
                     </router-link>
                 </li>
 
                 <hr>
                 <li class="nav-item">
-                    <router-link class="nav-link  " to="/user/settings">
-                        <i class="bi bi-gear"></i> &nbsp;
-                        Settings
+                    <router-link class="nav-link" :to="`/${prop.userType}/settings`">
+                        <i class="bi bi-gear"></i> &nbsp; Settings
+                    </router-link>
+                </li>
+
+                <li class="nav-item">
+                    <router-link class="nav-link" :to="`/${prop.userType}/billings`">
+                        <i class="bi bi-wallet2"></i> &nbsp; Billings
                     </router-link>
                 </li>
 
@@ -71,7 +76,7 @@
 
 <script lang="ts" setup>
 import { computed, ref, watch } from 'vue';
-import { userMenu } from '@/stores/sideBarMenus'
+import { userMenu, recruiterMenu } from '@/stores/sideBarMenus'
 import { useRoute, useRouter } from 'vue-router';
 import { useProfileStore } from '@/stores/profileStore';
 
@@ -81,13 +86,7 @@ const route = useRoute()
 const router = useRouter()
 
 const prop = defineProps(['userType'])
-const menu = computed(() => {
-    let array: any[] = [];
-    if (prop.userType == 'user')
-        array = userMenu
-
-    return array;
-})
+const menus = computed(() => (prop.userType === 'recruiter' ? recruiterMenu : userMenu))
 
 
 
@@ -95,7 +94,8 @@ const menu = computed(() => {
 
 function logout() {
     profileStore.logout()
-    router.replace({ path: '/login' })
+    // router.replace({ path: '/login' })
+    window.location.reload()
 }
 
 

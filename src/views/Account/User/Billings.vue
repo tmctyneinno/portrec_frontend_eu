@@ -11,7 +11,8 @@
                 <div class="card-body">
                     <div class="card-title">
                         <span class="theme-color fw-bold">Free</span>
-                        <span class="float-end xsmall alert alert-warning p-0 px-2 border-0">
+                        <span v-if="profileStore.data?.is_subscribed != 2"
+                            class="float-end xsmall alert alert-warning p-0 px-2 border-0">
                             You are on <strong>FREE</strong> PLAN
                         </span>
                         <div class="text-muted small mt-3">
@@ -49,13 +50,19 @@
                 <div class="card-body">
                     <div class="card-title">
                         <span class="theme-color fw-bold">Premium</span>
-                        <primaryButton @click="subscriptionStore.launchModal('options', premiumPlan.amount)"
+                        <span v-if="profileStore.data?.is_subscribed == 2"
+                            class="float-end xsmall alert alert-warning p-0 px-2 border-0">
+                            You are on <strong>PREMIUM</strong> PLAN
+                        </span>
+                        <primaryButton v-else @click="subscriptionStore.launchModal('options', premiumPlan.amount)"
                             :className="'btn-sm float-end'">
                             Upgrade
                         </primaryButton>
                         <div class="text-muted small mt-3">
                             Unlock access to a premium CV database and search for top candidates to streamline your
                             hiring process and find the best talent quickly.
+
+
                         </div>
                         <div v-if="premiumPlan?.subcription_data" class="fw-bold mt-3" style="font-size: 1.47rem;">
                             &#8358;{{ useFxn.addCommas(premiumPlan?.amount ?? 0) }} <sub>/month</sub>
@@ -81,8 +88,8 @@
                     </div>
 
                     <hr>
-                    <primaryButton @click="subscriptionStore.launchModal('options', premiumPlan.amount)"
-                        :className="'w-100'">
+                    <primaryButton v-if="profileStore.data?.is_subscribed != 2"
+                        @click="subscriptionStore.launchModal('options', premiumPlan.amount)" :className="'w-100'">
                         Upgrade to Premium
                     </primaryButton>
                 </div>
@@ -96,8 +103,10 @@ import { onMounted, ref } from 'vue';
 import useFxn from '@/stores/Helpers/useFunctions';
 import { useSubscriptionStore } from '@/components/subscriptions/subscriptionStore';
 import optionsModal from '@/components/subscriptions/optionsModal.vue';
+import { useProfileStore } from '@/stores/profileStore';
 
 const subscriptionStore = useSubscriptionStore()
+const profileStore = useProfileStore()
 
 const freePlan = ref<any>(null)
 const premiumPlan = ref<any>(null)

@@ -127,7 +127,7 @@
                 <div class="col-12 col-lg-11">
                     <div class="col-md-2 float-lg-end">
                         <primaryButton v-if="!details.isLoading" @click="saveProfile" className="float-end w-100">
-                            Save profile
+                            Update profile
                         </primaryButton>
 
                         <primaryButtonLoading v-else className="w-100 " />

@@ -11,12 +11,12 @@
             </div>
             <div class="card-body small">
 
-                <p v-if="!educationsArray().length" class="text-muted2">
+                <p v-if="!educationsArray.length" class="text-muted2">
                     Add institutions attended
                 </p>
                 <!-- Some borders are removed -->
                 <ul v-else class="list-group list-group-flush">
-                    <li v-for="(edu, index ) in educationsArray()" :key="index"
+                    <li v-for="(edu, index ) in educationsArray" :key="index"
                         class="list-group-item border-1 rounded-1 mb-3 p-lg-3">
                         <div class="row g-3">
                             <!-- <div class="col-lg-2">
@@ -62,12 +62,13 @@ import { useProfileStore } from '@/stores/profileStore';
 import { useEditingProfileStore } from './editingProfileStore'
 import useFxn from '@/stores/Helpers/useFunctions'
 import { useJobsStore } from '@/stores/jobsStore';
+import { computed } from 'vue';
 
 const profileStore = useProfileStore()
 const editingStore = useEditingProfileStore()
 const jobsStore = useJobsStore()
 
-const educationsArray = () => profileStore.data?.education ?? [];
+const educationsArray = computed(() => { return profileStore.data?.education ?? [] });
 
 const qualificationName = (id: any) => jobsStore.qualifications.find((x: { id: any; }) => x.id == id)?.name ?? '';
 

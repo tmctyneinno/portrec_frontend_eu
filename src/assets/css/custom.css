@@ -506,8 +506,8 @@ input[type="radio"]:checked+label:before {
 }
 
 
-.vue3-easy-data-table{
-  min-height: 50vh;
+.vue3-easy-data-table__body{
+  min-height: 100vh;
 }
 
 .vue3-easy-data-table, .vue3-easy-data-table__main.fixed-header,

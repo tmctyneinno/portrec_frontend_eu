@@ -5,6 +5,7 @@ export const useEditingProfileStore = defineStore('editingStore', () => {
 
     const educationToEdit = ref<any>({})
     const experienceToEdit = ref<any>({})
+    const portfolioToEdit = ref<any>({})
     const skillsArray = ref<any[]>([])
     const aboutMe = reactive({
         text: '',
@@ -24,5 +25,12 @@ export const useEditingProfileStore = defineStore('editingStore', () => {
         return skill?.name ?? ''
     }
 
-    return { educationToEdit, experienceToEdit, aboutMe, skillsArray, dateSubmitFormat, getSkillName }
+    return {
+        educationToEdit,
+        portfolioToEdit,
+        experienceToEdit,
+        aboutMe,
+        skillsArray,
+        dateSubmitFormat, getSkillName
+    }
 })

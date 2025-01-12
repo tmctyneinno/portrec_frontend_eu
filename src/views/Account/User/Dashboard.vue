@@ -23,7 +23,7 @@
         <div class="col-md-3">
             <div class="row g-3">
                 <div class="col-12">
-                    <div class="card colored-card total-jobs-card shadow-sm">
+                    <div class="card bprder-0 colored-card total-jobs-card shadow-sm">
                         <div class="card-body">
                             <div>Total Jobs Applied</div>
                             <div class="big-number">{{ details.totalJobsApplied }}</div>
@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <div class="col-12">
-                    <div class="card colored-card interviewed-card shadow-sm">
+                    <div class="card border-0 colored-card interviewed-card shadow-sm">
                         <div class="card-body">
                             <div>Jobs viewed</div>
                             <div class="big-number">{{ details.totalJobsViewed }}</div>
@@ -79,8 +79,8 @@
             </div>
         </div>
         <div class="col-md-9">
-            <div class="card shadow-sm">
-                <div class="card-header py-2 fw-bold bg-transparent border-0">Upcoming Interviews</div>
+            <div class="card h-100">
+                <div class="card-header py-2 fw-bold bg-transparen border-0">Upcoming Interviews</div>
                 <!-- <div class="card-header py-2  bg-transparent shadow-sm">
                     Today, 26 November
                     <span class="float-end">
@@ -94,7 +94,7 @@
                         <emptyDataComponent v-if="!details.upcomingInterviews.length" :text="'No Interviews'"
                             icon="bi-calendar-x" />
                         <div v-else>
-                            <EasyDataTable :loading="details.isLoadingDetails" show-index alternating
+                            <EasyDataTable class="" :loading="details.isLoadingDetails" show-index alternating
                                 :headers="interviewsHeader" :items="details.upcomingInterviews" buttons-pagination>
 
                                 <template #header="header">
@@ -278,13 +278,6 @@ function updateChartSeries() {
 </script>
 
 <style lang="css" scoped>
-.card {
-    /* border-radius: 0px; */
-    border: none;
-    height: 100%;
-}
-
-
 .colored-card {
     color: #fff;
     font-weight: bold;

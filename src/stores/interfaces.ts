@@ -47,6 +47,7 @@ export interface UserProfileCardInterface {
     status: 'recommended' | 'promoted',
     skills: string[],
     experience: number | string,
+    email: string,
     star: number | string,
     location: string,
     availability: string,

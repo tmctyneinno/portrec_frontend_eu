@@ -23,16 +23,16 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-lg-6">
+                    <div class="col-12 col-lg-8">
                         <!-- <div class="card border-0"> -->
                         <!-- <div class="card-body"> -->
                         <div class="row g-3">
                             <label>Add Skills:</label>
                             <div class="col-12 col-lg-12">
-                                <!-- <label class="small">New Skills: </label> -->
-                                <v-select append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
-                                    placeholder="" class="skills-select" multiple v-model="selectedSkills"
-                                    :clearable="false" :options="skillsDropdown"></v-select>
+                                <v-select :taggable="true" append-to-body
+                                    :calculate-position="useFxn.vueSelectPositionCalc" placeholder=""
+                                    class="skills-select" multiple v-model="selectedSkills" :clearable="false"
+                                    :options="skillsDropdown"></v-select>
                             </div>
                             <div class="col-12 col-lg-12">
                                 <primaryButton :className="'w-100'" v-if="!isSaving" @click="addSkill">
@@ -109,7 +109,21 @@ function addSkill() {
 }
 
 async function saveSkill() {
-    const skillsIds = selectedSkills.value.map((x: { id: any; }) => x.id)
+    const { labels, ids } = selectedSkills.value.reduce(
+        (acc, x) => {
+            if (x.id == null) {
+                acc.labels.push(x.label);
+            } else {
+                acc.ids.push(x.id);
+            }
+            return acc;
+        },
+        { labels: [], ids: [] }
+    );
+
+    const skillsIds = [...labels, ...ids];
+
+    // const skillsIds = selectedSkills.value.map((x: { id: any; }) => x.id)
     try {
         let { data } = await api.userSkillAdd({ skills: skillsIds })
         console.log(data);

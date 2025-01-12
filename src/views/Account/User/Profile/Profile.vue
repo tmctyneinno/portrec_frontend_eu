@@ -7,6 +7,7 @@
                 <ExperiencesComponent />
                 <EducationsComponent />
                 <SkillsComponent />
+                <portfolioComponent />
             </div>
         </div>
         <div class="col-lg-4">
@@ -26,6 +27,8 @@
     <addExperience />
     <editExperience />
     <editSkills />
+    <addPortfolio />
+    <editPortfolio />
 </template>
 
 <script lang="ts" setup>
@@ -37,6 +40,7 @@ import EducationsComponent from './educations.vue';
 import SkillsComponent from './skills.vue';
 import AdditionalDetailsComponent from './additionalDetails.vue';
 import SocialLinksComponent from './socialLinks.vue';
+import portfolioComponent from './portfolios.vue';
 
 // modals
 import editAboutMe from './modals/editAboutMe.vue'
@@ -47,6 +51,8 @@ import editEducation from './modals/editEducation.vue'
 import addExperience from './modals/addExperience.vue'
 import editExperience from './modals/editExperience.vue'
 import editSkills from './modals/editSkills.vue'
+import addPortfolio from './modals/addPortfolio.vue'
+import editPortfolio from './modals/editPortfolio.vue'
 
 </script>
 

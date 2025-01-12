@@ -2,7 +2,7 @@
     <div class="row g-3 m-0 pb-5">
         <div class="col-12">
             <div class="row g-3">
-                <div class="col-8">
+                <div class="col-lg-8">
                     <div>
                         <span class="fw-bold text-capitalize fs-5">Total Applicants</span> <span
                             class="badge rounded-pill text-bg-secondary">{{ items.length }}</span>
@@ -10,7 +10,7 @@
                     <div class="small text-muted">Showing applications for your company, you can also filter by Jobs
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-lg-4">
                     <div class="form-label">Filter by Job</div>
 
                     <v-select :loading="jobsLoading" append-to-body :calculate-position="useFxn.vueSelectPositionCalc"

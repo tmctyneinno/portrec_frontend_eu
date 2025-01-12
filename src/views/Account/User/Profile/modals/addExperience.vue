@@ -69,7 +69,7 @@
 
 <script lang="ts" setup>
 import { watch, ref, onMounted, computed, reactive } from 'vue';
-import { useRoute } from 'vue-router'
+import { onBeforeRouteLeave, useRoute } from 'vue-router'
 import { useJobsStore } from '@/stores/jobsStore';
 import { useProfileStore } from '@/stores/profileStore';
 import api from '@/stores/Helpers/axios'
@@ -160,7 +160,7 @@ async function save(obj: any) {
 
 const route = useRoute()
 const btnX = ref<any>(null)
-watch(() => route.path, () => {
+onBeforeRouteLeave(() => {
     btnX.value.click();
 })
 

@@ -38,7 +38,7 @@
 
 <script lang="ts" setup>
 import { watch, ref, reactive } from 'vue';
-import { useRoute } from 'vue-router'
+import { onBeforeRouteLeave, useRoute } from 'vue-router'
 import { useProfileStore } from '@/stores/profileStore';
 import api from '@/stores/Helpers/axios'
 import useFxn from '@/stores/Helpers/useFunctions';
@@ -89,7 +89,7 @@ async function save() {
 
 
 const btnX = ref<any>(null)
-watch(() => route.path, () => {
+onBeforeRouteLeave(() => {
     btnX.value.click();
 })
 

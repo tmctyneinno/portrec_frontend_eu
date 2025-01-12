@@ -100,4 +100,16 @@ export default {
     userVerifyPayment(queryString: string) {
         return $instance.get(`user/verify/payment${queryString}`)
     },
+
+    userAddPortfolio(obj: FormData) {
+        return $instanceForm.post(`user/portfolio`, obj)
+    },
+
+    userUpdatePortfolio(id: string, obj: Object) {
+        return $instance.put(`user/portfolio/${id}`, obj)
+    },
+
+    userDeletePortfolio(id: string) {
+        return $instance.delete(`user/portfolio/${id}`)
+    },
 }

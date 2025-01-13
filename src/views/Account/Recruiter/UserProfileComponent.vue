@@ -167,7 +167,8 @@
                         <div>
                             <div class="fw-bold">Skills</div>
                             <p>
-                                <span v-for="(skill, i) in userSkills" :key="i" class="category-tag">
+                                <span v-for="(skill, i) in userSkills" :key="i"
+                                    class="category-tag text-nowrap d-inline-block mb-2">
                                     {{ skill }}
                                 </span>
                             </p>

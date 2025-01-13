@@ -149,7 +149,7 @@
                                         <!-- <button class="btn btn-sm btn-primary-outline ">
                                             <i class="bi bi-plus-lg"></i> Add Skills
                                         </button> -->
-                                        <v-select multiple append-to-body :taggable="true"
+                                        <v-select multiple append-to-body :taggable="false"
                                             :calculate-position="useFxn.vueSelectPositionCalc" :teleport="true"
                                             v-model="form.required_skills" label="name"
                                             class="text-capitalize job-chooser" :clearable="false"

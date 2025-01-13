@@ -4,7 +4,7 @@
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content">
                 <div class="modal-header border-0">
-                    <h6 class="modal-title fw-bold">Edit Porfolio</h6>
+                    <h6 class="modal-title fw-bold">Edit Portfolio</h6>
                     <button :disabled="isLoading" @click="deletePortfolio" type="button"
                         class="btn bg-danger-subtle text-danger btn-sm  m-0 ms-3 py-1 px-3">
                         <i class="bi bi-trash3"></i>

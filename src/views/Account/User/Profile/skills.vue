@@ -29,7 +29,7 @@
                         <div class="row g-3">
                             <label>Add Skills:</label>
                             <div class="col-12 col-lg-12">
-                                <v-select :taggable="true" append-to-body
+                                <v-select :taggable="false" append-to-body
                                     :calculate-position="useFxn.vueSelectPositionCalc" placeholder=""
                                     class="skills-select" multiple v-model="selectedSkills" :clearable="false"
                                     :options="skillsDropdown"></v-select>

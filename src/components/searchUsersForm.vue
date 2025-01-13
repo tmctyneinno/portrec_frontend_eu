@@ -15,7 +15,7 @@
                     </div>
                 </div>
                 <!-- <div class="col-lg-5  position-relative">
-                    <v-select :taggable="true" append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
+                    <v-select :taggable="false" append-to-body :calculate-position="useFxn.vueSelectPositionCalc"
                         v-model="searchForm.location" :loading="loading"
                         class="country-chooser-jobform find-jobs-select" placeholder="city or state"
                         :options="allCountries" />

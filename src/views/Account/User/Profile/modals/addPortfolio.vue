@@ -33,6 +33,23 @@
                             <textarea v-model="portfolio.project_solution" class="form-control " rows="2"></textarea>
                         </div>
 
+                        <div class="col">
+                            <div class="dropzone" v-bind="getRootProps()">
+                                <div class="text-center small">
+                                    <!-- <div v-if="!imgSaving"><i class="bi bi-image them-color"></i></div>
+                                    <span v-else class="spinner-border spinner-border-sm" aria-hidden="true"></span> -->
+                                    <div><span class="theme-color">Click to replace</span> or drag and drop</div>
+                                    <div class="fw-light">SVG, PNG, JPG or GIF (max: 2MB)</div>
+                                </div>
+                                <input v-bind="getInputProps()" />
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="col-md-3">
+                                <img class="image-circle" :src="previewImage" alt="">
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <div class="modal-footer border-0">
@@ -52,6 +69,8 @@ import { onBeforeRouteLeave } from 'vue-router'
 import { useProfileStore } from '@/stores/profileStore';
 import api from '@/stores/Helpers/axios'
 import useFxn from '@/stores/Helpers/useFunctions';
+//@ts-ignore
+import { useDropzone } from "vue3-dropzone";
 
 const profileStore = useProfileStore()
 
@@ -110,8 +129,46 @@ async function save(formData: any) {
     }
 }
 
-const btnX = ref<any>(null)
 
+
+
+
+// image
+const imageSrc = ref<any>(null)
+const previewImage = ref<any>(null)
+const acceptedFormats = ['png', 'jpg', 'jpeg', 'svg']
+const { getRootProps, getInputProps } = useDropzone({
+    multiple: false,
+    onDrop: (acceptFiles: any[], rejectReasons: any) => {
+        if (!useFxn.isExtension(acceptFiles[0].name, acceptedFormats)) {
+            useFxn.toast('Please upload an image', 'warning');
+            return;
+        }
+        const _2MBinBytes = 2097152;
+
+        if (acceptFiles[0].size > _2MBinBytes) {
+            useFxn.toast('File must not be larger than 2MB', 'warning');
+            return;
+        }
+
+        let formData = new FormData();
+        imageSrc.value = acceptFiles[0]
+        console.log(imageSrc.value);
+
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+            previewImage.value = e.target.result; // Set the image URL for preview
+        };
+        reader.readAsDataURL(imageSrc.value); // Read the file as a Data URL
+
+        // formData.append("img", img.value);
+        // submitImage(formData)
+    },
+});
+
+
+
+const btnX = ref<any>(null)
 onBeforeRouteLeave(() => {
     btnX.value.click();
 })
@@ -122,5 +179,33 @@ onBeforeRouteLeave(() => {
 <style scoped>
 .btn {
     width: 250px;
+}
+
+
+.dropzone {
+    width: 300px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 5px;
+    border: 2px dashed var(--theme-color);
+    background-color: var(--bs-light);
+    transition: 0.3s ease all;
+    color: rgb(170, 164, 164);
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.image-circle {
+    height: 100px;
+    width: 100px;
+    /* border-radius: 50%; */
+    background-color: var(--theme-color-soft);
+    border: 1px solid #e8e5e5;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 </style>

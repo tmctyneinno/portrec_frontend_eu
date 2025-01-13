@@ -39,7 +39,7 @@ const { getRootProps, getInputProps } = useDropzone({
         const _2MBinBytes = 2097152;
 
         if (acceptFiles[0].size > _2MBinBytes) {
-            useFxn.toast('File larger than 2MB', 'warning');
+            useFxn.toast('File must not be larger than 2MB', 'warning');
             return;
         }
 

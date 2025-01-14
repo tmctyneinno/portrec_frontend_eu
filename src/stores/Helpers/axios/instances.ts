@@ -1,13 +1,11 @@
 import axios from 'axios'
 import { type ProgressFinisher, useProgress } from '@marcoschulte/vue3-progress';
-// import useFxn from "@/stores/Helpers/useFunctions";
 // @ts-ignore
 import Cookies from 'js-cookie';
 
 const progresses = [] as ProgressFinisher[];
 
 const hostURL = import.meta.env.VITE_API_URL;
-// const hostURL = 'https://api.portrec.ng';
 const apiURL = `${hostURL}/api/`;
 
 const contentHeaders = (type: 'form' | 'json') => {
@@ -44,11 +42,6 @@ const setAuthorizationAndAddProgress = (config: any) => {
     }
 
     progresses.push(useProgress().start());
-
-    // if (!useFxn.isOnline()) {
-    //     useFxn.toast('You are offline', 'error')
-    //     return
-    // }
 
     return config;
 };

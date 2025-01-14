@@ -51,6 +51,7 @@ export interface UserProfileCardInterface {
     star: number | string,
     location: string,
     availability: string,
+    avatar: string,
 }
 
 export type JobStatusInterface = 'ALL' | 'IN_REVIEW' | 'SHORTLISTED' | 'OFFERED' | 'REJECTED' | 'INTERVIEWING'

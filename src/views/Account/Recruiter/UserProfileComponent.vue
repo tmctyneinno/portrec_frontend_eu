@@ -26,8 +26,7 @@
                     <div class="card-body py-0">
                         <div class="row g-lg-5">
                             <div class="col-2 col-lg-1">
-                                <!-- <div class="img-circle" :style="{ 'background-image': `url(/images/profile.png)` }"></div> -->
-                                <div class="img-circle"></div>
+                                <img class="img-circle" :src="user?.user_avatar?.url" alt="">
                             </div>
                             <div class="col-10">
                                 <div class="fw-bolder fs-4 lh-1">{{ user?.name }}</div>

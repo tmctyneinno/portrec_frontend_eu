@@ -98,6 +98,7 @@ async function searchUsers() {
                         skills: userSkills,
                         experience: item.user?.profile?.experience_level,
                         star: 4,
+                        avatar: item?.user?.user_avatar?.url ?? '',
                         email: item.user?.email,
                         location: item.user?.profile?.location,
                         availability: '',

@@ -116,7 +116,7 @@ app.component('primaryButtonOutline', primaryButtonOutline)
 app.component('primaryButtonLoading', primaryButtonLoading)
 
 app.use(GoogleSignInPlugin, {
-    clientId: 'CLIENT ID OBTAINED FROM GOOGLE API CONSOLE',
+    clientId: import.meta.env.VITE_GOOGLE_CLIENT_ID,
 });
 app.use(pinia)
 app.use(VueApexCharts);

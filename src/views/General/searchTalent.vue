@@ -141,6 +141,8 @@ async function getIndustryCareeres() {
           star: 4,
           location: 'remote',
           availability: 'remote',
+          avatar: item?.user?.user_avatar?.url ?? '',
+          email: item.user?.email,
         }
         talents.value.push(newMapp)
       });

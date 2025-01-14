@@ -15,8 +15,8 @@
             <div class="card-body py-0">
                 <div class="row g-lg-5">
                     <div class="col-2 col-lg-1">
-                        <!-- :style="{ 'background-image': `url(/images/profile.png)` }" -->
-                        <div class="img-circle"></div>
+
+                        <img class="img-circle" :src="userProfile.avatar" alt="">
                     </div>
                     <div class="col-10">
                         <div class="fw-bolder lh-1">{{ userProfile?.name }}</div>

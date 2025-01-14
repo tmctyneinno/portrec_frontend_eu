@@ -54,5 +54,14 @@ export interface UserProfileCardInterface {
     avatar: string,
 }
 
+export interface PortfolioInterface {
+    images: File[],
+    title: string,
+    goals: string,
+    description: string,
+    achievements: string,
+    project_url: string,
+}
+
 export type JobStatusInterface = 'ALL' | 'IN_REVIEW' | 'SHORTLISTED' | 'OFFERED' | 'REJECTED' | 'INTERVIEWING'
 

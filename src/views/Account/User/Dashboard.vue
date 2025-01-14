@@ -123,7 +123,7 @@
         <div class="col-12">
             <div class="card shadow-sm">
                 <div class="card-header fw-bold py-3 bg-transparent border-0 ">Recent Applications History</div>
-                <div class="card-body min-vh-100">
+                <div class="card-body">
                     <EasyDataTable :loading="details.isLoadingDetails" show-index alternating
                         :headers="AppliedHistoryTableHeader" :items="details.recentApplicationHistory"
                         buttons-pagination>

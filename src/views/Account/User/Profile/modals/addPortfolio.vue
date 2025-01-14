@@ -3,60 +3,57 @@
         role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content">
-                <div class="modal-header border-0">
+                <div class="modal-header border-0 bg-light">
                     <h6 class="modal-title fw-bold">Add Portfolio</h6>
                     <button ref="btnX" type="button" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row g-3">
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <label class="form-label">Title * </label>
-                            <input v-model="portfolio.project_title" type="text" class="form-control ">
+                            <input v-model="portfolio.title" type="text" class="form-control ">
                         </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Role </label>
-                            <input v-model="portfolio.project_role" type="text" class="form-control ">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Task </label>
-                            <input v-model="portfolio.project_task" type="text" class="form-control ">
-                        </div>
-                        <div class="col-md-6">
+                        <div class="col-md-7">
                             <label class="form-label">URL </label>
                             <input v-model="portfolio.project_url" type="text" class="form-control ">
                         </div>
-
-
                         <div class="col-12">
-                            <label class="form-label">Solution </label>
-                            <textarea v-model="portfolio.project_solution" class="form-control " rows="2"></textarea>
+                            <label class="form-label">Description * </label>
+                            <textarea v-model="portfolio.description" class="form-control " rows="2"></textarea>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Achivements </label>
+                            <textarea v-model="portfolio.achievements" class="form-control " rows="2"></textarea>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Goals </label>
+                            <textarea v-model="portfolio.goals" class="form-control " rows="2"></textarea>
                         </div>
 
-                        <div class="col">
-                            <div class="dropzone" v-bind="getRootProps()">
-                                <div class="text-center small">
-                                    <!-- <div v-if="!imgSaving"><i class="bi bi-image them-color"></i></div>
-                                    <span v-else class="spinner-border spinner-border-sm" aria-hidden="true"></span> -->
-                                    <div><span class="theme-color">Click to replace</span> or drag and drop</div>
-                                    <div class="fw-light">SVG, PNG, JPG or GIF (max: 2MB)</div>
-                                </div>
+
+                        <div class="form-label">Images:
+                            <span class="ms-3" v-bind="getRootProps()">
+                                <button class="btn btn-secondary btn-sm">
+                                    Click here to add Image(s)
+                                </button>
                                 <input v-bind="getInputProps()" />
-                            </div>
+                            </span>
                         </div>
-                        <div class="col">
-                            <div class="col-md-3">
-                                <img class="image-circle" :src="previewImage" alt="">
+                        <div class="">
+                            <div v-for="image in imagesArray" class="d-inline-block mx-2 image-container hover-tiltY">
+                                <img class="image-span" :src="image.src" alt="">
+                                <i @click="removeImage(image.id)" class="bi bi-x text-danger trash-icon "></i>
                             </div>
-                        </div>
 
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer border-0">
                     <primaryButton @click="clickSave" v-if="!isSaving">
-                        Save
+                        Save Porfolio
                     </primaryButton>
-                    <primaryButtonLoading v-else />
+                    <primaryButtonLoading btnText="Saving..." v-else />
                 </div>
             </div>
         </div>
@@ -71,40 +68,49 @@ import api from '@/stores/Helpers/axios'
 import useFxn from '@/stores/Helpers/useFunctions';
 //@ts-ignore
 import { useDropzone } from "vue3-dropzone";
+import type { PortfolioInterface } from '@/stores/interfaces';
 
 const profileStore = useProfileStore()
+const isSaving = ref(false)
 
-const portfolio = reactive<any>({
-    project_title: null,
-    project_role: null,
-    project_task: null,
-    project_solution: null,
-    project_url: null,
+const portfolio = reactive<PortfolioInterface>({
+    title: '',
+    goals: '',
+    description: '',
+    achievements: '',
+    project_url: '',
     images: []
 })
 
-const isSaving = ref(false)
 
 function clickSave() {
 
-    const requiredFields = ['project_title'];
+    const requiredFields: (keyof PortfolioInterface)[] = ['title', 'description'];
 
     for (const field of requiredFields) {
         if (!portfolio[field]) {
-            useFxn.toastShort('Please complete compulsory fields')
+            useFxn.toastShort(`Please complete compulsory fields`)
             return;
         }
+    }
+
+    if (!imagesArray.value.length) {
+        useFxn.toastShort(`Please include at least one image`)
+        return;
     }
 
     isSaving.value = true
 
     const formData = new FormData();
     formData.append('user_id', profileStore.data.id)
-    formData.append('project_title', portfolio.project_title)
-    formData.append('project_role', portfolio.project_role ?? '')
-    formData.append('project_task', portfolio.project_task ?? '')
-    formData.append('project_solution', portfolio.project_solution ?? '')
-    formData.append('project_url', portfolio.project_url ?? '')
+    formData.append('title', portfolio.title)
+    formData.append('goals', portfolio.goals ?? '')
+    formData.append('description', portfolio.description ?? '')
+    formData.append('achievements', portfolio.achievements ?? '')
+
+    imagesArray.value.forEach((item: { file: File }, index: any) => {
+        formData.append(`images[${index}]`, item.file)
+    });
 
     save(formData)
 }
@@ -116,9 +122,9 @@ async function save(formData: any) {
         if (data.status === 200) {
             useFxn.toast('Saved successfully', 'success')
             btnX.value.click();
-            portfolio.project_title = portfolio.project_role =
-                portfolio.project_task = portfolio.project_url
-                = portfolio.project_solution = null
+            portfolio.title = portfolio.goals =
+                portfolio.achievements = portfolio.project_url
+                = portfolio.description = ''
             profileStore.getProfile()
         }
     } catch (error) {
@@ -135,10 +141,11 @@ async function save(formData: any) {
 
 // image
 const imageSrc = ref<any>(null)
-const previewImage = ref<any>(null)
+const imagesArray = ref<{ file: File, id: number, src: string }[]>([])
 const acceptedFormats = ['png', 'jpg', 'jpeg', 'svg']
 const { getRootProps, getInputProps } = useDropzone({
     multiple: false,
+    noDrag: true,
     onDrop: (acceptFiles: any[], rejectReasons: any) => {
         if (!useFxn.isExtension(acceptFiles[0].name, acceptedFormats)) {
             useFxn.toast('Please upload an image', 'warning');
@@ -151,20 +158,21 @@ const { getRootProps, getInputProps } = useDropzone({
             return;
         }
 
-        let formData = new FormData();
         imageSrc.value = acceptFiles[0]
-        console.log(imageSrc.value);
 
         const reader = new FileReader();
         reader.onload = (e: any) => {
-            previewImage.value = e.target.result; // Set the image URL for preview
+            imagesArray.value.push({ id: new Date().getTime(), file: imageSrc.value, src: e.target.result })
         };
-        reader.readAsDataURL(imageSrc.value); // Read the file as a Data URL
+        reader.readAsDataURL(imageSrc.value);
 
-        // formData.append("img", img.value);
-        // submitImage(formData)
+
     },
 });
+
+function removeImage(id: number) {
+    imagesArray.value = imagesArray.value.filter((x: { id: number }) => x.id !== id)
+}
 
 
 
@@ -177,35 +185,50 @@ onBeforeRouteLeave(() => {
 </script>
 
 <style scoped>
-.btn {
-    width: 250px;
-}
-
-
-.dropzone {
-    width: 300px;
-    height: 100px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    row-gap: 5px;
+/* .image-adder {
     border: 2px dashed var(--theme-color);
     background-color: var(--bs-light);
     transition: 0.3s ease all;
-    color: rgb(170, 164, 164);
-    cursor: pointer;
-    border-radius: 10px;
-}
+} */
 
-.image-circle {
+.image-span {
     height: 100px;
     width: 100px;
+    transition: 0.3s ease all;
     /* border-radius: 50%; */
     background-color: var(--theme-color-soft);
     border: 1px solid #e8e5e5;
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
+}
+
+
+.image-container {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    position: relative;
+}
+
+
+
+.trash-icon {
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: none;
+    transition: color 0.3s;
+    /* font-size: 13px; */
+}
+
+.trash-icon:hover {
+    color: #ff0000;
+}
+
+.image-container:hover .trash-icon {
+    display: block;
 }
 </style>

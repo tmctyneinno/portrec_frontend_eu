@@ -105,8 +105,8 @@ export default {
         return $instanceForm.post(`user/portfolio`, obj)
     },
 
-    userUpdatePortfolio(id: string, obj: Object) {
-        return $instance.put(`user/portfolio/${id}`, obj)
+    userUpdatePortfolio(id: string, obj: FormData) {
+        return $instance.post(`user/portfolio/${id}`, obj)
     },
 
     userDeletePortfolio(id: string) {

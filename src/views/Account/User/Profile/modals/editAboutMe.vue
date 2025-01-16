@@ -9,7 +9,7 @@
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="col-12" style="margin-bottom: 50px; height:300px">
+                    <div class="col-12" style="margin-bottom: 50px; height:200px">
                         <QuillEditor v-model:content="editorData" contentType="html" toolbar="minimal" />
                     </div>
                 </div>

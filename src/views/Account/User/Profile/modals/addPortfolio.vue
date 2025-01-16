@@ -22,10 +22,17 @@
                             <label class="form-label">Description * </label>
                             <textarea v-model="portfolio.description" class="form-control " rows="2"></textarea>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-lg-12" style="margin-bottom: 70px; height:180px">
+                            <label class="form-label">Achivements </label>
+                            <QuillEditor v-model:content="portfolio.achievements" contentType="html"
+                                toolbar="minimal" />
+                        </div>
+
+
+                        <!-- <div class="col-md-6">
                             <label class="form-label">Achivements </label>
                             <textarea v-model="portfolio.achievements" class="form-control " rows="2"></textarea>
-                        </div>
+                        </div> -->
                         <div class="col-md-6">
                             <label class="form-label">Goals </label>
                             <textarea v-model="portfolio.goals" class="form-control " rows="2"></textarea>
@@ -41,9 +48,12 @@
                             </span>
                         </div>
                         <div class="">
-                            <div v-for="image in imagesArray" class="d-inline-block mx-2 image-container hover-tiltY">
+                            <div v-for="image in imagesArray"
+                                class="d-inline-block mx-2 custom-hover-overlay image-container hover-tiltY">
                                 <img class="image-span" :src="image.src" alt="">
-                                <i @click="removeImage(image.id)" class="bi bi-x text-danger trash-icon "></i>
+                                <div class="overlay">
+                                    <i @click="removeImage(image.id)" class="bi bi-x text-danger trash-icon "></i>
+                                </div>
                             </div>
 
                         </div>
@@ -69,6 +79,9 @@ import useFxn from '@/stores/Helpers/useFunctions';
 //@ts-ignore
 import { useDropzone } from "vue3-dropzone";
 import type { PortfolioInterface } from '@/stores/interfaces';
+
+import { QuillEditor } from '@vueup/vue-quill'
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
 
 const profileStore = useProfileStore()
 const isSaving = ref(false)
@@ -205,15 +218,6 @@ onBeforeRouteLeave(() => {
 }
 
 
-.image-container {
-    width: 100px;
-    height: 100px;
-    overflow: hidden;
-    position: relative;
-}
-
-
-
 .trash-icon {
     position: absolute;
     top: 0px;
@@ -223,10 +227,6 @@ onBeforeRouteLeave(() => {
     display: none;
     transition: color 0.3s;
     /* font-size: 13px; */
-}
-
-.trash-icon:hover {
-    color: #ff0000;
 }
 
 .image-container:hover .trash-icon {

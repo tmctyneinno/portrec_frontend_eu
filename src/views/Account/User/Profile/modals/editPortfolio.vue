@@ -5,11 +5,9 @@
             <div class="modal-content">
                 <div class="modal-header border-0">
                     <h6 class="modal-title fw-bold">Edit Portfolio</h6>
-                    <button :disabled="isLoading" @click="deletePortfolio" type="button"
-                        class="btn bg-danger-subtle text-danger btn-sm  m-0 ms-3 py-1 px-3">
-                        <i class="bi bi-trash3"></i>
-                    </button>
-                    <!-- <button ref="btnX" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+
+                    <button ref="btnX" type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row g-3">
@@ -25,9 +23,10 @@
                             <label class="form-label">Description * </label>
                             <textarea v-model="portfolio.description" class="form-control " rows="2"></textarea>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-lg-12" style="margin-bottom: 70px; height:180px">
                             <label class="form-label">Achivements </label>
-                            <textarea v-model="portfolio.achievements" class="form-control " rows="2"></textarea>
+                            <QuillEditor v-model:content="portfolio.achievements" contentType="html"
+                                toolbar="minimal" />
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Goals </label>
@@ -39,17 +38,21 @@
                     </div>
                 </div>
                 <div class="modal-footer border-0">
-                    <button v-show="!isLoading" ref="btnX" data-bs-dismiss="modal" class="btn btn-light ">
+                    <!-- <button v-show="!isLoading" ref="btnX" data-bs-dismiss="modal" class="btn btn-light ">
                         Cancel
-                    </button>
-                    <!-- <button :disabled="isLoading" @click="deletePortfolio" type="button"
-                        class="btn btn-danger rounded-0">Delete
-                        </button> -->
+                    </button> -->
+                    <!-- <button :disabled="isLoading"  type="button"
+                        class="btn btn-danger rounded-0">
+                    </button> -->
+
+                    <primaryButton @click="deletePortfolio" :btnMainClass="'btn-danger'">
+                        Delete
+                    </primaryButton>
 
                     <primaryButton @click="updateClick" v-if="!isLoading">
-                        Save Changes
+                        Update Changes
                     </primaryButton>
-                    <primaryButtonLoading v-else />
+                    <primaryButtonLoading v-else btnText="Updating ..." />
                 </div>
             </div>
         </div>
@@ -57,13 +60,16 @@
 </template>
 
 <script lang="ts" setup>
-import { watch, ref, reactive, computed } from 'vue';
-import { onBeforeRouteLeave, useRoute } from 'vue-router'
+import { watch, ref, reactive, } from 'vue';
+import { onBeforeRouteLeave, } from 'vue-router'
 import { useProfileStore } from '@/stores/profileStore';
 import { useEditingProfileStore } from '../editingProfileStore'
 import api from '@/stores/Helpers/axios'
 import useFxn from '@/stores/Helpers/useFunctions';
 import type { PortfolioInterface } from '@/stores/interfaces';
+
+import { QuillEditor } from '@vueup/vue-quill'
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
 
 const profileStore = useProfileStore()
 const editingStore = useEditingProfileStore()
@@ -118,7 +124,7 @@ function updateClick() {
         }
     }
 
-    useFxn.confirm('Confirm update?', 'Update Porfolio')
+    useFxn.confirm('Confirm update?', 'Update')
         .then((result) => {
             if (result.isConfirmed) {
                 isLoading.value = true
@@ -129,15 +135,16 @@ function updateClick() {
 
 async function save() {
     let id = editingStore.portfolioToEdit.id
-    let obj = {
-        project_title: portfolio.project_title,
-        project_role: portfolio.project_role,
-        project_task: portfolio.project_task,
-        project_solution: portfolio.project_solution,
-        project_url: portfolio.project_url,
-    }
+    const formData = new FormData();
+    formData.append('user_id', profileStore.data.id)
+    formData.append('project_title', portfolio.title)
+    formData.append('project_url', portfolio.project_url)
+    formData.append('goals', portfolio.goals ?? '')
+    formData.append('description', portfolio.description ?? '')
+    formData.append('achievements', portfolio.achievements ?? '')
+
     try {
-        let resp = await api.userUpdatePortfolio(id, obj)
+        let resp = await api.userUpdatePortfolio(id, formData)
 
         if (resp.status) {
             useFxn.toast('Updated successfully', 'success')

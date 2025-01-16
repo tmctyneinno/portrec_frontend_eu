@@ -4,13 +4,48 @@ import api from '@/stores/Helpers/axios'
 import type { JobOpeningInterface, JobStatusInterface } from '@/stores/interfaces'
 
 export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () => {
-    const jobApplication = reactive<{
+    // Interfaces START ##################################
+    interface jobApplicationInterface {
         showing: 'list' | 'details',
         currentIdShowing: string,
         details: any,
         interview: any,
         detailsLoading: boolean
-    }>({
+    }
+
+    interface jobPostingInterface {
+        modal: boolean,
+        stage: number,
+        editingId: any,
+        hasLoadedDropdowns: boolean,
+        jobListUpdated: boolean
+    }
+
+    interface jobDropdownsInterface {
+        jobFunctions: any[],
+        jobIndustries: any[],
+        jobTypes: any[],
+        jobLevels: any[],
+        skills: any[],
+    }
+
+    interface companyProfileInterface {
+        profileEditModal: boolean,
+        socialLinksEditModal: boolean,
+        industryEditModal: boolean,
+        topInfoEditModal: boolean,
+        techStackEditModal: boolean,
+        data: any,
+        resources: { employees: any[], industry: any[], countries: any[] },
+        isLoading: boolean,
+        companyFound: boolean,
+        avatar: string,
+    }
+
+    // Interfaces END ##################################
+
+
+    const jobApplication = reactive<jobApplicationInterface>({
         showing: 'list',
         currentIdShowing: '',
         details: null,
@@ -18,13 +53,7 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
         detailsLoading: false
     })
 
-    const jobPosting = reactive<{
-        modal: boolean,
-        stage: number,
-        editingId: any,
-        hasLoadedDropdowns: boolean,
-        jobListUpdated: boolean
-    }>({
+    const jobPosting = reactive<jobPostingInterface>({
         modal: false,
         stage: 1,
         editingId: null,
@@ -36,13 +65,11 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
         scheduleModal: false,
     })
 
-    const jobPostingDropdowns = reactive<{
-        jobFunctions: any[],
-        jobIndustries: any[],
-        jobTypes: any[],
-        jobLevels: any[],
-        skills: any[],
-    }>({
+    const userProfile = reactive({
+        portfolioModal: false,
+    })
+
+    const jobPostingDropdowns = reactive<jobDropdownsInterface>({
         jobFunctions: [],
         jobIndustries: [],
         jobTypes: [],
@@ -50,18 +77,7 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
         skills: [],
     })
 
-    const companyProfile = reactive<{
-        profileEditModal: boolean,
-        socialLinksEditModal: boolean,
-        industryEditModal: boolean,
-        topInfoEditModal: boolean,
-        techStackEditModal: boolean,
-        data: any,
-        resources: { employees: any[], industry: any[], countries: any[] },
-        isLoading: boolean,
-        companyFound: boolean,
-        avatar: string,
-    }>({
+    const companyProfile = reactive<companyProfileInterface>({
         profileEditModal: false,
         socialLinksEditModal: false,
         industryEditModal: false,
@@ -76,20 +92,22 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
 
     async function loadJobPostingDropdowns() {
         try {
-            const functions = await api.jobFunctions()
-            jobPostingDropdowns.jobFunctions = functions.data.body
-            const levels = await api.jobLevels()
-            jobPostingDropdowns.jobLevels = levels.data.body
-            const types = await api.jobTypes()
-            jobPostingDropdowns.jobTypes = types.data.body
-            const industries = await api.jobCategories()
-            jobPostingDropdowns.jobIndustries = industries.data.body
-            const skills = await api.skills()
-            jobPostingDropdowns.skills = skills.data.body
-            jobPosting.hasLoadedDropdowns = true
-        } catch (error) {
-            // console.log(error);
+            const [functions, levels, types, industries, skills] = await Promise.all([
+                api.jobFunctions(),
+                api.jobLevels(),
+                api.jobTypes(),
+                api.jobCategories(),
+                api.skills(),
+            ]);
 
+            jobPostingDropdowns.jobFunctions = functions.data.body;
+            jobPostingDropdowns.jobLevels = levels.data.body;
+            jobPostingDropdowns.jobTypes = types.data.body;
+            jobPostingDropdowns.jobIndustries = industries.data.body;
+            jobPostingDropdowns.skills = skills.data.body;
+            jobPosting.hasLoadedDropdowns = true;
+        } catch (error) {
+            console.error('Failed to load job posting dropdowns:', error);
         }
     }
 
@@ -125,7 +143,6 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
 
 
 
-
     async function getJobApplication() {
         try {
             jobApplication.detailsLoading = true
@@ -136,7 +153,7 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
             // get interview
             const interviewResp: any = await api.recruiterGetInterviews()
             const interviewData = interviewResp?.data ?? []
-            jobApplication.interview = interviewData.find((x: any) => x.user_id == jobApplication.currentIdShowing)
+            jobApplication.interview = interviewData.find((x: { user_id: string }) => x.user_id == jobApplication.currentIdShowing)
 
         } catch (error) {
             // console.log(error);
@@ -247,30 +264,11 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
 
 
     const hiringProgressList = ref<{ label: string, val: JobStatusInterface, desc?: string }[]>([
-        {
-            label: 'In-Review',
-            val: 'IN_REVIEW',
-            desc: 'The application is being reviewed to assess initial eligibility based on submitted materials.',
-        },
-        {
-            label: 'Shortlisted',
-            val: 'SHORTLISTED',
-            desc: 'The candidate has passed the initial review and is under consideration for the next steps.',
-        },
-        {
-            label: 'Interviewing',
-            val: 'INTERVIEWING',
-        },
-        {
-            label: 'Offered',
-            val: 'OFFERED',
-            desc: 'The candidate has successfully completed the process and is being offered the position.',
-        },
-        {
-            label: 'Rejected',
-            val: 'REJECTED',
-            desc: 'The candidate is no longer being considered for the role and may receive feedback if available.',
-        },
+        { label: 'In-Review', val: 'IN_REVIEW', desc: 'The application is being reviewed to assess initial eligibility based on submitted materials.', },
+        { label: 'Shortlisted', val: 'SHORTLISTED', desc: 'The candidate has passed the initial review and is under consideration for the next steps.', },
+        { label: 'Interviewing', val: 'INTERVIEWING' },
+        { label: 'Offered', val: 'OFFERED', desc: 'The candidate has successfully completed the process and is being offered the position.', },
+        { label: 'Rejected', val: 'REJECTED', desc: 'The candidate is no longer being considered for the role and may receive feedback if available.', },
     ]);
 
 
@@ -294,6 +292,7 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
         // usersOnSearch,
 
         interview,
-        hiringProgressList
+        hiringProgressList,
+        userProfile
     }
 })

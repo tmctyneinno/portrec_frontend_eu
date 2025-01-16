@@ -29,13 +29,10 @@
 
 .portfolio-title {
    font-weight: bold; 
-   /* padding-left: 8px; */
    font-size: 14px;
 }
 
 .portfolio-desc {
-    /* font-weight: bold;  */
-    /* padding-left: 8px; */
     font-size: 12px;
  }
 
@@ -45,7 +42,7 @@
     white-space: nowrap;
     scroll-behavior: smooth;
     gap: 10px;
-    padding: 10px;
+    padding: 10px 10px 10px 0px;
     min-height: 150px;
     -webkit-overflow-scrolling: touch;
     /* Adjust based on content */

@@ -121,7 +121,7 @@ const route = useRoute()
 const recruiterCommonStore = useRecruiterCommonStore()
 const profileStore = useProfileStore()
 
-const { interview, applicants } = storeToRefs(recruiterCommonStore)
+const { interview, jobApplication } = storeToRefs(recruiterCommonStore)
 
 // modal
 const openInterviewModal = ref<any>(null)
@@ -178,10 +178,10 @@ const meetingTypes = ref<{ name: string, value: meetingTypeOptions, icon: string
 
 
 watch(() => interview.value.scheduleModal, () => {
-    const jobApplication = applicants.value.details
-    form.user_id = jobApplication.user.id;
-    form.job_application_id = jobApplication.id;
-    form.topic = `Interview with ${jobApplication.user.name}`;
+    const job: any = jobApplication.value.details
+    form.user_id = job.user.id;
+    form.job_application_id = job.id;
+    form.topic = `Interview with ${job.user.name}`;
     openInterviewModal.value.click()
     // console.log(jobApplication);
 });

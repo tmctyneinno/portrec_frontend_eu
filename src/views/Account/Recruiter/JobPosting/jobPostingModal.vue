@@ -538,6 +538,7 @@ watch(() => jobPosting.value.modal, () => {
     openModal.value.click()
     jobPosting.value.stage = 1
 });
+
 watch(() => route, () => {
     closeModal.value.click()
 }, { deep: true })

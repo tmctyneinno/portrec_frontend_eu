@@ -186,7 +186,7 @@ import ApplicantsDetailsComponentResume from './ApplicantsDetailsComponentResume
 import ApplicantsDetailsComponentProgress from './ApplicantsDetailsComponentProgress.vue';
 import { storeToRefs } from 'pinia';
 // import OverlayLoading from '@/components/templates/overlayLoading.vue';
-import scheduleInterviewModal from './Interview/scheduleInterviewModal.vue';
+import scheduleInterviewModal from './UserProfile/scheduleInterviewModal.vue';
 
 const commonStore = useRecruiterCommonStore()
 const { jobApplication, interview } = storeToRefs(commonStore)

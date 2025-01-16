@@ -33,7 +33,7 @@
 
 
 <script lang="ts" setup>
-import featuredJobsCard from '@/components/featuredJobsCard.vue';
+import featuredJobsCard from '@/components/templates/featuredJobsCard.vue';
 import { useRouter } from 'vue-router';
 import { onMounted, reactive, ref, watch } from 'vue';
 import { useJobsStore } from '@/stores/jobsStore';

@@ -64,9 +64,9 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import userProfileCard from '@/components/userProfileCard.vue';
+import userProfileCard from '@/components/templates/userProfileCard.vue';
 import type { UserProfileCardInterface } from '@/stores/interfaces';
-import SearchUsersForm from '@/components/searchUsersForm.vue';
+import SearchUsersForm from '@/components/templates/searchUsersForm.vue';
 
 const talents = ref<UserProfileCardInterface[]>([])
 

@@ -202,7 +202,7 @@
                         <div>
                             <div class="fw-bold mb-3 text-muted">Experiences</div>
                             <div v-if="!user?.experience.length">
-                                No Education added.
+                                No Experience added.
                             </div>
                             <div v-else class="mt-2">
                                 <div v-for="item in user.experience" :key="item.id">
@@ -225,18 +225,19 @@
 
                         <hr>
 
-                        <div class="">
-                            <div class="fw-bold mb-3 text-muted">Porfolios</div>
-                            <div v-if="!user?.portfolios.length">
-                                No Portfolios added.
-                            </div>
-                            <div v-else class="mt-2">
-                                <div class="portfolio-container">
-                                    <div v-for="(item, index) in user.portfolios" :key="index"
-                                        @click="visitURL(item.project_url)"
-                                        class="portfolio-item text-wrap card hover-tiltY">
-                                        <img class="portfolio-image" :src="item.images" alt="image">
-                                        <div class="portfolio-text">{{ item.project_title }} </div>
+
+                        <div class="fw-bold mb-3 text-muted">Porfolios</div>
+                        <div v-if="!user?.portfolios.length">
+                            No Portfolios added.
+                        </div>
+                        <div v-else class="mt-2">
+                            <div class="portfolio-container">
+                                <div v-for="(item, index) in user.portfolios" :key="index" @click="visitURL(item)"
+                                    class="portfolio-item text-wrap card hover-tiltY">
+                                    <img class="portfolio-image" :src="item.images[0]" alt="image">
+                                    <div class="portfolio-content">
+                                        <div class="portfolio-title">{{ item.title ?? 'Portfolio' }} </div>
+                                        <div class="portfolio-desc">{{ item.description }} </div>
                                     </div>
                                 </div>
                             </div>
@@ -386,6 +387,7 @@ const userSkillsTruncate = computed(() => {
 });
 
 function visitURL(url: string) {
+    return
 
     if (url) {
         if (!url.startsWith("https://") && !url.startsWith("http://")) {

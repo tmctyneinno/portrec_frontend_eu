@@ -91,12 +91,12 @@
 <script setup lang="ts">
 import { onMounted, watch, ref, computed } from 'vue';
 import { useRoute } from 'vue-router';
-import headerVue from '@/components/header.vue'
-import footerVue from '@/components/footer.vue'
+import headerVue from '@/components/templates/header.vue'
+import footerVue from '@/components/templates/footer.vue'
 
 import companiesWeHaveHelped from './LandingPage/companiesWeHaveHelped.vue';
 import WhatOurClientsSay from './LandingPage/whatOurClientsSay.vue';
-import UserProfileCardGeneral from '@/components/userProfileCardGeneral.vue';
+import UserProfileCardGeneral from '@/components/templates/userProfileCardGeneral.vue';
 import api from '@/stores/Helpers/axios'
 import type { UserProfileCardInterface } from '@/stores/interfaces';
 

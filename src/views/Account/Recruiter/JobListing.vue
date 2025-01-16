@@ -79,7 +79,7 @@ import useFxn from '@/stores/Helpers/useFunctions'
 import { useRecruiterCommonStore } from './RecruiterCommonStore';
 import api from '@/stores/Helpers/axios';
 import type { ServerOptions } from 'vue3-easy-data-table';
-import CustomDateRangePicker from '@/components/CustomDateRangePicker.vue';
+import CustomDateRangePicker from '@/components/plugins/CustomDateRangePicker.vue';
 
 const recruiterCommonStore = useRecruiterCommonStore()
 

@@ -11,8 +11,8 @@
 </template>
 
 <script setup lang="ts">
-import headerVue from '@/components/header.vue'
-import footerVue from '@/components/footer.vue'
+import headerVue from '@/components/templates/header.vue'
+import footerVue from '@/components/templates/footer.vue'
 import heroVue from './hero.vue'
 import companiesWeHaveHelped from './companiesWeHaveHelped.vue'
 import exploreVue from './explore.vue'

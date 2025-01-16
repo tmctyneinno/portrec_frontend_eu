@@ -105,7 +105,7 @@ import { useOnline } from "@vueuse/core";
 import { useRouter } from "vue-router";
 import { vMaska } from "maska";
 
-import HeaderForLoginAndSignUp from "@/components/headerForLoginAndSignUp.vue";
+import HeaderForLoginAndSignUp from "@/components/templates/headerForLoginAndSignUp.vue";
 import SignupStepOne from "./SignupStepOne.vue";
 import { useSignupStore } from "./SignupStore";
 import { storeToRefs } from "pinia";

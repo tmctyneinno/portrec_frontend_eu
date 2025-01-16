@@ -150,7 +150,7 @@ import EmojiPicker from 'vue3-emoji-picker'
 import api from '@/stores/Helpers/axios'
 import useFxn from '@/stores/Helpers/useFunctions';
 import { useProfileStore } from '@/stores/profileStore';
-import componentLoadingVue from '@/components/componentLoading.vue';
+import componentLoadingVue from '@/components/templates/componentLoading.vue';
 
 interface AllConvo {
     data: any[],

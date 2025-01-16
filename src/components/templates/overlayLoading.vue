@@ -1,5 +1,5 @@
 <template>
-    <div class="overlay">
+    <div class="overlay-loader">
         <div class="overlay__inner">
             <div class="overlay__content">
                 <span class="spinner"></span>
@@ -11,7 +11,7 @@
 
 
 <style scoped>
-.overlay {
+.overlay-loader {
     left: 0;
     top: 0;
     width: 100%;

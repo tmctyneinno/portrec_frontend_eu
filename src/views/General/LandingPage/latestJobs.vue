@@ -28,7 +28,7 @@
 </template>
 
 <script setup lang="ts">
-import jobsDisplayVue from '@/components/jobsDisplay.vue';
+import jobsDisplayVue from '@/components/templates/jobsDisplay.vue';
 import { useRouter } from 'vue-router';
 import { useJobsStore } from '@/stores/jobsStore';
 import { onMounted } from 'vue';

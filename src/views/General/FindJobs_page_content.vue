@@ -262,7 +262,7 @@
 </template>
 
 <script setup lang="ts">
-import searchJobForm from '@/components/searchJobForm.vue';
+import searchJobForm from '@/components/templates/searchJobForm.vue';
 import { onMounted, reactive, ref, watch } from 'vue';
 import { useJobsStore } from '@/stores/jobsStore';
 import { useRoute, useRouter } from 'vue-router';

@@ -11,8 +11,8 @@
 </template>
 
 <script setup lang="ts">
-import headerVue from '@/components/header.vue'
-import footerVue from '@/components/footer.vue'
+import headerVue from '@/components/templates/header.vue'
+import footerVue from '@/components/templates/footer.vue'
 import { useJobsStore } from '@/stores/jobsStore';
 import FindJobs_page_content from './FindJobs_page_content.vue';
 

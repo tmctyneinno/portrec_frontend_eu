@@ -1,5 +1,5 @@
 <template>
-    <overlayLoadingVue v-if="tempos.pageIsLoading" />
+    <overlayLoading v-if="tempos.pageIsLoading" />
     <div class="animate__animated animate__fadeIn mb-5">
 
         <div class="container py-3">
@@ -79,7 +79,7 @@
                                     <div class="xsmall">
                                         Showing page <span class="fw-bold">{{ pagination.currentPage }}/ {{
                                             pagination.totalPages
-                                            }}</span>
+                                        }}</span>
                                         of <span class="fw-bold">{{ pagination.totalRecords }}</span> results
                                     </div>
                                 </div>
@@ -139,9 +139,7 @@
 import { ref, reactive, onMounted, watch } from 'vue';
 import api from '@/stores/Helpers/axios'
 import useFxn from '@/stores/Helpers/useFunctions';
-import overlayLoadingVue from '@/components/overlayLoading.vue';
 import { useRouter } from 'vue-router';
-// import emptyDataComponentVue from '@/components/emptyDataComponent.vue';
 import { useCommonStore } from './commonStore'
 
 const tempos = reactive({

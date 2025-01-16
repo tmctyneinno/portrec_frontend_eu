@@ -92,8 +92,8 @@
 </template>
 
 <script setup lang="ts">
-import headerVue from '@/components/header.vue'
-import footerVue from '@/components/footer.vue'
+import headerVue from '@/components/templates/header.vue'
+import footerVue from '@/components/templates/footer.vue'
 import { GoogleMap, Marker } from "vue3-google-map";
 
 const map_center = { lat: 40.689247, lng: -74.044502 };

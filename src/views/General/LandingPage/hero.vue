@@ -30,7 +30,7 @@
 
 
 <script lang="ts" setup>
-import searchJobFormVue from '@/components/searchJobForm.vue';
+import searchJobFormVue from '@/components/templates/searchJobForm.vue';
 import { ref, onMounted } from 'vue';
 
 const animaIndex = ref(1)

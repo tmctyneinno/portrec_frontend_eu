@@ -1,5 +1,5 @@
 <template>
-    <overlayLoadingVue v-if="pageIsLoading" />
+    <overlayLoading v-if="pageIsLoading" />
     <div v-if="companyData" class="row g-3">
         <div class="col-lg-8">
             <div class="card">
@@ -178,7 +178,6 @@
 <script lang="ts" setup>
 import { onMounted, reactive, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import overlayLoadingVue from '@/components/overlayLoading.vue';
 import api from '@/stores/Helpers/axios'
 import useFxn from '@/stores/Helpers/useFunctions';
 

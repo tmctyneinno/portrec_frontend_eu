@@ -88,7 +88,7 @@
 import { useRoute, useRouter } from 'vue-router';
 import { computed, onMounted, ref } from 'vue';
 import api from '@/stores/Helpers/axios'
-import OverlayLoading from '@/components/overlayLoading.vue';
+import OverlayLoading from '@/components/templates/overlayLoading.vue';
 import useFxn from '@/stores/Helpers/useFunctions';
 
 

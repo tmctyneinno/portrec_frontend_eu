@@ -68,7 +68,7 @@ import useFxn from "@/stores/Helpers/useFunctions";
 import api from "@/stores/Helpers/axios";
 import { useOnline } from "@vueuse/core";
 import { useRouter } from "vue-router";
-import HeaderForLoginAndSignUp from "@/components/headerForLoginAndSignUp.vue";
+import HeaderForLoginAndSignUp from "@/components/templates/headerForLoginAndSignUp.vue";
 
 
 const online = useOnline()

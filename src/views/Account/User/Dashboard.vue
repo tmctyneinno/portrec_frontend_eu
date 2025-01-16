@@ -155,9 +155,9 @@ import { useDateFormat } from '@vueuse/core';
 import { onMounted, reactive, ref } from 'vue';
 import useFxn from '@/stores/Helpers/useFunctions'
 import api from '@/stores/Helpers/axios'
-import emptyDataComponent from '@/components/emptyDataComponent.vue';
-import ComponentLoading from '@/components/componentLoading.vue';
-import CustomDateRangePicker from '@/components/CustomDateRangePicker.vue';
+import emptyDataComponent from '@/components/templates/emptyDataComponent.vue';
+import ComponentLoading from '@/components/templates/componentLoading.vue';
+import CustomDateRangePicker from '@/components/plugins/CustomDateRangePicker.vue';
 import { useTemplateStore } from '@/stores/templateStore';
 
 const profileStore = useProfileStore()

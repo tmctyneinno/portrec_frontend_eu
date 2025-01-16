@@ -76,11 +76,11 @@ import 'qalendar/dist/style.css'
 
 import piniaPersist from 'pinia-plugin-persist'
 
-import jobsDisplayVue from '@/components/jobsDisplay.vue';
-import overlayLoading from '@/components/overlayLoading.vue';
-import emptyDataComponent from '@/components/emptyDataComponent.vue';
-import componentLoading from '@/components/componentLoading.vue';
-import customPagination from '@/components/customPagination.vue';
+import jobsDisplayVue from '@/components/templates/jobsDisplay.vue';
+import overlayLoading from '@/components/templates/overlayLoading.vue';
+import emptyDataComponent from '@/components/templates/emptyDataComponent.vue';
+import componentLoading from '@/components/templates/componentLoading.vue';
+import customPagination from '@/components/templates/customPagination.vue';
 
 import primaryButton from '@/components/buttons/primaryButton.vue';
 import primaryButtonOutline from '@/components/buttons/primaryButtonOutline.vue';

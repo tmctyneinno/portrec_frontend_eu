@@ -99,7 +99,7 @@ import { onMounted, ref, reactive, watch, computed } from 'vue';
 import useFxn from '@/stores/Helpers/useFunctions'
 import api from '@/stores/Helpers/axios'
 import type { JobStatusInterface } from '@/stores/interfaces';
-import CustomDateRangePicker from '@/components/CustomDateRangePicker.vue';
+import CustomDateRangePicker from '@/components/plugins/CustomDateRangePicker.vue';
 import { useTemplateStore } from '@/stores/templateStore';
 
 const templateStore = useTemplateStore()

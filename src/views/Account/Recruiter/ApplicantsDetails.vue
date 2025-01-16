@@ -1,5 +1,5 @@
 <template>
-    <OverlayLoading v-if="jobApplication.detailsLoading" />
+    <overlayLoading v-if="jobApplication.detailsLoading" />
     <div class="row g-3 m-0 pb-5">
         <div class="col-12">
             <div class="row g-3">
@@ -185,7 +185,7 @@ import ApplicantsDetailsComponentProfile from './ApplicantsDetailsComponentProfi
 import ApplicantsDetailsComponentResume from './ApplicantsDetailsComponentResume.vue';
 import ApplicantsDetailsComponentProgress from './ApplicantsDetailsComponentProgress.vue';
 import { storeToRefs } from 'pinia';
-import OverlayLoading from '@/components/overlayLoading.vue';
+// import OverlayLoading from '@/components/templates/overlayLoading.vue';
 import scheduleInterviewModal from './Interview/scheduleInterviewModal.vue';
 
 const commonStore = useRecruiterCommonStore()

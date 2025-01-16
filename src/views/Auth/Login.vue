@@ -100,7 +100,7 @@ import api from "@/stores/Helpers/axios";
 import { useOnline } from "@vueuse/core";
 import { useRouter } from "vue-router";
 import { useProfileStore } from "@/stores/profileStore";
-import headerForLoginAndSignUp from '@/components/headerForLoginAndSignUp.vue'
+import headerForLoginAndSignUp from '@/components/templates/headerForLoginAndSignUp.vue'
 // @ts-ignore
 import { useCodeClient, type ImplicitFlowSuccessResponse, type ImplicitFlowErrorResponse, } from "vue3-google-signin";
 

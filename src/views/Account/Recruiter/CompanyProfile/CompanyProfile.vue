@@ -231,10 +231,10 @@
 </template>
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
-import jobsDisplay from '@/components/jobsDisplay.vue';
+import jobsDisplay from '@/components/templates/jobsDisplay.vue';
 import { useRecruiterCommonStore } from '../RecruiterCommonStore';
 import { storeToRefs } from 'pinia';
-import ComponentLoading from '@/components/componentLoading.vue';
+import ComponentLoading from '@/components/templates/componentLoading.vue';
 import useFxn from '@/stores/Helpers/useFunctions';
 import api from '@/stores/Helpers/axios'
 

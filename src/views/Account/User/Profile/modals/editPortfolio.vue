@@ -13,25 +13,25 @@
                 </div>
                 <div class="modal-body">
                     <div class="row g-3">
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <label class="form-label">Title * </label>
-                            <input v-model="portfolio.project_title" type="text" class="form-control ">
+                            <input v-model="portfolio.title" type="text" class="form-control ">
                         </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Role </label>
-                            <input v-model="portfolio.project_role" type="text" class="form-control ">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Task </label>
-                            <input v-model="portfolio.project_task" type="text" class="form-control ">
-                        </div>
-                        <div class="col-md-6">
+                        <div class="col-md-7">
                             <label class="form-label">URL </label>
                             <input v-model="portfolio.project_url" type="text" class="form-control ">
                         </div>
                         <div class="col-12">
-                            <label class="form-label">Solution </label>
-                            <textarea v-model="portfolio.project_solution" class="form-control " rows="2"></textarea>
+                            <label class="form-label">Description * </label>
+                            <textarea v-model="portfolio.description" class="form-control " rows="2"></textarea>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Achivements </label>
+                            <textarea v-model="portfolio.achievements" class="form-control " rows="2"></textarea>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Goals </label>
+                            <textarea v-model="portfolio.goals" class="form-control " rows="2"></textarea>
                         </div>
 
 
@@ -63,24 +63,25 @@ import { useProfileStore } from '@/stores/profileStore';
 import { useEditingProfileStore } from '../editingProfileStore'
 import api from '@/stores/Helpers/axios'
 import useFxn from '@/stores/Helpers/useFunctions';
+import type { PortfolioInterface } from '@/stores/interfaces';
 
 const profileStore = useProfileStore()
 const editingStore = useEditingProfileStore()
 const isLoading = ref(false)
 
 const portfolio = reactive<any>({
-    project_title: editingStore.portfolioToEdit?.project_title ?? '',
-    project_role: editingStore.portfolioToEdit?.project_role ?? '',
-    project_task: editingStore.portfolioToEdit?.project_task ?? '',
-    project_solution: editingStore.portfolioToEdit?.project_solution ?? '',
+    title: editingStore.portfolioToEdit?.title ?? '',
+    description: editingStore.portfolioToEdit?.description ?? '',
+    goals: editingStore.portfolioToEdit?.goals ?? '',
+    achievements: editingStore.portfolioToEdit?.achievements ?? '',
     project_url: editingStore.portfolioToEdit?.project_url ?? '',
 })
 
 watch(() => editingStore.portfolioToEdit, () => {
-    portfolio.project_title = editingStore.portfolioToEdit?.project_title ?? '';
-    portfolio.project_role = editingStore.portfolioToEdit?.project_role ?? '';
-    portfolio.project_task = editingStore.portfolioToEdit?.project_task ?? '';
-    portfolio.project_solution = editingStore.portfolioToEdit?.project_solution ?? '';
+    portfolio.title = editingStore.portfolioToEdit?.title ?? '';
+    portfolio.description = editingStore.portfolioToEdit?.description ?? '';
+    portfolio.goals = editingStore.portfolioToEdit?.goals ?? '';
+    portfolio.achievements = editingStore.portfolioToEdit?.achievements ?? '';
     portfolio.project_url = editingStore.portfolioToEdit?.project_url ?? '';
 })
 
@@ -108,14 +109,15 @@ function deletePortfolio() {
 
 function updateClick() {
 
-    const requiredFields = ['project_title'];
+    const requiredFields: (keyof PortfolioInterface)[] = ['title', 'description'];
 
     for (const field of requiredFields) {
         if (!portfolio[field]) {
-            useFxn.toastShort('Please complete compulsory fields')
+            useFxn.toastShort(`Please complete compulsory fields`)
             return;
         }
     }
+
     useFxn.confirm('Confirm update?', 'Update Porfolio')
         .then((result) => {
             if (result.isConfirmed) {
@@ -160,8 +162,4 @@ onBeforeRouteLeave(() => {
 </script>
 
 
-<style lang="css" scoped>
-.btn-primary {
-    width: 250px;
-}
-</style>
+<style lang="css" scoped></style>

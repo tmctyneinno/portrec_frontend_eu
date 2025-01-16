@@ -1,22 +1,4 @@
 import LandingPage from '../views/General/LandingPage/LandingPage.vue'
-import { useProfileStore } from '@/stores/profileStore';
-import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router';
-
-const initGuard = (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
-    const profileStore = useProfileStore();
-    if (profileStore.isLoggedIn) {
-        const path = profileStore.isNewLogin == 1
-            ? `/${profileStore.getUserType}/get-started`
-            : `/${profileStore.getUserType}/dashboard`;
-
-        if (profileStore.isNewLogin == 1) profileStore.isNewLogin = 0;
-
-        next({ path });
-    }
-    else {
-        next()
-    }
-}
 
 export default [
     {
@@ -55,36 +37,6 @@ export default [
         component: () => import(/* webpackChunkName: "general" */  '../views/General/JobDescription/JobDescription.vue')
     },
 
-    {
-        path: '/login',
-        name: 'Login - User',
-        component: () => import(/* webpackChunkName: "auth" */  '../views/General/Login.vue'),
-        beforeEnter: initGuard
-    },
-    {
-        path: '/login/recruiter',
-        name: 'Login - Recruiter',
-        component: () => import(/* webpackChunkName: "auth" */  '../views/General/LoginRecruiter.vue'),
-        beforeEnter: initGuard
-    },
-    {
-        path: '/reset_password',
-        name: 'Reset Password',
-        component: () => import(/* webpackChunkName: "auth" */  '../views/General/Reset_password.vue'),
-        beforeEnter: initGuard
-    },
-    {
-        path: '/signup',
-        name: 'Sign Up - User',
-        component: () => import(/* webpackChunkName: "auth" */  '../views/General/Signup.vue'),
-        beforeEnter: initGuard
-    },
-    {
-        path: '/signup/recruiter',
-        name: 'Sign Up - Recruiter',
-        component: () => import(/* webpackChunkName: "auth" */ '../views/General/SignupRecruiter.vue'),
-        beforeEnter: initGuard
-    },
     {
         path: '/meeting/invite',
         alias: ['/meeting/accept', '/candidate/accept/view'],

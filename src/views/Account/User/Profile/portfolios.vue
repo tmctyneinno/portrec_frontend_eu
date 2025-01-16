@@ -19,8 +19,9 @@
                     <div class="portfolio-container">
                         <div v-for="(item, index) in portfolios" :key="index" @click="openEditButton(item)"
                             class="portfolio-item text-wrap card hover-tiltY">
-                            <img class="portfolio-image" :src="item.images ?? profileStore.data.avatar" alt="image">
-                            <div class="portfolio-text">{{ item.project_title }} </div>
+                            <img class="portfolio-image" :src="item.images[0]" alt="image">
+                            <div class="portfolio-title">{{ item.title ?? 'Portfolio' }} </div>
+                            <div class="portfolio-desc">{{ item.description }} </div>
                         </div>
                     </div>
                     <button ref="editBtn" class="d-none" data-bs-toggle="modal"

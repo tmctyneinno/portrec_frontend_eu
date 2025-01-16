@@ -103,7 +103,8 @@ function clickSave() {
 
     const formData = new FormData();
     formData.append('user_id', profileStore.data.id)
-    formData.append('title', portfolio.title)
+    formData.append('project_title', portfolio.title)
+    formData.append('project_url', portfolio.project_url)
     formData.append('goals', portfolio.goals ?? '')
     formData.append('description', portfolio.description ?? '')
     formData.append('achievements', portfolio.achievements ?? '')
@@ -128,7 +129,7 @@ async function save(formData: any) {
             profileStore.getProfile()
         }
     } catch (error) {
-        // 
+        useFxn.toast('Could not save portfolio, Check your internet', 'error')
     }
     finally {
         isSaving.value = false

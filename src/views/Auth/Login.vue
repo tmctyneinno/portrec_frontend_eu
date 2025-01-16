@@ -8,17 +8,14 @@
                         <div class="col-12  type-nav">
                             <router-link
                                 class=" hover-tiltY theme-color d-flex justify-content-end mb-3 fw-bolder text-decoration-none"
-                                to="/login">
-                                Login as Job Seeker</router-link>
+                                to="/login/recruiter">
+                                Login as Recruiter</router-link>
                         </div>
                         <div class="col-12 mb-3">
                             <div class="fs-4 fw-bolder text-center ">
-                                Welcome, Admin</div>
+                                Welcome</div>
                             <div class=" text-center">Enter your login details below</div>
                         </div>
-
-
-
 
                         <form @submit.prevent="submitForm" class="row g-3">
                             <div class="col-12">
@@ -45,7 +42,8 @@
                             <div v-if="form.isError" class="col-12 mt-2">
                                 <div class="alert alert-danger small py-1 border-0 text-danger">
                                     Your password is incorrect or this account doesn't exist.
-                                    <router-link class="text-danger" to="/reset_password">Reset password</router-link>
+                                    <router-link class="text-danger" to="/auth/reset-password">Reset
+                                        password</router-link>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -53,19 +51,18 @@
                                     <input class="form-check-input me-1" type="checkbox" checked>
                                     Remember me
                                 </label>
-                                <label class="cursor-pointer float-end theme-color">
-                                    Forgot password?
-                                </label>
+                                <router-link class="float-end theme-color text-decoration-none"
+                                    to="/auth/reset-password/otp">Forgot
+                                    password?</router-link>
                             </div>
                             <div class="col-12 mt-3">
-                                <primaryButton v-if="!form.isLoading" :btnMainClass="'btn-dark'" :btnType="'submit'"
-                                    :className="` w-100 btn-lg`">
+                                <primaryButton v-if="!form.isLoading" :btnType="'submit'" :className="` w-100 btn-lg`">
                                     Login
                                 </primaryButton>
-                                <primaryButtonLoading v-else :btnMainClass="'btn-dark'" :className="`btn-lg w-100`" />
+                                <primaryButtonLoading v-else :className="`btn-lg w-100`" />
                             </div>
                             <div class="col-12 mt-3">
-                                Don't have an account? <router-link replace to="/signup/recruiter"
+                                Don't have an account? <router-link replace to="/signup"
                                     class="fw-bold theme-color text-decoration-none">Sign Up</router-link>
                             </div>
                         </form>
@@ -153,10 +150,10 @@ async function signin() {
             email: form.email,
             password: form.password
         }
-        const { data } = await api.recruiterLogin(axObj)
+        const { data } = await api.userLogin(axObj)
 
         if (data.status === 200) {
-            profile.login(data.body.token, 'recruiter')
+            profile.login(data.body.token, 'user')
         }
     } catch (error: any) {
         if (error.response.status === 401) {

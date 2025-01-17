@@ -4,8 +4,8 @@
 </template>
 
 <script lang="ts" setup>
-import List from './ApplicantsList.vue'
-import Details from './ApplicantsDetails.vue'
+import List from './UserProfile//ApplicantsList.vue'
+import Details from './UserProfile/ApplicantsDetails.vue'
 import { useRecruiterCommonStore } from './RecruiterCommonStore';
 
 const recruiterCommonStore = useRecruiterCommonStore()

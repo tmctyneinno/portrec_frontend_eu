@@ -514,7 +514,7 @@
 
 <script setup lang="ts">
 import { computed, reactive, ref, watch } from 'vue';
-import { useRoute } from 'vue-router';
+import { onBeforeRouteLeave, useRoute } from 'vue-router';
 import { useRecruiterCommonStore } from '../RecruiterCommonStore'
 import { storeToRefs } from 'pinia';
 import useFxn from '@/stores/Helpers/useFunctions';
@@ -539,9 +539,9 @@ watch(() => jobPosting.value.modal, () => {
     jobPosting.value.stage = 1
 });
 
-watch(() => route, () => {
+onBeforeRouteLeave(() => {
     closeModal.value.click()
-}, { deep: true })
+})
 
 
 // step1 #####################################

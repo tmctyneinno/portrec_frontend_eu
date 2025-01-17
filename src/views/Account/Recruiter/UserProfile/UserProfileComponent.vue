@@ -232,12 +232,13 @@
                         </div>
                         <div v-else class="mt-2">
                             <div class="portfolio-container">
-                                <div v-for="(item, index) in user.portfolios" :key="index" @click="visitURL(item)"
-                                    class="portfolio-item text-wrap card hover-tiltY">
+                                <div v-for="(item, index) in user.portfolios" :key="index"
+                                    @click="openPortfolioModal(item)" class="portfolio-item text-wrap card hover-tiltY">
                                     <img class="portfolio-image" :src="item.images[0]" alt="image">
                                     <div class="portfolio-content">
                                         <div class="portfolio-title">{{ item.title ?? 'Portfolio' }} </div>
-                                        <div class="portfolio-desc">{{ item.description }} </div>
+                                        <div class="portfolio-desc">{{ useFxn.truncateStr(item.description, 25) }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -302,6 +303,9 @@
         </div>
 
     </div>
+
+    <!-- portfolio--modal -->
+    <PortfolioViewModal />
 </template>
 
 <script lang="ts" setup>
@@ -309,9 +313,14 @@ import { computed, onMounted, ref } from 'vue';
 import useFxn from '@/stores/Helpers/useFunctions'
 import api from '@/stores/Helpers/axios';
 import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router';
+import { useRecruiterCommonStore } from '../RecruiterCommonStore';
+import PortfolioViewModal from './portfolioViewModal.vue';
+
 
 const route = useRoute()
 const router = useRouter()
+
+const recruiterCommonStore = useRecruiterCommonStore()
 
 onMounted(() => {
     getUserProfile()
@@ -386,6 +395,17 @@ const userSkillsTruncate = computed(() => {
         : userSkills.value;
 });
 
+
+
+
+function openPortfolioModal(item: any) {
+    recruiterCommonStore.userProfile.portfolio = item;
+    recruiterCommonStore.userProfile.profile = user.value;
+    recruiterCommonStore.userProfile.portfolioModal = !recruiterCommonStore.userProfile.portfolioModal
+}
+
+
+
 function visitURL(url: string) {
     return
 
@@ -421,8 +441,6 @@ async function getJobsList() {
     }
 
 }
-
-
 
 function openHireModal() {
     modalHireOpen.value?.click()

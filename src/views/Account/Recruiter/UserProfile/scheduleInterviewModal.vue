@@ -109,7 +109,7 @@
 
 <script setup lang="ts">
 import { computed, reactive, ref, watch } from 'vue';
-import { useRoute } from 'vue-router';
+import { onBeforeRouteLeave, useRoute } from 'vue-router';
 import { useRecruiterCommonStore } from '../RecruiterCommonStore'
 import { storeToRefs } from 'pinia';
 import useFxn from '@/stores/Helpers/useFunctions';
@@ -186,16 +186,15 @@ watch(() => interview.value.scheduleModal, () => {
     // console.log(jobApplication);
 });
 
-watch(() => route, () => {
+onBeforeRouteLeave(() => {
     closeInterviewModal.value.click()
-}, { deep: true })
+})
+
 
 
 
 
 // actions ###############################
-
-
 
 async function createSchedule(obj: any) {
     form.fieldError = ''

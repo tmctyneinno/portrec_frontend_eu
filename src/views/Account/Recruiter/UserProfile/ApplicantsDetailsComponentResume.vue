@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia';
-import { useRecruiterCommonStore } from './RecruiterCommonStore';
+import { useRecruiterCommonStore } from '../RecruiterCommonStore';
 import { computed } from 'vue';
 import { VuePDF, usePDF } from '@tato30/vue-pdf'
 import '@tato30/vue-pdf/style.css'

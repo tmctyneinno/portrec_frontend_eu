@@ -212,7 +212,6 @@ onMounted(() => {
     console.log(profileStore.data);
     setDateRange()
     console.log(dateRange.value);
-
 })
 
 const dateRange = ref();

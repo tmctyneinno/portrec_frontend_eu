@@ -65,8 +65,10 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
         scheduleModal: false,
     })
 
-    const userProfile = reactive({
+    const userProfile = reactive<{ portfolioModal: boolean, portfolio: any, profile: any }>({
         portfolioModal: false,
+        portfolio: null,
+        profile: null
     })
 
     const jobPostingDropdowns = reactive<jobDropdownsInterface>({

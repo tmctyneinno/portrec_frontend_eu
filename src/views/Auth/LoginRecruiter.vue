@@ -45,7 +45,7 @@
                             <div v-if="form.isError" class="col-12 mt-2">
                                 <div class="alert alert-danger small py-1 border-0 text-danger">
                                     Your password is incorrect or this account doesn't exist.
-                                    <router-link class="text-danger" to="/auth/reset-password">Reset
+                                    <router-link class="text-danger" to="/auth/reset-password/otp">Reset
                                         password</router-link>
                                 </div>
                             </div>

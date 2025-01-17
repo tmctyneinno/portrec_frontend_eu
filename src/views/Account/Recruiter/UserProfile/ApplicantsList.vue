@@ -70,7 +70,7 @@
 import { useProfileStore } from '@/stores/profileStore';
 import { onMounted, ref, watch } from 'vue';
 import useFxn from '@/stores/Helpers/useFunctions'
-import { useRecruiterCommonStore } from './RecruiterCommonStore';
+import { useRecruiterCommonStore } from '../RecruiterCommonStore';
 import type { ServerOptions } from 'vue3-easy-data-table';
 import api from '@/stores/Helpers/axios';
 import { useTemplateStore } from '@/stores/templateStore';

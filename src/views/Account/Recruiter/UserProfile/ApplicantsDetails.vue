@@ -180,13 +180,13 @@
 import { useProfileStore } from '@/stores/profileStore';
 import { computed, onMounted, ref } from 'vue';
 import useFxn from '@/stores/Helpers/useFunctions'
-import { useRecruiterCommonStore } from './RecruiterCommonStore';
+import { useRecruiterCommonStore } from '../RecruiterCommonStore';
 import ApplicantsDetailsComponentProfile from './ApplicantsDetailsComponentProfile.vue';
 import ApplicantsDetailsComponentResume from './ApplicantsDetailsComponentResume.vue';
 import ApplicantsDetailsComponentProgress from './ApplicantsDetailsComponentProgress.vue';
 import { storeToRefs } from 'pinia';
 // import OverlayLoading from '@/components/templates/overlayLoading.vue';
-import scheduleInterviewModal from './UserProfile/scheduleInterviewModal.vue';
+import scheduleInterviewModal from './scheduleInterviewModal.vue';
 
 const commonStore = useRecruiterCommonStore()
 const { jobApplication, interview } = storeToRefs(commonStore)

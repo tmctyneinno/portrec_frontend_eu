@@ -22,7 +22,7 @@
                             <img class="portfolio-image" :src="item.images[0]" alt="image">
                             <div class="portfolio-content">
                                 <div class="portfolio-title">{{ item.title ?? 'Portfolio' }} </div>
-                                <div class="portfolio-desc">{{ item.description }} </div>
+                                <div class="portfolio-desc">{{ useFunctions.truncateStr(item.description, 28) }} </div>
                             </div>
                         </div>
                     </div>
@@ -38,6 +38,7 @@
 import { useProfileStore } from '@/stores/profileStore';
 import { useEditingProfileStore } from './editingProfileStore'
 import { computed, ref } from 'vue';
+import useFunctions from '@/stores/Helpers/useFunctions';
 
 const profileStore = useProfileStore()
 const editingStore = useEditingProfileStore()

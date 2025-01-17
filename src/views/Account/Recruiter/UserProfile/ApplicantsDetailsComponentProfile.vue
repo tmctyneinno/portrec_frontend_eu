@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia';
-import { useRecruiterCommonStore } from './RecruiterCommonStore';
+import { useRecruiterCommonStore } from '../RecruiterCommonStore';
 import useFxn from '@/stores/Helpers/useFunctions';
 import { computed } from 'vue';
 

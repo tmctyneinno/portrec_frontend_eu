@@ -41,11 +41,11 @@ export default [
         path: '/meeting/invite',
         alias: ['/meeting/accept', '/candidate/accept/view'],
         name: 'Meeting Invite',
-        component: () => import(/* webpackChunkName: "general" */  '../views/MeetingInvite.vue')
+        component: () => import(/* webpackChunkName: "general" */  '../views/Account/User/MeetingInvite.vue')
     },
     {
         path: '/:pathMatch(.*)*',
         name: '404',
-        component: () => import(/* webpackChunkName: "error" */  '../views/PageNotFound.vue')
+        component: () => import(/* webpackChunkName: "error" */  '../views/General/PageNotFound.vue')
     },
 ]

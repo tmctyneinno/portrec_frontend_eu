@@ -55,7 +55,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
-import { useRecruiterCommonStore } from './RecruiterCommonStore';
+import { useRecruiterCommonStore } from '../RecruiterCommonStore';
 import useFxn from '@/stores/Helpers/useFunctions';
 import api from '@/stores/Helpers/axios'
 import type { JobStatusInterface } from '@/stores/interfaces';

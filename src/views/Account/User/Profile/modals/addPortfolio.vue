@@ -20,22 +20,17 @@
                         </div>
                         <div class="col-12">
                             <label class="form-label">Description * </label>
-                            <textarea v-model="portfolio.description" class="form-control " rows="2"></textarea>
+                            <textarea v-model="portfolio.description" class="form-control " rows="4"></textarea>
                         </div>
-                        <div class="col-lg-12" style="margin-bottom: 70px; height:180px">
+                        <div class="col-lg-6" style="margin-bottom: 100px; height:180px">
                             <label class="form-label">Achivements </label>
                             <QuillEditor v-model:content="portfolio.achievements" contentType="html"
                                 toolbar="minimal" />
                         </div>
 
-
-                        <!-- <div class="col-md-6">
-                            <label class="form-label">Achivements </label>
-                            <textarea v-model="portfolio.achievements" class="form-control " rows="2"></textarea>
-                        </div> -->
-                        <div class="col-md-6">
+                        <div class="col-lg-6" style="margin-bottom: 100px; height:180px">
                             <label class="form-label">Goals </label>
-                            <textarea v-model="portfolio.goals" class="form-control " rows="2"></textarea>
+                            <QuillEditor v-model:content="portfolio.goals" contentType="html" toolbar="minimal" />
                         </div>
 
 

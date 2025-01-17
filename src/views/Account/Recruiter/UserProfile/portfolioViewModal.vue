@@ -40,15 +40,11 @@
                                 </div>
                                 <div class="mb-3">
                                     <div class="card border-0">
-                                        <div class="card-title fw-bolder">Technology used</div>
-                                        <div class="card-text">
-                                            <ul>
-                                                <li>Laravel</li>
-                                                <li>Vue js</li>
-                                                <li>MySql</li>
-                                                <li>Restful APIs</li>
-                                            </ul>
+                                        <div class="card-title fw-bolder">Goals</div>
+                                        <div v-if="user.portfolio?.goals" v-html="user.portfolio?.goals"
+                                            class="card-text">
                                         </div>
+                                        <div class="text-muted small" v-else>No Goals added.</div>
                                     </div>
                                 </div>
 

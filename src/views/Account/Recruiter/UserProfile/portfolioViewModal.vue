@@ -67,7 +67,7 @@
                                         <div class="portfolio-container">
                                             <div v-for="(image, index) in user.portfolio?.images ?? ''" :key="index"
                                                 class="portfolio-item text-wrap card hover-tiltY">
-                                                <img class="portfolio-image" :src="image" alt="image">
+                                                <img class="portfolio-image" :src="image?.image" alt="image">
                                             </div>
                                         </div>
                                     </div>
@@ -83,13 +83,15 @@
                                     </div>
                                 </div>
                             </div>
-                            <hr class="faint">
-                            <div class="col-12">
+                            <div v-if="otherPortfolios.length" class="col-12">
+                                <hr class="faint">
                                 <div class="fw-bold">More projects by {{ user.profile?.name ?? 'this User' }}</div>
                                 <div class="portfolio-container">
                                     <div @click="updatePortfolioToThis(item)" v-for="(item, index) in otherPortfolios"
                                         :key="index" class="portfolio-item text-wrap card hover-tiltY">
-                                        <img class="portfolio-image" :src="item.images[0]" alt="image">
+                                        <img v-if="item.images.length" class="portfolio-image"
+                                            :src="item.images[0].image" alt="image">
+                                        <img v-else class="portfolio-image" src="" alt="image">
                                         <div class="portfolio-content">
                                             <div class="portfolio-title">{{ item.title ?? 'Portfolio' }} </div>
                                             <div class="portfolio-desc">{{ useFxn.truncateStr(item.description, 25) }}

@@ -234,7 +234,9 @@
                             <div class="portfolio-container">
                                 <div v-for="(item, index) in user.portfolios" :key="index"
                                     @click="openPortfolioModal(item)" class="portfolio-item text-wrap card hover-tiltY">
-                                    <img class="portfolio-image" :src="item.images[0]" alt="image">
+                                    <img v-if="item.images.length > 0" class="portfolio-image"
+                                        :src="item.images[0].image" alt="image">
+                                    <img v-else class="portfolio-image" src="" alt="image">
                                     <div class="portfolio-content">
                                         <div class="portfolio-title">{{ item.title ?? 'Portfolio' }} </div>
                                         <div class="portfolio-desc">{{ useFxn.truncateStr(item.description, 25) }}

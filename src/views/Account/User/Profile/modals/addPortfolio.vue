@@ -44,7 +44,7 @@
                         </div>
                         <div class="">
                             <div v-for="image in imagesArray"
-                                class="d-inline-block mx-2 custom-hover-overlay image-container hover-tiltY">
+                                class="d-inline-block mx-2 mb-2 custom-hover-overlay image-container hover-tiltY">
                                 <img class="image-span" :src="image.src" alt="">
                                 <div class="overlay">
                                     <i @click="removeImage(image.id)" class="bi bi-x text-danger trash-icon "></i>
@@ -111,7 +111,7 @@ function clickSave() {
 
     const formData = new FormData();
     formData.append('user_id', profileStore.data.id)
-    formData.append('project_title', portfolio.title)
+    formData.append('title', portfolio.title)
     formData.append('project_url', portfolio.project_url)
     formData.append('goals', portfolio.goals ?? '')
     formData.append('description', portfolio.description ?? '')
@@ -135,6 +135,7 @@ async function save(formData: any) {
                 portfolio.achievements = portfolio.project_url
                 = portfolio.description = ''
             profileStore.getProfile()
+            imagesArray.value.length = 0
         }
     } catch (error) {
         useFxn.toast('Could not save portfolio, Check your internet', 'error')

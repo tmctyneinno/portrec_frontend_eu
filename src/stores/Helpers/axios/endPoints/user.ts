@@ -102,14 +102,22 @@ export default {
     },
 
     userAddPortfolio(obj: FormData) {
-        return $instanceForm.post(`user/portfolio`, obj)
+        return $instanceForm.post(`user/add/portfolio`, obj)
     },
 
     userUpdatePortfolio(id: string, obj: FormData) {
-        return $instance.post(`user/portfolio/${id}`, obj)
+        return $instance.post(`user/portfolio/update/${id}`, obj)
     },
 
     userDeletePortfolio(id: string) {
-        return $instance.delete(`user/portfolio/${id}`)
+        return $instance.post(`user/portfolio/delete/${id}`)
+    },
+
+    userDeletePortfolioImage(id: string) {
+        return $instance.post(`user/portfolio/delete/image/${id}`)
+    },
+
+    userAddPortfolioImage(obj: FormData) {
+        return $instanceForm.post(`user/portfolio/add/image`, obj)
     },
 }

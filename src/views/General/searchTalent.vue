@@ -124,6 +124,7 @@ async function loadDetailsOnRoute() {
 
 async function getIndustryCareeres() {
   isLoadingTalents.value = true
+  talents.value.length = 0
   try {
     const resp = await api.searchTalent(idOnRoute.value)
     const array = resp?.data?.body ?? []

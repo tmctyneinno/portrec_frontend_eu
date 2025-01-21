@@ -117,7 +117,7 @@ app.component('primaryButtonLoading', primaryButtonLoading)
 
 app.use(GoogleSignInPlugin, {
     // clientId: import.meta.env.VITE_GOOGLE_CLIENT_ID,
-    clientId: '',
+    clientId: '12345',
 });
 app.use(pinia)
 app.use(VueApexCharts);

@@ -159,7 +159,7 @@ const tagDescription = computed(() => {
   const categories = [
     {
       title: 'Designers',
-      desc: 'Crafting visually engaging and intuitive user interfaces, focusing on layout, color, typography, and interactive elements to enhance the overall user experience.',
+      desc: 'Crafting visually  engaging and intuitive user interfaces, focusing on layout, color, typography, and interactive elements to enhance the overall user experience.',
     },
     {
       title: 'Salespeople',

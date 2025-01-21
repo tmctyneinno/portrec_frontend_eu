@@ -22,6 +22,12 @@ export default {
         else return true
     },
 
+    passwordRegex: (password: string) => {
+        /*Minimum of 8 characters, One special character,  A number*/
+        const regex = /^(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*\d)[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,}$/;
+        return regex.test(password)
+    },
+
     truncateStr(str: string, num: number) {
         if (str && str.length > num) {
             return str.slice(0, num) + "...";

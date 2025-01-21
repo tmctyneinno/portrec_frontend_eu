@@ -117,4 +117,17 @@ export default {
         return $instance.get(`recruiter/verify/payment${queryString}`)
     },
 
+
+    recruiterForgotPasswordOTP(obj: FormData) {
+        return $instanceForm.post(`recruiter/send/otp`, obj)
+    },
+
+    recruiterForgotPasswordVerifyOTP(obj: FormData) {
+        return $instanceForm.post(`recruiter/verify/otp`, obj)
+    },
+
+    recruiterResetPassword(obj: FormData) {
+        return $instanceForm.post(`recruiter/reset/password`, obj)
+    },
+
 }

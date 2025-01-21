@@ -8,7 +8,7 @@
                         <div class="col-12  type-nav">
                             <router-link
                                 class=" hover-tiltY theme-color d-flex justify-content-end mb-3 fw-bolder text-decoration-none"
-                                to="/signup/recruiter">
+                                to="/auth/signup/recruiter">
                                 Sign Up as Recuiter</router-link>
                         </div>
                         <div class="col-12 mb-3">
@@ -80,7 +80,7 @@
                                 <primaryButtonLoading v-else :className="`btn-lg w-100`" />
                             </div>
                             <div class="col-12 mt-3">
-                                Already have an account? <router-link replace to="/login"
+                                Already have an account? <router-link replace to="/auth/login"
                                     class="fw-bold theme-color text-decoration-none">Login</router-link>
                             </div>
 
@@ -185,7 +185,7 @@ async function register() {
             });
             form.value.skills = [];
             form.value.step = '1'
-            router.push({ path: '/login' })
+            router.push({ path: '/auth/login' })
         }
     } catch (error: any) {
         console.error(error);

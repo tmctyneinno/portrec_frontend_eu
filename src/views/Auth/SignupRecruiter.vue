@@ -8,7 +8,7 @@
                         <div class="col-12  type-nav">
                             <router-link
                                 class=" hover-tiltY theme-color d-flex justify-content-end mb-3 fw-bolder text-decoration-none"
-                                to="/signup">
+                                to="/auth/signup">
                                 Sign Up as Job Seeker</router-link>
                         </div>
                         <div class="col-12 mb-3">
@@ -88,7 +88,7 @@
                                 <primaryButtonLoading :btnMainClass="'btn-dark'" v-else :className="`btn-lg w-100`" />
                             </div>
                             <div class="col-12 mt-3">
-                                Already have an account? <router-link replace to="/login"
+                                Already have an account? <router-link replace to="/auth/login"
                                     class="fw-bold theme-color text-decoration-none">Login</router-link>
                             </div>
 
@@ -202,7 +202,7 @@ async function register() {
 
         else {
             useFxn.toast('Account created successfully! please login', 'success')
-            router.push({ path: '/login/recruiter' })
+            router.push({ path: '/auth/login/recruiter' })
         }
     } catch (error: any) {
         console.error(error);

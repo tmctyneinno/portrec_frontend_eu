@@ -135,7 +135,7 @@ async function respondToMeeting(action: 'accept' | 'reject') {
         const resp = await api.meetingAccept(formData)
         if (resp.status === 200) {
             useFxn.toastShort('Request Sent!')
-            router.push({ path: '/login' });
+            router.push({ path: '/auth/login' });
         }
     } catch (error) {
         console.log(error);

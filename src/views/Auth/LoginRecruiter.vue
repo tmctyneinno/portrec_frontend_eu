@@ -8,7 +8,7 @@
                         <div class="col-12  type-nav">
                             <router-link
                                 class=" hover-tiltY theme-color d-flex justify-content-end mb-3 fw-bolder text-decoration-none"
-                                to="/login">
+                                to="/auth/login">
                                 Login as Job Seeker</router-link>
                         </div>
                         <div class="col-12 mb-3">
@@ -45,7 +45,7 @@
                             <div v-if="form.isError" class="col-12 mt-2">
                                 <div class="alert alert-danger small py-1 border-0 text-danger">
                                     Your password is incorrect or this account doesn't exist.
-                                    <router-link class="text-danger" to="/auth/reset-password/otp">Reset
+                                    <router-link class="text-danger" to="/password/forgot/recruiter/otp">Reset
                                         password</router-link>
                                 </div>
                             </div>
@@ -55,7 +55,7 @@
                                     Remember me
                                 </label>
                                 <router-link class="float-end theme-color text-decoration-none"
-                                    to="/auth/reset-password/otp">Forgot
+                                    to="/password/forgot/recruiter/otp">Forgot
                                     password?</router-link>
                             </div>
                             <div class="col-12 mt-3">
@@ -66,7 +66,7 @@
                                 <primaryButtonLoading v-else :btnMainClass="'btn-dark'" :className="`btn-lg w-100`" />
                             </div>
                             <div class="col-12 mt-3">
-                                Don't have an account? <router-link replace to="/signup/recruiter"
+                                Don't have an account? <router-link replace to="/auth/signup/recruiter"
                                     class="fw-bold theme-color text-decoration-none">Sign Up</router-link>
                             </div>
                         </form>

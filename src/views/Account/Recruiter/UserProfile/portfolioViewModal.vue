@@ -64,9 +64,9 @@
                             <div class="col-lg-6">
                                 <div class="mb-3">
                                     <div class="card border-0">
-                                        <div class="portfolio-container">
+                                        <div class="portfolio-container border-1">
                                             <div v-for="(image, index) in user.portfolio?.images ?? ''" :key="index"
-                                                class="portfolio-item text-wrap card hover-tiltY">
+                                                class="portfolio-item text-wrap card ">
                                                 <img class="portfolio-image" :src="image?.image" alt="image">
                                             </div>
                                         </div>

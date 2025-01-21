@@ -55,7 +55,7 @@
             <primaryButtonLoading v-else :className="`btn-lg w-100`" />
         </div>
         <div class="col-12 mt-3">
-            Already have an account? <router-link replace to="/login"
+            Already have an account? <router-link replace to="/auth/login"
                 class="fw-bold theme-color text-decoration-none">Login</router-link>
         </div>
 

@@ -40,7 +40,7 @@
                                 <input v-model="form.password2" :type="form.password2Display"
                                     class="form-control form-control-lg" placeholder="confirm password">
                             </div>
-                            <div class="col-12 small text-muted">
+                            <div class="col-12 small " :class="!passwordRegexTested ? 'text-danger' : 'text-success'">
                                 <div>Minimum of 8 characters</div>
                                 <div>One special character</div>
                                 <div>A number</div>
@@ -48,10 +48,11 @@
                             </div>
 
                             <div class="col-12 mt-3">
-                                <primaryButton v-if="!form.isLoading" :btnType="'submit'" :className="` w-100 btn-lg`">
+                                <primaryButton :disabled="!passwordRegexTested" v-if="!form.isLoading"
+                                    :btnType="'submit'" :className="` w-100 btn-lg`">
                                     Confirm
                                 </primaryButton>
-                                <primaryButtonLoading :btnMainClass="'btn-dark'" v-else :className="`btn-lg w-100`" />
+                                <primaryButtonLoading v-else :className="`btn-lg w-100`" />
                             </div>
 
                         </form>
@@ -63,15 +64,14 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from "vue";
+import { computed, onMounted, reactive, ref } from "vue";
 import useFxn from "@/stores/Helpers/useFunctions";
 import api from "@/stores/Helpers/axios";
-import { useOnline } from "@vueuse/core";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import HeaderForLoginAndSignUp from "@/components/templates/headerForLoginAndSignUp.vue";
 
 
-const online = useOnline()
+const route = useRoute()
 const router = useRouter()
 
 const form = reactive<any>({
@@ -79,13 +79,27 @@ const form = reactive<any>({
     password2: '',
     passwordDisplay: 'password',
     password2Display: 'password',
-    isLoading: false
+    isLoading: false,
+})
+
+const passwordRegexTested = computed(() => {
+    return form.password && useFxn.passwordRegex(form.password) ? true : false
+})
+
+const otpOnRoute = ref<string>('')
+const recruiterIdOnRoute = ref<string>('')
+
+onMounted(() => {
+    otpOnRoute.value = atob(route.query?.cde as string);
+    recruiterIdOnRoute.value = atob(route.query?.id as string);
+    if (!otpOnRoute.value || !recruiterIdOnRoute.value) {
+        router.push({ path: '/' })
+    }
 })
 
 
 function submitForm() {
-    return
-    const requiredFields = ['name', 'email', 'password', 'phone'];
+    const requiredFields = ['password', 'password2'];
 
     for (const field of requiredFields) {
         if (!form[field]) {
@@ -99,40 +113,22 @@ function submitForm() {
         return;
     }
 
-
-
-    // if (!online.value) {
-    //     useFxn.toastShort('No internet, You are offline!');
-    //     return;
-    // }
-
     form.isLoading = true;
-    register()
-
+    changePassword()
 }
 
-async function register() {
+async function changePassword() {
     try {
+        const formData = new FormData();
+        formData.append('password', form.password)
+        formData.append('recruiter_id', recruiterIdOnRoute.value)
+        formData.append('otp', otpOnRoute.value)
 
-        const sumitObj: any = {
-            fullName: form.name,
-            phone: parseInt(form.phone.replace(/ /g, "")),
-            email: form.email,
-            password: form.password,
-            company_name: form.company_name,
-        }
+        const { data } = await api.recruiterResetPassword(formData)
+        useFxn.toast(data?.data?.message ?? 'Password updated', 'success')
+        router.replace({ path: '/auth/login/recruiter' })
 
-        const resp = await api.recruiterRegister(sumitObj)
 
-        if (resp.status === 203) {
-            useFxn.toast(`${resp.data}`, 'error')
-            return;
-        }
-
-        else {
-            useFxn.toast('Account created successfully! please login', 'success')
-            router.push({ path: '/login/recruiter' })
-        }
     } catch (error: any) {
         console.error(error);
         useFxn.toast('Sorry, error occured, check your internet', 'error')

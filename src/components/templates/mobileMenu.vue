@@ -13,10 +13,10 @@
                 </li>
                 <hr>
                 <li class="list-group-item list-line">
-                    <router-link to="/login">Login</router-link>
+                    <router-link to="/auth/login">Login</router-link>
                 </li>
                 <li class="list-group-item list-line">
-                    <router-link class="theme-color" to="/signup">Sign Up</router-link>
+                    <router-link class="theme-color" to="/auth/signup">Sign Up</router-link>
                 </li>
             </ul>
         </div>

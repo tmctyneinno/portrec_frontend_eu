@@ -39,8 +39,8 @@
           </li>
         </ul>
         <div class="d-flex">
-          <router-link class="nav-link mx-4 p-1" to="/login">Login</router-link>
-          <router-link style="color: #fff !important;" to="/signup" class="btn btn-primary m- nav-link  p-1 px-3">
+          <router-link class="nav-link mx-4 p-1" to="/auth/login">Login</router-link>
+          <router-link style="color: #fff !important;" to="/auth/signup" class="btn btn-primary m- nav-link  p-1 px-3">
             Sign Up
           </router-link>
         </div>

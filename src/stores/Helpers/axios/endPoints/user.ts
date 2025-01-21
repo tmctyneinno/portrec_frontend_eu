@@ -120,4 +120,16 @@ export default {
     userAddPortfolioImage(obj: FormData) {
         return $instanceForm.post(`user/portfolio/add/image`, obj)
     },
+
+    userForgotPasswordOTP(obj: FormData) {
+        return $instanceForm.post(`user/send/otp`, obj)
+    },
+
+    userForgotPasswordVerifyOTP(obj: FormData) {
+        return $instanceForm.post(`user/verify/otp`, obj)
+    },
+
+    userResetPassword(obj: FormData) {
+        return $instanceForm.post(`user/reset/password`, obj)
+    },
 }

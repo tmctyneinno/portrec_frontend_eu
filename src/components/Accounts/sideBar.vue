@@ -86,7 +86,7 @@ const menus = computed(() => (prop.userType === 'recruiter' ? recruiterMenu : us
 
 function logout() {
     profileStore.logout()
-    // router.replace({ path: '/login' })
+    // router.replace({ path: '/auth/login' })
     window.location.reload()
 }
 </script>

@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import public_routes from './public_routes'
 import account_routes from './account_routes'
 import auth_routes from './auth_routes'
+import password_routes from './password_routes'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,6 +20,7 @@ const router = createRouter({
     ...public_routes,
     ...account_routes,
     ...auth_routes,
+    ...password_routes,
   ]
 })
 

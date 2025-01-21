@@ -21,40 +21,27 @@ const initGuard = (to: RouteLocationNormalized, from: RouteLocationNormalized, n
 export default [
 
     {
-        path: '/login',
+        path: '/auth/login',
         name: 'Login - User',
         component: () => import(/* webpackChunkName: "auth" */  '../views/Auth/Login.vue'),
         beforeEnter: initGuard
     },
     {
-        path: '/login/recruiter',
+        path: '/auth/login/recruiter',
         name: 'Login - Recruiter',
         component: () => import(/* webpackChunkName: "auth" */  '../views/Auth/LoginRecruiter.vue'),
         beforeEnter: initGuard
     },
     {
-        path: '/auth/reset-password',
-        name: 'Reset Password',
-        component: () => import(/* webpackChunkName: "auth" */  '../views/Auth/ResetPassword.vue'),
-        beforeEnter: initGuard
-    },
-    {
-        path: '/signup',
+        path: '/auth/signup',
         name: 'Sign Up - User',
         component: () => import(/* webpackChunkName: "auth" */  '../views/Auth/Signup.vue'),
         beforeEnter: initGuard
     },
     {
-        path: '/signup/recruiter',
+        path: '/auth/signup/recruiter',
         name: 'Sign Up - Recruiter',
         component: () => import(/* webpackChunkName: "auth" */ '../views/Auth/SignupRecruiter.vue'),
-        beforeEnter: initGuard
-    },
-
-    {
-        path: '/auth/reset-password/otp',
-        name: 'OTP Reset Password',
-        component: () => import(/* webpackChunkName: "auth" */ '../views/Auth/OtpResetPassword.vue'),
         beforeEnter: initGuard
     },
 ]

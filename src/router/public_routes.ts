@@ -14,7 +14,7 @@ export default [
     {
         path: '/search-talent/:industry_id?',
         name: 'Search Talent',
-        component: () => import(/* webpackChunkName: "talent" */  '../views/General/SearchTalents.vue')
+        component: () => import(/* webpackChunkName: "talent" */  '../views/General/SearchTalent.vue')
     },
     {
         path: '/for-talent',

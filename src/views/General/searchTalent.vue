@@ -38,7 +38,7 @@
 
     <div class="section-panel">
       <div class="section-title fs-2 text-lg-center mb-4">
-        Hire Product Designers with good track records
+        Hire {{ tagNameOnRoute ?? 'Talents' }} with good track records
       </div>
 
       <div v-if="!talents.length" class="min-vh-50 d-flex justify-content-center align-items-center">

@@ -22,6 +22,7 @@ export default [
 
     {
         path: '/auth/login',
+        alias: '/login',
         name: 'Login - User',
         component: () => import(/* webpackChunkName: "auth" */  '../views/Auth/Login.vue'),
         beforeEnter: initGuard

@@ -38,10 +38,7 @@
                         <!-- <button ref="closeModal" type="button" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button> -->
                     </div>
-                    <div class="modal-body">
-
-
-
+                    <div class="modal-body" ref="modalBodyTop">
                         <!-- Tab panes -->
                         <div class="tab-content py-3">
                             <div v-if="jobPosting.stage == 1">
@@ -170,15 +167,17 @@
                                     </div>
                                     <div class="col-md-7">
                                         <div class="row g-2">
-                                            <div class="col-lg-2">
+                                            <div class="col-lg-3">
                                                 <label class="small"></label>
-                                                <select class="form-select" name="" id="">
-                                                    <option value="$" selected>$</option>
-                                                    <option value="N">&#8358;</option>
+                                                <select class="form-select" v-model="form.currency_id">
+                                                    <option v-for="curr in dropdowns.currencies" :value="curr.id"
+                                                        :key="curr.id">
+                                                        {{ curr.currency }}
+                                                    </option>
                                                 </select>
 
                                             </div>
-                                            <div class="col-lg-5">
+                                            <div class="col-lg-4">
                                                 <label class="small">Min. Salary</label>
                                                 <input placeholder="0.00" type="text" v-model="form.min_salary"
                                                     class="form-control " v-maska data-maska="9,99#.##"
@@ -514,7 +513,7 @@
 
 <script setup lang="ts">
 import { computed, reactive, ref, watch } from 'vue';
-import { onBeforeRouteLeave, useRoute } from 'vue-router';
+import { onBeforeRouteLeave } from 'vue-router';
 import { useRecruiterCommonStore } from '../RecruiterCommonStore'
 import { storeToRefs } from 'pinia';
 import useFxn from '@/stores/Helpers/useFunctions';
@@ -522,13 +521,10 @@ import { vMaska } from "maska";
 import { useProfileStore } from '@/stores/profileStore';
 import api from '@/stores/Helpers/axios'
 
-const route = useRoute()
 const recruiterCommonStore = useRecruiterCommonStore()
 const profileStore = useProfileStore()
 
-const { jobPostingDropdowns: dropdowns,
-    jobPostingFields: form, jobPosting }
-    = storeToRefs(recruiterCommonStore)
+const { jobPostingDropdowns: dropdowns, jobPostingFields: form, jobPosting } = storeToRefs(recruiterCommonStore)
 
 // modal
 const openModal = ref<any>(null)
@@ -542,6 +538,12 @@ watch(() => jobPosting.value.modal, () => {
 onBeforeRouteLeave(() => {
     closeModal.value.click()
 })
+
+
+const modalBodyTop = ref<any>(null)
+function scrollToTop() {
+    modalBodyTop.value?.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
 
 // step1 #####################################
@@ -592,10 +594,12 @@ function pushBenefits() {
 // actions ###############################
 
 function goToNext() {
+    scrollToTop()
     jobPosting.value.stage += 1
 }
 
 function goToPrevious() {
+    scrollToTop()
     jobPosting.value.stage -= 1
 }
 

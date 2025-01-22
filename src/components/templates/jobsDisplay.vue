@@ -16,7 +16,8 @@
                         {{ job.company?.city ?? '' }},
                         {{ job.company?.country ?? '' }}
                         <div class="fw-bolder text-nowrap">
-                            ({{ job.min_salary }} - {{ job.max_salary }}) USD
+                            ({{ job.min_salary }} - {{ job.max_salary }})
+                            {{ job.currency?.currency }}
                         </div>
                     </div>
                     <div class="col-12 mt-3">

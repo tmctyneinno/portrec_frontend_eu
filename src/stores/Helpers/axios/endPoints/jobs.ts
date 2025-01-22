@@ -46,6 +46,10 @@ export default {
         return $instancePublic.get(`job/skills`)
     },
 
+    currencies() {
+        return $instancePublic.get(`job/currencies`)
+    },
+
     searchByLocation(title: string, location: string) {
         // return $instance.get(`/job/search?location=fIe790x166&title=JuPAEBt7nY`)
         return $instance.get(`/job/search?location=${location}&title=${title}`)

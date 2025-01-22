@@ -27,6 +27,7 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
         jobTypes: any[],
         jobLevels: any[],
         skills: any[],
+        currencies: any[],
     }
 
     interface companyProfileInterface {
@@ -77,6 +78,7 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
         jobTypes: [],
         jobLevels: [],
         skills: [],
+        currencies: [],
     })
 
     const companyProfile = reactive<companyProfileInterface>({
@@ -94,12 +96,13 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
 
     async function loadJobPostingDropdowns() {
         try {
-            const [functions, levels, types, industries, skills] = await Promise.all([
+            const [functions, levels, types, industries, skills, currencies] = await Promise.all([
                 api.jobFunctions(),
                 api.jobLevels(),
                 api.jobTypes(),
                 api.jobCategories(),
                 api.skills(),
+                api.currencies(),
             ]);
 
             jobPostingDropdowns.jobFunctions = functions.data.body;
@@ -107,6 +110,7 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
             jobPostingDropdowns.jobTypes = types.data.body;
             jobPostingDropdowns.jobIndustries = industries.data.body;
             jobPostingDropdowns.skills = skills.data.body;
+            jobPostingDropdowns.currencies = currencies.data.body;
             jobPosting.hasLoadedDropdowns = true;
         } catch (error) {
             console.error('Failed to load job posting dropdowns:', error);
@@ -186,6 +190,7 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
         questions: null,
 
         capacity: '',
+        currency_id: '1',
         status: '',
 
         benefits: [],
@@ -248,6 +253,7 @@ export const useRecruiterCommonStore = defineStore('recruiterCommonStore', () =>
         jobPostingFields.responsibilities = job.responsibilities;
 
         jobPostingFields.capacity = job.capacity;
+        jobPostingFields.currency_id = job.currency_id;
         jobPostingFields.benefits = JSONbenefits;
 
         jobPostingFields.temp_responsibilities = temp_responsibilities

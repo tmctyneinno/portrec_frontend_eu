@@ -109,7 +109,7 @@
                   <span class="float-end fw-bold">
                     ({{ numeral(currentJob.min_salary).format('0,0.00') }} -
                     {{ numeral(currentJob.max_salary).format('0,0.00') }})
-                    USD
+                    {{ currentJob.currency?.currency }}
                   </span>
                 </li>
               </ul>

@@ -29,6 +29,7 @@ export interface JobOpeningInterface {
     other_qualifications: string,
     responsibilities: string,
     capacity: string,
+    currency_id: string,
     benefits: any[],
     questions: string | null,
 

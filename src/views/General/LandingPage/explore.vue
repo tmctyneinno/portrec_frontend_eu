@@ -16,7 +16,7 @@
             </div>
             <div class="col-12 mt-4">
                 <div class="row g-4">
-                    <div v-for="(cat, index) in jobsStore.categories" :key="index" class="col-md-4 col-lg-3">
+                    <div v-for="(cat, index) in visibleItems" :key="index" class="col-md-4 col-lg-3">
                         <div @click="gotoFindJobs(cat.id)" class="card explore-card shadow-sm  hover-tiltY h-100">
                             <div class="card-body">
                                 <div class="card-icon theme-color"><i class="bi" :class="cateIcon(cat.name)"></i> </div>
@@ -32,6 +32,19 @@
                     </div>
                 </div>
             </div>
+            <div class="col-12 pt-5">
+                <div class="row justify-content-end">
+                    <div>
+                        <button class="btn btn-link float-end border-0 theme-color" v-if="showSeeMore"
+                            @click="increaseLimitToShow">see
+                            more.. <i class="bi bi-arrow-down small"></i></button>
+                        <button class="btn btn-link float-end border-0 text-dark" v-if="showSeeLess"
+                            @click="reduceLimitToShow">see less.. <i class="bi bi-arrow-up small"></i></button>
+
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </template>
@@ -40,14 +53,43 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
 import { useJobsStore } from '@/stores/jobsStore';
-import { onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
 const jobsStore = useJobsStore()
 const router = useRouter()
 
-onMounted(() => {
-    jobsStore.getJobCategories()
+const categories = ref<any[]>([])
+
+onMounted(async () => {
+    await jobsStore.getJobCategories()
+    categories.value = jobsStore.categories
 })
+
+
+// Reactive state for managing the current visible limit
+const limitToShow = ref(8);
+
+// Compute the items to display based on the limit
+const visibleItems = computed(() => categories.value.slice(0, limitToShow.value));
+
+// Control visibility of buttons
+const showSeeMore = computed(() => limitToShow.value < categories.value.length);
+const showSeeLess = computed(() => limitToShow.value > 8);
+
+// Handlers for the buttons
+const increaseLimitToShow = () => {
+    limitToShow.value = Math.min(limitToShow.value + 8, categories.value.length);
+};
+
+const reduceLimitToShow = () => {
+    limitToShow.value = Math.max(limitToShow.value - 8, 8);
+};
+
+
+
+
+
+
 
 const cateIcon = (name: string) => {
     let iconsArray = [

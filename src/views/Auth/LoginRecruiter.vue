@@ -78,16 +78,12 @@
                         </div>
 
 
-                        <!-- <div :disabled="!isReady" @click="() => loginWithGoogle()"
+                        <div :disabled="!isReady" @click="() => loginWithGoogle()"
                             class="card google-card rounded-0 p-2 ">
                             <div class="fw-bolder text-center theme-color">
                                 <img src="/images/google_icon.png" width="20"> &nbsp;signin with Google
                             </div>
-                        </div> -->
-                        <!-- <div class="col-12 mb-2">
-                            <GoogleSignInButton @success="handleLoginSuccess" @error="handleLoginError">
-                            </GoogleSignInButton>
-                        </div> -->
+                        </div>
 
                     </div>
                 </div>
@@ -106,7 +102,12 @@ import { useRouter } from "vue-router";
 import { useProfileStore } from "@/stores/profileStore";
 import headerForLoginAndSignUp from '@/components/templates/headerForLoginAndSignUp.vue'
 // @ts-ignore
-// import { useCodeClient, type ImplicitFlowSuccessResponse, type ImplicitFlowErrorResponse, } from "vue3-google-signin";
+import {
+    useTokenClient,
+    type AuthCodeFlowSuccessResponse,
+    type AuthCodeFlowErrorResponse,
+} from "vue3-google-signin";
+
 
 const online = useOnline()
 const router = useRouter()
@@ -175,30 +176,57 @@ async function signin() {
 
 
 // // google sign in ################################
-// const handleOnSuccess = async (response: ImplicitFlowSuccessResponse) => {
-//     // send code to a backend server to verify it.
-//     console.log("Code: ", response.code);
+const handleOnSuccess = async (response: AuthCodeFlowSuccessResponse) => {
+    const accessToken = response.access_token
+    try {
+        const response = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        });
+        const googleProfile = await response.json();
+        signinUsingGoogle(googleProfile)
+    } catch (error) {
+        console.error("Error fetching user profile:", error);
+        useFxn.toast('Sorry, Cannot initiate login now, check your internet', 'error')
+    }
+};
 
-//     // use axios or something to reach backend server
-//     const result = await fetch("https://_BACKEND/", {
-//         method: "POST",
-//         body: JSON.stringify({
-//             code: response.code,
-//         }),
-//     });
+const handleOnError = (errorResponse: AuthCodeFlowErrorResponse) => {
+    useFxn.toast('Sorry, Cannot initiate login now, ' + useFxn.toast('Sorry, Cannot initiate login now,' + errorResponse, 'error'), 'error')
+    console.log("Error: ", errorResponse);
+};
 
-//     console.log(result);
-// };
+const { isReady, login: loginWithGoogle } = useTokenClient({
+    onSuccess: handleOnSuccess,
+    onError: handleOnError,
+    // other options
+});
 
-// const handleOnError = (errorResponse: ImplicitFlowErrorResponse) => {
-//     console.log("Error: ", errorResponse);
-// };
 
-// const { isReady, login: loginWithGoogle } = useCodeClient({
-//     onSuccess: handleOnSuccess,
-//     onError: handleOnError,
-//     // other options
-// });
+
+async function signinUsingGoogle(googleProfile: any) {
+    form.isLoading = true
+    try {
+        const { data } = await api.recruiterLoginWithGoogle(googleProfile)
+
+        if (data.status === 200) {
+            profile.login(data.body.token, 'recruiter')
+        }
+    } catch (error: any) {
+        console.log(error);
+        if (error.response.status === 401) {
+            useFxn.toast(error?.response?.data?.message ?? 'Error occoured', 'error')
+        }
+        else {
+            useFxn.toast('Sorry, error occured, check your internet', 'error')
+        }
+    }
+    finally {
+        form.isLoading = false
+    }
+}
+
 
 
 </script>

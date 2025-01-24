@@ -9,6 +9,10 @@ export default {
         return $instance.post(`recruiter/login`, JSON.stringify(data))
     },
 
+    recruiterLoginWithGoogle(data: any) {
+        return $instance.post(`recruiter/login-google`, JSON.stringify(data))
+    },
+
     recruiterProfile() {
         return $instance.get(`recruiter/profile`)
     },

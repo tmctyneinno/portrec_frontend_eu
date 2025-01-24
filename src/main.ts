@@ -60,7 +60,7 @@ import { setupCalendar, Calendar, DatePicker } from 'v-calendar';
 import 'v-calendar/style.css';
 
 // https://vue3-google-signin.vercel.app/guide/
-// import GoogleSignInPlugin from "vue3-google-signin"
+import GoogleSignInPlugin from "vue3-google-signin"
 
 // https://vue-tel-input.iamstevendao.com/guide/getting-started.html
 import VueTelInput from 'vue-tel-input';
@@ -115,9 +115,10 @@ app.component('primaryButton', primaryButton)
 app.component('primaryButtonOutline', primaryButtonOutline)
 app.component('primaryButtonLoading', primaryButtonLoading)
 
-// app.use(GoogleSignInPlugin, {
-//     // clientId: import.meta.env.VITE_GOOGLE_CLIENT_ID,
-// });
+app.use(GoogleSignInPlugin, {
+    clientId: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+});
+
 app.use(pinia)
 app.use(VueApexCharts);
 app.use(VueSweetalert2);

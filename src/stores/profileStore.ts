@@ -24,7 +24,7 @@ export const useProfileStore = defineStore('profileStore', () => {
     const getUserType = computed(() => userType.value || Cookies.get('PortrecUserType'))
 
 
-    const login = (tokenStr: string, loginType = 'user') => {
+    const login = (tokenStr: string, loginType: 'user' | 'recruiter') => {
         Cookies.set('PortrecTkn', tokenStr, { expires: tokenExpiry });
         token.value = tokenStr;
 

@@ -9,6 +9,10 @@ export default {
         return $instance.post(`user/login`, JSON.stringify(data))
     },
 
+    userLoginWithGoogle(data: any) {
+        return $instance.post(`user/login-google`, JSON.stringify(data))
+    },
+
     userProfile() {
         return $instance.get(`/user/profile`)
     },

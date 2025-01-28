@@ -28,16 +28,10 @@
                             <div class="col-12">
                                 <div class="fw-bold text-muted small">
                                     Enter Password
-
-                                    <span v-if="form.password"
-                                        @click="form.passwordDisplay = form.passwordDisplay == 'password' ? 'text' : 'password'"
-                                        class="float-end cursor-pointer theme-color">
-                                        <span v-if="form.passwordDisplay == 'password'">show</span>
-                                        <span v-else>hide</span>
-                                    </span>
                                 </div>
-                                <input v-model="form.password" :type="form.passwordDisplay"
-                                    class="form-control form-control-lg  " placeholder="password">
+                                <CustomPasswordField v-model="form.password" className="form-control-lg "
+                                    placeholder="password" />
+
                             </div>
                             <div v-if="form.isError" class="col-12 mt-2">
                                 <div class="alert alert-danger small py-1 border-0 text-danger">
@@ -103,6 +97,7 @@ import {
     type AuthCodeFlowSuccessResponse,
     type AuthCodeFlowErrorResponse,
 } from "vue3-google-signin";
+import CustomPasswordField from "@/components/templates/customPasswordField.vue";
 
 // import { useOneTap, type CredentialResponse } from "vue3-google-signin";
 
@@ -122,7 +117,6 @@ const profile = useProfileStore()
 interface LoginInterface {
     email: string,
     password: string,
-    passwordDisplay: 'password' | 'text',
     isError: boolean,
     isLoading: boolean
 }
@@ -130,7 +124,6 @@ interface LoginInterface {
 const form = reactive<LoginInterface>({
     email: '',
     password: '',
-    passwordDisplay: 'password',
     isError: false,
     isLoading: false
 })

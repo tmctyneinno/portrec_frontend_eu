@@ -167,24 +167,26 @@
                         <div class="row g-3">
                             <div class="col-12">
                                 <label> Old Password</label>
-                                <input v-model="password.old" class="form-control " type="password"
-                                    placeholder="Enter your old password">
-                                <span class="small text-muted2">Minimum 8 characters</span>
+                                <CustomPasswordField v-model="password.old" />
                             </div>
                             <div class="col-md-6">
                                 <label> New Password</label>
-                                <input v-model="password.new" class="form-control " type="password"
-                                    placeholder="new password">
-                                <span class="small text-muted2">Minimum 8 characters</span>
+                                <CustomPasswordField v-model="password.new" />
                             </div>
                             <div class="col-md-6">
                                 <label> Repeat new Password</label>
-                                <input v-model="password.repeat" class="form-control " type="password"
-                                    placeholder="new password">
+                                <CustomPasswordField v-model="password.repeat" />
+                            </div>
+                            <div class="col-12 small " :class="!passwordRegexTested ? 'text-danger' : 'text-success'">
+                                <div>Minimum of 8 characters</div>
+                                <div>One special character</div>
+                                <div>A number</div>
+
                             </div>
 
                             <div class="col-md-6 mt-3">
-                                <primaryButton @click="changePassword" v-if="!password.isLoading" className="w-100">
+                                <primaryButton :disabled="!passwordRegexTested" @click="changePassword"
+                                    v-if="!password.isLoading" className="w-100">
                                     Change Password
                                 </primaryButton>
                                 <primaryButtonLoading v-else className="w-100" />
@@ -207,11 +209,12 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, reactive, watch } from 'vue';
+import { computed, onMounted, reactive, watch } from 'vue';
 import { useProfileStore } from '@/stores/profileStore';
 import api from '@/stores/Helpers/axios'
 import useFxn from "@/stores/Helpers/useFunctions";
 import profilePicUploadComponent from './profilePicUploadComponent.vue'
+import CustomPasswordField from '@/components/templates/customPasswordField.vue';
 
 const profileStore = useProfileStore()
 
@@ -316,6 +319,10 @@ const password = reactive<any>({
     isLoading: false
 })
 
+const passwordRegexTested = computed(() => {
+    return password.new && useFxn.passwordRegex(password.new) ? true : false
+})
+
 function changePassword() {
     // if (!useFxn.isOnline()) {
     //     useFxn.toastShort('You are offline')
@@ -329,10 +336,6 @@ function changePassword() {
         }
     }
 
-    if (password.new.length < 8) {
-        useFxn.toastShort(`Your new password must not be less that 8 characters`);
-        return;
-    }
 
     if (password.new !== password.repeat) {
         useFxn.toastShort(`Passwords do not match!`);
@@ -348,12 +351,12 @@ async function submitPasswordForm() {
     try {
         let resp = await api.recruiterPassword(obj)
         console.log(resp);
-        if (resp.status == 201) {
+        if (resp.status == 200) {
             useFxn.toast('Password changed succesfully', 'success')
         }
 
     } catch (error: any) {
-        if (error.response.status === 401)
+        if (error.response.status === 400)
             useFxn.toast('Your password is incorrect', 'warning')
         else
             useFxn.toast('Sorry, error occured, check your internet', 'error')

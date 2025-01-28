@@ -125,7 +125,7 @@
 
                 <!-- <hr> -->
                 <div class="col-12 col-lg-11">
-                    <div class="col-md-2 float-lg-end">
+                    <div class="col-md-4 col-lg-2 float-md-end">
                         <primaryButton v-if="!details.isLoading" @click="saveProfile" className="float-end w-100">
                             Update profile
                         </primaryButton>
@@ -180,32 +180,35 @@
                             Manage your password to make sure it is safe
                         </span>
                     </div>
-                    <div class="col-lg-5">
+                    <div class="col-lg-6">
                         <div class="row g-3">
                             <div class="col-12">
                                 <label> Old Password</label>
-                                <input v-model="password.old" class="form-control " type="password"
-                                    placeholder="Enter your old password">
-                                <span class="small text-muted2">Minimum 8 characters</span>
+                                <CustomPasswordField placeholder="Enter your old password" v-model="password.old" />
+
                             </div>
                             <div class="col-md-6">
                                 <label> New Password</label>
-                                <input v-model="password.new" class="form-control " type="password"
-                                    placeholder="new password">
-                                <span class="small text-muted2">Minimum 8 characters</span>
+                                <CustomPasswordField v-model="password.new" />
+
                             </div>
                             <div class="col-md-6">
-                                <label> Repeat new Password</label>
-                                <input v-model="password.repeat" class="form-control " type="password"
-                                    placeholder="new password">
+                                <label> Repeat Password</label>
+                                <CustomPasswordField v-model="password.repeat" />
+                            </div>
+                            <div class="col-12 small " :class="!passwordRegexTested ? 'text-danger' : 'text-success'">
+                                <div>Minimum of 8 characters</div>
+                                <div>One special character</div>
+                                <div>A number</div>
+
                             </div>
 
                             <div class="col-md-6 mt-3">
-                                <button @click="changePassword" v-if="!password.isLoading"
-                                    class="btn btn-primary  w-100">Change Password</button>
-                                <button v-else class="btn btn-primary  w-100" disabled>
-                                    <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
-                                </button>
+                                <primaryButton :disabled="!passwordRegexTested" @click="changePassword"
+                                    v-if="!password.isLoading" :className="` w-100`">
+                                    Change Password
+                                </primaryButton>
+                                <primaryButtonLoading v-else :className="`btn-lg w-100`" />
                             </div>
 
                         </div>
@@ -292,12 +295,13 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, reactive, ref, watch } from 'vue';
+import { computed, onMounted, reactive, ref, watch } from 'vue';
 import { useProfileStore } from '@/stores/profileStore';
 import api from '@/stores/Helpers/axios'
 import useFxn from "@/stores/Helpers/useFunctions";
 import profilePicUpload from './profilePicUpload.vue'
 import { Country, State } from 'country-state-city';
+import CustomPasswordField from '@/components/templates/customPasswordField.vue';
 
 const profileStore = useProfileStore()
 
@@ -421,11 +425,12 @@ const password = reactive<any>({
     isLoading: false
 })
 
+const passwordRegexTested = computed(() => {
+    return password.new && useFxn.passwordRegex(password.new) ? true : false
+})
+
+
 function changePassword() {
-    if (!useFxn.isOnline()) {
-        useFxn.toastShort('You are offline')
-        return
-    }
 
     for (const field of ['old', 'new', 'repeat']) {
         if (!password[field]) {
@@ -434,10 +439,6 @@ function changePassword() {
         }
     }
 
-    if (password.new.length < 8) {
-        useFxn.toastShort(`Your new password must not be less that 8 characters`);
-        return;
-    }
 
     if (password.new !== password.repeat) {
         useFxn.toastShort(`Passwords do not match!`);
@@ -453,13 +454,13 @@ async function submitPasswordForm() {
     try {
         let resp = await api.userPassword(obj)
         console.log(resp);
-        if (resp.status == 201) {
+        if (resp.status == 200) {
             useFxn.toast('Password changed succesfully', 'success')
         }
 
     } catch (error: any) {
 
-        if (error.response.status === 401) {
+        if (error.response.status === 400) {
             useFxn.toastShort('Your password is incorrect')
         }
         else {

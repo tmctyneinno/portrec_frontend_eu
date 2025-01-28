@@ -6,7 +6,11 @@ const accountGuard = (to: RouteLocationNormalized, from: RouteLocationNormalized
 
     const profileStore = useProfileStore();
     if (!profileStore.isLoggedIn) {
-        next({ path: `/login` });
+        if (to.meta.auth == 'user')
+            next({ path: `/auth/login` });
+        else {
+            next({ path: `/auth/login/recruiter` });
+        }
     }
     else {
         if (profileStore.getUserType !== to.meta.auth) {

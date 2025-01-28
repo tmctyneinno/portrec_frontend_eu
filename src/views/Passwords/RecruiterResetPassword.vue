@@ -17,28 +17,18 @@
 
                             <div class="col-12">
                                 <div class="fw-bold text-muted small col-12">Enter New Password:
-                                    <span v-if="form.password"
-                                        @click="form.passwordDisplay = form.passwordDisplay == 'password' ? 'text' : 'password'"
-                                        class="float-end cursor-pointer theme-color">
-                                        <span v-if="form.passwordDisplay == 'password'"> show</span>
-                                        <span v-else> hide </span>
-                                    </span>
+
                                 </div>
-                                <input v-model="form.password" :type="form.passwordDisplay"
-                                    class="form-control form-control-lg" placeholder="password">
+                                <CustomPasswordField className="form-control-lg" v-model="form.password"
+                                    placeholder="new password" />
                             </div>
 
                             <div class="col-12">
                                 <div class="fw-bold text-muted small col-12">Confirm New Password:
-                                    <span v-if="form.password2"
-                                        @click="form.password2Display = form.password2Display == 'password' ? 'text' : 'password'"
-                                        class="float-end cursor-pointer theme-color">
-                                        <span v-if="form.password2Display == 'password'">show</span>
-                                        <span v-else>hide</span>
-                                    </span>
                                 </div>
-                                <input v-model="form.password2" :type="form.password2Display"
-                                    class="form-control form-control-lg" placeholder="confirm password">
+                                <CustomPasswordField className="form-control-lg" v-model="form.password2"
+                                    placeholder="confirm password" />
+
                             </div>
                             <div class="col-12 small " :class="!passwordRegexTested ? 'text-danger' : 'text-success'">
                                 <div>Minimum of 8 characters</div>
@@ -69,6 +59,7 @@ import useFxn from "@/stores/Helpers/useFunctions";
 import api from "@/stores/Helpers/axios";
 import { useRouter, useRoute } from "vue-router";
 import HeaderForLoginAndSignUp from "@/components/templates/headerForLoginAndSignUp.vue";
+import CustomPasswordField from "@/components/templates/customPasswordField.vue";
 
 
 const route = useRoute()

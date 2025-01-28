@@ -116,7 +116,7 @@ const dropdownToggler = ref<any>(null)
 function goToTalentPage(ref: number, tag: string) {
   dropdownToggler.value?.click()
   router.push({
-    path: `search-talent`,
+    path: `/search-talent`,
     query: {
       ref: ref,
       tag: tag,

@@ -244,5 +244,29 @@ export default {
         }
 
         return times;
+    },
+
+    encodeToBase64: (input: any) => {
+        // Validate if the input is already a valid Base64 string
+        function isBase64(str: string) {
+            try {
+                return btoa(atob(str)) === str;
+            } catch (err) {
+                return false;
+            }
+        }
+
+        // If input is not a string, convert it to one
+        if (typeof input !== "string") {
+            input = String(input);
+        }
+
+        // Encode only if not already a valid Base64 string
+        if (!isBase64(input)) {
+            return btoa(input);
+        }
+
+        // Return input unchanged if it's already valid Base64
+        return input;
     }
 }

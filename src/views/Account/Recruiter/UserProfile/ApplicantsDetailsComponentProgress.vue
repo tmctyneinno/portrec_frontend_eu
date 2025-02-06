@@ -2,7 +2,7 @@
     <div class="fw-bold mb-3">Current Stage:</div>
     <div class="row g-0">
         <div class="col" v-for="(stage, index) in hiringProgressList" :key="index" @click="updateStage(stage.val)">
-            <div class="stage-box hover-tiltY" :class="{ 'active': currentStage == stage.label }">{{
+            <div class="stage-box  text-nowrap mb-2 hover-tiltY" :class="{ 'active': currentStage == stage.label }">{{
                 stage.label }}
             </div>
         </div>

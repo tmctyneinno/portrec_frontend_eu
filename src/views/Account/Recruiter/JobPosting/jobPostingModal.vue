@@ -298,18 +298,20 @@
 
                                             <div class="col-12">
                                                 <div class="input-group">
-                                                    <textarea v-model="item.descriptions" class="form-control " rows="3"
+                                                    <textarea v-model="item.descriptions" class="form-control  "
+                                                        rows="3"
+                                                        :class="{ 'border-end-0': form.temp_responsibilities.length > 1 }"
                                                         placeholder="enter responsibility"></textarea>
                                                     <span @click="form.temp_responsibilities.splice(index, 1)"
                                                         v-if="form.temp_responsibilities.length > 1"
-                                                        class="input-group-text cursor-pointer"><i
+                                                        class="input-group-text cursor-pointer bg-transparent text-danger border-start-0"><i
                                                             class="bi bi-x-lg"></i></span>
                                                 </div>
                                             </div>
                                         </div>
                                         <button @click="addNewRecord('temp_responsibilities')"
                                             class="float-end btn btn-ligh btn-sm border-0 fw-bold theme-color ">
-                                            New field
+                                            add field
                                             <i class="bi bi-plus-lg"></i>
                                         </button>
                                     </div>
@@ -329,11 +331,12 @@
 
                                             <div class="col-12">
                                                 <div class="input-group">
-                                                    <textarea v-model="item.descriptions" class="form-control " rows="2"
+                                                    <textarea v-model="item.descriptions" class="form-control " rows="3"
+                                                        :class="{ 'border-end-0': form.temp_WhoYouAre.length > 1 }"
                                                         placeholder="enter here.."></textarea>
                                                     <span @click="form.temp_WhoYouAre.splice(index, 1)"
                                                         v-if="form.temp_WhoYouAre.length > 1"
-                                                        class="input-group-text cursor-pointer"><i
+                                                        class="input-group-text cursor-pointer bg-transparent text-danger border-start-0"><i
                                                             class="bi bi-x-lg"></i></span>
                                                 </div>
                                             </div>
@@ -341,7 +344,7 @@
                                         </div>
                                         <button @click="addNewRecord('temp_WhoYouAre')"
                                             class="btn btn-ligh btn-sm border-0 fw-bold theme-color float-end ">
-                                            New field
+                                            add field
                                             <i class="bi bi-plus-lg"></i>
                                         </button>
                                     </div>
@@ -362,11 +365,12 @@
 
                                             <div class="col-12">
                                                 <div class="input-group">
-                                                    <textarea v-model="item.descriptions" class="form-control " rows="2"
+                                                    <textarea v-model="item.descriptions" class="form-control " rows="3"
+                                                        :class="{ 'border-end-0': form.temp_niceToHave.length > 1 }"
                                                         placeholder="enter here.."></textarea>
                                                     <span @click="form.temp_niceToHave.splice(index, 1)"
                                                         v-if="form.temp_niceToHave.length > 1"
-                                                        class="input-group-text cursor-pointer"><i
+                                                        class="input-group-text cursor-pointer bg-transparent text-danger border-start-0"><i
                                                             class="bi bi-x-lg"></i></span>
                                                 </div>
                                             </div>
@@ -374,7 +378,7 @@
                                         </div>
                                         <button @click="addNewRecord('temp_niceToHave')"
                                             class="btn btn-ligh btn-sm border-0 fw-bold theme-color float-end ">
-                                            New field
+                                            add field
                                             <i class="bi bi-plus-lg"></i>
                                         </button>
                                     </div>
@@ -393,11 +397,12 @@
 
                                             <div class="col-12">
                                                 <div class="input-group">
-                                                    <textarea v-model="item.questions" class="form-control " rows="2"
+                                                    <textarea v-model="item.questions" class="form-control " rows="3"
+                                                        :class="{ 'border-end-0': form.temp_questions.length > 1 }"
                                                         placeholder="enter question.."></textarea>
                                                     <span @click="form.temp_questions.splice(index, 1)"
                                                         v-if="form.temp_questions.length > 1"
-                                                        class="input-group-text cursor-pointer"><i
+                                                        class="input-group-text cursor-pointer bg-transparent text-danger border-start-0"><i
                                                             class="bi bi-x-lg"></i></span>
                                                 </div>
                                             </div>
@@ -405,7 +410,7 @@
                                         </div>
                                         <button @click="addNewRecord('temp_questions')"
                                             class="btn btn-ligh btn-sm border-0 fw-bold theme-color float-end ">
-                                            New field
+                                            add question
                                             <i class="bi bi-plus-lg"></i>
                                         </button>
                                     </div>

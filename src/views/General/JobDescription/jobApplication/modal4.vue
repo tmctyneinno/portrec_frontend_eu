@@ -16,7 +16,7 @@
             </div>
 
             <div class="col-12">
-                <label class="fw-bold small"> Cover Letter</label>
+                <label class="fw-bold small"> Cover Letter (optional)</label>
                 <textarea v-model="store.applyData.cover_letter" rows="5" class="form-control "
                     placeholder="Add a cover letter or anything else you want to share"></textarea>
             </div>
@@ -30,8 +30,8 @@
                     </button>
                 </div>
                 <div class="col-10">
-                    <primaryButton v-if="!isApplying" @click="applyForJob" :disabled="!store.applyData.cover_letter"
-                        :className="'w-100'">
+                    <!-- :disabled="!store.applyData.cover_letter" -->
+                    <primaryButton v-if="!isApplying" @click="applyForJob" :className="'w-100'">
                         Submit Application
                     </primaryButton>
                     <primaryButtonLoading v-else :className="'w-100'" />
@@ -60,7 +60,7 @@ async function applyForJob() {
     const newForm = new FormData();
     newForm.append('job_id', store.currentJob.id)
     newForm.append('name', store.applyData.fullname)
-    newForm.append('cover_letter', store.applyData.cover_letter)
+    newForm.append('cover_letter', store.applyData.cover_letter == '' ? '.' : store.applyData.cover_letter)
     newForm.append('resume', store.applyData.resume)
 
     if (!store.applyData.isAuthUser) {

@@ -61,14 +61,24 @@
             </div>
           </div>
 
-          <div v-for="(qualification, i) in JSON.parse(currentJob.other_qualifications ?? '[]')" :key="i" class="py-3">
-            <h4 class="fw-bold">{{ qualification.title.replaceAll('_', ' ') }}</h4>
-            <ul class="list-group list-group-flush">
-              <li v-for="(description, d) in qualification.descriptions" :key="d" class="list-group-item border-0 px-0">
-                <i class="bi bi-check-circle text-danger"></i>
-                {{ description }}
-              </li>
-            </ul>
+          <div class="card p-0 border-0">
+            <div class="card-body p-0">
+              <div v-for="(qualification, i) in JSON.parse(currentJob.other_qualifications ?? '[]')" :key="i"
+                class="py-3">
+                <h4 class="fw-bold">{{ qualification.title.replaceAll('_', ' ') }}</h4>
+                <ul class="list-group list-group-flush ">
+                  <li v-for="(description, d) in qualification.descriptions" :key="d"
+                    class="list-group-item border-0 px-0 ">
+                    <div class="d-flex">
+                      <div class="col"><i class="bi bi-check-circle text-danger me-1"></i></div>
+                      <div class="col-11">
+                        {{ description }}
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
 
         </div>
@@ -105,8 +115,9 @@
                     {{ currentJob.job_type?.name ?? '' }}
                   </span>
                 </li>
-                <li class="list-group-item border-0 px-0">Salary
-                  <span class="float-end fw-bold">
+                <li class="list-group-item border-0 px-0">
+                  <!-- Salary -->
+                  <span class="float-end fw-bold small">
                     ({{ numeral(currentJob.min_salary).format('0,0.00') }} -
                     {{ numeral(currentJob.max_salary).format('0,0.00') }})
                     {{ currentJob.currency?.currency }}

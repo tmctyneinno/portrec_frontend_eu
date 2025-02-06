@@ -4,8 +4,8 @@
             <div class="cover-photo"></div>
             <img :src="profileStore.avatar" alt="" class="profile-picture mx-auto ms-5 d-block bg-light">
             <div class="card-body small">
-                <div class="d-flex float-lg-end ">
-                    <div class="me-lg-5 mt-5 mt-lg-0 mb-3">
+                <div class="d-flex justify-content-between justify-content-lg-end mt-5">
+                    <div class="col-4">
                         <div class="fs-5 fw-lighter text-capitalize">{{ profileStore.data?.name ?? '' }}</div>
                         <div v-if="recentPosition" class="text-muted text-capitalize">
                             {{ recentPosition }}
@@ -15,12 +15,16 @@
                             {{ profileStore.data?.location ?? '' }}, {{ profileStore.data?.country ?? '' }}
                         </div>
                     </div>
-                    <div class="mt-5 mt-lg-0">
-                        <router-link to="/user/settings" class="btn btn-link theme-color text-decoration-none btn-sm">
-                            <i class="bi bi-gear-wide"></i> Settings
-                        </router-link>
+                    <div class="col-4">
+                        <div class="mt-lg-0 text-end">
+                            <router-link to="/user/settings"
+                                class="btn btn-link theme-color text-decoration-none btn-sm">
+                                <i class="bi bi-gear-wide"></i> Settings
+                            </router-link>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

@@ -135,7 +135,7 @@
                             class="list-group-item border-0 text-capitalize small">
                             <input @change="respondToCheckBox('salary_range', x.id)" class="form-check-input me-1"
                               type="checkbox" :value="x.id" v-model="checked.salary_range">
-                            ${{ x.min }} - ${{ x.max }}
+                            {{ x.min }} - {{ x.max }}
                           </label>
 
                         </div>

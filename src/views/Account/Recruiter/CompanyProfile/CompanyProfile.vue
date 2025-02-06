@@ -230,7 +230,7 @@
 
 </template>
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import jobsDisplay from '@/components/templates/jobsDisplay.vue';
 import { useRecruiterCommonStore } from '../RecruiterCommonStore';
 import { storeToRefs } from 'pinia';
@@ -278,6 +278,10 @@ onMounted(async () => {
     recruiterCommonStore.getCompanyResources()
 })
 
+
+watch(() => recruiterCommonStore.jobPosting.jobListUpdated, () => {
+    recruiterCommonStore.getCompanyInformation()
+})
 
 
 

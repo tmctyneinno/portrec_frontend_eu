@@ -20,7 +20,7 @@ export const useJobApplicationStore = defineStore('jobApplicationStore', () => {
         resume: '',
         resume_name: '',
         portfolio_url: '',
-        cover_letter: '',
+        cover_letter: ' ',
         answers: []
     })
 

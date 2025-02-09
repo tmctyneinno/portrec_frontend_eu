@@ -45,7 +45,7 @@
             </div>
             <div class="card-footer border-0 bg-transparent pt-0 ps- ">
                 <button @click="navigateToUserProfile(userProfile.id)"
-                    class="btn btn-link ps-0 hover-tiltX theme-color fw-bold text-decoration-none fw-bold">
+                    class="btn btn-link ps-0 hover-tiltX theme-color fw-bold text-decoration-none fw-bold border-0">
                     View Profile <i class="bi bi-arrow-right"></i>
                 </button>
             </div>

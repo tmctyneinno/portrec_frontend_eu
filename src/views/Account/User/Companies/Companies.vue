@@ -16,6 +16,7 @@ import searchCompanyComponent from './searchCompanyComponent.vue'
 const route = useRoute()
 
 const pageToShow = ref<'details' | 'all'>('all')
+
 watchEffect(() => {
     const companyId: any = route.query?.company ?? null
     pageToShow.value = companyId ? 'details' : 'all'

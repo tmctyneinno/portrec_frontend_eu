@@ -137,8 +137,8 @@
                         </template>
 
                         <template #item-status="item">
-                            <span class="category-tag text-white"
-                                :style="{ backgroundColor: templateStore.applicationStatusColor(item.status) }">
+                            <span class="category-tag fw-bolder"
+                                :style="`color: ${templateStore.applicationStatusColor(item.status)}`">
                                 {{ item.status }}
                             </span>
                         </template>
@@ -209,6 +209,14 @@ async function getDashboardInfo() {
         // updateChartSeries()
         const interviewResponse = await api.userGetInterviews()
         details.upcomingInterviews = interviewResponse?.data ?? []
+
+        const recentsDates = {
+            start_date: new Date(new Date().setDate(new Date().getDate() - 30)),
+            end_date: new Date()
+        }
+
+        const recentHistory = await api.userApplicationList(recentsDates)
+        details.recentApplicationHistory = recentHistory.data?.ALL ?? []
         details.isLoadingDetails = false
     } catch (error) {
         console.log(error);
@@ -216,6 +224,11 @@ async function getDashboardInfo() {
 
     }
 }
+
+
+
+
+
 
 
 const dateRange = ref();

@@ -10,7 +10,7 @@ export default {
     },
 
     getAllConversations() {
-        return $instance.get(`/messages?type=conversations&1`)
+        return $instance.get(`/messages/index?type=conversations&1`)
     },
 
     getConversationMessages(conversation_id: string | number) {

@@ -74,8 +74,8 @@
                                     </div>
                                 </span>
                             </div>
-                            <div class="fw-lighter text-truncate xsmall">
-                                Recruiter at ***
+                            <div v-show="currentCompany" class="fw-lighter text-truncate xsmall">
+                                Recruiter at {{ currentCompany }}
                             </div>
                         </div>
                     </div>
@@ -88,7 +88,9 @@
                             <div class="text-center fw-lighter">
                                 {{ currentRecruiter?.name ?? '' }}
                             </div>
-                            <div class="text-center small">Recruiter at ****</div>
+                            <div v-show="currentCompany" class="text-center small">
+                                Recruiter at {{ currentCompany }}
+                            </div>
                         </div>
                     </div>
                     <!-- <div class="text-center between-lines fw-lighter">Today</div> -->
@@ -96,7 +98,7 @@
                         <div class="position-relative bg-light">
                             <div class="px-3 chat-container">
                                 <div v-for="msg in convoMessages.data" :key="msg.id" class="d-flex align-items-center"
-                                    :class="{ 'text-right justify-content-end': msg.sender_id == profileStore.data.id }">
+                                    :class="{ 'text-right justify-content-end': msg.sender_id == profileStore.data.id && msg?.role == 'user' }">
                                     <!-- <div class="text-left pr-1"><img
                                         src="" width="30"
                                         class="img1" /></div> -->
@@ -105,7 +107,7 @@
                                             {{ msg.sender_id == profileStore.data.id ? 'You' : currentRecruiter.name }}
                                         </span>
                                         <p class="msg">{{ msg.message }}
-                                            <span v-if="msg.sender_id == profileStore.data.id">
+                                            <span v-if="msg.sender_id == profileStore.data.id && msg?.role == 'user'">
                                                 <i @click="deleteMessage(msg.id)"
                                                     class="bi bi-x-circle-fill small cursor-pointer"></i>
                                             </span>
@@ -119,8 +121,9 @@
 
                             <div class="navbar d-flex justify-content-between mt-3 bg-white">
                                 <div class="col">
-                                    <EmojiPicker :text="inputText" picker-type="input" @update:text="onChangeText"
-                                        :native="false" />
+                                    <EmojiPicker :key="EmojiPickerKey" :text="inputText" picker-type="input"
+                                        @update:text="onChangeText" :native="false" />
+
                                 </div>
                                 <div class="col-md-3 col-lg-2">
                                     <button v-if="!convoMessages.isSendingMessage" @click="sendMessage"
@@ -161,7 +164,7 @@ interface AllConvo {
 
 interface Messages {
     data: any[],
-    currentConvoId: string | number,
+    currentConvoId: any,
     isLoading: boolean,
     isSendingMessage: boolean
 
@@ -175,7 +178,7 @@ const convos = reactive<AllConvo>({
 
 const convoMessages = reactive<Messages>({
     data: [],
-    currentConvoId: '',
+    currentConvoId: null,
     isLoading: false,
     isSendingMessage: false
 })
@@ -184,6 +187,10 @@ const profileStore = useProfileStore()
 
 const currentRecruiter = computed(() => {
     return convos.data.find(x => x.id == convoMessages.currentConvoId)?.recruiter ?? ''
+})
+
+const currentCompany = computed(() => {
+    return convos.data.find(x => x.id == convoMessages.currentConvoId)?.company ?? ''
 })
 
 onMounted(() => {
@@ -198,11 +205,16 @@ async function getAllConversations() {
         convos.data = conversations.data
         convos.links = conversations.links
         convos.meta = conversations.meta
+        if (!convoMessages.currentConvoId) {
+            const convoId = convos.data.length ? convos.data[0].id : null
+            if (convoId) showMessages(convoId)
+        }
         // console.log(convos.data);
     } catch (error) {
         // console.log(error);
     }
 }
+
 
 function deleteConversation() {
     useFxn.confirmDelete('Delete this Conversation?', 'Yes, Delete')
@@ -258,10 +270,12 @@ async function loadMessages() {
 
 // sending message
 const inputText = ref('')
-
+const EmojiPickerKey = ref<number>(0)
 function onChangeText(new_text: string | undefined) {
     inputText.value = new_text || ''
 }
+
+
 async function sendMessage() {
     if (inputText.value) {
         convoMessages.isSendingMessage = true
@@ -275,6 +289,7 @@ async function sendMessage() {
             await getAllConversations()
             await loadMessages()
             inputText.value = ''
+            EmojiPickerKey.value++
             convoMessages.isSendingMessage = false
         } catch (error) {
             console.log(error);

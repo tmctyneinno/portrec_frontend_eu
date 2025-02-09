@@ -93,72 +93,73 @@
                         <div class="col-12">
                             <div class="card shadow-sm border-">
                                 <div class="card-body">
-                                    <div class="row g-3">
-                                        <div v-if="companyData.recruiter" class="col-12 text-center">
+                                    <form @submit.prevent="sendMessage" class="row g-3" v-if="company_recruiter_id">
+                                        <!-- <div v-if="companyData.recruiter" class="col-12 text-center">
                                             <i style="font-size: 4rem;" class="bi bi-person-circle text-muted lh-1"></i>
                                             <div class="text-center fw-bold"> <br>
                                                 {{ companyData.recruiter.name }}
                                             </div>
                                             <div>Recruiter</div>
+                                        </div> -->
+                                        <div class="text-muted">Chat Recruiter</div>
+                                        <div class="col-12">
+                                            <textarea v-model="message.text" placeholder="type message here.."
+                                                class="form-control" style="height: 100px;"></textarea>
                                         </div>
                                         <div class="col-12">
-                                            <input v-model="message.text" placeholder="type message here.." type="text"
-                                                class="form-control">
-                                        </div>
-                                        <div class="col-12">
-                                            <primaryButton :className="'w-100'" v-if="!message.isSending"
-                                                @click="sendMessage">
+                                            <primaryButton btnType="submit" :className="'w-100'"
+                                                v-if="!message.isSending">
                                                 <i class="bi bi-chat"></i> Chat recruiter
                                             </primaryButton>
                                             <primaryButtonLoading v-else :className="'w-100'" />
 
                                         </div>
 
-                                    </div>
+                                    </form>
 
-                                    <div class="mt-3 small">
-                                        <div class="mt-2" v-if="companyData?.recruiter?.email">
+                                    <div class="mt-5 small">
+                                        <div class="mt-2">
                                             <i class="bi bi-envelope-fill"></i>
-                                            <strong class="ms-1">Email:</strong>
-                                            {{ companyData.recruiter.email }}
+                                            <!-- <strong class="ms-1">Email:</strong> -->
+                                            {{ companyData?.recruiter?.email ?? '-' }}
                                         </div>
 
-                                        <div class="mt-2" v-if="companyData?.recruiter?.phone">
+                                        <div class="mt-2">
                                             <i class="bi bi-telephone-fill"></i>
-                                            <strong class="ms-1">Call:</strong>
-                                            {{ companyData.recruiter.phone }}
+                                            <!-- <strong class="ms-1">Call:</strong> -->
+                                            {{ companyData?.recruiter?.phone ?? '-' }}
                                         </div>
 
-                                        <div class="mt-2" v-if="companyData?.recruiter?.location">
+                                        <div class="mt-2">
                                             <i class="bi bi-geo-alt-fill"></i>
-                                            <strong class="ms-1">Location:</strong>
-                                            {{ companyData?.recruiter?.location }}
+                                            <!-- <strong class="ms-1">Location:</strong> -->
+                                            {{ companyData?.recruiter?.location ?? '-' }}
                                         </div>
 
-                                        <div class="mt-2" v-if="companyData.recruiter?.industry">
+                                        <!-- <div class="mt-2">
                                             <i class="bi bi-building-fill"></i>
                                             <strong class="ms-1">Location:</strong>
                                             {{ companyData.recruiter?.industry?.name }}
-                                        </div>
+                                        </div> -->
 
-                                        <div class="mt-2" v-if="companyData.facebook">
+                                        <div class="mt-2">
                                             <i class="bi bi-facebook"></i>
                                             {{ companyData.facebook }}
                                         </div>
 
-                                        <div class="mt-2" v-if="companyData.twitter">
+                                        <div class="mt-2">
                                             <i class="bi bi-twitter-x"></i>
-                                            {{ companyData.twitter }}
+                                            {{ companyData?.twitter ?? '-' }}
                                         </div>
 
-                                        <div class="mt-2" v-if="companyData.linkedin">
+                                        <div class="mt-2">
                                             <i class="bi bi-linkedin"></i>
                                             {{ companyData.linkedin }}
                                         </div>
 
-                                        <div class="mt-2" v-if="companyData.website">
+                                        <div class="mt-2">
                                             <i class="bi bi-globe"></i>
-                                            {{ companyData.website }}
+                                            {{ companyData.website ?? '-' }}
                                         </div>
 
 
@@ -176,7 +177,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, reactive, ref } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import api from '@/stores/Helpers/axios'
 import useFxn from '@/stores/Helpers/useFunctions';
@@ -206,16 +207,35 @@ async function loadCompanyDetails() {
     }
 }
 
+
+const company_recruiter_id = computed(() => {
+    let id = null
+    const jobs = companyData.value.jobs ?? []
+    if (jobs.length) {
+        const firstJobInArray = jobs[0]
+        id = firstJobInArray?.recruiter_id
+    }
+    return id;
+
+})
+
+
+
+
+// messaging
+
 const message = reactive({
     text: '',
     isSending: false
 })
 
 async function sendMessage() {
+
+
     if (message.text) {
         const obj = new FormData();
         obj.append('message', message.text)
-        obj.append('recipient_id', companyData.value.recruiter_id)
+        obj.append('recipient_id', company_recruiter_id.value)
 
         try {
             message.isSending = true
@@ -225,6 +245,7 @@ async function sendMessage() {
             message.isSending = false
         } catch (error) {
             // console.log(error);
+            message.isSending = false
         }
     }
 }

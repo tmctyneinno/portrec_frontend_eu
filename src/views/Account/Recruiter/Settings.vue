@@ -64,9 +64,9 @@
                             </div>
                             <div class="col-md-6">
                                 <label> Gender </label>
-                                <v-select v-model="details.gender" class="text-capitalize gender-chooser"
-                                    :clearable="false" :searchable="false"
-                                    :options="[{ id: 1, label: 'Male' }, { id: 2, label: 'Female' }]"
+                                <v-select v-model="details.gender" class=" gender-chooser" :clearable="false"
+                                    :searchable="false"
+                                    :options="[{ id: 1, label: 'Male' }, { id: 2, label: 'Female' }, { id: 3, label: 'Prefer not to say' }]"
                                     :reduce="(x: any) => x.id" label="label"></v-select>
                             </div>
 
@@ -371,31 +371,16 @@ async function submitPasswordForm() {
 </script>
 
 <style lang="css" scoped>
-.vue-tel-input {
-    border-radius: 0px;
+/* .vue-tel-input {
+    border-radius: 7px;
     line-height: 27px;
-}
+} */
 </style>
 
 <style>
-/* .vti__dropdown {
-    background-color: #fff !important;
-} */
-
-/* .dob-settings-input .dp__pointer {
-    border-radius: 0px !important;
-} */
-
-.country-chooser-settings .vs__search,
 .gender-chooser .vs__search {
     line-height: 1.7rem !important;
-    border-radius: 0px !important;
+    /* border-radius: 0px !important; */
     border: 0px !important;
-}
-
-.country-chooser-settings .vs__dropdown-toggle,
-.gender-chooser .vs__dropdown-toggle {
-    background-color: #fff !important;
-    /* border-radius: 0px; */
 }
 </style>

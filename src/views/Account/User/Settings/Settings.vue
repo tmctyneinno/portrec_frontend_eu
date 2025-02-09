@@ -477,10 +477,10 @@ async function submitPasswordForm() {
 </script>
 
 <style lang="css" scoped>
-.vue-tel-input {
+/* .vue-tel-input {
     border-radius: 0px;
     line-height: 27px;
-}
+} */
 </style>
 
 <style>

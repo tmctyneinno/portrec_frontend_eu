@@ -64,8 +64,8 @@
                     </template>
 
                     <template #item-status="item">
-                        <span class="category-tag text-white"
-                            :style="`background-color: ${templateStore.applicationStatusColor(item.status)}`">
+                        <span class="category-tag fw-bolder"
+                            :style="`color: ${templateStore.applicationStatusColor(item.status)}`">
                             {{ item.status }}
                         </span>
                     </template>

@@ -21,7 +21,11 @@
                 </div>
 
                 <div class=" d-flex justify-content-center my-5 ">
-                    <img src="/images/hero/hero-image.png" class="hero-image" alt="">
+                    <!-- <img src="/images/hero/hero-image.png" class="hero-image" alt=""> -->
+                    <video playsinline autoplay muted loop>
+                        <source src="/images/hero/demo-video.mp4" type="video/mp4" />
+                        Your browser does not support the videos.
+                    </video>
                 </div>
             </div>
         </div>
@@ -87,5 +91,12 @@ onMounted(() => {
         height: auto; */
         display: none;
     }
+}
+
+video {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    /* Ensures the video covers the entire container */
 }
 </style>

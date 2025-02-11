@@ -4,8 +4,10 @@
             <div class="row justify-content-center align-items-center">
                 <div class="col-3 d-flex justify-content-center  rounded-2 "
                     :class="{ 'bg-secondary-subtle': !job.image }">
-                    <img v-if="job.image" width="100" :src="job.image" alt="_img">
-                    <i v-else class="bi bi-suitcase-lg text-muted2" style="font-size: 4rem;"></i>
+                    <img v-if="job.image && !imageFallback" @error="imageFallback = true" width="100" :src="job.image"
+                        alt="_img">
+                    <i v-if="!job.image || imageFallback" class="bi bi-suitcase-lg text-muted2"
+                        style="font-size: 4rem;"></i>
                 </div>
                 <div class="col">
                     <h5 class="slide-title job_title">
@@ -43,6 +45,9 @@
 </template>
 <script lang="ts" setup>
 import useFunctions from '@/stores/Helpers/useFunctions';
+import { ref } from 'vue';
+
+const imageFallback = ref<boolean>(false)
 
 defineProps({
     job: {

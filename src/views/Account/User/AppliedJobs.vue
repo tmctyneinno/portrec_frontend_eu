@@ -104,7 +104,6 @@ import { useTemplateStore } from '@/stores/templateStore';
 
 const templateStore = useTemplateStore()
 
-
 const profileStore = useProfileStore()
 
 onMounted(() => {
@@ -157,8 +156,6 @@ watch(() => dateRange.value, () => {
 })
 
 
-
-
 const tabs = reactive<{ showing: JobStatusInterface, menu: { id: JobStatusInterface, name: string }[] }>({
     showing: 'ALL',
     menu: [
@@ -179,7 +176,6 @@ const appliedHistory = computed(() => {
     return applications[tabs.showing]
 })
 
-
 // table
 const searchTerm = ref("");
 const tableHeader = ref([
@@ -188,8 +184,6 @@ const tableHeader = ref([
     { text: "Date Applied", value: "created_at", sortable: true },
     { text: "Status", value: "status", sortable: true },
 ]);
-
-
 
 </script>
 

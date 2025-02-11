@@ -196,8 +196,10 @@
                         <div class="card-body">
                           <div class="row gy-3 align-items-center">
                             <div class="col-md-2 text-lg-center">
-                              <img v-if="job.image" :src="job.image" class="img-fluid" alt="_img">
-                              <i v-else class="bi bi-suitcase-lg text-muted fs-2"></i>
+                              <img v-if="job.image && !imageFallback" @error="imageFallback = true" width="100"
+                                :src="job.image" class="img-fluid" alt="_img">
+                              <i v-if="!job.image || imageFallback" class="bi bi-suitcase-lg text-muted"
+                                style="font-size: 3.2rem;"></i>
                             </div>
                             <div class="col-md-7">
                               <h4 class="mb-0 job_title">{{ job.title }}</h4>
@@ -272,6 +274,8 @@ import useFunctions from '@/stores/Helpers/useFunctions';
 const jobsStore = useJobsStore()
 const route = useRoute()
 const router = useRouter()
+
+const imageFallback = ref<boolean>(false)
 
 const { width: windowWidth } = useWindowSize()
 

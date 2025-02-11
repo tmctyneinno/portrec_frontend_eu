@@ -13,8 +13,10 @@
                 <div class="row gy-3 align-items-center">
 
                   <div class="col-md-1 text-lg-center">
-                    <img v-if="currentJob?.image" :src="currentJob.image" class="img-fluid" width="100" alt="_img">
-                    <i v-else class="bi bi-suitcase-lg text-muted2" style="font-size: 4rem;"></i>
+                    <img v-if="currentJob?.image && !imageFallback" @error="imageFallback = true"
+                      :src="currentJob.image" class="img-fluid" width="100" alt="_img">
+                    <i v-if="!currentJob.image || imageFallback" class="bi bi-suitcase-lg text-muted2"
+                      style="font-size: 4rem;"></i>
                   </div>
 
                   <div class="col-md-7">
@@ -219,6 +221,8 @@ import api from '@/stores/Helpers/axios'
 import { useShare } from '@vueuse/core'
 //@ts-ignore
 import numeral from 'numeral';
+
+const imageFallback = ref<boolean>(false)
 
 import { useProfileStore } from '@/stores/profileStore';
 

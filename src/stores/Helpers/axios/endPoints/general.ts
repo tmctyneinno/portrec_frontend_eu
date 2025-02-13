@@ -13,5 +13,9 @@ export default {
         return $instance.get(`get/subscriptions`)
     },
 
+    subscribeEmailForNewsletter(obj: { email: string }) {
+        return $instance.post(`newletters/save/email`, obj)
+    },
+
 
 }

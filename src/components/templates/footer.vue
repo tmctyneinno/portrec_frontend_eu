@@ -1,4 +1,28 @@
 <script lang="ts" setup>
+import { ref } from 'vue';
+import api from '@/stores/Helpers/axios'
+
+
+const newsletterEmail = ref<string>('')
+const isSavingEmail = ref<boolean>(false)
+const hasSentEmail = ref<boolean>(false)
+
+async function subscribeEmailForNewsletter() {
+    try {
+        isSavingEmail.value = true
+        await api.subscribeEmailForNewsletter({ email: newsletterEmail.value })
+        hasSentEmail.value = true
+        newsletterEmail.value = ''
+        setTimeout(() => {
+            hasSentEmail.value = false
+        }, 1500);
+    } catch (error) {
+
+    }
+    finally {
+        isSavingEmail.value = false
+    }
+}
 
 </script>
 
@@ -56,15 +80,21 @@
                         <div class="footer_widget">
                             <h4 class="widget_title">Get job notifications</h4>
                             <div class="text-white">The latest jobs, articles, sent to your inbox weekly</div>
-                            <form @submit.prevent class="row mt-3">
+                            <form @submit.prevent="subscribeEmailForNewsletter" class="row mt-3">
                                 <div class="col-8">
-                                    <input type="text" class="form-control" placeholder="email address">
+                                    <input v-model="newsletterEmail" type="email" class="form-control"
+                                        placeholder="email address">
                                 </div>
                                 <div class="col-4">
-                                    <!-- <button class="btn btn-primary">Subscribe</button> -->
-                                    <primaryButton>
+                                    <button v-if="hasSentEmail"
+                                        class="w-100 btn btn-success animate__animated animate__heartBeat">
+                                        Sent <i class="bi bi-check-lg"></i>
+                                    </button>
+                                    <primaryButton v-else-if="!isSavingEmail" className="w-100" btnType="submit">
                                         Subscribe
                                     </primaryButton>
+                                    <primaryButtonLoading v-else className="w-100">
+                                    </primaryButtonLoading>
                                 </div>
                             </form>
                         </div>

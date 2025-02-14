@@ -116,7 +116,7 @@
                                                         {{ jobsThisWeek.numberPosted }}
                                                     </div>
                                                     <div class="text-muted small">This week
-                                                        <span class=" fw-bold"
+                                                        <!-- <span class=" fw-bold"
                                                             :class="jobsThisWeek.numberPosted >= maxNumOfJobsPerweek ? 'text-success' : 'text-danger'">
                                                             {{ ((jobsThisWeek.numberPosted / maxNumOfJobsPerweek) * 100)
                                                             }}
@@ -124,7 +124,7 @@
                                                             <i v-if="jobsThisWeek.numberPosted >= maxNumOfJobsPerweek"
                                                                 class="bi bi-arrow-up"></i>
                                                             <i v-else class="bi bi-arrow-down"></i>
-                                                        </span>
+                                                        </span> -->
                                                     </div>
                                                 </div>
                                             </div>
@@ -132,7 +132,7 @@
                                         <div class="col-12">
                                             <div class="card info-card-tab1 ">
                                                 <div class="card-header bg-transparent fw-bold border-0">
-                                                    Job Applied
+                                                    Jobs Applied
                                                     <span class="float-end float-icon-card color2">
                                                         <i class="bi bi-journal-text"></i>
                                                     </span>
@@ -141,7 +141,7 @@
                                                     <div class="big-number">{{ jobsThisWeek.numberApplied }}</div>
                                                     <div class="text-muted small">This week
 
-                                                        <span class=" fw-bold"
+                                                        <!-- <span class=" fw-bold"
                                                             :class="jobsThisWeek.numberApplied >= maxNumOfJobsPerweek ? 'text-success' : 'text-danger'">
                                                             {{ ((jobsThisWeek.numberApplied / maxNumOfJobsPerweek) *
                                                                 100)
@@ -150,7 +150,7 @@
                                                             <i v-if="jobsThisWeek.numberApplied >= maxNumOfJobsPerweek"
                                                                 class="bi bi-arrow-up"></i>
                                                             <i v-else class="bi bi-arrow-down"></i>
-                                                        </span>
+                                                        </span> -->
                                                     </div>
                                                 </div>
                                             </div>
@@ -193,7 +193,7 @@
                     </div>
                 </div>
                 <div class="col-12">
-                    <div class="card">
+                    <div class="card h-100">
                         <div class="card-header border-0 bg-transparent fw-bold">
                             Applicants Summary
                         </div>
@@ -204,8 +204,9 @@
                                 </span>
                             </div>
 
-                            <!-- <apexchart type="bar" :options="chartOptions_2" :series="chartOptions_2.series">
-                            </apexchart> -->
+                            <apexchart v-if="(companyProfile.data?.jobs ?? []).length" type="pie"
+                                :options="jobAndApplicationsChartOptions" :series="jobAndApplicationsChartSeries">
+                            </apexchart>
                         </div>
                     </div>
                 </div>
@@ -241,13 +242,14 @@ onMounted(() => {
     console.log(profileStore.data);
     setDateRange()
     getCompanyInformation()
-
-
 })
 
 async function getCompanyInformation() {
     await recruiterCommonStore.getCompanyInformation()
     updateGraphOnJobApplications()
+
+    jobAndApplicationsChartSeries.value = [(companyProfile.value?.data?.jobs ?? []).length, totalApplications.value]
+
 }
 
 watch(() => recruiterCommonStore.jobPosting.jobListUpdated, () => {
@@ -415,26 +417,11 @@ function updateGraphOnJobApplications() {
 
 
 // chart
-const chartOptions_2 = {
+const jobAndApplicationsChartOptions = {
     chart: {
-        type: 'bar',
-        stacked: true,
+        type: 'pie',
     },
-    plotOptions: {
-        bar: {
-            horizontal: true,
-            dataLabels: {
-                total: {
-                    enabled: false,
-                    offsetX: 0,
-                    style: {
-                        fontSize: '13px',
-                        fontWeight: 900
-                    }
-                }
-            }
-        },
-    },
+
     dataLabels: {
         enabled: false
     },
@@ -443,21 +430,35 @@ const chartOptions_2 = {
             enabled: false,
         }
     },
-    xaxis: {
-        categories: ['Mon']
-    },
-    colors: ['#7B61FF'],
-    series: [{
-        name: 'Marine Sprite',
-        data: [44, 55, 41, 37, 22, 43, 21]
-    },],
+
+    colors: ['#873A70', '#1EB0B4'],
+    labels: ['Jobs', 'Applications'],
+
     legend: {
-        show: false
+        show: true
     },
     tooltip: {
         enabled: true,
     },
+    responsive: [{
+        breakpoint: 1000,
+        options: {
+            chart: {
+                width: 400
+            },
+        }
+    },
+    {
+        breakpoint: 480,
+        options: {
+            chart: {
+                width: 250
+            },
+        }
+    }
+    ]
 }
+const jobAndApplicationsChartSeries = ref<number[]>([])
 
 </script>
 

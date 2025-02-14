@@ -262,9 +262,12 @@
                                             Job titles must be describe one position
                                         </div>
                                     </div>
-                                    <div class="col-md-7">
-                                        <textarea v-model="form.description" class="form-control " rows="3"
-                                            placeholder="Enter job description"></textarea>
+                                    <div class="col-md-7" style="margin-bottom: 50px; height:160px">
+
+                                        <QuillEditor v-model:content="form.description" contentType="html"
+                                            toolbar="minimal" />
+                                        <!-- <textarea v-model="form.description" class="form-control " rows="3"
+                                            placeholder="Enter job description"></textarea> -->
                                         <!-- <small class="text-muted">minimum of 500 characters</small> -->
                                     </div>
                                 </div>
@@ -294,12 +297,12 @@
                                     </div>
                                     <div class="col-md-7">
                                         <div v-for="(item, index) in form.temp_responsibilities" :key="index"
-                                            class="row g-3 mb-2 ">
+                                            class="row g-3 mb-2 position-relative">
 
-                                            <div class="col-12">
-                                                <div class="input-group">
-                                                    <textarea v-model="item.descriptions" class="form-control  "
-                                                        rows="3"
+                                            <div class="col-12 ">
+                                                <div class="input-group ">
+                                                    <textarea v-model="item.descriptions"
+                                                        class="form-control bg-transparent" rows="3"
                                                         :class="{ 'border-end-0': form.temp_responsibilities.length > 1 }"
                                                         placeholder="enter responsibility"></textarea>
                                                     <span @click="form.temp_responsibilities.splice(index, 1)"
@@ -307,11 +310,17 @@
                                                         class="input-group-text cursor-pointer bg-transparent text-danger border-start-0"><i
                                                             class="bi bi-x-lg"></i></span>
                                                 </div>
+                                                <span class="position-absolute top-0 mt-2">
+                                                    <span class="badge rounded-pill text-dark bg-secondary-subtle">
+                                                        {{ index + 1 }}
+                                                    </span>
+                                                </span>
                                             </div>
+
                                         </div>
                                         <button @click="addNewRecord('temp_responsibilities')"
                                             class="float-end btn btn-ligh btn-sm border-0 fw-bold theme-color ">
-                                            add field
+                                            add new responsibility
                                             <i class="bi bi-plus-lg"></i>
                                         </button>
                                     </div>
@@ -326,12 +335,13 @@
                                     </div>
                                     <div class="col-md-7">
                                         <div v-for="(item, index) in form.temp_WhoYouAre" :key="index"
-                                            class="row g-3 mb-2 ">
+                                            class="row g-3 mb-2 position-relative ">
 
 
                                             <div class="col-12">
                                                 <div class="input-group">
-                                                    <textarea v-model="item.descriptions" class="form-control " rows="3"
+                                                    <textarea v-model="item.descriptions"
+                                                        class="form-control bg-transparent " rows="3"
                                                         :class="{ 'border-end-0': form.temp_WhoYouAre.length > 1 }"
                                                         placeholder="enter here.."></textarea>
                                                     <span @click="form.temp_WhoYouAre.splice(index, 1)"
@@ -339,12 +349,17 @@
                                                         class="input-group-text cursor-pointer bg-transparent text-danger border-start-0"><i
                                                             class="bi bi-x-lg"></i></span>
                                                 </div>
+                                                <span class="position-absolute top-0 mt-2">
+                                                    <span class="badge rounded-pill text-dark bg-secondary-subtle">
+                                                        {{ index + 1 }}
+                                                    </span>
+                                                </span>
                                             </div>
 
                                         </div>
                                         <button @click="addNewRecord('temp_WhoYouAre')"
                                             class="btn btn-ligh btn-sm border-0 fw-bold theme-color float-end ">
-                                            add field
+                                            add new field
                                             <i class="bi bi-plus-lg"></i>
                                         </button>
                                     </div>
@@ -360,12 +375,12 @@
                                     </div>
                                     <div class="col-md-7">
                                         <div v-for="(item, index) in form.temp_niceToHave" :key="index"
-                                            class="row g-3 mb-2 ">
-
+                                            class="row g-3 mb-2 position-relative">
 
                                             <div class="col-12">
                                                 <div class="input-group">
-                                                    <textarea v-model="item.descriptions" class="form-control " rows="3"
+                                                    <textarea v-model="item.descriptions"
+                                                        class="form-control bg-transparent " rows="3"
                                                         :class="{ 'border-end-0': form.temp_niceToHave.length > 1 }"
                                                         placeholder="enter here.."></textarea>
                                                     <span @click="form.temp_niceToHave.splice(index, 1)"
@@ -373,12 +388,17 @@
                                                         class="input-group-text cursor-pointer bg-transparent text-danger border-start-0"><i
                                                             class="bi bi-x-lg"></i></span>
                                                 </div>
+                                                <span class="position-absolute top-0 mt-2">
+                                                    <span class="badge rounded-pill text-dark bg-secondary-subtle">
+                                                        {{ index + 1 }}
+                                                    </span>
+                                                </span>
                                             </div>
 
                                         </div>
                                         <button @click="addNewRecord('temp_niceToHave')"
                                             class="btn btn-ligh btn-sm border-0 fw-bold theme-color float-end ">
-                                            add field
+                                            add new field
                                             <i class="bi bi-plus-lg"></i>
                                         </button>
                                     </div>
@@ -393,11 +413,12 @@
                                     </div>
                                     <div class="col-md-7">
                                         <div v-for="(item, index) in form.temp_questions" :key="index"
-                                            class="row g-3 mb-2 ">
+                                            class="row g-3 mb-2 position-relative">
 
                                             <div class="col-12">
                                                 <div class="input-group">
-                                                    <textarea v-model="item.questions" class="form-control " rows="3"
+                                                    <textarea v-model="item.questions"
+                                                        class="form-control bg-transparent " rows="3"
                                                         :class="{ 'border-end-0': form.temp_questions.length > 1 }"
                                                         placeholder="enter question.."></textarea>
                                                     <span @click="form.temp_questions.splice(index, 1)"
@@ -405,12 +426,17 @@
                                                         class="input-group-text cursor-pointer bg-transparent text-danger border-start-0"><i
                                                             class="bi bi-x-lg"></i></span>
                                                 </div>
+                                                <span class="position-absolute top-0 mt-2">
+                                                    <span class="badge rounded-pill text-dark bg-secondary-subtle">
+                                                        {{ index + 1 }}
+                                                    </span>
+                                                </span>
                                             </div>
 
                                         </div>
                                         <button @click="addNewRecord('temp_questions')"
                                             class="btn btn-ligh btn-sm border-0 fw-bold theme-color float-end ">
-                                            add question
+                                            add new question
                                             <i class="bi bi-plus-lg"></i>
                                         </button>
                                     </div>
@@ -525,6 +551,10 @@ import useFxn from '@/stores/Helpers/useFunctions';
 import { vMaska } from "maska";
 import { useProfileStore } from '@/stores/profileStore';
 import api from '@/stores/Helpers/axios'
+
+
+import { QuillEditor } from '@vueup/vue-quill'
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
 
 const recruiterCommonStore = useRecruiterCommonStore()
 const profileStore = useProfileStore()
@@ -717,6 +747,10 @@ async function updateFormToApi(obj: any) {
 /* .form-select {
     border-radius: 0px !important;
 } */
+
+.position-absolute .badge {
+    font-size: 10px;
+}
 </style>
 
 <style>

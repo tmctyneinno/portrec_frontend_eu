@@ -33,11 +33,17 @@
                     </div>
                   </div>
                   <div class="col-md-4 my-3 ">
-                    <div class="float-end">
+                    <div class="d-flex justify-content-end">
                       <span @click="shareLink" class="line-right pe-4 me-3 cursor-pointer">
                         <i class="bi bi-share"></i>
                       </span>
-                      <span v-if="hasAppliedForThisJob" class="text-warning small ">Already Applied</span>
+                      <div v-if="new Date(currentJob.deadline) < new Date()">
+                        <div class="small text-muted fst-italic text-center">No longer accepting candidates</div>
+                        <primaryButton :disabled="true" className="w-100">
+                          Apply
+                        </primaryButton>
+                      </div>
+                      <span v-else-if="hasAppliedForThisJob" class="text-warning small ">Already Applied</span>
                       <button v-else-if="currentJob.job_url" @click="visitExternalLink"
                         class="btn btn-primary rounded- px-3">Visit link</button>
                       <button v-else @click="openApplyModal" class="btn btn-primary rounded- px-3">Apply now</button>
@@ -58,8 +64,7 @@
 
           <div class="py-3">
             <h4 class="fw-bold">Description</h4>
-            <div class="card m-0 p-0 border-0">
-              {{ currentJob.description ?? '' }}
+            <div v-html="currentJob.description ?? ''" class="card m-0 p-0 border-0">
             </div>
           </div>
 

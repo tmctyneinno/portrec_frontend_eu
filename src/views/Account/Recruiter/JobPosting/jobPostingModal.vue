@@ -445,14 +445,17 @@
                                 <div class="row g-3 align-items-center">
                                     <div class="col-md-5">
                                         <strong>Job URL</strong>
-                                        <!-- <i v-if="useFxn.isValidUrl(form.job_url)"
-                                            class="bi bi-check-circle-fill text-success ms-2 small"></i> -->
                                         <div class="text-muted small">
-                                            Enter job Url (if any) to enable job seekers apply externally.
+                                            Enter job Url (if any)
+                                            <div v-if="form.job_url" class="text-success fw-bolder">
+                                                <!-- <i class="bi bi-check-circle-fill small"></i> -->
+                                                Job seekers will apply externally through this link instead.
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-7">
-                                        <input type="text" class="form-control" v-model="form.job_url">
+                                        <input type="text" placeholder="optional" class="form-control"
+                                            v-model="form.job_url">
                                     </div>
                                 </div>
 

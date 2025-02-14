@@ -37,7 +37,7 @@
                       <span @click="shareLink" class="line-right pe-4 me-3 cursor-pointer">
                         <i class="bi bi-share"></i>
                       </span>
-                      <div v-if="new Date(currentJob.deadline) < new Date()">
+                      <div v-if="new Date(currentJob.deadline).toDateString() < new Date().toDateString()">
                         <div class="small text-muted fst-italic text-center">No longer accepting candidates</div>
                         <primaryButton :disabled="true" className="w-100">
                           Apply

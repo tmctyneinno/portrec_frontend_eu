@@ -39,25 +39,35 @@
           </div>
 
           <div class="col-lg-6">
-            <form @submit.prevent class="row justify-content-center g-3">
+            <form @submit.prevent="sendMessage" class="row justify-content-center g-3">
               <div class="col-md-6">
-                <div class="fw-bol form-label">First Name</div>
-                <input type="text" class="form-control shadow-sm ">
+                <div class="fw-bol form-label">First Name </div>
+                <input v-model="form.firstname" type="text" class="form-control shadow-sm ">
               </div>
               <div class="col-md-6">
                 <div class="fw-bol form-label">Last Name</div>
-                <input type="text" class="form-control shadow-sm ">
+                <input v-model="form.lastname" type="text" class="form-control shadow-sm ">
               </div>
               <div class="col-md-12">
-                <div class="fw-bol form-label">Email Address</div>
-                <input type="text" class="form-control shadow-sm ">
+                <div class="fw-bol form-label">Email Address
+                  <span class="text-danger small">*</span>
+                </div>
+                <input v-model="form.email" type="email" class="form-control shadow-sm ">
               </div>
               <div class="col-md-12">
-                <div class="fw-bol form-label">Message</div>
-                <textarea rows="9" class="form-control shadow-sm "></textarea>
+                <div class="fw-bol form-label">Message
+                  <span class="text-danger small">*</span>
+                </div>
+                <textarea v-model="form.message" @input="checkWordCount" class="form-control shadow-sm "
+                  style="height: 100px;"></textarea>
+                <span class="small">{{ form.maxCharCount - form.message.length }} characters remaining</span>
               </div>
               <div class="col-md-12 mt-3">
-                <button class="btn btn-primary float-end ">Get in touch</button>
+                <primaryButton btnType="submit" v-if="!form.isSending" className="float-end">
+                  Get in touch
+                </primaryButton>
+                <primaryButtonLoading v-else btnText="Sending" className="float-end" />
+
               </div>
             </form>
           </div>
@@ -94,9 +104,61 @@
 <script setup lang="ts">
 import headerVue from '@/components/templates/header.vue'
 import footerVue from '@/components/templates/footer.vue'
-import { GoogleMap, Marker } from "vue3-google-map";
+import api from '@/stores/Helpers/axios'
+import { reactive } from 'vue';
+import useFunctions from '@/stores/Helpers/useFunctions';
+// import { GoogleMap, Marker } from "vue3-google-map";
 
-const map_center = { lat: 40.689247, lng: -74.044502 };
+// const map_center = { lat: 40.689247, lng: -74.044502 };
+
+
+
+// contact_us form
+const form = reactive({
+  email: '',
+  firstname: '',
+  lastname: '',
+  message: '',
+  maxCharCount: 250,
+  isSending: false
+})
+
+function checkWordCount(event: any) {
+  const input = event.target.value;
+  if (input.length > form.maxCharCount) {
+    form.message = input.slice(0, form.maxCharCount);
+  }
+}
+
+
+async function sendMessage() {
+  if (!form.email) {
+    useFunctions.toast('Email field is compulsory', 'warning')
+    return;
+  }
+
+  if (!form.message) {
+    useFunctions.toast('Please type a message', 'warning')
+    return;
+  }
+
+  try {
+    form.isSending = true
+    const resp = await api.sendContactMessage(form)
+    useFunctions.toast('Thank you for contacting us, we will reply you soon.', 'success')
+    form.firstname = form.lastname = form.email = form.message = ''
+    console.log(resp);
+    form.isSending = false
+  } catch (error) {
+    form.isSending = false
+  }
+
+}
+
+
+
+
+
 
 
 const locations = [

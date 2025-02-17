@@ -18,4 +18,9 @@ export default {
     },
 
 
+    sendContactMessage(obj: { email: string }) {
+        return $instance.post(`contact_message/send/message`, obj)
+    },
+
+
 }

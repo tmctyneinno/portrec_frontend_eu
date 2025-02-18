@@ -14,9 +14,13 @@
                         {{ job.title ?? '' }} <i class="bi d-md-none bi-chevron-right"></i>
                     </h5>
                     <div class="slide-info text-muted small text-capitalize">
-                        {{ job.company?.name ?? '' }} <i class="bi bi-dot"></i>
-                        {{ job.company?.city ?? '' }},
-                        {{ job.company?.country ?? '' }}
+                        {{ job.company?.name ?? '' }}
+                        <span v-if="job.company?.city && job.company?.country">
+                            <i class="bi bi-dot"></i>
+                            {{ job.company?.city ?? '' }},
+                            {{ job.company?.country ?? '' }}
+                        </span>
+
                         <div class="fw-bolder text-nowrap">
                             ({{ job.min_salary }} - {{ job.max_salary }})
                             {{ job.currency?.currency }}

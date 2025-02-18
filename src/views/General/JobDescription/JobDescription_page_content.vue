@@ -24,16 +24,19 @@
                     <div class="d-block mb-2 position-relative">
                       <div class="slide-info text-muted small text-capitalize">
 
-                        {{ currentJob.company?.name ?? '' }},
+                        {{ currentJob.company?.name ?? '' }}
                         {{ `${currentJob.company?.country ?? ''}` }}
                         <i class="bi bi-dot"></i>
                         <i class="bi bi-briefcase ms-2"></i>
                         {{ currentJob.job_type?.name ?? '' }}
                       </div>
+                      <div class="xsmall fst-italic text-success-emphasis">
+                        Posted <span class="fw-bolder">{{ useFunctions.timeAgo(currentJob.created_at) }}</span>
+                      </div>
                     </div>
                   </div>
                   <div class="col-md-4 my-3 ">
-                    <div class="d-flex justify-content-end">
+                    <div class="d-flex justify-content-end align-items-center">
                       <span @click="shareLink" class="line-right pe-4 me-3 cursor-pointer">
                         <i class="bi bi-share"></i>
                       </span>
@@ -235,6 +238,7 @@ import jobApplicationModal1 from './jobApplication/modal1.vue';
 import jobApplicationModal2 from './jobApplication/modal2.vue';
 import jobApplicationModal3 from './jobApplication/modal3.vue';
 import jobApplicationModal4 from './jobApplication/modal4.vue';
+import useFunctions from '@/stores/Helpers/useFunctions';
 
 const job = useJobApplicationStore()
 const { currentJob, loading, modalOpen, currentModal } = storeToRefs(job)

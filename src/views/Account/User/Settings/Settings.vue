@@ -87,7 +87,7 @@
                                 <!-- <input v-model="details.location" class="form-control " type="text"> -->
                             </div>
                             <div class="col-12">
-                                <label> Proffessional Headline </label>
+                                <label> Professional Headline </label>
                                 <input v-model="details.professional_headline" class="form-control " type="text"
                                     placeholder="e.g: Software Enginner">
                             </div>

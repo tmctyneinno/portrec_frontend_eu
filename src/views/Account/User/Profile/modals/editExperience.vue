@@ -43,9 +43,9 @@
 
                         <div class="col-md-6">
                             <label class="form-label">From * </label>
-                            <VueDatePicker :format="useFxn.dateDisplay" :teleport="true" hide-input-icon
-                                :clearable="false" :max-date="new Date()" :enable-time-picker="false" auto-apply
-                                v-model="experience.start_date">
+                            <VueDatePicker :flow="['year', 'month', 'calender']" :format="useFxn.dateDisplay"
+                                :teleport="true" hide-input-icon :clearable="false" :max-date="new Date()"
+                                :enable-time-picker="false" auto-apply v-model="experience.start_date">
                             </VueDatePicker>
                             <label class="cursor-pointer small">
                                 <input v-model="isCurrentlyHere" class="form-check-input me-1" type="checkbox">
@@ -54,9 +54,10 @@
                         </div>
                         <div class="col-md-6" v-if="!isCurrentlyHere">
                             <label class="form-label">To * </label>
-                            <VueDatePicker :format="useFxn.dateDisplay" :teleport="true" hide-input-icon
-                                :clearable="false" :max-date="new Date()" :min-date="experience.start_date"
-                                :enable-time-picker="false" auto-apply v-model="experience.end_date">
+                            <VueDatePicker :flow="['year', 'month', 'calender']" :format="useFxn.dateDisplay"
+                                :teleport="true" hide-input-icon :clearable="false" :max-date="new Date()"
+                                :min-date="experience.start_date" :enable-time-picker="false" auto-apply
+                                v-model="experience.end_date">
                             </VueDatePicker>
                         </div>
 

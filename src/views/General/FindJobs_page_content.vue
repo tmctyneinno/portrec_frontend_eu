@@ -4,7 +4,7 @@
   <overlayLoading v-if="jobsStore.loading" />
   <!-- <div class="space-from-header"></div> -->
 
-  <div v-else class="animate__animated animate__fadeIn mb-5">
+  <div class="animate__animated animate__fadeIn mb-5">
 
     <div class="section-panel section-panel-light py-5">
       <div class="container mb-5">
@@ -77,9 +77,11 @@
                             class="list-group-item border-0 text-capitalize small">
                             <input @change="respondToCheckBox('industry_id', x.id)" class="form-check-input me-1"
                               type="checkbox" :value="x.id" v-model="checked.industry_id">
-                            <span v-if="windowWidth > 768"> {{ useFunctions.truncateStr(x.name, 20) }}</span>
+                            <span class="form-check-label" v-if="windowWidth > 768" :title="x?.name ?? ''">
+                              {{ useFunctions.truncateStr(x?.name ?? '', 15) }}
+                            </span>
                             <span v-else> {{ x.name }}</span>
-                            ({{ x.total_jobs }})
+                            ({{ x?.total_jobs ?? 0 }})
                           </label>
 
                         </div>
@@ -205,9 +207,9 @@
                               <h4 class="mb-0 job_title">{{ job.title }}</h4>
                               <div class="d-block mb-2 position-relative">
                                 <span class="text-muted medium text-capitalize"><i class="lni lni-map-marker me-1"></i>
+                                  <span class="text-muted xsmall">Posted by</span>
                                   {{ job.company ? job.company.name : '' }}
-                                  {{ job.company ? job.company.country : '' }}
-
+                                  <!-- {{ job.company ? job.company.country : '' }} -->
                                 </span>
                               </div>
                               <span class="border-right">
@@ -224,7 +226,7 @@
                             </div>
                             <div class="col-md-3 justify-content-end">
                               <div class="text-cente">
-                                <button @click="goToJob(job.id)"
+                                <button @click="goToJob(job.id, job.title)"
                                   class="btn p-2 btn-primary rounded- w-100">Details</button>
 
                                 <div class="progress mt-2 mb-0 rounded-0" role="progressbar"
@@ -299,12 +301,14 @@ onMounted(async () => {
   checkBoxesAccordingToExistingQuery()
   if (!jobsStore.isFromSearch)
     await getJobs()
-  jobsStore.loading = false
 
-  jobsStore.getJobCategories()
-  jobsStore.getJobFunctions()
-  jobsStore.getJobTypes()
-  jobsStore.getJobLevels()
+
+  await jobsStore.getJobCategories()
+  await jobsStore.getJobFunctions()
+  await jobsStore.getJobTypes()
+  await jobsStore.getJobLevels()
+
+  jobsStore.loading = false
 
   if (windowWidth.value < 768) {
     // collapseAllAccordions();
@@ -370,8 +374,15 @@ const salaryRanges = ref([
 ])
 
 
-function goToJob(id: any) {
-  router.push({ path: `job-description/${btoa(id)}`, query: { t: new Date().getTime() } })
+
+function goToJob(id: any, title: '') {
+  router.push({
+    path: `job-description/${btoa(id)}`,
+    query: {
+      job: title.toLowerCase().replace(/\s+/g, "-"),
+      t: new Date().getTime(),
+    }
+  })
 }
 
 

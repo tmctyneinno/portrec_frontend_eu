@@ -16,8 +16,8 @@
             </div>
             <div class="col-12 mt-4">
                 <div class="row g-4">
-                    <featuredJobsCard @click="goToJob(data.id)" v-for="(data, index) in featurdJobsList" :key="index"
-                        :job="data" />
+                    <featuredJobsCard @click="goToJob(data.id, data.title ?? '')"
+                        v-for="(data, index) in featurdJobsList" :key="index" :job="data" />
                 </div>
 
             </div>
@@ -74,9 +74,22 @@ function paginateToNext(page: any) {
 
 const router = useRouter()
 
-function goToJob(id: any) {
-    router.push({ path: `job-description/${btoa(id)}`, query: { t: new Date().getTime() } })
+// function goToJob(id: any) {
+//     router.push({ path: `job-description/${btoa(id)}`, query: { t: new Date().getTime() } })
+// }
+
+
+function goToJob(id: any, title: '') {
+    router.push({
+        path: `job-description/${btoa(id)}`,
+        query: {
+            job: title.toLowerCase().replace(/\s+/g, "-"),
+            t: new Date().getTime(),
+        }
+    })
 }
+
+
 
 </script>
 

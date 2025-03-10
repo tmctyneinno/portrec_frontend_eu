@@ -43,7 +43,7 @@
                                                     <i class="bi bi-share"></i>
                                                 </div>
                                                 <div class="col-9 align-content-center">
-                                                    <button @click="goToJob(job.id)"
+                                                    <button @click="goToJob(job.id, job.title)"
                                                         class="btn p-2 btn-primary w-100">Apply</button>
                                                 </div>
                                             </div>
@@ -250,9 +250,16 @@ async function sendMessage() {
     }
 }
 
-function goToJob(id: any) {
-    router.push({ path: `job-description/${btoa(id)}`, query: { t: new Date().getTime() } })
+function goToJob(id: any, title: '') {
+    router.push({
+        path: `job-description/${btoa(id)}`,
+        query: {
+            job: title.toLowerCase().replace(/\s+/g, "-"),
+            t: new Date().getTime(),
+        }
+    })
 }
+
 </script>
 
 

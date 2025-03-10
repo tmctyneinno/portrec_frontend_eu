@@ -442,7 +442,7 @@ input[type="radio"]:checked+label:before {
 /* } */
 
 .vs__dropdown-menu {
-  z-index: 9999 !important;
+  z-index: 99999 !important;
   text-transform: capitalize;
 }
 

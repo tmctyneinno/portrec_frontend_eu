@@ -203,7 +203,7 @@
         </div>
         <div class="col-12 mt-4">
           <div v-if="similarJobs.length" class="row g-4">
-            <jobsDisplayVue :job="i" @click="goToJob(i.id)" v-for="i in similarJobs" :key="i" />
+            <jobsDisplayVue :job="i" @click="goToJob(i.id, i.title ?? '')" v-for="i in similarJobs" :key="i" />
           </div>
           <emptyDataComponent v-else text="No similar jobs" />
         </div>
@@ -327,8 +327,15 @@ function shareLink() {
   })
 }
 
-function goToJob(id: any) {
-  router.push({ path: `job-description/${btoa(id)}`, query: { t: new Date().getTime() } })
+
+function goToJob(id: any, title: '') {
+  router.push({
+    path: `job-description/${btoa(id)}`,
+    query: {
+      job: title.toLowerCase().replace(/\s+/g, "-"),
+      t: new Date().getTime(),
+    }
+  })
 }
 
 

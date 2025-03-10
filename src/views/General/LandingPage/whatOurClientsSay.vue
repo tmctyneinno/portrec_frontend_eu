@@ -8,7 +8,7 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-center text-muted">
                                 <!-- <img :src="`/images/${slide.image}`" width="50" alt=""> -->
-                                <i class="bi bi-person-circle fs-3"></i>
+                                <i class="bi bi-person-circle text-muted2 fs-2"></i>
                             </div>
                             <div class="text-center fw-bold">
                                 {{ slide.name }}

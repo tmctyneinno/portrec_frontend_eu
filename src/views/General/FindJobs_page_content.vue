@@ -200,7 +200,7 @@
                             <div class="col-md-2 text-lg-center">
                               <img v-if="job.image && !imageFallback" @error="imageFallback = true" width="100"
                                 :src="job.image" class="img-fluid" alt="_img">
-                              <i v-if="!job.image || imageFallback" class="bi bi-suitcase-lg text-muted"
+                              <i v-if="!job.image || imageFallback" class="bi bi-briefcase-fill theme-color"
                                 style="font-size: 3.2rem;"></i>
                             </div>
                             <div class="col-md-7">

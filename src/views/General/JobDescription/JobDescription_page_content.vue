@@ -12,18 +12,18 @@
               <div class="card-body">
                 <div class="row gy-3 align-items-center">
 
-                  <div class="col-md-1 text-lg-center">
+                  <div class="col-md-1 text-lg-center" :class="{ 'bg-light': !currentJob.image }">
                     <img v-if="currentJob?.image && !imageFallback" @error="imageFallback = true"
                       :src="currentJob.image" class="img-fluid" width="100" alt="_img">
-                    <i v-if="!currentJob.image || imageFallback" class="bi bi-suitcase-lg text-muted2"
-                      style="font-size: 4rem;"></i>
+                    <i v-if="!currentJob.image || imageFallback" class="bi bi-briefcase-fill theme-color"
+                      style="font-size: 3.5rem;"></i>
                   </div>
 
                   <div class="col-md-7">
                     <h4 class="mb-0 fs-3 fw-bold text-capitalize">{{ currentJob.title }}</h4>
                     <div class="d-block mb-2 position-relative">
                       <div class="slide-info text-muted small text-capitalize">
-
+                        <span class="text-muted xsmall">Posted by</span>
                         {{ currentJob.company?.name ?? '' }}
                         {{ `${currentJob.company?.country ?? ''}` }}
                         <i class="bi bi-dot"></i>
@@ -95,7 +95,7 @@
         <div class="col-lg-4">
           <div class="py-3">
             <h4 class="fw-bold">About this job</h4>
-            <div class="card p-3 border-0 bg-light">
+            <div v-if="currentJob.total_applied" class="card p-3 border-0 bg-light">
               <div class="fw-bold small">
                 <!-- {{ currentJob.total_applied }} applied of {{ currentJob.capacity }} capacity -->
                 {{ currentJob.total_applied }} applied
@@ -186,7 +186,7 @@
       </div>
     </div>
 
-    <div class="section-panel min-vh-100 section-panel-light">
+    <div v-if="similarJobs.length" class="section-panel min-vh-100 section-panel-light">
       <div class="container px-lg-5">
         <div class="col-12">
           <div class="row">
@@ -202,10 +202,10 @@
           </div>
         </div>
         <div class="col-12 mt-4">
-          <div v-if="similarJobs.length" class="row g-4">
+          <div class="row g-4">
             <jobsDisplayVue :job="i" @click="goToJob(i.id, i.title ?? '')" v-for="i in similarJobs" :key="i" />
           </div>
-          <emptyDataComponent v-else text="No similar jobs" />
+          <!-- <emptyDataComponent v-else text="No similar jobs" /> -->
         </div>
       </div>
     </div>
@@ -330,7 +330,7 @@ function shareLink() {
 
 function goToJob(id: any, title: '') {
   router.push({
-    path: `job-description/${btoa(id)}`,
+    path: `/job-description/${btoa(id)}`,
     query: {
       job: title.toLowerCase().replace(/\s+/g, "-"),
       t: new Date().getTime(),

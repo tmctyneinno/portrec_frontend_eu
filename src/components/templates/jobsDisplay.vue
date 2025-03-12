@@ -2,24 +2,25 @@
     <div :class="size == 'half' ? 'col-lg-6' : ''">
         <div class="card card-latest p-4 hover-tiltY cursor-pointer h-100">
             <div class="row justify-content-center align-items-center">
-                <div class="col-3 d-flex justify-content-center  rounded-2 "
-                    :class="{ 'bg-secondary-subtle': !job.image }">
+                <div class="col-3 d-flex justify-content-center  rounded-2 " :class="{ 'bg-light': !job.image }">
                     <img v-if="job.image && !imageFallback" @error="imageFallback = true" width="100" :src="job.image"
                         alt="_img">
-                    <i v-if="!job.image || imageFallback" class="bi bi-suitcase-lg text-muted2"
-                        style="font-size: 4rem;"></i>
+                    <i v-if="!job.image || imageFallback" class="bi bi-briefcase-fill theme-color"
+                        style="font-size: 3.5rem;"></i>
                 </div>
                 <div class="col">
                     <h5 class="slide-title job_title">
                         {{ job.title ?? '' }} <i class="bi d-md-none bi-chevron-right"></i>
                     </h5>
                     <div class="slide-info text-muted small text-capitalize">
+                        <span class="text-muted xsmall">Posted by</span>
                         {{ job.company?.name ?? '' }}
-                        <span v-if="job.company?.city && job.company?.country">
+
+                        <!-- <span v-if="job.company?.city && job.company?.country">
                             <i class="bi bi-dot"></i>
                             {{ job.company?.city ?? '' }},
                             {{ job.company?.country ?? '' }}
-                        </span>
+                        </span> -->
 
                         <div class="fw-bolder text-nowrap">
                             ({{ job.min_salary }} - {{ job.max_salary }})

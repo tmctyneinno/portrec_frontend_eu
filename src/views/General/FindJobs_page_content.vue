@@ -1,7 +1,7 @@
 <template>
   <!-- header -->
   <!-- <headerVue /> -->
-  <overlayLoading v-if="jobsStore.loading" />
+  <!-- <overlayLoading v-if="jobsStore.loading" /> -->
   <!-- <div class="space-from-header"></div> -->
 
   <div class="animate__animated animate__fadeIn mb-5">
@@ -18,7 +18,7 @@
             </div>
             <div class="row justify-content-center">
               <div class="col-md-10">
-                <searchJobForm />
+                <searchJobForm :isLoadingPage="jobsStore.loading" />
               </div>
             </div>
           </div>
@@ -27,7 +27,10 @@
     </div>
 
     <div class="container bg-white py-3" :class="{ 'small': route.path != '/find-jobs' }">
-      <div class="row">
+
+      <FindJobsSkeleton v-if="jobsStore.loading" />
+
+      <div v-else class="row">
         <div class="col-lg-3">
           <div class="card border-0 pt-5 pb-3">
             <div class="row gy-3">
@@ -184,6 +187,7 @@
                 </div> -->
               </div>
             </div>
+
             <div class="col-12">
               <div class="card border-0 bg-light p-4 min-vh-100">
                 <div v-if="jobsStore.loading" style="min-height: 400px;">
@@ -272,6 +276,7 @@ import { useJobsStore } from '@/stores/jobsStore';
 import { useRoute, useRouter } from 'vue-router';
 import { useWindowSize } from '@vueuse/core'
 import useFunctions from '@/stores/Helpers/useFunctions';
+import FindJobsSkeleton from '@/components/skeletonLoaders/findJobsSkeleton.vue';
 
 const jobsStore = useJobsStore()
 const route = useRoute()

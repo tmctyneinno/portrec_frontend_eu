@@ -69,6 +69,11 @@ import 'vue-tel-input/vue-tel-input.css';
 // https://tomosterlund.github.io/qalendar/guide.html
 import 'qalendar/dist/style.css'
 
+
+// https://www.npmjs.com/package/vue3-loading-skeleton
+import { SkeletonLoader } from "vue3-loading-skeleton";
+import "vue3-loading-skeleton/dist/style.css";
+
 // https://www.npmjs.com/package/@fullcalendar/vue3 #####################
 
 // https://www.npmjs.com/package/country-state-city
@@ -105,6 +110,7 @@ app.component("infinite-loading", InfiniteLoading);
 app.component('VCalendar', Calendar)
 app.component('VDatePicker', DatePicker)
 app.component('customPagination', customPagination)
+app.component("SkeletonLoader", SkeletonLoader);
 
 // custom components
 app.component('jobsDisplayVue', jobsDisplayVue)

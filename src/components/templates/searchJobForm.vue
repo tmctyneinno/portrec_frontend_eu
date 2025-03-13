@@ -31,7 +31,7 @@
                     </div>
                     <div class="col-lg-2">
                         <primaryButtonLoading v-if="formIsSearching" className="w-100" />
-                        <primaryButton v-else @click="searchJobs" className="w-100"
+                        <primaryButton :disabled="isLoadingPage" v-else @click="searchJobs" className="w-100"
                             :btnMainClass="fromHome ? 'btn-dark' : 'btn-primary'" btnType="submit">
                             Search
                         </primaryButton>
@@ -55,6 +55,10 @@ import { Country } from 'country-state-city';
 
 const prop = defineProps({
     fromHome: {
+        type: Boolean,
+        default: false
+    },
+    isLoadingPage: {
         type: Boolean,
         default: false
     }

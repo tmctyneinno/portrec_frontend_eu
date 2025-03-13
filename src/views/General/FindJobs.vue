@@ -1,6 +1,6 @@
 <template>
   <headerVue />
-  <overlayLoading v-if="jobsStore.loading" />
+  <!-- <overlayLoading v-if="jobsStore.loading" /> -->
   <div class="space-from-header"></div>
 
   <div class="min-vh-100">

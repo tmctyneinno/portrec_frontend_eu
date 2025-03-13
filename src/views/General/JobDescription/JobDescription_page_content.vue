@@ -1,7 +1,10 @@
 <template>
-  <overlayLoading v-if="loading" />
+  <JobDescriptionSkeleton v-if="loading" />
+  <!-- <overlayLoading v-if="loading" /> -->
+
 
   <div v-else class="animate__animated animate__fadeIn">
+
 
     <div class="section-panel section-panel-light py-3 py-md-4">
       <div class="container mb-5">
@@ -239,6 +242,7 @@ import jobApplicationModal2 from './jobApplication/modal2.vue';
 import jobApplicationModal3 from './jobApplication/modal3.vue';
 import jobApplicationModal4 from './jobApplication/modal4.vue';
 import useFunctions from '@/stores/Helpers/useFunctions';
+import JobDescriptionSkeleton from '@/components/skeletonLoaders/jobDescriptionSkeleton.vue';
 
 const job = useJobApplicationStore()
 const { currentJob, loading, modalOpen, currentModal } = storeToRefs(job)

@@ -102,6 +102,13 @@ function logout() {
     border-right: 1px solid #cccccc44;
     background-color: #f8f8fd;
     overflow-y: auto;
+    padding-bottom: 100px;
+}
+
+
+/* Customize the scrollbar sidebar */
+.sidebar::-webkit-scrollbar {
+    width: 0px !important;
 }
 
 .sidebar ul {

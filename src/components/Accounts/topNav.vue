@@ -2,9 +2,11 @@
     <div>
         <nav class="navbar fixed-top navbar-expand-sm navbar-light bg-white shadow-sm border-0">
             <div class="container">
-                <span class="navbar-brand fw-bold d-none d-md-block text-uppercase">
+                <span class="navbar-brand fw-bold d-none d-md-block "
+                    :class="{ 'text-uppercase': route.meta.auth !== 'user' }">
                     <!-- {{ route.meta.name }} -->
-                    {{ recruiterCommonStore.companyProfile?.data?.name }}
+
+                    {{ route.meta.auth === 'user' ? route.meta.name : recruiterCommonStore.companyProfile?.data?.name }}
                 </span>
                 <!-- <span class="d-none d-md-block" v-else>Company (<strong>Nomad</strong>)</span> -->
                 <span class="d-md-none xsmall">

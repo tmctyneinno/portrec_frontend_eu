@@ -61,6 +61,7 @@ export default [
             { path: 'user-profile/:id', name: 'recruiter-User_Profile', meta: { name: 'User Profile', auth: 'recruiter' }, component: () => import('../views/Account/Recruiter/UserProfile.vue') },
             { path: 'billings', name: 'recruiter-Billings', meta: { name: 'Billings', auth: 'recruiter' }, component: () => import('../views/Account/Recruiter/Billings.vue') },
             { path: 'initiate/subscription/payment', name: 'recruiter-Verify_Payment', meta: { name: 'Verify Payment', auth: 'recruiter' }, component: () => import('../views/Account/Recruiter/VerifyPayment.vue') },
+            { path: 'automation', name: 'recruiter-Automation', meta: { name: 'Automation', auth: 'recruiter' }, component: () => import('../views/Account/Recruiter/Automation/Automation.vue') },
         ],
     },
 ]

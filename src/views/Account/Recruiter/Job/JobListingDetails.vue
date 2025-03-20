@@ -97,7 +97,7 @@
                 </div>
 
                 <div class="tab-pane  py-4" id="tab3" role="tabpanel" aria-labelledby="tab3-tab">
-                    <div class="container">
+                    <div class="container-flui">
                         <div>
                             <span class="fw-bold">Budget Spent So Far:</span> <span>50,021.31</span>
                         </div>
@@ -107,14 +107,13 @@
                                     <div v-for="({ title, icon, iconBg, largeNumber, smallTxt, percentage }, index) in analyticsFirstForCards"
                                         :key="index" class="col-md-3">
                                         <div class="card bg-light h-100 ">
-                                            <div
-                                                class="card-header px-2 bg-transparent fw-bold text-muted border-0 small">
+                                            <div class="card-header bg-transparent fw-bold text-muted border-0 small">
                                                 {{ title }}
 
                                                 <i class="float-end  round-icon bi" :class="icon"
                                                     :style="{ backgroundColor: iconBg }"></i>
                                             </div>
-                                            <div class="card-body px-2">
+                                            <div class="card-body">
                                                 <span class="fs-5 fw-bold">
                                                     {{ useFxn.addCommas(largeNumber) }}
                                                 </span>

@@ -19,7 +19,7 @@
                 </div>
 
                 <div class="col-md-4">
-                    <input v-model="searchTerm" type="text" class="form-control" placeholder="search title..">
+                    <input v-model="searchTerm" type="text" class="form-control" placeholder="search applicant..">
                 </div>
             </div>
         </div>
@@ -37,11 +37,14 @@
                     <i v-if="item.score < 3" class="bi bi-star text-dark"></i>
                     <i v-else class="bi bi-star-fill text-warning"></i>
                     {{ item.score }}
-
                 </template>
 
                 <template #item-created_at="item">
                     {{ useFxn.dateDisplay(item.created_at) }}
+                </template>
+
+                <template #item-name="item">
+                    <a href="#" class="theme-color" @click="goToApplicantsDetails(item)"> {{ item?.user?.name }}</a>
                 </template>
 
                 <template #item-status="item">
@@ -51,12 +54,12 @@
                     </span>
                 </template>
 
-                <template #item-action="item">
+                <!-- <template #item-action="item">
                     <button @click="goToApplicantsDetails(item)"
                         class="btn btn-sm btn-primary-outline  border-0 rounded-5  text-decoration-none btn-sm p-1 px-2 ">
                         <i class="bi bi-eye"></i>
                     </button>
-                </template>
+                </template> -->
 
             </EasyDataTable>
         </div>
@@ -119,12 +122,12 @@ const serverOptions = ref<ServerOptions | any>({
 // table
 // const itemsSelected = ref([]);
 const tableHeader = ref([
-    { text: "Full Name", value: "user.name", sortable: true, },
+    { text: "Full Name", value: "name", sortable: true, },
     // { text: "Score", value: "score", sortable: true },
     { text: "Hiring Stage", value: "status", sortable: true },
     { text: "Applied Date", value: "created_at", sortable: true },
     { text: "Job Role", value: "job.title", sortable: true },
-    { text: "", value: "action" },
+    // { text: "", value: "action" },
 ]);
 
 
@@ -209,7 +212,7 @@ function goToApplicantsDetails(item: any) {
 </style>
 
 <style>
-.recruiter-applicants-table .vue3-easy-data-table__body td {
+/* .recruiter-applicants-table .vue3-easy-data-table__body td {
     cursor: pointer;
-}
+} */
 </style>

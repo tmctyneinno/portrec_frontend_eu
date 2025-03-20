@@ -1,5 +1,5 @@
 <template>
-    <div class="row g-3 m-0 pb-5">
+    <div v-if="componentShowing == 'list'" class="row g-3 m-0 pb-5">
         <div class="col-12">
             <div class="row g-3">
                 <div class="col-lg-8">
@@ -12,10 +12,6 @@
                 </div>
                 <div class="col-lg-4">
                     <label class="small">Filter by Date Posted</label>
-                    <!-- disable-year-select -->
-                    <!-- <VueDatePicker class="fw-bold" :format="date_display" range multi-calendars :clearable="false"
-                        :enable-time-picker="false" auto-apply v-model="dateRange">
-                    </VueDatePicker> -->
                     <CustomDateRangePicker v-model="dateRange" />
                 </div>
 
@@ -26,16 +22,22 @@
         </div>
 
         <div class="col-12">
-            <EasyDataTable show-index :loading="itemsLoading" alternating :headers="tableHeader" :items="items"
-                buttons-pagination v-model:server-options="serverOptions" :server-items-length="total">
+            <EasyDataTable class="job-listing-table" show-index :loading="itemsLoading" alternating
+                :headers="tableHeader" :items="items" buttons-pagination v-model:server-options="serverOptions"
+                :server-items-length="total">
 
                 <template #header="header">
                     <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
                 </template>
 
+                <template #item-title="item">
+                    <a href="#" @click="goToJobDetails(item)" class="theme-color hover-bold">{{ item.title }}</a>
+                </template>
+
                 <template #item-created_at="item">
                     {{ useFxn.dateDisplay(item.created_at) }}
                 </template>
+
 
                 <template #item-deadline="item">
                     {{ useFxn.dateDisplay(item.deadline) }}
@@ -69,35 +71,44 @@
             </EasyDataTable>
         </div>
     </div>
+    <JobListingDetailsComponent v-else />
 </template>
 
 <script lang="ts" setup>
-import { useProfileStore } from '@/stores/profileStore';
-import { useDateFormat } from '@vueuse/core';
-import { onMounted, ref, watch } from 'vue';
+import { onMounted, ref, watch, watchEffect } from 'vue';
 import useFxn from '@/stores/Helpers/useFunctions'
-import { useRecruiterCommonStore } from './RecruiterCommonStore';
+import { useRecruiterCommonStore } from '../RecruiterCommonStore';
 import api from '@/stores/Helpers/axios';
 import type { ServerOptions } from 'vue3-easy-data-table';
 import CustomDateRangePicker from '@/components/plugins/CustomDateRangePicker.vue';
+import { useRoute, useRouter } from 'vue-router';
+import JobListingDetailsComponent from './JobListingDetails.vue';
 
 const recruiterCommonStore = useRecruiterCommonStore()
 
-const profileStore = useProfileStore()
 onMounted(() => {
-    console.log(profileStore.data);
     getJobsList()
 })
 
 
-const dateRange = ref();
+const router = useRouter()
+const route = useRoute()
+
+const componentShowing = ref<'list' | 'details'>('list')
+
+watchEffect(() => {
+    componentShowing.value = route.query?.dd ? 'details' : 'list'
+})
+
+
+const dateRange = ref([]);
+
 
 const date_display = (date: Date[]) => {
-    const dateMe1 = useDateFormat(date[0], 'MMM D, YYYY')
-    const dateMe2 = useDateFormat(date[1], 'MMM D, YYYY')
-    return `${dateMe1.value} - ${dateMe2.value}`;
-}
-
+    if (!date || date.length < 2) return '';
+    const formatter = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    return `${formatter.format(date[0])} - ${formatter.format(date[1])}`;
+};
 
 
 
@@ -148,9 +159,6 @@ const searchOnInput = useFxn.debounce(getJobsList, 300);
 watch(searchTerm, () => { serverOptions.value.page = 1; searchOnInput(); }, { deep: true });
 
 
-
-
-
 // const itemsSelected = ref([]);
 const tableHeader = ref([
     { text: "Title", value: "title", sortable: true, },
@@ -187,6 +195,16 @@ function deleteJob(id: any) {
 
 }
 
+function goToJobDetails(item: any) {
+    router.push({ path: '', query: { job: item?.title ?? '', dd: item.id, tm: new Date().getTime(), } })
+}
+
 </script>
 
 <style lang="css" scoped></style>
+
+<!-- <style>
+.job-listing-table .vue3-easy-data-table__body td {
+    cursor: pointer;
+}
+</style> -->

@@ -53,7 +53,7 @@ export default [
             { path: 'messages', name: 'recruiter-Messages', meta: { name: 'Messages', auth: 'recruiter' }, component: () => import('../views/Account/Recruiter/Messages.vue') },
             { path: 'company', name: 'recruiter-Company_Profile', meta: { name: 'Company Profile', auth: 'recruiter' }, component: () => import('../views/Account/Recruiter/CompanyProfile/CompanyProfile.vue') },
             { path: 'applicants', name: 'recruiter-All_Applicants', meta: { name: 'Applicants', auth: 'recruiter' }, component: () => import('../views/Account/Recruiter/Applicants.vue') },
-            { path: 'job-listing', name: 'recruiter-Job_Listing', meta: { name: 'Job Listing', auth: 'recruiter' }, component: () => import('../views/Account/Recruiter/JobListing.vue') },
+            { path: 'job-listing', name: 'recruiter-Job_Listing', meta: { name: 'Job Listing', auth: 'recruiter' }, component: () => import('../views/Account/Recruiter/Job/JobListing.vue') },
             { path: 'schedules', name: 'recruiter-Schedule', meta: { name: 'Schedule', auth: 'recruiter' }, component: () => import('../views/Account/Recruiter/Schedule.vue') },
             { path: 'settings', name: 'recruiter-Settings', meta: { name: 'Settings', auth: 'recruiter' }, component: () => import('../views/Account/Recruiter/Settings.vue') },
             { path: 'help-center', name: 'recruiter-Help_Center', meta: { name: 'Help Center', auth: 'recruiter' }, component: () => import('../views/Account/Recruiter/HelpCenter.vue') },

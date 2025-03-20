@@ -10,7 +10,7 @@
         </div>
     </div>
 
-    <jobPosttingModal />
+    <jobPostingModal />
 </template>
 
 <script lang="ts" setup>
@@ -18,7 +18,7 @@ import sideBar from '@/components/Accounts/sideBar.vue'
 import topNav from '@/components/Accounts/topNav.vue'
 import { useProfileStore } from '@/stores/profileStore';
 import { onMounted } from 'vue';
-import jobPosttingModal from './JobPosting/jobPostingModal.vue'
+import jobPostingModal from './Job/jobPostingModal.vue'
 import { useRecruiterCommonStore } from './RecruiterCommonStore';
 
 const profileStore = useProfileStore()

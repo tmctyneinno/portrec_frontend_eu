@@ -96,6 +96,10 @@ input::placeholder, textarea::placeholder {
   transform: translateY(-5px);
 }
 
+.hover-bold:hover{
+font-weight: bold;
+}
+
 /* SECTION */
 
 .section-panel {

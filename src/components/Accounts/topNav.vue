@@ -2,8 +2,10 @@
     <div>
         <nav class="navbar fixed-top navbar-expand-sm navbar-light bg-white shadow-sm border-0">
             <div class="container">
-                <span class="navbar-brand fw-bold d-none d-md-block">{{
-                    route.meta.name }}</span>
+                <span class="navbar-brand fw-bold d-none d-md-block text-uppercase">
+                    <!-- {{ route.meta.name }} -->
+                    {{ recruiterCommonStore.companyProfile?.data?.name }}
+                </span>
                 <!-- <span class="d-none d-md-block" v-else>Company (<strong>Nomad</strong>)</span> -->
                 <span class="d-md-none xsmall">
                     <img src="/images/site_logo.png" width="100" alt="site_logo">
@@ -59,7 +61,7 @@
 <script lang="ts" setup>
 import { useRoute, useRouter } from 'vue-router'
 import sideBarMobile from './sideBarMobile.vue';
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useRecruiterCommonStore } from '@/views/Account/Recruiter/RecruiterCommonStore';
 import { useProfileStore } from '@/stores/profileStore';
 
@@ -70,6 +72,12 @@ const router = useRouter()
 const profileStore = useProfileStore()
 
 const prop = defineProps(['userType'])
+
+onMounted(() => {
+    if (!recruiterCommonStore.companyProfile?.data?.name) {
+        recruiterCommonStore.getCompanyInformation()
+    }
+})
 
 
 async function visitLinkFromNotification(not: any) {

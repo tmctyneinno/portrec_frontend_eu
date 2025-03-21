@@ -16,17 +16,20 @@
             </div>
             <div class="col-12 mt-4">
                 <div class="row g-4">
-                    <div v-for="(cat, index) in visibleItems" :key="index" class="col-md-4 col-lg-3">
+                    <div v-for="(cat, index) in visibleItems" :key="index" class="col-md-4 col-lg-2">
                         <div @click="gotoFindJobs(cat.id)" class="card explore-card shadow-sm  hover-tiltY h-100">
                             <div class="card-body">
                                 <div class="card-icon theme-color"><i class="bi" :class="cateIcon(cat.name)"></i> </div>
-                                <h4 class="card-title fw-light my-2 text-capitalize">{{ cat.name }}</h4>
+                                <h6 class="card-title fw-light my-2 text-capitalize">{{ cat.name }}</h6>
                             </div>
 
                             <div class=" card-footer bg-transparent border-0">
-                                <span class="float-end fw-bolder">{{ cat.total_jobs }}
-                                    {{ cat.total_jobs == 1 ? 'job' : 'jobs' }} available
-                                    <i class="bi bi-arrow-right"></i></span>
+                                <span class="float-end fw-bolder small">
+                                    <!-- {{ cat.total_jobs }}
+                                    {{ cat.total_jobs == 1 ? 'job' : 'jobs' }} -->
+                                    view available jobs
+                                    <!-- <i class="bi bi-arrow-right"></i> -->
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -126,14 +129,14 @@ function gotoFindJobs(id: any) {
 }
 
 .card-icon {
-    font-size: 2rem;
+    font-size: 1.3rem;
 }
 
 .explore-card {
     /* border-radius: 0%; */
     cursor: pointer;
     border: 0px;
-    min-height: 200px;
+    min-height: 100px;
 }
 
 .explore-card:hover {

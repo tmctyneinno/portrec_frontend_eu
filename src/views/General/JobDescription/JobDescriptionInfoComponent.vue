@@ -5,7 +5,7 @@
     <div class="col-lg-8">
 
       <div class="py-3">
-        <h4 class="fw-bold">Description</h4>
+        <h5 class="fw-bold">Description</h5>
         <div v-html="currentJob?.description ?? ''" class="card m-0 p-0 border-0">
         </div>
       </div>
@@ -13,7 +13,7 @@
       <div class="card p-0 border-0">
         <div class="card-body p-0">
           <div v-for="(qualification, i) in JSON.parse(currentJob?.other_qualifications ?? '[]')" :key="i" class="py-3">
-            <h4 class="fw-bold">{{ qualification.title.replaceAll('_', ' ') }}</h4>
+            <h5 class="fw-bold">{{ qualification.title.replaceAll('_', ' ') }}</h5>
             <ul class="list-group list-group-flush ">
               <li v-for="(description, d) in qualification.descriptions" :key="d"
                 class="list-group-item border-0 px-0 ">
@@ -32,7 +32,7 @@
     </div>
     <div class="col-lg-4">
       <div class="py-3">
-        <h4 class="fw-bold">About this job</h4>
+        <h5 class="fw-bold">About this job</h5>
         <div v-if="currentJob?.total_applied" class="card p-3 border-0 bg-light">
           <div class="fw-bold small">
             <!-- {{ currentJob?.total_applied }} applied of {{ currentJob?.capacity }} capacity -->
@@ -78,7 +78,7 @@
       <hr>
 
       <div class="py-2  border-0">
-        <h4 class="fw-bold">Category</h4>
+        <h5 class="fw-bold">Category</h5>
         <span class=" text-capitalize" :class="currentJob?.industry?.name ?? '' + '-tag'">
           {{ currentJob?.industry?.name ?? '' }}
         </span>

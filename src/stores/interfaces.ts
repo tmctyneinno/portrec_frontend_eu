@@ -70,7 +70,8 @@ export interface SummitInterface {
     theme: string,
     dateTime: Date,
     location: string,
-    speakers: { name: string, title: string }[]
+    speakers: { name: string, title: string }[],
+    otherDetails?: any
 }
 
 export type JobStatusInterface = 'ALL' | 'IN_REVIEW' | 'SHORTLISTED' | 'OFFERED' | 'REJECTED' | 'INTERVIEWING'

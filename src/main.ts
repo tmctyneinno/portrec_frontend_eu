@@ -7,8 +7,6 @@ import 'bootstrap/dist/js/bootstrap.min.js'
 //bootstrap-icons
 import 'bootstrap-icons/font/bootstrap-icons.css'
 
-// custom css
-import './assets/css/custom.css'
 
 // animate.css
 import 'animate.css';
@@ -96,6 +94,9 @@ import { createPinia } from 'pinia'
 
 import App from './App.vue'
 import router from './router'
+
+// custom css
+import './assets/css/custom.css'
 
 const pinia = createPinia()
 pinia.use(piniaPersist)

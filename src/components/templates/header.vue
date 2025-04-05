@@ -27,12 +27,11 @@
             </div>
 
           </li>
-          <li class="nav-item">
-            <!-- <router-link v-if="route.path != `/for-talent`" class="nav-link" to="/for-talent">For Talent</router-link> -->
+          <!-- <li class="nav-item">
             <router-link class="nav-link" to="/for-talent">For Talent</router-link>
-          </li>
+          </li> -->
           <li v-for="({ title, routePath }, i) in templateStore.navBarMenus" :key="i" class="nav-item ">
-            <router-link class="nav-link mx-4 " :class="{ 'text-white': route.path == '/' && !headerDropped }"
+            <router-link class="nav-link me-2 " :class="{ 'text-white': route.path == '/' && !headerDropped }"
               :to="routePath">
               {{ title }}
             </router-link>
@@ -145,6 +144,7 @@ function goToTalentPage(ref: number, tag: string) {
 
 .dropdown:hover .dropdown-menu {
   display: block;
+  min-height: 150px;
 }
 
 .dropdown-item:hover {

@@ -22,6 +22,11 @@ export default [
         component: () => import(/* webpackChunkName: "talent" */  '../views/General/ForTalent.vue')
     },
     {
+        path: '/summits',
+        name: 'Summits',
+        component: () => import(/* webpackChunkName: "talent" */  '../views/General/Summits/Summits.vue')
+    },
+    {
         path: '/contact',
         name: 'Contact',
         component: () => import( /* webpackChunkName: "general" */  '../views/General/Contact.vue')

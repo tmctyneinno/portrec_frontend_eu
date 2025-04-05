@@ -588,6 +588,16 @@ input[type="radio"]:checked+label:before {
 
 
 
+.carousel__pagination-button::after {
+  display: block;
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  /* background-color: var(--theme-color); */
+}
+
+
 
 /* Customize the scrollbar modal-body */
 /* .modal-body::-webkit-scrollbar {

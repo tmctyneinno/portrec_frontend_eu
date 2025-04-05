@@ -26,7 +26,7 @@
                 <div class="card-body">
                     You’re not automatically messaging candidates yet. <br>
                     Choose a job to get started. <br>
-                    <button class="btn btn-secondary mt-3">Get Started</button>
+                    <!-- <button class="btn btn-secondary mt-3">Get Started</button>  -->
                 </div>
             </div>
         </div>
@@ -66,6 +66,7 @@
         </div>
     </div>
 
+    <!-- modals -->
     <AutomationSetUp1 />
 </template>
 
@@ -98,7 +99,6 @@ const automationStore = useAutomationStore()
 function openSetupModal(modalName: ModalNames) {
     automationStore.setupModals[modalName] = !automationStore.setupModals[modalName]
 }
-
 
 </script>
 

@@ -64,5 +64,14 @@ export interface PortfolioInterface {
     project_url: string,
 }
 
+export interface SummitInterface {
+    id: string,
+    title: string,
+    theme: string,
+    dateTime: Date,
+    location: string,
+    speakers: { name: string, title: string }[]
+}
+
 export type JobStatusInterface = 'ALL' | 'IN_REVIEW' | 'SHORTLISTED' | 'OFFERED' | 'REJECTED' | 'INTERVIEWING'
 

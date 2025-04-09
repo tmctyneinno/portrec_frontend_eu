@@ -22,5 +22,12 @@ export default {
         return $instance.post(`contact_message/send/message`, obj)
     },
 
+    summits() {
+        return $instance.get(`summits`)
+    },
+
+    summitsDetails(id: any) {
+        return $instance.get(`summit/${id}`,)
+    },
 
 }

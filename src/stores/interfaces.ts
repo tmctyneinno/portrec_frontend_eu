@@ -67,11 +67,13 @@ export interface PortfolioInterface {
 export interface SummitInterface {
     id: string,
     title: string,
+    image?: string,
     theme: string,
-    dateTime: Date,
-    location: string,
+    summit_date: string,
+    venue: string,
     speakers: { name: string, title: string }[],
-    otherDetails?: any
+    content?: any,
+    link?: any
 }
 
 export type JobStatusInterface = 'ALL' | 'IN_REVIEW' | 'SHORTLISTED' | 'OFFERED' | 'REJECTED' | 'INTERVIEWING'

@@ -1,7 +1,7 @@
 <template>
   <JobDescriptionInfoSkeleton v-if="isLoadingdetails" />
   <div v-else class="py-5 container animate__animated animate__fadeIn">
-    <div class="row g-3">
+    <div class="row g-3 mb-5">
       <div class="col-md-8">
         <!-- <div class="section-title fs-5 mb-2">
           Recent summits
@@ -31,7 +31,7 @@
                 <div v-html="summitDetails?.content">
                 </div>
 
-                <div class="mt-3">
+                <div class="mt-5">
                   <PrimaryButton @click="goToSummitLink">
                     Register to attend
                   </PrimaryButton>

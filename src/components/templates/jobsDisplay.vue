@@ -22,7 +22,7 @@
                             {{ job.company?.country ?? '' }}
                         </span> -->
 
-                        <div class="fw-bolder text-nowrap">
+                        <div v-if="job.min_salary && job.max_salary" class="fw-bolder text-nowrap">
                             ({{ job.min_salary }} - {{ job.max_salary }})
                             {{ job.currency?.currency }}
                         </div>

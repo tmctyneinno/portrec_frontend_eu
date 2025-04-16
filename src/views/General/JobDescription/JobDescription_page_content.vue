@@ -43,7 +43,7 @@
                       <span @click="shareLink" class="line-right pe-4 me-3 cursor-pointer">
                         <i class="bi bi-share"></i>
                       </span>
-                      <div v-if="new Date(currentJob.deadline).toDateString() < new Date().toDateString()">
+                      <div v-if="hasPassedDeadline()">
                         <div class="small text-muted fst-italic text-center">No longer accepting candidates</div>
                         <primaryButton :disabled="true" className="w-100">
                           Apply
@@ -220,6 +220,17 @@ function goToJob(id: any, title: '') {
       t: new Date().getTime(),
     }
   })
+}
+
+const hasPassedDeadline = () => {
+  const deadline = new Date(currentJob.value.deadline)
+  const today = new Date()
+  // Set both dates to midnight
+  deadline.setHours(0, 0, 0, 0);
+  today.setHours(0, 0, 0, 0);
+
+  return deadline < today
+
 }
 
 

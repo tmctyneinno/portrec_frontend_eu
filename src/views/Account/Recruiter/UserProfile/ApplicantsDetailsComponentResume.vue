@@ -28,7 +28,7 @@ const userResume = computed(() => {
         <a :href="userResume" download class="btn btn-dark mt-3 float-end w-100" target="_blank">Download Resume</a>
     </div>
     <div v-else class="text-center text-muted">
-        Resume invalid
+        Resume not found
     </div>
     <!-- <div class="d-flex justify-content-center overflow-hidden">
         <VuePDF text-layer annotation-layer :pdf="pdf" />

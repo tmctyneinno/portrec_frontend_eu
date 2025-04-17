@@ -11,8 +11,8 @@
             <h4 class="card-title fw-bold mt-3">{{ details.title }}</h4>
             <div class="card-text  mt-2">
               <div>Theme: {{ details.theme }}</div>
-              <div>Date & Time: {{ details.dateTime.toUTCString() }}</div>
-              <div>Location: {{ details.location }}</div>
+              <div>Date & Time: {{ new Date(details.summit_date).toUTCString() }}</div>
+              <div>Location: {{ details.venue }}</div>
               <div class="mt-2">
                 Speakers:
                 <ul>
@@ -132,21 +132,16 @@ import { ref } from 'vue';
 
 const summitStore = useSummitStore()
 
-
 const details = ref<SummitInterface>({
   id: '1',
   title: 'Portrec Global Innovation Summit 2024',
   theme: 'The Future of Digital Governance',
-  dateTime: new Date(),
-  location: 'Virtual (YouTube Live)',
+  summit_date: '2025-04-04',
+  venue: 'Virtual (YouTube Live)',
   speakers: [
     { name: 'John Doe', title: 'CEO, TechCorp' },
     { name: 'Jane Smith', title: 'AI Expert, FutureTech' },
   ],
-  otherDetails: {
-
-  }
-
 })
 
 const schedulesTable = ref<{ time: string, session: string, speaker: string }[]>([

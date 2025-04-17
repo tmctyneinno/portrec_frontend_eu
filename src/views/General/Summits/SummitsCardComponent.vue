@@ -1,7 +1,7 @@
 <template>
 
   <div @click="goToSubmitDetails()" class="card text-start summit-card h-100 rounded-top-4">
-    <img class="card-img-top" src="images/summitImage.png" alt="Title" />
+    <img class="card-img-top" src="/images/summitImage.png" alt="Title" />
     <div class="card-body pb-0">
       <h6 class="card-title fw-bold small">{{ obj?.title }}</h6>
       <div class="card-text xsmall mt-2">
@@ -78,7 +78,7 @@ function goToSubmitDetails() {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('images/summitImage.png');
+  background-image: url('/images/summitImage.png');
   background-size: cover;
   background-position: center;
   transition: top 0.5s ease-in-out;

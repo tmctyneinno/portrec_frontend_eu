@@ -197,12 +197,12 @@ const locations = [
         value: "enquiries@portrec.ng",
         href: "mailto:enquiries@portrec.ng",
       },
-      {
-        type: "link",
-        icon: "bi bi-telephone",
-        value: "+234 (1) 700-1770",
-        href: "tel:+234 (1) 700-1770",
-      },
+      // {
+      //   type: "link",
+      //   icon: "bi bi-telephone",
+      //   value: "+234 (1) 700-1770",
+      //   href: "tel:+234 (1) 700-1770",
+      // },
       {
         type: "link",
         icon: "bi bi-telephone",

@@ -25,7 +25,7 @@ const router = createRouter({
 })
 
 router.afterEach((to, from) => {
-  document.title = "PORTREC | " + to.name?.toString()
+  document.title = "PORTREC RESOURCING | " + to.name?.toString()
 })
 
 export default router

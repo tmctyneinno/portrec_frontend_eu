@@ -95,6 +95,9 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 
+// https://unhead.unjs.io/
+import { createHead } from '@unhead/vue/client'
+
 // custom css
 import './assets/css/custom.css'
 
@@ -102,6 +105,7 @@ const pinia = createPinia()
 pinia.use(piniaPersist)
 
 const app = createApp(App)
+const head = createHead()
 
 app.component('VueDatePicker', VueDatePicker);
 app.component('vSelect', vSelect);
@@ -126,6 +130,7 @@ app.use(GoogleSignInPlugin, {
     clientId: import.meta.env.VITE_GOOGLE_CLIENT_ID,
 });
 
+app.use(head)
 app.use(pinia)
 app.use(VueApexCharts);
 app.use(VueSweetalert2);

@@ -33,9 +33,9 @@
     <div class="col-lg-4">
       <div class="py-3">
         <h5 class="fw-bold">About this job</h5>
-        <div v-if="currentJob?.total_applied" class="card p-3 border-0 bg-light">
+        <!-- <div v-if="currentJob?.total_applied" class="card p-3 border-0 bg-light">
           <div class="fw-bold small">
-            <!-- {{ currentJob?.total_applied }} applied of {{ currentJob?.capacity }} capacity -->
+            {{ currentJob?.total_applied }} applied of {{ currentJob?.capacity }} capacity
             {{ currentJob?.total_applied }} applied
           </div>
           <div class="progress mt-2 mb-0 rounded-0" role="progressbar" :aria-valuenow="currentJob.total_applied"
@@ -44,7 +44,7 @@
               :style="`width: ${(currentJob?.total_applied / currentJob?.capacity) * 100}%`">
             </div>
           </div>
-        </div>
+        </div> -->
 
         <div class="col-12 mt-3">
           <ul class="list-group list-group-flush">

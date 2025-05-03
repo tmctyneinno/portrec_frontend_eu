@@ -233,15 +233,15 @@
                                 <button @click="goToJob(job.id, job.title)"
                                   class="btn p-2 btn-primary rounded- w-100">Details</button>
 
-                                <div class="progress mt-2 mb-0 rounded-0" role="progressbar"
+                                <!-- <div class="progress mt-2 mb-0 rounded-0" role="progressbar"
                                   :aria-valuenow="job.total_applied" aria-valuemin="0" :aria-valuemax="job.capacity"
                                   style="height: 5px">
                                   <div class="progress-bar bg-danger"
                                     :style="`width: ${(job.total_applied / job.capacity) * 100}%`">
                                   </div>
                                 </div>
-                                <!-- <small>{{ job.total_applied }} applied of {{ job.capacity }} capacity</small> -->
-                                <small>{{ job.total_applied }} applied.</small>
+                                <small>{{ job.total_applied }} applied of {{ job.capacity }} capacity</small>
+                                <small>{{ job.total_applied }} applied.</small> -->
                               </div>
                             </div>
                           </div>

@@ -101,7 +101,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeMount, ref, watchEffect } from 'vue';
+import { computed, onBeforeMount, ref, watch, watchEffect } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { onBeforeRouteLeave } from 'vue-router';
 import { useJobApplicationStore } from '@/stores/jobApplicationStore';
@@ -109,8 +109,11 @@ import { useDateFormat } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
 import api from '@/stores/Helpers/axios'
 import { useShare } from '@vueuse/core'
-//@ts-ignore
-import numeral from 'numeral';
+//@ts-ignor
+
+// import useMetaTags from '@/stores/Helpers/useMetaTags';
+import { useSeoMeta } from '@unhead/vue'
+
 
 const imageFallback = ref<boolean>(false)
 
@@ -236,6 +239,14 @@ const hasPassedDeadline = () => {
 
 onBeforeRouteLeave(() => {
   modalOpen.value = false
+})
+
+
+useSeoMeta({
+  title: computed(() => currentJob.value?.title),
+  description: 'Apply at Portrec',
+  ogUrl: route.fullPath,
+  ogTitle: computed(() => currentJob.value?.title),
 })
 
 </script>

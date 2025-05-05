@@ -60,6 +60,11 @@
                                 <span class="fw-bold text-muted">{{ header.text == '#' ? 'S/N' : header.text }}</span>
                             </template>
 
+                            <template #item-name="item">
+                                <a href="#" class="theme-color" @click="goToApplicantsDetails(item)"> {{
+                                    item?.user?.name }}</a>
+                            </template>
+
                             <template #item-score="item">
                                 <i v-if="item.score < 3" class="bi bi-star text-dark"></i>
                                 <i v-else class="bi bi-star-fill text-warning"></i>
@@ -305,10 +310,18 @@ watch(searchTerm, () => { serverOptions.value.page = 1; searchOnInput(); }, { de
 
 
 
+function goToApplicantsDetails(item: any) {
+    router.push({ path: '/recruiter/applicants' })
+    recruiterCommonStore.jobApplication.currentIdShowing = item.id;
+    recruiterCommonStore.jobApplication.showing = 'details'
+    recruiterCommonStore.getJobApplication()
+}
+
+
 
 // const itemsSelected = ref([]);
 const tableHeader = ref([
-    { text: "Full Name", value: "user.name", sortable: true, },
+    { text: "Full Name", value: "name", sortable: true, },
     // { text: "Score", value: "score", sortable: true },
     { text: "Hiring Stage", value: "status", sortable: true },
     { text: "Applied Date", value: "created_at", sortable: true },

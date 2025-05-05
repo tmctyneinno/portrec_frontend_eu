@@ -52,7 +52,8 @@
                             class="list-group-item border-0 text-capitalize small">
                             <input @change="respondToCheckBox('type_id', x.id)" class="form-check-input me-1"
                               type="checkbox" :value="x.id" v-model="checked.type_id">
-                            {{ x.name }} ({{ x.total_jobs }})
+                            {{ x.name }}
+                            <!-- ({{ x.total_jobs }}) -->
                           </label>
 
                         </div>
@@ -84,7 +85,7 @@
                               {{ useFunctions.truncateStr(x?.name ?? '', 15) }}
                             </span>
                             <span v-else> {{ x.name }}</span>
-                            ({{ x?.total_jobs ?? 0 }})
+                            <!-- ({{ x?.total_jobs ?? 0 }}) -->
                           </label>
 
                         </div>
@@ -112,7 +113,8 @@
                             class="list-group-item border-0 text-capitalize small">
                             <input @change="respondToCheckBox('level_id', x.id)" class="form-check-input me-1"
                               type="checkbox" :value="x.id" v-model="checked.level_id">
-                            {{ x.name }} ({{ x.total_jobs }})
+                            {{ x.name }}
+                            <!-- ({{ x.total_jobs }}) -->
                           </label>
 
                         </div>

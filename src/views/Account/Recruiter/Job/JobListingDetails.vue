@@ -34,10 +34,10 @@
                     <button class="nav-link" id="tab2-tab" data-bs-toggle="tab" data-bs-target="#tab2" type="button"
                         role="tab" aria-controls="tab2" aria-selected="false">Job Details</button>
                 </li>
-                <li class="nav-item" role="presentation">
+                <!-- <li class="nav-item" role="presentation">
                     <button class="nav-link" id="tab3-tab" data-bs-toggle="tab" data-bs-target="#tab3" type="button"
                         role="tab" aria-controls="tab3" aria-selected="false">Analytics</button>
-                </li>
+                </li> -->
             </ul>
 
             <div class="tab-content">

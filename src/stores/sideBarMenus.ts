@@ -84,12 +84,12 @@ const recruiterMenu = [
         isPremium: false
     },
 
-    {
-        title: 'Automation',
-        routeName: 'recruiter-Automation',
-        icon: 'bi bi-arrow-repeat',
-        isPremium: false
-    },
+    // {
+    //     title: 'Automation',
+    //     routeName: 'recruiter-Automation',
+    //     icon: 'bi bi-arrow-repeat',
+    //     isPremium: false
+    // },
     {
         title: 'Applicants',
         routeName: 'recruiter-All_Applicants',

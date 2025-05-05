@@ -73,7 +73,7 @@
                                 Overview
                             </button>
                         </li>
-                        <li class="nav-item" role="presentation">
+                        <!-- <li class="nav-item" role="presentation">
                             <button class="nav-link" id="tab2-tab" data-bs-toggle="tab" data-bs-target="#tab2"
                                 type="button" role="tab" aria-controls="tab2" aria-selected="false">
                                 Jobs View
@@ -84,7 +84,7 @@
                                 type="button" role="tab" aria-controls="tab3" aria-selected="false">
                                 Jobs Applied
                             </button>
-                        </li>
+                        </li> -->
                     </ul>
 
                     <div class="tab-content" style="min-height: 300px;">

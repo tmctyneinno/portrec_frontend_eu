@@ -43,7 +43,8 @@
                         <div class="card-body">
                             <div class="fw-bold"> {{ jobApplication.details?.job?.title }} </div>
                             <div class="text-muted text-capitalize">{{ jobApplication.details?.job?.industry?.name }}
-                                ({{ jobApplication.details?.job?.job_type?.name }})
+                                <span v-if="jobApplication.details?.job?.job_type?.name">({{
+                                    jobApplication.details?.job?.job_type?.name }})</span>
                             </div>
                         </div>
                     </div>

@@ -87,7 +87,7 @@ import JobListingDetailsComponent from './JobListingDetails.vue';
 const recruiterCommonStore = useRecruiterCommonStore()
 
 onMounted(() => {
-    getJobsList()
+    if (dateRange.value.length) getJobsList()
 })
 
 

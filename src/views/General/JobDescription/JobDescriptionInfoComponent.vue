@@ -109,7 +109,7 @@
     <div class="col-12">
       <div class="row g-3">
 
-        <div v-for="benefit in JSON.parse(currentJob?.benefits ?? '[]')" :key="benefit" class="col-md-6 col-lg-3">
+        <div v-for="benefit in JSON.parse(currentJob?.benefits ?? '[]')" :key="benefit" class="col-md-6 col-lg-4">
           <div class="card border-0">
             <div class="benefit-icon">
               <i class="bi bi-check-circle"></i>

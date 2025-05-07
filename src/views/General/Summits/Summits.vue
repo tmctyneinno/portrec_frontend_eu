@@ -11,7 +11,7 @@
     <div v-if="isLoadingSummits" class="min-vh-100 d-flex justify-content-center align-items-center">
       <ComponentLoading />
     </div>
-    <div v-else class="pt-4 container animate__animated animate__fadeIn">
+    <div v-else class="pt-4 container animate__animated animate__fadeIn min-vh-100">
 
       <div class="section-panel">
         <div class="col-lg-8">

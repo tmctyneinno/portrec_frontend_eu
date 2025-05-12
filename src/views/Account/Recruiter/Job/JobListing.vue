@@ -47,24 +47,27 @@
 
                 <template #item-action="item">
                     <span class="me-3">
-                        <button v-if="item.total_applied == 0" @click="editJob(item)"
+                        <!-- <button v-if="item.total_applied != 0"
+                            class="btn btn-sm border-0 text-decoration-none text-muted2 btn-sm p-1 px-2 cursor-notallowed  ">
+                            <i class="bi bi-pencil"></i>
+                        </button> -->
+
+                        <button @click="editJob(item)"
                             class="btn btn-sm btn-primary-outline border-0 rounded-5  text-decoration-none btn-sm p-1 px-2  ">
                             <i class="bi bi-pencil-fill"></i>
                         </button>
-                        <button v-else
-                            class="btn btn-sm border-0 text-decoration-none text-muted2 btn-sm p-1 px-2 cursor-notallowed  ">
-                            <i class="bi bi-pencil"></i>
-                        </button>
+
                     </span>
                     <span>
-                        <button v-if="item.total_applied == 0" @click="deleteJob(item.id)"
+                        <!-- <button v-if="item.total_applied != 0"
+                            class="btn btn-sm  border-0  text-decoration-none text-muted2 btn-sm p-1 px-2 cursor-notallowed ">
+                            <i class="bi bi-trash3"></i>
+                        </button> -->
+                        <button @click="deleteJob(item.id)"
                             class="btn btn-sm btn-outline-danger border-0 rounded-5  text-decoration-none btn-sm p-1 px-2 ">
                             <i class="bi bi-trash3"></i>
                         </button>
-                        <button v-else
-                            class="btn btn-sm  border-0  text-decoration-none text-muted2 btn-sm p-1 px-2 cursor-notallowed ">
-                            <i class="bi bi-trash3"></i>
-                        </button>
+
                     </span>
                 </template>
 

@@ -81,10 +81,12 @@ async function applyForJob() {
 
     isApplying.value = true
     try {
-        const resp = store.applyData.isAuthUser ? await api.applyJob(newForm) : await api.applyJobGuest(newForm)
+        const isAuthUser = store.applyData.isAuthUser
+        const resp = isAuthUser ? await api.applyJob(newForm) : await api.applyJobGuest(newForm)
         console.log(resp);
         isApplying.value = false
-        useFxn.toast('Application sent!', 'success')
+        const successMsg = isAuthUser ? '' : ', A profile was created for you, please check your email';
+        useFxn.toast(`Application sent! ${successMsg}`, 'success')
         store.modalOpen = false
         store.resetForm()
         store.currentJobQuery(store.currentJob.id)

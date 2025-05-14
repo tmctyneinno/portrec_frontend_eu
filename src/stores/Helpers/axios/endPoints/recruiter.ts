@@ -55,6 +55,10 @@ export default {
         return $instance.delete(`recruiter/job/delete/${id}`,)
     },
 
+    recruiterToggleJobStatus(id: any) {
+        return $instance.get(`recruiter/job/toggle-status/${id}`,)
+    },
+
     recruiterJobApplicationsList(data: Object) {
         return $instance.post(`recruiter/job/applications`, JSON.stringify(data))
     },

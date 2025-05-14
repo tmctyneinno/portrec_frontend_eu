@@ -43,6 +43,13 @@
                     {{ useFxn.dateDisplay(item.deadline) }}
                 </template>
 
+                <template #item-status="item">
+                    <i @click="toggleJobStatus(item.id, item.status)"
+                        :class="item.status == 0 ? 'bi-toggle-on text-success' : 'bi-toggle-off text-secondary'"
+                        class="bi  fs-2 lh-1  cursor-pointer"></i>
+                </template>
+
+
 
 
                 <template #item-action="item">
@@ -59,11 +66,12 @@
 
                     </span>
                     <span>
-                        <!-- <button v-if="item.total_applied != 0"
+                        <button v-if="item.total_applied != 0"
+                            title="Cannot delete this job because it has one or more applicants."
                             class="btn btn-sm  border-0  text-decoration-none text-muted2 btn-sm p-1 px-2 cursor-notallowed ">
                             <i class="bi bi-trash3"></i>
-                        </button> -->
-                        <button @click="deleteJob(item.id)"
+                        </button>
+                        <button v-else @click="deleteJob(item.id)"
                             class="btn btn-sm btn-outline-danger border-0 rounded-5  text-decoration-none btn-sm p-1 px-2 ">
                             <i class="bi bi-trash3"></i>
                         </button>
@@ -168,8 +176,9 @@ const tableHeader = ref([
     // { text: "Status", value: "status", sortable: true },
     { text: "Date Posted", value: "created_at", sortable: true },
     { text: "Due Date", value: "deadline", sortable: true },
-    { text: "Job Type", value: "job_type.name", sortable: true },
-    { text: "Applicants", value: "total_applied", sortable: true },
+    // { text: "Job Type", value: "job_type.name", sortable: true },
+    // { text: "Applicants", value: "total_applied", sortable: true },
+    { text: "Status", value: "status", sortable: true },
     // { text: "Score", value: "score", sortable: true },
     { text: "Edit/Delete", value: "action" },
 ]);
@@ -186,6 +195,26 @@ function deleteJob(id: any) {
                 const resp = await api.recruiterJobDelete(id)
                 if (resp.status == 200) {
                     useFxn.toast('Job Opening Deleted', 'success')
+                    getJobsList()
+                }
+            } catch (error) {
+                // 
+            }
+        }
+
+
+    })
+
+}
+
+function toggleJobStatus(id: any, status: any) {
+    const action = status != 0 ? 'Activate' : 'Deactivate'
+    useFxn.confirm(`Only Active Jobs will appear on Search results`, `${action}`).then(async (confirm) => {
+        if (confirm.value) {
+            try {
+                const resp = await api.recruiterToggleJobStatus(id)
+                if (resp.status == 200) {
+                    useFxn.toast('Status Updated', 'success')
                     getJobsList()
                 }
             } catch (error) {

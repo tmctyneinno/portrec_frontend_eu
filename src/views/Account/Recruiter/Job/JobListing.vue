@@ -44,9 +44,11 @@
                 </template>
 
                 <template #item-status="item">
-                    <i @click="toggleJobStatus(item.id, item.status)"
-                        :class="item.status == 0 ? 'bi-toggle-on text-success' : 'bi-toggle-off text-secondary'"
-                        class="bi  fs-2 lh-1  cursor-pointer"></i>
+                    <i data-bs-toggle="tooltip"
+                        :data-bs-title="`Toggle to ${item.status == '0' ? 'Deactivate' : 'Activate'}`"
+                        @click="toggleJobStatus(item.id, item.status)"
+                        :class="item.status == 0 ? 'bi-toggle2-on text-success' : 'bi-toggle2-off text-secondary'"
+                        class="bi  fs-3 lh-1  cursor-pointer"></i>
                 </template>
 
 
@@ -66,8 +68,8 @@
 
                     </span>
                     <span>
-                        <button v-if="item.total_applied != 0"
-                            title="Cannot delete this job because it has one or more applicants."
+                        <button v-if="item.total_applied != 0" data-bs-toggle="tooltip"
+                            data-bs-title="Cannot delete this job because it has one or more applicants."
                             class="btn btn-sm  border-0  text-decoration-none text-muted2 btn-sm p-1 px-2 cursor-notallowed ">
                             <i class="bi bi-trash3"></i>
                         </button>
@@ -94,8 +96,10 @@ import type { ServerOptions } from 'vue3-easy-data-table';
 import CustomDateRangePicker from '@/components/plugins/CustomDateRangePicker.vue';
 import { useRoute, useRouter } from 'vue-router';
 import JobListingDetailsComponent from './JobListingDetails.vue';
+import { useTemplateStore } from '@/stores/templateStore';
 
 const recruiterCommonStore = useRecruiterCommonStore()
+const templateStore = useTemplateStore()
 
 onMounted(() => {
     if (dateRange.value.length) getJobsList()
@@ -152,6 +156,8 @@ async function getJobsList() {
         total.value = resp.total
         items.value = data.data
         itemsLoading.value = false
+
+        templateStore.activateToolTip += 1
         // console.log(resp, 'jobs recruuterrrrr');
     } catch (error) {
         // 
@@ -178,7 +184,7 @@ const tableHeader = ref([
     { text: "Due Date", value: "deadline", sortable: true },
     // { text: "Job Type", value: "job_type.name", sortable: true },
     // { text: "Applicants", value: "total_applied", sortable: true },
-    { text: "Status", value: "status", sortable: true },
+    { text: "Status", value: "status", sortable: false },
     // { text: "Score", value: "score", sortable: true },
     { text: "Edit/Delete", value: "action" },
 ]);

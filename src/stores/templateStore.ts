@@ -1,7 +1,10 @@
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useTemplateStore = defineStore('template', () => {
+
+  const activateToolTip = ref<number>(1)
+
   const navBarMenus: any[] = [
     // {
     //   title: 'Find Jobs',
@@ -46,5 +49,5 @@ export const useTemplateStore = defineStore('template', () => {
   }
 
 
-  return { navBarMenus, themeColors, applicationStatusColor }
+  return { navBarMenus, themeColors, applicationStatusColor, activateToolTip }
 })

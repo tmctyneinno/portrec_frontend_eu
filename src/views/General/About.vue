@@ -3,7 +3,7 @@
   <headerVue />
   <div class="space-from-header"></div>
 
-  <div class="bg-gradient">
+  <div class="bg-gradient"> 
     <div class="container animate__animated animate__fadeIn ">
 
       <div class="section-panel min-vh-100 pt-5 pb-0  ">

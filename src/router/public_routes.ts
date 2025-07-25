@@ -9,7 +9,9 @@ export default [
     {
         path: '/about-us',
         name: 'About Us',
-        component: () => import(/* webpackChunkName: "general" */  '../views/General/About.vue')
+        component: () => import(
+          '../views/General/About.vue'
+        )
     },
     {
         path: '/search-talent/:industry_id?',
@@ -20,6 +22,13 @@ export default [
         path: '/for-talent',
         name: 'For Talent',
         component: () => import(/* webpackChunkName: "talent" */  '../views/General/ForTalent.vue')
+    },
+    {
+        path: '/services',
+        name: 'Services',
+        component: () => import(
+            '../views/General/Services/Services.vue'
+        )
     },
     {
         path: '/summits',

@@ -7,7 +7,7 @@
       <button class="navbar-toggler border-0" data-bs-toggle="offcanvas" data-bs-target="#menuOffcanvas"
         aria-controls="menuOffcanvas" type="button">
         <span class="navbar-toggler-icon"></span>
-      </button>
+      </button> 
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <!-- <li v-if="route.path != `/search-talent`" class="nav-item mx-4"> -->

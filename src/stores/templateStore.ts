@@ -9,7 +9,7 @@ export const useTemplateStore = defineStore('template', () => {
     // {
     //   title: 'Find Jobs',
     //   routePath: '/find-jobs'
-    // },
+    // }, 
 
     {
       title: 'For Talents',

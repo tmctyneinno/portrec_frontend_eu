@@ -20,7 +20,7 @@ export const useTemplateStore = defineStore('template', () => {
       routePath: '/services'
     },
     {
-      title: 'Summits',
+      title: 'Summits', 
       routePath: '/summits'
     },
     {

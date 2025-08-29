@@ -32,6 +32,9 @@
                             <span class="category-tag fulltime-tag text-capitalize">
                                 {{ job.job_type?.name ?? 'Full Time' }}
                             </span>
+                            <span v-if="job.job_mode">
+                                ( {{ job.job_mode?.name ?? '-' }})
+                            </span>
 
                         </span>
                         <span class="category-tag text-capitalize" :class="job.industry?.name ?? '' + '-tag'">
